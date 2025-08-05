@@ -7,15 +7,19 @@ import {
   TouchableOpacity,
   Dimensions,
   ImageBackground,
+  Modal,
+  Platform
 } from 'react-native';
 import { GestureDetector, Gesture, TextInput } from 'react-native-gesture-handler';
 import { forwardRef, useImperativeHandle } from 'react';
-import Animated, {
+import Animated,
+{
   useSharedValue,
   useAnimatedStyle,
   withSpring,
   withTiming,
   Easing,
+  useDerivedValue,
 } from 'react-native-reanimated';
 import { Images } from '../assets';
 import { useNavigation } from '@react-navigation/native';
@@ -98,7 +102,7 @@ export interface BottomSheetUnifiedRef {
  const BottomSheetUnifiedComponent = (
   { translateY, screen }: Props,
   ref: React.Ref<BottomSheetUnifiedRef>
-) => {  
+) => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
   const context = useSharedValue({ y: 0 });
   
@@ -171,227 +175,269 @@ export interface BottomSheetUnifiedRef {
     transform: [{ translateY: translateY.value }],
   }));
 
+  const responsiveHomeHeadMargin = Math.max(5, SCREEN_WIDTH * 0.012);
+  const responsiveHomeNumbersMargin = Math.max(30, SCREEN_WIDTH * 0.18);
+  const responsiveProfileHeadMargin = Math.max(5, SCREEN_WIDTH * 0.012);
+
+  const isAtMax = useDerivedValue(() => {
+    return (
+      (screen === 'home' && translateY.value === TRANSLATE_Y_CONFIG.home.max) ||
+      (screen === 'profile' && translateY.value === TRANSLATE_Y_CONFIG.profile.max)
+    );
+  });
+
+  const showDimBackground = useDerivedValue(() =>
+  screen === 'trade' && translateY.value === TRANSLATE_Y_CONFIG.trade.max
+);
+
   return (
-    <GestureDetector gesture={gesture}>
-      <Animated.View style={[styles.container, screenStyles[screen], rStyle]}>
-        {screen === 'home' && (
-          <>
-          
-            <TouchableOpacity activeOpacity={1} onPress={openSheet}>
-            <View style={styles.head}>
-              <Image source={Images.bottomhead} style={styles.headimg} />
-              <Text style={styles.heading}>My Security Score</Text>
-              <Text style={styles.numbers}>1/5</Text>
-              <Image source={Images.up} style={styles.upimg} />
-            </View>
-
-            <View style={styles.linner}>
-              <View style={styles.line1} />
-              {[...Array(4)].map((_, i) => (
-                <View key={i} style={styles.line} />
-              ))}
-            </View>
-
-            <View style={styles.Lists}>
-              {[
-                'Advanced Verification',
-                'Recovery Phone',
-                'Insurance Coverage',
-                'Device Biometrics',
-                'Email Verification',
-              ].map((item, i) => (
-                <View style={styles.list} key={i}>
-                  <View style={styles.L1}>
-                    <Image
-                      source={i < 3 ? Images.checked : Images.checked1}
-                      style={styles.img1}
-                    />
-                    <Text style={styles.T1}>{item}</Text>
-                    {i === 2 && (
-                      <Image source={Images.probadge} style={styles.probdg} />
-                    )}
-                    {i < 3 && (
-                      <Image
-                        source={Images.back}
-                        style={[
-                          styles.backbtn,
-                          i === 1 && styles.backbtn1,
-                          i === 2 && styles.backbtn2,
-                        ]}
-                      />
-                    )}
-                  </View>
+    <>
+      {showDimBackground.value && (
+        <View
+          pointerEvents="box-none"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: SCREEN_WIDTH,
+            height: SCREEN_HEIGHT,
+            backgroundColor: Platform.OS === 'ios'
+              ? 'rgba(0,0,0,0.7)'
+              : 'rgba(0,0,0,0.7)',
+            zIndex: 999,
+          }}
+        />
+      )}
+      <GestureDetector gesture={gesture}>
+        <Animated.View style={[
+          styles.container,
+          screenStyles[screen],
+          rStyle,
+          showDimBackground.value && { zIndex: 1000 }
+        ]}>
+          {screen === 'home' && (
+            <>
+              <TouchableOpacity activeOpacity={1} onPress={openSheet}>
+                <View style={[styles.head, { marginHorizontal: responsiveHomeHeadMargin }]}>
+                  <Image source={Images.bottomhead} style={styles.headimg} />
+                  <Text style={styles.heading}>My Security Score</Text>
+                  <Text style={[styles.numbers, { marginLeft: responsiveHomeNumbersMargin }]}>1/5</Text>
+                  <Animated.Image
+                    source={isAtMax.value ? Images.down : Images.up}
+                    style={styles.upimg}
+                  />
                 </View>
-              ))}
-            </View>
 
-            <TouchableOpacity style={styles.button}>
-              <View style={styles.btnsty}>
-                <Image source={Images.secure} style={styles.secure} />
-                <Text style={styles.btntext}>Manage In Settings</Text>
-              </View>
-            </TouchableOpacity>
+                <View style={styles.linner}>
+                  <View style={styles.line1} />
+                  {[...Array(4)].map((_, i) => (
+                    <View key={i} style={styles.line} />
+                  ))}
+                </View>
+
+                <View style={styles.Lists}>
+                  {[
+                    'Advanced Verification',
+                    'Recovery Phone',
+                    'Insurance Coverage',
+                    'Device Biometrics',
+                    'Email Verification',
+                  ].map((item, i) => (
+                    <View style={styles.list} key={i}>
+                      <View style={styles.L1}>
+                        <Image
+                          source={i < 3 ? Images.checked : Images.checked1}
+                          style={styles.img1}
+                        />
+                        <Text style={styles.T1}>{item}</Text>
+                        {i === 2 && (
+                          <Image source={Images.probadge} style={styles.probdg} />
+                        )}
+                        {i < 3 && (
+                          <Image
+                            source={Images.back}
+                            style={[
+                              styles.backbtn,
+                              i === 1 && styles.backbtn1,
+                              i === 2 && styles.backbtn2,
+                            ]}
+                          />
+                        )}
+                      </View>
+                    </View>
+                  ))}
+                </View>
+
+                <TouchableOpacity style={styles.button}>
+                  <View style={styles.btnsty}>
+                    <Image source={Images.secure} style={styles.secure} />
+                    <Text style={styles.btntext}>Manage In Settings</Text>
+                  </View>
+                </TouchableOpacity>
               </TouchableOpacity>
-          </>
-          
-        )}
+            </>
+            
+          )}
 
-        {screen === 'pro' && (
-          <>
-            <View style={styles.line} />
-            <Text style={styles.headingPro}>See What the Pros are Buying</Text>
-            <Text style={styles.bottompara1}>
-              Sourced from on-chain data, 'Top Buys' reveals which coins historically profitable
-              traders are buying right now, to help you find potentially winning trades ahead of
-              the rest. Please conduct your own research before making any trades.
-            </Text>
-          </>
-        )}
-
-        {screen === 'explore' && (
-          <>
-            <View style={styles.line} />
-            <Text style={styles.headingPro}>Uniswap</Text>
-            <Text style={styles.toppara}>
-              Swap, earn, and build on the leading decentralized crypto trading protocol.
-            </Text>
-            <Text style={styles.bottompara}>
-              UniSwap is a decentralized exchange that enables the trading of digital assets. UNI is
-              the cryptocurrency the UniSwap platform uses. Anyone can earn UNI by agreeing to not
-              sell or trade their crypto holdings. The UniSwap platform is governed by UNI holders
-              in proportion to how much UNI they own.
-            </Text>
-            <TouchableOpacity style={styles.launchBtn}>
-              <Text style={{ color: 'white' }}>
-                Launch <Text style={{ fontSize: 20, fontWeight: '600' }}>↗</Text>
+          {screen === 'pro' && (
+            <>
+              <View style={styles.line} />
+              <Text style={styles.headingPro}>See What the Pros are Buying</Text>
+              <Text style={styles.bottompara1}>
+                Sourced from on-chain data, 'Top Buys' reveals which coins historically profitable
+                traders are buying right now, to help you find potentially winning trades ahead of
+                the rest. Please conduct your own research before making any trades.
               </Text>
-            </TouchableOpacity>
-          </>
-        )}
+            </>
+          )}
 
-        {screen === 'profile' && (
-          <View>
-            <View style={styles.head}>
-              <Image source={Images.pbottom} style={styles.headimg} />
-              <Text style={styles.headingP}>Supported Networks</Text>
-              <Image source={Images.up} style={styles.upimgP} />
-            </View>
-            <View style={styles.l1}>
+          {screen === 'explore' && (
+            <>
+              <View style={styles.line} />
+              <Text style={styles.headingPro}>Uniswap</Text>
+              <Text style={styles.toppara}>
+                Swap, earn, and build on the leading decentralized crypto trading protocol.
+              </Text>
+              <Text style={styles.bottompara}>
+                UniSwap is a decentralized exchange that enables the trading of digital assets. UNI is
+                the cryptocurrency the UniSwap platform uses. Anyone can earn UNI by agreeing to not
+                sell or trade their crypto holdings. The UniSwap platform is governed by UNI holders
+                in proportion to how much UNI they own.
+              </Text>
+              <View>
+              
+              </View>
+            </>
+          )}
+
+          {screen === 'profile' && (
+            <View>
+              <View style={[styles.head, { marginHorizontal: responsiveProfileHeadMargin }]}>
+                <Image source={Images.pbottom} style={styles.headimg} />
+                <Text style={styles.headingP}>Supported Networks</Text>
+                <Animated.Image
+                  source={isAtMax.value ? Images.downarroww : Images.up}
+                  style={styles.upimgP}
+                />
+              </View>
+              <View style={styles.l1}>
                 <Image source={Images.base} />
                 <Text style={styles.l1text}> Base Network</Text>
                 <Text style={styles.l12text}>Crypto and NFTs</Text>
-            </View>
-            <View style={styles.l12}>
-                <Image source={Images.solanalogo} style={styles.solanalogo}/>
+              </View>
+              <View style={styles.l12}>
+                <Image source={Images.solanalogo} style={styles.solanalogo} />
                 <Text style={styles.l1text}> Solana Network</Text>
                 <Text style={styles.l121text}>Crypto only</Text>
-            </View>
-            <Text style={styles.bottomtext}>Do not sent assets over Etherium mainnets or they will be lost.</Text>
-            
-            <TouchableOpacity style={styles.LMBtn} onPress={() => {
-                navigation.navigate('ProfileBottom') 
-              }}>
-              <Text style={{ color: 'white' }}>
-                Learn More
+              </View>
+              <Text style={styles.bottomtext}>
+                Do not sent assets over Ethereum mainnets or they will be lost.
               </Text>
-            </TouchableOpacity>
-          </View>
-        )}
-        {screen === 'profilebottom' && (
-          <>
-            <View style={styles.lineProfile} />
-            <Text style={styles.headingPro}>Supported Networks</Text>
-            <Text style={styles.toppara1}>
-              Kresus wallet is designed specifically for seamless transactions with tokens and NFTs on the Base network, as well as tokens on the Solana networks. It's crucial to ensure that you are sending and receiving assets exclusively on these networks, as transactions on other networks-- like Etherium MainNet--can lead to the permanent loss of your assets.
-            </Text>
-            <Text style={styles.heading1}>Double Check</Text>
-            <Text style={styles.toppara1}>
-              Always double-check the networks compatibility before making a transfer to protect your valuable tokens and NFTs. If you have any questions or need assistance, our support team is here to help.
-            </Text>
-          </>
-        )}
-         {screen === 'trade' && (
-          <View style={styles.tradebottomsheet}>
-            <View style={styles.lineTB} />
-            <View style={styles.head}>
-              <Image source={Images.tradebottom} style={styles.headimg} />
-              <Text style={styles.headingTB}>Transaction Ready</Text>
-              <TouchableOpacity 
-                style={styles.closeButton} 
-                onPress={closeSheet}
+              <TouchableOpacity
+                style={styles.LMBtn}
+                onPress={() => {
+                  navigation.navigate('ProfileBottom');
+                }}
               >
-                <Image source={Images.cancel} style={styles.closeIcon} />
+                <Text style={{ color: 'white' }}>Learn More</Text>
               </TouchableOpacity>
             </View>
-            {token1 && token2 && (
-              <>
-                <View style={styles.inputfields}>
-                  <View style={styles.tokenInputContainer}>
-                    {token1 ? (
-                      <>
-                        <Text style={styles.tradeAmount}>{amount1}</Text>
+          )}
+          {screen === 'profilebottom' && (
+            <>
+              <View style={styles.lineProfile} />
+              <Text style={styles.headingPro}>Supported Networks</Text>
+              <Text style={styles.toppara1}>
+                Kresus wallet is designed specifically for seamless transactions with tokens and NFTs on the Base network, as well as tokens on the Solana networks. It's crucial to ensure that you are sending and receiving assets exclusively on these networks, as transactions on other networks-- like Etherium MainNet--can lead to the permanent loss of your assets.
+              </Text>
+              <Text style={styles.heading1}>Double Check</Text>
+              <Text style={styles.toppara1}>
+                Always double-check the networks compatibility before making a transfer to protect your valuable tokens and NFTs. If you have any questions or need assistance, our support team is here to help.
+              </Text>
+            </>
+          )}
+           {screen === 'trade' && (
+            <View style={styles.tradebottomsheet}>
+              <View style={styles.lineTB} />
+              <View style={styles.head}>
+                <Image source={Images.tradebottom} style={styles.headimg} />
+                <Text style={styles.headingTB}>Transaction Ready</Text>
+                <TouchableOpacity 
+                  style={styles.closeButton} 
+                  onPress={closeSheet}
+                >
+                  <Image source={Images.pros} style={styles.closeIcon} />
+                </TouchableOpacity>
+              </View>
+              {token1 && token2 && (
+                <>
+                  <View style={styles.inputfields}>
+                    <View style={styles.tokenInputContainer}>
+                      {token1 ? (
+                        <>
+                          <Text style={styles.tradeAmount}>{amount1}</Text>
+                          <View style={styles.tokenDisplay}>
+                            <Text style={styles.tokenSymbol}>
+                              {token1.abbreviation}
+                            </Text>
+                            <Image 
+                              source={token1.logo} 
+                              style={styles.tokenLogo} 
+                            />
+                            
+                          </View>
+                        </>
+                      ) : (
+                        <Text style={styles.placeholderText}>Select Token</Text>
+                      )}
+                    </View>
+                    
+                    <View style={styles.arrowContainer}>
+                      <Image source={Images.downarroww} style={styles.downarrow} />
+                    </View>
+                    
+                    <View style={styles.tokenInputContainer}>
+                      {token2 ? (
+                        <>
                         <View style={styles.tokenDisplay}>
+                          <Text style={styles.tradeAmount}>{amount2}</Text>
                           <Text style={styles.tokenSymbol}>
-                            {token1.abbreviation}
-                          </Text>
-                          <Image 
-                            source={token1.logo} 
-                            style={styles.tokenLogo} 
-                          />
-                          
-                        </View>
-                      </>
-                    ) : (
-                      <Text style={styles.placeholderText}>Select Token</Text>
-                    )}
+                              {token2.abbreviation}
+                            </Text>
+                            <Image 
+                              source={token2.logo} 
+                              style={styles.tokenLogo} 
+                            />
+                            
+                          </View>
+                        </>
+                      ) : (
+                        <Text style={styles.placeholderText}>Select Token</Text>
+                      )}
+                    </View>
                   </View>
                   
-                  <View style={styles.arrowContainer}>
-                    <Image source={Images.downarroww} style={styles.downarrow} />
+                  <View style={styles.feescontainer}>
+                    <Text style={styles.fees}>Fees</Text>
+                    <Text style={styles.fees}>1.73144653 SNORT</Text>
                   </View>
-                  
-                  <View style={styles.tokenInputContainer}>
-                    {token2 ? (
-                      <>
-                      <View style={styles.tokenDisplay}>
-                        <Text style={styles.tradeAmount}>{amount2}</Text>
-                        <Text style={styles.tokenSymbol}>
-                            {token2.abbreviation}
-                          </Text>
-                          <Image 
-                            source={token2.logo} 
-                            style={styles.tokenLogo} 
-                          />
-                          
-                        </View>
-                      </>
-                    ) : (
-                      <Text style={styles.placeholderText}>Select Token</Text>
-                    )}
+                  <Text style={styles.bottomtext1}>Kresus covers your network fee</Text>
+                  <View>
+                    <SwipeButton
+                      placeholder='Swipe to Trade'
+                      onNavigate={() => {
+                        translateY.value = withSpring(0, { damping: 50 });
+                      }}
+                    />
                   </View>
-                </View>
-                
-                <View style={styles.feescontainer}>
-                  <Text style={styles.fees}>Fees</Text>
-                  <Text style={styles.fees}>1.73144653 SNORT</Text>
-                </View>
-                <Text style={styles.bottomtext1}>Kresus covers your network fee</Text>
-                <View>
-                  <SwipeButton
-                    placeholder='Swipe to Trade'
-                    onNavigate={() => {
-                      translateY.value = withSpring(0, { damping: 50 });
-                    }}
-                  />
-                </View>
-              </>
-            )}
-          </View>
-        )}
+                </>
+              )}
+            </View>
+          )}
 
-        {screen === 'todaysReturn' && (
-          <View>
-          
+          {screen === 'todaysReturn' && (
+            <View>
+            
                 <View style={styles.line} />
             <Text style={styles.headingPro}>Today's Return</Text>
           
@@ -422,8 +468,9 @@ export interface BottomSheetUnifiedRef {
           </>
         )}
 
-      </Animated.View>
-    </GestureDetector>
+        </Animated.View>
+      </GestureDetector>
+    </>
   );
 };
 
@@ -459,7 +506,7 @@ const styles = StyleSheet.create({
   },
   arrowContainer: {
     alignItems: 'center',
-    marginVertical: 20,
+    marginVertical: 10,
     height: 10,
     width: 10,
   },
@@ -545,9 +592,11 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   tradebottomsheet:{
-    borderRadius: 30,
-    borderTopWidth: 1,
-    borderTopColor: 'lightblue'
+    borderRadius: 35,
+    borderTopWidth: 2,
+    borderRightWidth: 2,
+    borderLeftWidth: 2,
+    borderTopColor: '#10178A'
   },
   lineProfile: {
     width: 40,
@@ -575,9 +624,11 @@ const styles = StyleSheet.create({
   },
   head: {
     flexDirection: 'row',
-    marginVertical: 10,
+    marginVertical: 15,
     marginHorizontal: 5,
-  },
+    textAlign: 'center',
+    alignItems: 'center',
+    },
   headimg: {
     // fontSize: 25,
     padding: 12,
@@ -694,12 +745,13 @@ const styles = StyleSheet.create({
   },
   launchBtn: {
     backgroundColor: '#0a0a23',
-    paddingVertical: 8,
+    paddingVertical: 12,
     alignItems: 'center',
+    justifyContent: `center`,
     marginHorizontal: 20,
-    borderRadius: 15,
-    borderColor: 'lightblue',
-    borderWidth: 1,
+    borderRadius: 25,
+    borderColor: '#4898F3',
+    borderWidth: 1.5,
     marginTop: 100,
   },
   btntext: {
@@ -841,16 +893,21 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     position: 'absolute',
-    top: 10,
     right: 10,
+    top: 0,
     padding: 5,
-    marginBottom: 30,
   },
   closeIcon: {
-    width: 35,
-    height: 35,
+    height: 40,
+    width: 30,
+    marginBottom: 10,
     tintColor: 'lightblue',
-    marginBottom: 20,
+  },
+  launchbtn: {
+    width: 10,
+    height: 10,
+    marginLeft: 10,
+    tintColor: 'white',
   },
 });
 

@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View, } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import React from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -8,9 +8,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { useNavigation } from '@react-navigation/native'
 
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export const ProfileBottom = ({navigation}: any) => {
-//   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
   const translateY = useSharedValue(0);
   return (
       <GestureHandlerRootView>
@@ -40,28 +40,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#080C4C',
   },
   image:{
-    width: '45%',
-    height: 160,
+    width: screenWidth * 0.45,
+    height: screenHeight * 0.2,
     position: 'absolute',
-    marginTop: 85,
-    marginLeft: 120,
-    // alignItems: 'center'
-    // marginHorizontal: 90, 
-    // marginLeft: 10,
+    marginTop: screenHeight * 0.11,
+    marginLeft: screenWidth * 0.33,
   },
   cross:{
-    marginLeft: 5,
+    marginLeft: screenWidth * 0.013,
     fontSize: 20,
-    marginTop: 5,
+    marginTop: screenHeight * 0.006,
     fontWeight: '400',
     tintColor: 'white'
   },
   backborder:{
-    // backgroundColor: 'grey',
-    // borderWidth: 1,
-    width: 25,
-    marginLeft: 20,
-    marginTop: 20,
-    // borderRadius: 20,    
+    width: screenWidth * 0.07,
+    marginLeft: screenWidth * 0.05,
+    marginTop: screenHeight * 0.025,
   }
 })

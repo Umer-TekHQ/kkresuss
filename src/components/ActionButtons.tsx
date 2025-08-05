@@ -19,7 +19,7 @@ export const ActionButtons: React.FC = () => {
 
   const handlePress = (name: string) => {
     if (name === 'Send') {
-      navigation.navigate('Currency');
+      navigation.navigate('SendDetails');
     }
   };
 
@@ -69,3 +69,4 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
 });
+
