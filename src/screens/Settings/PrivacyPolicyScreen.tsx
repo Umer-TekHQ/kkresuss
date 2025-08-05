@@ -31,13 +31,21 @@ const PrivacyPolicyScreen = () => {
 
 
 
-      <ScrollView contentContainerStyle={styles.content}>
+      {/* <ScrollView contentContainerStyle={styles.content}> */}
       
         <View style={styles.topSection}>
+          
+    
           <View style={styles.logoRow}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Image source={Images.logo} style={styles.logo} />
             <Text style={styles.kresus}>Kresus</Text>
           </View>
+          <TouchableOpacity>
+            {/* <Image source={Images.hamburgerbg} style={styles.hamburgerIcon} /> */}
+          </TouchableOpacity>
+        </View>
+
 
           <Text style={styles.privacyTitle}>Privacy Policy</Text>
           <Text style={styles.lastUpdated}>Last modified: February 20, 2024</Text>
@@ -59,7 +67,7 @@ const PrivacyPolicyScreen = () => {
             Website is also subject to our Terms and Conditions.
           </Text>
         </View>
-      </ScrollView>
+      {/* </ScrollView> */}
     </View>
   )
 }
@@ -69,7 +77,7 @@ export default PrivacyPolicyScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#010D2A',
+    backgroundColor: '#070942',
   },
   content: {
     paddingBottom: 40,
@@ -109,12 +117,11 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   whiteSection: {
+      flex: 1, // add this
     backgroundColor: 'white',
     paddingHorizontal: 20,
     paddingTop: 20,
     paddingBottom: 40,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
   },
   sectionTitle: {
     color: 'black',
@@ -140,9 +147,16 @@ const styles = StyleSheet.create({
   //  height: 13,
   //  width: 13,
    // resizeMode: 'contain',
+
   },
    leftIcons: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+  hamburgerIcon:{
+   // backgroundColor:'transparent'
+   width:100,
+   height:100,
+   tintColor:'blue'
+  }
 })

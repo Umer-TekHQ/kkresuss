@@ -1,8 +1,11 @@
 
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet ,TouchableOpacity} from 'react-native';
 import PopularAssetItem from './PopularAssetItem';
 import { allAssets } from '../mock/assetData';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AppNavigatorParamList } from '../navigators/routeNames';
 
 type AllAssetsListProps = {
   showAll?: boolean;
@@ -10,6 +13,7 @@ type AllAssetsListProps = {
 };
 
 const AllAssetsList: React.FC<AllAssetsListProps> = ({ showAll = false, searchText = '' }) => {
+   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
   const filteredAssets = allAssets.filter(asset =>
     asset.title.toLowerCase().includes(searchText.toLowerCase()) ||
     asset.amountETH.toLowerCase().includes(searchText.toLowerCase())
@@ -20,10 +24,13 @@ const AllAssetsList: React.FC<AllAssetsListProps> = ({ showAll = false, searchTe
   return (
     <>
       {assetsToShow.map((item, index) => (
-        <View key={index}>
+        <TouchableOpacity
+          key={index}
+          onPress={() => navigation.navigate('TokenDetail')}
+        >
           <PopularAssetItem item={item} />
           <View style={styles.divider} />
-        </View>
+        </TouchableOpacity>
       ))}
     </>
   );
