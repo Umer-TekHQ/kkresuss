@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "spellCheck": "cspell '**/*.{ts,tsx,js,jsx,json,md}'",
+    "spell-check-staged": "cspell $(git diff --cached --name-only --diff-filter=ACM | grep -E '\\.(ts|tsx|js|jsx|json|md)$' || true)"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^5",
@@ -18,6 +20,7 @@
     "@react-navigation/native-stack": "^7.3.21",
     "@reduxjs/toolkit": "^2.8.2",
     "@svgdotjs/svg.js": "^3.2.4",
+    "cspell": "^9.2.0",
     "d3": "^7.9.0",
     "navigation": "^6.3.0",
     "react": "19.1.0",
