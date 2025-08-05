@@ -1,41 +1,19 @@
-
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import { useAppSelector } from '../store/hooks';
+import { View, Text, StyleSheet } from 'react-native';
 
 const ProfileInfo = () => {
-  const { rname, subtext, logo } = useAppSelector(state => state.recipient);
-
-  const getInitials = (fullName: string) => {
-    const names = fullName.trim().split(' ');
-    if (names.length === 1) return names[0][0].toUpperCase();
-    return names[0][0].toUpperCase() + names[names.length - 1][0].toUpperCase();
-  };
-
-  const renderAvatar = () => {
-    if (logo) {
-      return <Image source={logo} style={styles.avatarCircle} />;
-    } else {
-      const initials = rname ? getInitials(rname) : 'U';
-      return (
-        <View style={styles.avatarCircle}>
-          <Text style={styles.avatarText}>{initials}</Text>
-        </View>
-      );
-    }
-  };
-
   return (
     <View style={styles.profileContainer}>
-      {renderAvatar()}
-      <Text style={styles.name}>{rname || subtext || 'Unnamed'}</Text>
-      {!!subtext && <Text style={styles.code}>{subtext}</Text>}
+      <View style={styles.avatarCircle}>
+        <Text style={styles.avatarText}>AM</Text>
+      </View>
+      <Text style={styles.name}>Alvin Monk</Text>
+      <Text style={styles.code}>0xc5...C4b2</Text>
     </View>
   );
 };
 
 export default ProfileInfo;
-
 
 const styles = StyleSheet.create({
   profileContainer: {
@@ -43,8 +21,8 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   avatarCircle: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     borderRadius: 25,
     backgroundColor: '#10178A',
     justifyContent: 'center',

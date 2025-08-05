@@ -27,28 +27,11 @@ export const settingsData:SettingItem[] = [
     route:'TokenDetail'
   },
   {
-    title: 'TodayReturns Screen',
+    title: 'TodayReturns Screen(temporary)',
     subtitle: 'Connect to Coinbase, connected apps, WalletConnect',
     icon: Images.connections,
     route:'TodayReturns'
   },
-{
-    title: 'Recovery and 2FA',
-    subtitle: 'Contact, legal, app info',
-    icon: Images.helpsupport,
-    route:"Recovery"
-  },{
-    title: 'Privacy Policy',
-    subtitle: 'Contact, legal, app info',
-    icon: Images.helpsupport,
-    route:"Privacy"
-  },{
-    title: 'Advanced Verification Information',
-    subtitle: 'Contact, legal, app info',
-    icon: Images.helpsupport,
-    route:"Verification"
-  },
-
   {
     title: 'Referrals and Rewards',
     subtitle: 'Get your unique referral code',
@@ -69,10 +52,30 @@ export const settingsData:SettingItem[] = [
     subtitle: 'Contact, legal, app info',
     icon: Images.helpsupport,
   },
-    {
+   {
+    title: 'Recovery and 2FA',
+    subtitle: 'Contact, legal, app info',
+    icon: Images.helpsupport,
+    route:"Recovery"
+  },{
+    title: 'Privacy Policy',
+    subtitle: 'Contact, legal, app info',
+    icon: Images.helpsupport,
+    route:"Privacy"
+  },{
+    title: 'Advanced Verification Information',
+    subtitle: 'Contact, legal, app info',
+    icon: Images.helpsupport,
+    route:"Verification"
+  }, {
     title: 'Connections',
     subtitle: 'Connect to Coinbase, connected apps, WalletConnect',
     icon: Images.connections,
   },
- 
+  {
+    title: 'Home(temporary)',
+    subtitle: 'Connect to Coinbase, connected apps, WalletConnect',
+    icon: Images.connections,
+    route:'BottomNavigator'
+  },
 ]

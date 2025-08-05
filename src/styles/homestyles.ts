@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default StyleSheet.create({
     timeFilterContainer: {
@@ -25,33 +26,37 @@ export default StyleSheet.create({
   },
     marketActivityCard: {
     width: "100%",
+    // flex:1,
     backgroundColor: '#0B219D', 
     borderRadius: 20,
     padding: 16,
-    alignSelf: 'center',
-    marginVertical: 10,
+    // alignSelf: 'center',
+    // marginVertical: 10,
   },
   coinInfoHeader: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
+    // gap: 10,
     alignItems: 'center',
   },
   coinLogo: {
-    width: 60,
-    height: 60,
-    borderRadius: 20,
-    marginRight: 12,
+    width: screenWidth * 0.15,
+    height: screenWidth * 0.15,
+    borderRadius: (screenWidth * 0.15) / 2,
+    marginRight: screenWidth * 0.03,
   },
   coinName: {
-    flex: 1,
+    // flex: 1,
     color: '#fff',
     fontSize: 20,
-    marginBottom: 18,
-    marginLeft: 5,
+    marginTop: 5,
+    // marginBottom: 5,
+    // marginLeft: 5,
     // fontWeight: '600',
   },
   tradeButton: {
     flexDirection: 'row',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: '#fff',
     paddingHorizontal: 14,
@@ -70,20 +75,20 @@ export default StyleSheet.create({
     fontWeight: '600',
   },
   priceRow: {
-    marginTop: 5,
+    // marginTop: 5,
     flexDirection: 'row',
-    marginLeft: 75,
+    // marginLeft: 75,
 
   },
   coinPrice: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 16,
     // fontWeight: 'bold',
   },
   mktcap:{
     flexDirection: 'row',
-    marginLeft: 75,
-    marginBottom: 7
+    // marginLeft: 75,
+    // marginBottom: 7
   },
   marketDataRow: {
     flexDirection: 'row',
@@ -98,16 +103,16 @@ export default StyleSheet.create({
   marketCapValue: {
     fontSize: 14,
     color: '#ADD2FD',
-    marginLeft: 15,
+    marginLeft: 5,
   },
   priceChangeText: {
-    fontSize: 18,
+    fontSize: 14,
     // fontWeight: '600',
     color: '#00FF85',
     marginLeft: 18,
   },
   positiveChange: {
-    color: '#00FF85',
+    color: '#13a45eff',
   },
   negativeChange: {
     color: '#FF4D4D',
@@ -120,7 +125,7 @@ export default StyleSheet.create({
     backgroundColor: '#333',
   },
   buyersBar: {
-    backgroundColor: '#00FF85',
+    backgroundColor: '#56f3a7ff',
     height: 5,
   },
   sellersBar: {
@@ -136,13 +141,13 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     color: '#fff',
-    fontSize: 12,
+    fontSize: 14,
   },
   sellersText: {
     flexDirection: 'row',
     alignItems: 'center',
     color: '#fff',
-    fontSize: 12,
+    fontSize: 14,
   },
   sectionTitle: {
   color: '#fff',
@@ -185,14 +190,14 @@ skeletonExploreCard: {
     borderTopWidth: 1,
     borderTopColor: '#0e4c93ff',
     width: '95%',
-    height: 300,
-    marginLeft: 10,
+    height: screenHeight * 0.4, // responsive height
+    marginLeft: screenWidth * 0.025,
     backgroundColor: '#0D1A47',
     borderRadius: 16,
     overflow: 'hidden',
-    marginBottom: 20,
-    paddingBottom: 12,
-    marginTop: 10,
+    marginBottom: screenHeight * 0.025,
+    paddingBottom: screenHeight * 0.015,
+    marginTop: screenHeight * 0.013,
   },
   earnBadge: {
     position: 'absolute',
@@ -211,7 +216,7 @@ skeletonExploreCard: {
   },
   bannerImage: {
     width: '100%',
-    height: 240,
+    height: screenHeight * 0.28, // responsive height
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
   },
@@ -227,9 +232,9 @@ skeletonExploreCard: {
     alignItems: 'center',
   },
   logo: {
-    width: 36,
-    height: 36,
-    borderRadius: 8,
+    width: screenWidth * 0.09,
+    height: screenWidth * 0.09,
+    borderRadius: screenWidth * 0.02,
   },
   title: {
     color: 'white',
@@ -266,14 +271,14 @@ activeFooterIcon: {
 inactiveFooterIcon: {
   width: 24,
   height: 24,
-  tintColor: '#888',
+  tintColor: 'lightblue',
 },
 activeFooterText: {
   color: '#ffffff',
   fontWeight: '600',
 },
 inactiveFooterText: {
-  color: '#888',
+  color: 'lightblue',
 },
 footer: {
   backgroundColor: '#01021d',
@@ -447,7 +452,7 @@ prostext:{
   color: '#8ba7e8ff',
   fontSize: 19,
   // fontWeight: 500,
-  width: 225,
+  // width: 225,
   marginLeft: 10,
   // height: 25,
   // marginBottom: 10,
@@ -462,10 +467,9 @@ prossection:{
     pointerEvents: 'box-none',
   },
 prosicon:{
-  width: 40,
-  height: 40,
-  // paddingBottom: 6,
-  // marginBottom: 14,
+  height: screenHeight * 0.05,
+  width: screenWidth * 0.08,
+  marginBottom: screenHeight * 0.012,
 },
   cryptoSummaryCard: {
   backgroundColor: '#101038',
@@ -492,16 +496,16 @@ cryptoChangeNegative: {
     width: '20%',
   },
   actionButtonIcon: {
-    resizeMode: 'cover',
-    width: 25,
-    height: 25,
+    resizeMode: 'contain',
+    width: 22,
+    height: 20,
     marginBottom: 9,
     marginTop: 10,
-    tintColor: 'white',
+    tintColor: '#7AB7FD',
   },
   actionButtonText: {
-    color: 'white',
-    fontSize: 13,
+    color: '#7AB7FD',
+    fontSize: 12,
   },
 
   prosBuyingCard: {
@@ -558,12 +562,11 @@ cryptoChangeNegative: {
 
   container: {
     flex: 1,
-    backgroundColor: '#01021d',
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    backgroundColor: '#01021C',
+    padding: 5
   },
   content: {
-    padding: 5,
+    padding: 10,
     paddingBottom: 80, 
   },
     header: {
@@ -581,9 +584,9 @@ cryptoChangeNegative: {
     alignItems: 'center',
   },
   profileIcon: {
-    width: 35,
-    height: 35,
-    borderRadius: 15,
+    width: screenWidth * 0.09,
+    height: screenWidth * 0.09,
+    borderRadius: screenWidth * 0.04,
     borderWidth: 2,
     borderColor: '#b58904',
   },
@@ -627,10 +630,10 @@ cryptoChangeNegative: {
   },
   realAvatar: {
     backgroundColor: '#1d1ddf',
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 10,
+    width: screenWidth * 0.1,
+    height: screenWidth * 0.1,
+    borderRadius: screenWidth * 0.05,
+    marginRight: screenWidth * 0.025,
   },
   realLine: {
     backgroundColor: '#1d1ddf',
@@ -687,11 +690,11 @@ cryptoChangeNegative: {
     marginBottom: 20,
   },
   avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: screenWidth * 0.13,
+    height: screenWidth * 0.13,
+    borderRadius: screenWidth * 0.065,
     backgroundColor: '#1d1ddf',
-    marginRight: 12,
+    marginRight: screenWidth * 0.03,
   },
   textBlock: {
     flex: 1,

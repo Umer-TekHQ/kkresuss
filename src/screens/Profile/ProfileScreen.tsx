@@ -41,7 +41,7 @@ export const ProfileScreen = () => {
   const displayUsername = username ? `${username.toLowerCase()}.kresus` : 'natemorey802.kresus';
 
   const handleChangeProfilePicture = () => {
-    const newPicture = profilePicture === Images.profileicon ? Images.primary : Images.profileicon;
+    const newPicture = profilePicture === Images.profileicon ? Images.profileicon : Images.profileicon;
     dispatch(setProfilePicture(newPicture));
   };
 
@@ -76,7 +76,7 @@ const CardDeck = () => {
   };
 
   const handleCardPress = (card: typeof initialCards[0]) => {
-    navigation.navigate('CardRecieveScreen', { card });
+    navigation.navigate('CardReceiveScreen', { card });
   };
 
   return (
@@ -123,12 +123,12 @@ const CardDeck = () => {
 
 
   const AVATAR_SIZE = screenWidth * 0.19;
-  const ICON_SIZE = screenWidth * 0.04;
+  const ICON_SIZE = screenWidth * 0.09;
   const NAME_FONT = screenWidth * 0.048;
   const USERNAME_FONT = screenWidth * 0.04;
   const UPGRADE_FONT = screenWidth * 0.037;
   const HEADER_MARGIN = screenWidth * 0.025;
-  const CARDS_MARGIN_TOP = screenHeight * 0.15;
+  const CARDS_MARGIN_TOP = screenHeight * 0.19;
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -172,6 +172,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
     paddingTop: 20,
+    paddingHorizontal: Math.max(10, screenWidth * 0.02), // Responsive horizontal padding
   },
   header: {
     flexDirection: 'row',
@@ -181,6 +182,7 @@ const styles = StyleSheet.create({
   editText: {
     color: '#fff',
     marginRight: 10,
+    marginTop: 15,
   },
   profileSection: {
     alignItems: 'center',

@@ -29,10 +29,10 @@ const { width, height } = Dimensions.get('window')
                  onPress={() => navigation.goBack()}
                >
                  <Image source={Images.backscreen} style={{ width: 30, height: 30 }} />
-      </TouchableOpacity>
+               </TouchableOpacity>
 
 
-        <Image source={Images.vaulticon} style={styles.logo} />
+        <Image source={Images.logo} style={styles.logo} />
 
       
         <View style={styles.contentWrapper}>
@@ -56,9 +56,6 @@ const { width, height } = Dimensions.get('window')
       
       <SettingBottomSheet onClose={() => setIsSheetOpen(false)} />
 
-     
-
-
     </View>
   )
 }
@@ -81,11 +78,10 @@ const styles = StyleSheet.create({
   },
   logo: {
     position: 'absolute',
-    top: 74,
+    top: 45,
     alignSelf: 'center',
-    width: width * 0.20,
-    height: height * 0.05,
-    resizeMode:'contain'
+    width: width * 0.3,
+    height: height * 0.12,
   },
   contentWrapper: {
     position:"absolute",

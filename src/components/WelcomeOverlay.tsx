@@ -6,29 +6,34 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
-  ImageBackground,
 } from 'react-native';
 import { Images } from '../assets/index';
-import Background from './Background';
 import OverlayBackground from './OverlayBackgroung';
 
-const { width, height } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window');
 
 interface Props {
   onClose: () => void;
 }
 
 const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
+  const containerWidth = width * 0.9;
+  const containerHeight = width * 1.3;
+  const bgtopWidth = width * 0.89;
+  const bgtopHeight = width * 0.7;
+  const bgbottomWidth = width * 0.9;
+  const bgbottomHeight = width * 0.6;
+
   return (
     <View style={styles.overlay}>
-      <View style={styles.container}>
-        <View style={styles.bgtop}>
+      <View style={[styles.container, { width: containerWidth, height: containerHeight }]}>
+        <View style={[styles.bgtop, { width: bgtopWidth, height: bgtopHeight }]}>
           <OverlayBackground
             showContent
             hideBottomImages={false}
             showLogo={false}
             containerHeight={height * 0.36}
-            containerWidth={width * 0.89}
+            containerWidth={bgtopWidth}
             borderTopLeftRadius={20}
             borderTopRightRadius={20}
           >
@@ -44,27 +49,27 @@ const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
           </OverlayBackground>
         </View>
         
-        <View style={styles.bgbottom}>
-        <TouchableOpacity style={styles.primaryButton}>
-          <Image source={Images.primary} style={styles.icons1} />
-          <Text style={styles.primaryText}>Buy Crypto</Text>
-        </TouchableOpacity>
+        <View style={[styles.bgbottom, { width: bgbottomWidth, height: bgbottomHeight }]}>
+          <TouchableOpacity style={styles.primaryButton}>
+            <Image source={Images.primary} style={styles.icons1} />
+            <Text style={styles.primaryText}>Buy Crypto</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.secondaryButton}>
-          <Image source={Images.primary1} style={styles.icons} />
-          <Text style={styles.secondaryText1}>Transfer Crypto into Kresus</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.secondaryButton}>
+            <Image source={Images.primary1} style={styles.icons} />
+            <Text style={styles.secondaryText1}>Transfer Crypto into Kresus</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.secondaryButton}>
-          <Image source={Images.primary2} style={styles.icons1} />
-          <Text style={styles.secondaryText}>Connect Coinbase</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.secondaryButton}>
+            <Image source={Images.primary2} style={styles.icons1} />
+            <Text style={styles.secondaryText}>Connect Coinbase</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity onPress={onClose}>
-          <Text style={styles.laterText}>Maybe Later</Text>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={onClose}>
+            <Text style={styles.laterText}>Maybe Later</Text>
+          </TouchableOpacity>
         </View>
-        </View>
+      </View>
     </View>
   );
 };
@@ -72,18 +77,16 @@ const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
 export default WelcomeOverlay;
 
 const styles = StyleSheet.create({
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: '01032C',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 999,
-  },
+overlay: {
+  ...StyleSheet.absoluteFillObject,
+  backgroundColor: 'rgba(0, 0, 0, 0.6)', 
+  justifyContent: 'center',
+  alignItems: 'center',
+  zIndex: 999,
+},
+
   container: {
-    width: width * 0.9,
-    height: width * 1.3,
     borderRadius: 24,
-    // padding: 24,
     alignItems: 'center',
     position: 'relative',
     borderWidth: 2,
@@ -93,11 +96,8 @@ const styles = StyleSheet.create({
   bgbottom:{
     backgroundColor:"#10132C",
     alignItems: 'center',
-    width: width * 0.9,
-    height: width * 0.6,
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
-    // marginTop: 60,
     paddingHorizontal: 10,
     borderColor: "#131c91ff",
     borderBottomWidth: 1,
@@ -106,8 +106,6 @@ const styles = StyleSheet.create({
   },
   bgtop:{
     backgroundColor: "#131c91ff",
-    width: width * 0.89,
-    height: width * 0.7,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     alignItems: 'center',
@@ -122,7 +120,6 @@ const styles = StyleSheet.create({
     height: 90,
     marginBottom: 10,
     marginTop: 30,
-
   },
   title: {
     textAlign: 'center',
@@ -151,7 +148,7 @@ const styles = StyleSheet.create({
   secondaryButton: {
     flexDirection: 'row',
     borderRadius: 32,
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 24,
     width: '100%',
     alignItems: 'center',

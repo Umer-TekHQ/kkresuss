@@ -31,11 +31,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#4898F3',
     alignSelf: 'center',
-   // height:45, //(Added after qa)
-   // width:85,
   },
   label: {
-    fontSize: 15,
+    fontSize: 14,
     color: '#FFFFFF',
     textAlign: 'center',
   },
