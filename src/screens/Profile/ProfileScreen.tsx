@@ -178,7 +178,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  icon: {},
+  icon: {
+    width: 20,
+    height: 20,
+  },
   editText: {
     color: '#fff',
     marginRight: 10,

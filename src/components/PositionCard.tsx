@@ -1,8 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image ,TouchableOpacity } from 'react-native';
 import { Images } from '../assets'
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AppNavigatorParamList } from '../navigators/routeNames';
 
-const PositionCard = ({ data }: { data: any }) => (
+
+const PositionCard = ({ data }: { data: any }) =>{
+   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
+ return (
   <View style={styles.card}>
 
     <View style={styles.headerRow}>
@@ -25,7 +31,9 @@ const PositionCard = ({ data }: { data: any }) => (
     <View style={styles.metricRow}>
       <View style={styles.metricBlock}>
         <View style={styles.iconRow}>
+          <TouchableOpacity onPress={()=>navigation.navigate('TodayReturns')}>
           <Text style={styles.metricLabel}>Today's Return</Text>
+          </TouchableOpacity>
           <Image source={Images.identity} style={styles.iconSmall} />
         </View>
         <Text style={styles.greenText}>
@@ -81,7 +89,7 @@ const PositionCard = ({ data }: { data: any }) => (
 
   </View>
 );
-
+};
 export default PositionCard;
 
 const styles = StyleSheet.create({
