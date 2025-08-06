@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react';
 import {
   View,
   TextInput,
@@ -9,38 +9,39 @@ import {
   Keyboard,
   Pressable
 } from 'react-native'
+} from 'react-native';
 
 interface Props {
-  onStartTyping?: () => void
-  onComplete?: (otp: string) => void
+  onStartTyping?: () => void;
+  onComplete?: (otp: string) => void;
 }
 
-const { width } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window');
+
+const BOX_SIZE = width / 8; 
+const BOX_SPACING = width * 0.02; 
 
 const OTPInputBox = ({ onStartTyping, onComplete }: Props) => {
-  const inputRef = useRef<TextInput>(null)
-  const [otp, setOtp] = useState<string>('')
+  const inputRef = useRef<TextInput>(null);
+  const [otp, setOtp] = useState<string>('');
 
   const handleChange = (value: string) => {
-    const clean = value.replace(/[^0-9]/g, '')
+    const clean = value.replace(/[^0-9]/g, '');
     if (clean.length <= 6) {
-      if (clean.length === 1 && otp.length === 0) onStartTyping?.()
+      if (clean.length === 1 && otp.length === 0) onStartTyping?.();
       if (clean.length === 6) {
-        onComplete?.(clean)
-        Keyboard.dismiss()
+        onComplete?.(clean);
+        Keyboard.dismiss();
       }
-      setOtp(clean)
+      setOtp(clean);
     }
-  }
+  };
 
   const handleBoxPress = (index: number) => {
-    const newOtp = otp.slice(0, index)
-    setOtp(newOtp)
-    inputRef.current?.focus()
-  }
-
-
-
+    const newOtp = otp.slice(0, index);
+    setOtp(newOtp);
+    inputRef.current?.focus();
+  };
 
   return (
     <View style={styles.wrapper}>
@@ -52,10 +53,19 @@ const OTPInputBox = ({ onStartTyping, onComplete }: Props) => {
             </View>
           </TouchableWithoutFeedback>
         ))}
+        {Array(6)
+          .fill('')
+          .map((_, i) => (
+            <TouchableWithoutFeedback key={i} onPress={() => handleBoxPress(i)}>
+              <View style={[styles.box, otp[i] && styles.activeBox]}>
+                <Text style={styles.digit}>{otp[i] || ''}</Text>
+              </View>
+            </TouchableWithoutFeedback>
+          ))}
       </View>
 
       <TextInput
-      caretHidden={true}
+        caretHidden={true}
         ref={inputRef}
         value={otp}
         onChangeText={handleChange}
@@ -67,21 +77,23 @@ const OTPInputBox = ({ onStartTyping, onComplete }: Props) => {
     </View>
   )
 }
+  );
+};
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginTop: 20,
+    marginTop: height * 0.03,
     alignItems: 'center',
   },
   boxRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: width * 0.8,
-    columnGap: 8,
+    width: width * 0.9,
+    gap: BOX_SPACING,
   },
   box: {
-    width: 48,
-    height: 70,
+    width: BOX_SIZE,
+    height: BOX_SIZE * 1.4,
     borderWidth: 1,
     borderColor: '#ADD2FD',
     borderRadius: 8,
@@ -91,24 +103,23 @@ const styles = StyleSheet.create({
   },
   activeBox: {
     borderColor: '#FFFFFF',
+    borderColor: '#CEB55A',
+    borderWidth: 1.5,
   },
   digit: {
-    width: 26,
-    height: 37,
-    fontSize: 44,
-    lineHeight: 37,
+    fontSize: BOX_SIZE * 0.8,
     textAlign: 'center',
     fontWeight: '300',
     color: '#FFFFFF',
   },
   hiddenInput: {
     position: 'absolute',
-  opacity: 0.05,  
-  height: 20,    
-  width: width * 0.8,
-  textAlign: 'center',
-  paddingTop: 15,
+    opacity: 0.05,
+    height: 20,
+    width: width * 0.9,
+    textAlign: 'center',
+    paddingTop: 15,
   },
-})
+});
 
-export default OTPInputBox
+export default OTPInputBox;

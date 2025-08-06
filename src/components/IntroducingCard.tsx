@@ -64,7 +64,7 @@ export default function IntroducingCards() {
         pagingEnabled
         snapToInterval={CARD_WIDTH + SPACING}
         decelerationRate="fast"
-        contentContainerStyle={{ paddingHorizontal: (screenWidth - CARD_WIDTH) / 2 }}
+        contentContainerStyle={{ paddingHorizontal: (screenWidth - CARD_WIDTH) / 9 }}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { x: scrollX } } }],
           { useNativeDriver: false }

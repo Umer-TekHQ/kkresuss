@@ -21,28 +21,27 @@ export const settingsData:SettingItem[] = [
     route:'Security'
   },
   {
-    title: 'TokenDetails',
+    title: 'Identity',
     subtitle: 'Profile picture, username, Kresus ID',
     icon: Images.identity,
-    route:'TokenDetail'
+    // route:'TokenDetail'
   },
   {
     title: 'TodayReturns Screen(temporary)',
     subtitle: 'Connect to Coinbase, connected apps, WalletConnect',
     icon: Images.connections,
-    route:'TodayReturns'
   },
-  {
+ {
     title: 'Referrals and Rewards',
     subtitle: 'Get your unique referral code',
     icon: Images.referrals,
   },
-  {
+   {
     title: 'Notifications',
     subtitle: 'Alerts and updates',
     icon: Images.notifications,
   },
-  {
+   {
     title: 'Contacts',
     subtitle: 'Manage and sync device contacts',
     icon: Images.contacts,
@@ -78,4 +77,4 @@ export const settingsData:SettingItem[] = [
     icon: Images.connections,
     route:'BottomNavigator'
   },
-]
+ ]

@@ -27,7 +27,8 @@ export default function CardRecieveScreen() {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image 
             source={Images.backarrow}
-            style={[styles.backarrow, { width: screenWidth * 0.09, height: screenWidth * 0.045, marginTop: screenHeight * 0.04 }]}
+
+            style={[styles.backarrow, { width: screenWidth * 0.04, height: screenWidth * 0.045, marginTop: screenHeight * 0.04 }]}
           />
         </TouchableOpacity>
         <View style={{flex: 1, marginTop: screenHeight * 0.04, marginLeft: screenWidth * 0.2}}>
@@ -75,6 +76,7 @@ const styles = StyleSheet.create({
   },
   card:{
     display: 'flex',
+    alignItems: 'center',
   },
   qr:{
     alignItems: 'center'
