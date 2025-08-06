@@ -5,9 +5,6 @@ import { Images } from '../assets'
 import { useNavigation, NavigationProp } from '@react-navigation/native'
 import { AppNavigatorParamList } from '../navigators/routeNames'
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { Dimensions } from 'react-native'
-
-
 
 interface AppHeaderProps {
   title: string
@@ -15,12 +12,11 @@ interface AppHeaderProps {
  onBackPress?: () => void;
 }
 
-const { width } = Dimensions.get('window')
-const ICON_SIZE = width * 0.08 
-
 const AppHeader = ({ title, showClose = false, onBackPress }: AppHeaderProps) => {
    const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
 
+ 
+  
 const handleGoBack = () => {
     if (onBackPress) {
       onBackPress(); 
@@ -59,7 +55,7 @@ const styles = StyleSheet.create({
   icon: {
     opacity:1,
     position: 'absolute',
-   // left: 20, ( as qa reuired )
+    left: 20,
      zIndex: 20, 
   },
   rightIcon: {
@@ -67,16 +63,11 @@ const styles = StyleSheet.create({
     right: 10,
     top:10
   },
-  // iconImage: {
-  //   width: 32,
-  //   height: 32,
-  //   resizeMode:'contain'
-  // },
   iconImage: {
-  width: ICON_SIZE,
-  height: ICON_SIZE,
-  resizeMode: 'contain',
-},
+    width: 25,
+    height: 25,
+    resizeMode:'contain'
+  },
   title: {
     flex: 1,
     textAlign: 'center',

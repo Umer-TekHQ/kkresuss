@@ -23,19 +23,9 @@ import { setEmail } from '../../store/slices/userSlice'
 
 const { height } = Dimensions.get('window')
 
-
-const isValidEmail = (email: string): boolean => {
-  const regex = /^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/
-  return regex.test(email)
-}
-
-
-
 const WelcomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
   const [keyboardVisible, setKeyboardVisible] = useState(false)
-const [isEmailValid, setIsEmailValid] = useState(false)
-
   
   const dispatch = useAppDispatch()
   const userEmail = useAppSelector(state => state.user.email)
@@ -50,7 +40,7 @@ const [isEmailValid, setIsEmailValid] = useState(false)
       setKeyboardVisible(true)
 
       Animated.timing(inputTranslateY, {
-        toValue: height * 0.01, 
+        toValue: -height * 0.08, 
         duration: 300,
         useNativeDriver: true,
       }).start()
@@ -88,13 +78,11 @@ const [isEmailValid, setIsEmailValid] = useState(false)
 
   const handleEmailChange = (text: string) => {
     setEmailText(text)
-   setIsEmailValid(isValidEmail(text))
-
   }
 
   const handleContinue = () => {
     dispatch(setEmail(emailText))
-    navigation.navigate('Otp')
+    navigation.navigate('Otp', { email: emailText })
   }
 
   return (
@@ -129,19 +117,18 @@ const [isEmailValid, setIsEmailValid] = useState(false)
               <Text style={WelcomeStyles.subheading}>
                 Earn and Explore with heightened security.
               </Text>
-              <Text style={WelcomeStyles.caption}>Sign Up or Log In</Text>
+              <Text style={WelcomeStyles.caption}>Signup or Login</Text>
             </>
           )}
 
-        <View >
+        
           <AppInput
-            placeholder="Enter Email"
+            placeholder="Enter your email"
             value={emailText}
             onChangeText={handleEmailChange}
             onClear={() => setEmailText('')}
-              isElevated={keyboardVisible}
           />
-        </View>
+
         </Animated.View>
 
        
@@ -168,20 +155,8 @@ const [isEmailValid, setIsEmailValid] = useState(false)
           <AppButton
             label="Continue"
             onPress={handleContinue}
-                // disabled={!isEmailValid} 
           />
         )}
-
-        {!keyboardVisible && (
-  <TouchableOpacity
-    
-    style={WelcomeStyles.lostAccessContainer}
-    activeOpacity={0.8}
-  >
-    <Text style={WelcomeStyles.lostAccessText}>Lost access to email or phone?</Text>
-  </TouchableOpacity>
-)}
-
 
       </Background>
     </View>

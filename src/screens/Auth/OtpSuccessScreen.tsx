@@ -23,7 +23,7 @@ export const OtpSuccessScreen = () => {
       <Background showContent hideBottomImages={false} showLogo={true}>
         <FingerprintModal
           onContinue={onBiometricContinue}
-          onGoBack={() => navigation.navigate('UserName')}
+          onGoBack={() => navigation.navigate('Otp')}
         />
       </Background>
     </View>

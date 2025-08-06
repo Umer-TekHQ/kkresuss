@@ -1,6 +1,9 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import {Images} from '../assets/index'
+import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { Images } from '../assets/index';
+import Clipboard from '@react-native-clipboard/clipboard';
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 interface Props {
   icon: any;
@@ -10,22 +13,25 @@ interface Props {
 }
 
 const ProfileCard: React.FC<Props> = ({ icon, title, address, background }) => {
+  const cardWidth = screenWidth * 0.90;
+  const cardHeight = screenHeight * 0.26;
+
   return (
-    <View style={styles.card}>
-      <Image source={background} style={styles.bgImage} />
+    <View style={[styles.card, { width: cardWidth, height: cardHeight }]}>
+      <Image source={background} style={[styles.bgImage]} />
       <View style={styles.overlay}>
-        <Image source={icon} style={styles.icon} />
-        <View style={styles.info}>
-        <Text style={styles.title}>{title}</Text>
-        <View style={styles.addressContainer}>
-          <TouchableOpacity>
-          <Image
-           source={Images.copy}
-           style={styles.copyimg}
-           />
-           </TouchableOpacity>
-          <Text style={styles.address}>{address}</Text>
-        </View>
+        <Image source={icon} style={[styles.icon, { width: cardWidth * 0.09, height: cardWidth * 0.09 }]} />
+        <View style={[styles.info, { marginTop: cardHeight * 0.35 }]}>
+          <Text style={[styles.title, { fontSize: cardWidth * 0.045 }]}>{title}</Text>
+          <View style={[styles.addressContainer, { width: cardWidth * 0.39, paddingVertical: cardHeight * 0.045, borderRadius: cardWidth * 0.055 }]}>
+            <TouchableOpacity>
+              <Image
+                source={Images.copy}
+                style={[styles.copyimg, { width: cardWidth * 0.04, height: cardWidth * 0.04, marginRight: cardWidth * 0.035, marginLeft: cardWidth * 0.027 }]}
+              />
+            </TouchableOpacity>
+            <Text style={[styles.address, { fontSize: cardWidth * 0.035 }]}>{address}</Text>
+          </View>
         </View>
       </View>
     </View>
@@ -34,12 +40,10 @@ const ProfileCard: React.FC<Props> = ({ icon, title, address, background }) => {
 
 const styles = StyleSheet.create({
   card: {
-    height: 230,
-    width: 370,
     borderRadius: 20,
     overflow: 'hidden',
-    backgroundColor: 'black'
-    // marginBottom: 20,
+    alignSelf: 'center',
+    backgroundColor: '#000'
   },
   bgImage: {
     ...StyleSheet.absoluteFillObject,
@@ -48,44 +52,31 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     padding: 20,
-    // justifyContent: 'space-between',
   },
   icon: {
-    width: 34,
-    height: 34,
     marginBottom: 10,
   },
-  info:{
+  info: {
     flex: 1,
-    marginTop: 80,
     justifyContent: 'space-between',
   },
   title: {
     color: 'white',
-    fontSize: 16,
-    // fontWeight: '600',
     marginBottom: 10,
   },
   addressContainer: {
     flexDirection: 'row',
     borderWidth: 1,
     borderColor: '#724CC4',
-    width: 145,
-    paddingVertical: 10,
-    borderRadius: 20,
     alignSelf: 'flex-start',
     marginBottom: 20,
+    alignItems: 'center',
   },
-  copyimg:{
-    marginRight: 14,
-    marginLeft: 10,
-    width: 15,
-    height: 15,
-    resizeMode: 'cover'
+  copyimg: {
+    resizeMode: 'cover',
   },
   address: {
     color: 'white',
-    fontSize: 13,
     fontWeight: '700',
   },
 });
