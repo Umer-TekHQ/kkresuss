@@ -132,7 +132,6 @@ const TradeStatusScreen = ({navigation, route}: any) => {
           </View>
         }
       />
-
     <View style={{alignItems: 'center'}}>
       <TouchableOpacity style={styles.bottombutton}>
         <Text style={styles.bottombtn}>View Details on BaseScan</Text>
@@ -266,5 +265,3 @@ const styles = StyleSheet.create({
     tintColor: '#0A0F3B',
   },
 });
-
-

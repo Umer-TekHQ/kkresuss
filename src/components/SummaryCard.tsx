@@ -37,9 +37,9 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
     setActiveFilter(filter);
   };
 
-const chartData = graphDataMap[activeFilter].map((value) => ({ value }));
+  const chartData = graphDataMap[activeFilter].map((value) => ({ value }));
 
-const MAX_CARD_HEIGHT = 320; 
+  const MAX_CARD_HEIGHT = 320; 
 const MIN_CARD_HEIGHT = 210; 
 
 const cardWidth = screenWidth * 0.86;

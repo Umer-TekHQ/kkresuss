@@ -24,14 +24,14 @@ export const BottomSheetScreen = ({navigation}: any) => {
               />
               </View>
               </TouchableOpacity>
-              <View style={styles.launch}>
+                            <View style={styles.launch}>
                 <TouchableOpacity style={styles.launch}>
                     <Text style={{ color: 'white', fontSize: 16 }}>
                     Launch <Image source={Images.launcharrow} style={styles.launchbtn}/>
                     </Text>
                 </TouchableOpacity>
               </View>
-              </View>
+        </View>
       <BottomSheetUnified screen="explore" translateY={translateY} />
       </GestureHandlerRootView>
   )
@@ -48,8 +48,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   cross:{
-    width: 50,
-    height: 50,
+    color: 'white',
+    marginLeft: 5,
+    fontSize: 25,
+    fontWeight: '700',
+    tintColor: 'white',
+    
   },
   backborder:{
     // backgroundColor: 'grey',

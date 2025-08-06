@@ -2,6 +2,9 @@ import React from 'react'
 import { View, Text, StyleSheet, Image, Switch, TouchableOpacity, Pressable } from 'react-native'
 import { Images } from '../assets'
 import { AppNavigatorParamList } from '../navigators/routeNames'
+import CustomSwitch from './CustomSwitch'
+
+
 interface Props {
   item: any
   isActive: boolean
@@ -39,25 +42,21 @@ const SecurityOptionItem = ({
         {item.pro && <Image source={Images.pro} style={styles.proBadge} />}
 
         
-        {/* {item.toggle ? (
-          <Switch
-            value={biometricsEnabled}
-            onValueChange={setBiometricsEnabled}
-            thumbColor="#FFFFFF"
-            trackColor={{ true: '#3D6AFF', false: '#3C4A6A' }}
-          />
-        ) : (
-          <TouchableOpacity>
-            <Image source={Images.forward} style={styles.forwardIcon} />
-          </TouchableOpacity>
-        )} */}
-
         {item.toggle ? (
-  <Switch
+  // <Switch   (QA requirements changes )
+  //   value={biometricsEnabled}
+  //   onValueChange={setBiometricsEnabled}
+  //   thumbColor="#FFFFFF"
+  //   trackColor={{ true: '#3D6AFF', false: '#030A74' }}
+  //    style={{
+  //   transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }],
+  //   marginRight: 4,
+    
+  // }}
+  // />
+   <CustomSwitch
     value={biometricsEnabled}
     onValueChange={setBiometricsEnabled}
-    thumbColor="#FFFFFF"
-    trackColor={{ true: '#3D6AFF', false: '#3C4A6A' }}
   />
 ) : item.route ? (
   <TouchableOpacity onPress={() => onNavigate?.(item.route)}>

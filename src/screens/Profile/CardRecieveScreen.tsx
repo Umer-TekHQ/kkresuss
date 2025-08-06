@@ -27,7 +27,6 @@ export default function CardRecieveScreen() {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image 
             source={Images.backarrow}
-
             style={[styles.backarrow, { width: screenWidth * 0.04, height: screenWidth * 0.045, marginTop: screenHeight * 0.04 }]}
           />
         </TouchableOpacity>

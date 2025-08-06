@@ -100,7 +100,6 @@ const SwipeButton: React.FC<SwipeButton> = ({ placeholder = 'Swipe to Send', onN
     >
       <Animated.View style={[styles.swipeContainer, { backgroundColor: interpolatedBg }]}>
         <Animated.View
-    
           {...panResponder.panHandlers}
           style={[styles.whiteCircle, { transform: [{ translateX: panX }] }]}
         />
@@ -128,7 +127,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     overflow: 'hidden',
     position: 'relative',
-    bottom: 15
   },
   whiteCircle: {
     width: 55,

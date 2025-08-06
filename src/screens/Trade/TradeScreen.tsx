@@ -23,6 +23,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setToken1, setToken2, setAmount1, setAmount2, toggleUSD } from '../../store/slices/tradeSlice';
 import { RootState } from '../../store';
 
+
 export const TradeScreen = () => {
   const dispatch = useAppDispatch();
   const { token1, token2, amount1, amount2, isUSD } = useAppSelector((state:RootState) => state.trade);
@@ -131,8 +132,7 @@ export const TradeScreen = () => {
         <View style={{justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
         <Text style={[styles.placeholderText, hasError && styles.errorText]}>Select Token </Text>
           <Image source={Images.downarrow} style={styles.downfieldarrow}/>
-        </View>
-      )}
+        </View>      )}
       {hasError && <Text style={styles.errorMessage}>This field is required</Text>}
     </TouchableOpacity>
   );
@@ -290,10 +290,14 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     tintColor: '#0734A9'
   },
-    downarrowtoken: {
+  downarrowtoken: {
     width: 17,
     height: 12,
     marginLeft: 15,
+  },
+  downfieldarrow:{
+    width: 17,
+    height: 12,
   },
   receiveLabel: {
     fontSize: 22,
@@ -304,11 +308,6 @@ const styles = StyleSheet.create({
     color: "#ADD2FD", 
     fontSize: 34, 
   },
-  downfieldarrow:{
-    width: 17,
-    height: 12,
-  },
-
   gasText: { 
     color: "#ADD2FD", 
     fontSize: 14, 

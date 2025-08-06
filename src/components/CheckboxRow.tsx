@@ -1,23 +1,47 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { AppNavigatorParamList } from '../navigators/routeNames'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
 export type CheckboxRowProps = {
-  label: string
+  
   isChecked: boolean
   onToggle: () => void
+   hasLink?: boolean
+    prefixText?: string
+  linkText?: string
 }
 
 
-const CheckboxRow = ({ label,isChecked,onToggle }: CheckboxRowProps) => {
-  const [checked, setChecked] = useState(false)
+const CheckboxRow = ({ isChecked,onToggle,hasLink, prefixText = '',
+  linkText = '', }: CheckboxRowProps) => {
+ 
+    const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
 
   return (
-    <TouchableOpacity style={styles.row} onPress={() => setChecked(!checked)}>
-      <View style={styles.box}>
-        {checked && <Text style={styles.tick}>✓</Text>}
-      </View>
-      <Text style={styles.label}>{label}</Text>
-    </TouchableOpacity>
+
+      <View style={styles.row}>
+      <TouchableOpacity style={styles.box} onPress={onToggle}>
+        {isChecked && <Text style={styles.tick}>✓</Text>}
+      </TouchableOpacity>
+
+      {!hasLink ? (
+       
+          <Text style={styles.label}>{prefixText}</Text>
+      
+      ) : (
+        <Text style={styles.label}>
+          {prefixText}{' '}
+          <Text
+            style={styles.link}
+            onPress={() => navigation.navigate('Settings')}
+          >
+            {linkText}
+          </Text>
+        </Text>
+      )}
+    </View>
   )
 }
 
@@ -34,11 +58,12 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#ADD2FD',
+    borderColor: '#0734A9',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
-    backgroundColor: 'transparent',
+    backgroundColor: '#0A0F61',
+
   },
   tick: {
     color: '#ADD2FD',
@@ -48,5 +73,9 @@ const styles = StyleSheet.create({
   label: {
     color: '#FFFFFF',
     fontSize: 15,
+  },
+    link: {
+    textDecorationLine: 'underline',
+    color: 'white',
   },
 })

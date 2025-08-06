@@ -17,8 +17,10 @@ export const Card: React.FC<CardProps> = ({
   usd,
   strike = false,
 }) => {
+  // Get token data from Redux store to use in labels if needed
   const { token1, token2 } = useAppSelector(state => state.trade);
   
+  // Modify labels if needed based on the token data
   let displayLabel = label;
   if (label === "Traded" && token1) {
     displayLabel = `${token1.abbreviation} Traded`;

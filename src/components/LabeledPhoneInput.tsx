@@ -44,17 +44,19 @@ const LabeledPhoneInput = ({
           <Image source={Images.downarrow} style={styles.downIcon} />
         </TouchableOpacity>
 
+<View style={styles.separator} />
+
         <TextInput
           style={styles.phoneInput}
           placeholder="Enter Phone"
-          placeholderTextColor="#7C8CAA"
+          placeholderTextColor="#FFFFFF"
           value={phone}
           onChangeText={onPhoneChange}
           keyboardType="phone-pad"
         />
       </View>
 
-      {/* Warning Message */}
+    
       {showWarning && phone.trim() === '' && (
         <Text style={styles.warningText}>
           Without a phone number, you will not be able to recover your account if you lose access to your email.
@@ -96,7 +98,7 @@ export default LabeledPhoneInput
 const styles = StyleSheet.create({
   label: {
     fontSize: 15,
-    color: '#A6A6C3',
+    color: '#ADD2FD',
     marginBottom: 8,
     height: 22,
   },
@@ -104,36 +106,37 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#1B2A52',
-    borderRadius: 8,
+    borderColor: '#0734A9',
+    borderRadius: 12,
     paddingHorizontal: 10,
-    height: 45,
+    height: 65,
   },
   codePicker: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 8,
+    marginRight: 10,
+   // paddingRight: 10,
   },
   codeText: {
     color: 'white',
-    fontSize: 15,
-    marginRight: 4,
+    fontSize: 19,
+    marginRight: 10,
   },
   downIcon: {
     width: 12,
     height: 12,
     resizeMode:'contain',
-    tintColor: 'white',
+    tintColor: '#086DE1',
   },
   phoneInput: {
     flex: 1,
     color: 'white',
-    fontSize: 15,
+    fontSize: 19,
  
   },
   warningText: {
     color: '#FF6565',
-    fontSize: 12,
+    fontSize: 13,
     marginTop: 6,
   },
   overlay: {
@@ -154,4 +157,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
   },
+  separator: {
+  width: 1,
+  height: '100%', 
+  backgroundColor: '#0734A9',
+  marginHorizontal: 8,
+},
+
 })

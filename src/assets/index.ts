@@ -121,7 +121,6 @@ buyerlogo:require('./images/buyerlogo.png'),
 basecardlogo: require('./images/basecardlogo.png'),
 launcharrow: require('./images/launcharrow.png'),
 tradecompletion: require('./images/tradecomplete.png'),
-basebg: require('./images/basecardbg.png'),
 hamburger:require('./images/hamburger.png'),
 hamburgerbg:require('./images/hamburger.png')
 }
