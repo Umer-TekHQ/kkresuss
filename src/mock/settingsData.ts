@@ -21,45 +21,27 @@ export const settingsData:SettingItem[] = [
     route:'Security'
   },
   {
-    title: 'TokenDetails',
+    title: 'Identity',
     subtitle: 'Profile picture, username, Kresus ID',
     icon: Images.identity,
-    route:'TokenDetail'
+    // route:'TokenDetail'
   },
-  {
-    title: 'TodayReturns Screen',
+   {
+    title: 'Connections',
     subtitle: 'Connect to Coinbase, connected apps, WalletConnect',
     icon: Images.connections,
-    route:'TodayReturns'
   },
-{
-    title: 'Recovery and 2FA',
-    subtitle: 'Contact, legal, app info',
-    icon: Images.helpsupport,
-    route:"Recovery"
-  },{
-    title: 'Privacy Policy',
-    subtitle: 'Contact, legal, app info',
-    icon: Images.helpsupport,
-    route:"Privacy"
-  },{
-    title: 'Advanced Verification Information',
-    subtitle: 'Contact, legal, app info',
-    icon: Images.helpsupport,
-    route:"Verification"
-  },
-
-  {
+    {
     title: 'Referrals and Rewards',
     subtitle: 'Get your unique referral code',
     icon: Images.referrals,
   },
-  {
+   {
     title: 'Notifications',
     subtitle: 'Alerts and updates',
     icon: Images.notifications,
   },
-  {
+   {
     title: 'Contacts',
     subtitle: 'Manage and sync device contacts',
     icon: Images.contacts,
@@ -69,10 +51,14 @@ export const settingsData:SettingItem[] = [
     subtitle: 'Contact, legal, app info',
     icon: Images.helpsupport,
   },
-    {
-    title: 'Connections',
-    subtitle: 'Connect to Coinbase, connected apps, WalletConnect',
-    icon: Images.connections,
+   {
+    title: 'Privacy Policy',
+    subtitle: 'Contact, legal, app info',
+    icon: Images.helpsupport,
+    route:"Privacy"
   },
+ 
+ 
+   
  
 ]
