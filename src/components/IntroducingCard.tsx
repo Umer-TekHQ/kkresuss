@@ -14,9 +14,9 @@ import { Images } from '../assets';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const CARD_WIDTH = 345;
-const CARD_HEIGHT = 95;
-const SPACING = 10;
+const CARD_WIDTH = 360;
+const CARD_HEIGHT = 100;
+const SPACING = 15;
 
 const data = [1, 2, 3]; 
 
@@ -45,7 +45,7 @@ export default function IntroducingCards() {
         />
         </View>
         <View style={{height: 100, width: 1, backgroundColor: '#464688ff',}}></View>
-        <View style={{ backgroundColor: '#080C4C', width: '87%', height: '87%', justifyContent: 'center',  borderTopRightRadius: 20, borderBottomRightRadius: 20,}}>
+        <View style={{ backgroundColor: '#080C4C', width: '87%', height: '92%', justifyContent: 'center',  borderTopRightRadius: 20, borderBottomRightRadius: 20,}}>
           <Text style={styles.title}>Introducing Kresus Pro</Text>
           <Text style={styles.subtitle}>$10K in insurance and 350{'\n'}monthly gasless transactions</Text>
         </View>
@@ -64,7 +64,7 @@ export default function IntroducingCards() {
         pagingEnabled
         snapToInterval={CARD_WIDTH + SPACING}
         decelerationRate="fast"
-        contentContainerStyle={{ paddingHorizontal: (screenWidth - CARD_WIDTH) / 2 }}
+        contentContainerStyle={{ paddingHorizontal: (screenWidth - CARD_WIDTH) / 9 }}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { x: scrollX } } }],
           { useNativeDriver: false }
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     height: CARD_HEIGHT,
     backgroundColor: '#0D0C2B',
     borderRadius: 20,
-    marginHorizontal: SPACING / 8,
+    marginHorizontal: SPACING / 40,
     marginRight: 10,
     justifyContent: 'center',
     paddingHorizontal: 15,

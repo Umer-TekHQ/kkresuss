@@ -18,4 +18,5 @@ export const allAssets = [
   { title: 'Arbitrum', amountUSD: '$1.23', amountETH: 'ARB', logo: Images.logo },
   { title: 'Fantom', amountUSD: '$0.45', amountETH: 'FTM', logo: Images.logo },
   { title: 'Synthetix', amountUSD: '$2.11', amountETH: 'SNX', logo: Images.logo },
+
 ];

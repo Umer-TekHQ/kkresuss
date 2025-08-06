@@ -17,7 +17,7 @@ type SummaryCardProps = {
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 const graphDataMap: Record<string, number[]> = {
-  '1D': [20,30,20,10, 65, 70, 48, 56, 60, 72, 40, 55, 30, 68, 66, 70, 75, 15, 20, 30, 40, 45, 50, 40, 30],
+  '1D': [10,20,20,30,20,10, 65, 70, 48, 56, 60, 72, 40, 55, 30, 68, 66, 70, 75, 15, 20, 30, 40, 45, 50, 40, 30],
   '1W': [12, 70, 48, 55, 52, 63, 70, 42, 58, 28, 66, 64, 28, 73, 28, 22, 32, 38, 43, 52, 42, 33],
   '1M': [14, 42, 92, 67, 55, 65, 74, 39, 53, 31, 70, 67, 62, 78, 37, 21, 29, 42, 47, 54, 38, 29],
   '1Y': [11, 68, 66, 70, 54, 62, 71, 41, 56, 33, 69, 65, 39, 76, 16, 24, 28, 36, 44, 49, 37, 34],
@@ -39,11 +39,26 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
 
   const chartData = graphDataMap[activeFilter].map((value) => ({ value }));
 
-  const cardWidth = screenWidth * 0.86;
-  const cardHeight = screenHeight * 0.31;
+  const MAX_CARD_HEIGHT = 320; 
+const MIN_CARD_HEIGHT = 210; 
 
-  return (
-    <View style={[styles.summaryCard, { height: cardHeight, width: cardWidth, marginRight: screenWidth * 0.05 }]}>
+const cardWidth = screenWidth * 0.86;
+let cardHeight = screenHeight * 0.31;
+if (cardHeight > MAX_CARD_HEIGHT) cardHeight = MAX_CARD_HEIGHT;
+if (cardHeight < MIN_CARD_HEIGHT) cardHeight = MIN_CARD_HEIGHT;
+
+return (
+  <View
+    style={[
+      styles.summaryCard,
+      {
+        height: cardHeight,
+        width: cardWidth,
+        marginRight: screenWidth * 0.05,
+        padding: Math.min(0, cardHeight * 0.07), 
+      },
+    ]}
+  >
       <View style={styles.summaryTopSection}>
         <Text style={styles.currencyhead}>{currency}</Text>
         <Text style={styles.cryptoTotalValue}>{totalValue}</Text>
@@ -63,16 +78,16 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
       <View style={{ marginTop: 10, marginBottom: 8, height: cardHeight * 0.23, width: '100%' }}>
         <LineChart
           data={chartData}
-          width={cardWidth * 0.92}
+          width={cardWidth * 0.94}
           height={cardHeight * 0.26}
           curved
           areaChart
-          spacing={13}
+          spacing={12}
           thickness={2}
           color="#00FF99"
           startFillColor="#00FF99"
           endFillColor="#00FF99"
-          startOpacity={0.45}
+          startOpacity={0.35}
           endOpacity={0.01}
           hideDataPoints
           hideRules
@@ -84,7 +99,7 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
           xAxisThickness={0}
           yAxisThickness={0}
           yAxisLabelWidth={0}
-          initialSpacing={30}
+          initialSpacing={0}
           adjustToWidth
         />
       </View>
@@ -119,19 +134,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 10,
+    borderBottomWidth: 1,
+    borderColor: '#0E1E83',
+    paddingBottom: 8,
+    borderBottomRightRadius: 10,
   },
   timeFilterButton: {
     paddingHorizontal: 10,
     paddingVertical: 8,
     borderRadius: 5,
-    backgroundColor: '#1a1a3c',
+    // backgroundColor: '#1a1a3c',
   },
   activeTimeFilterButton: {
     backgroundColor: '#0E1E83',
   },
   timeFilterText: {
-    color: '#fff',
-    fontSize: 12,
+    color: 'lightblue',
+    fontSize: 14,
   },
   activeTimeFilterText: {
     color: '#fff',
@@ -154,7 +173,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 3,
-    marginLeft: 7
+    marginLeft: 16
   },
   cryptoChangeRow: {
     flexDirection: 'row',
@@ -163,7 +182,7 @@ const styles = StyleSheet.create({
   cryptoChangeText: {
     fontSize: 12,
     fontWeight: '700',
-    marginLeft: 7
+    marginLeft: 16,
   },
   cryptoChangeTime: {
     color: 'lightblue',
@@ -178,9 +197,11 @@ const styles = StyleSheet.create({
   currencyhead:{
     width: 62,
     height: 25,
+    // marginLeft:10,
     color: '#ADD2FD',
     fontSize: 20,
     marginBottom: 5,
-    marginLeft: 7
+    marginLeft: 16,
+    marginTop: 16
   },
 });

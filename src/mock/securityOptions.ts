@@ -14,11 +14,11 @@ export const securityOptions: SecurityOption[] = [
   },
   {
     title: 'Recovery Phone',
-   // route: 'RecoveryPhoneScreen',
+    route: 'Recovery',
   },
   {
     title: 'Advanced Verification',
-   // route: 'AdvancedVerificationScreen',
+    route: 'Recovery',
   },
   {
     title: 'Insurance Coverage',

@@ -26,11 +26,11 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
   buyersPercentage = 40,
   sellersPercentage = 60,
 }) => {
-  const cardWidth = screenWidth * 0.9;
-  const gap = cardWidth * 0.1;
+  const cardWidth = screenWidth * 0.86;
+  const gap = cardWidth * 0.15;
 
   return (
-    <View style={[styles.marketActivityCard, { width: cardWidth, alignSelf: 'center' }]}>
+    <View style={[styles.marketActivityCard, { width: cardWidth }]}>
       <View>
         <View style={styles.coinInfoHeader}>
           <View>
@@ -40,7 +40,7 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
               resizeMode="contain"
             />
           </View>
-          <View style={{ flexDirection: 'row', gap }}>
+          <View style={{ flexDirection: 'row', gap: gap }}>
             <View>
               <View>
                 <Text style={styles.coinName}>{coinName}</Text>
@@ -90,3 +90,4 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
     </View>
   );
 };
+

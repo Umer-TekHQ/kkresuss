@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
     fontWeight: 'bold',
+    marginTop: 5,
   },
   row: {
     flexDirection: 'row',
@@ -74,8 +75,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
-    backgroundColor: '#1e1e3f',
-    color: '#00e0ff',
+    backgroundColor: '#3a3af3ff',
+    color: '#fafbfbff',
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 4,
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   name: {
-    color: '#ccc',
+    color: 'lightblue',
     fontSize: 12,
   },
   button: {
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 15,
     borderColor: 'lightblue',
-    borderWidth: 1,
+    borderWidth: 1.5,
   },
   buttonText: {
     color: '#fff',
