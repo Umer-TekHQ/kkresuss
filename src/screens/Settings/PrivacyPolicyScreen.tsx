@@ -15,8 +15,21 @@ const PrivacyPolicyScreen = () => {
   return (
     <View style={styles.container}>
     
+    <View style={styles.customHeader}>
+  <View style={styles.leftIcons}>
+    <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Image source={Images.backscreen} style={styles.headerIcon} />
+    </TouchableOpacity>
+    <TouchableOpacity>
+      <Image source={Images.refresh} style={[styles.headerIcon, { marginLeft: 10 }]} />
+    </TouchableOpacity>
+  </View>
+  <TouchableOpacity onPress={() => navigation.goBack()}>
+    <Image source={Images.whitecross} style={styles.headerIcon} />
+  </TouchableOpacity>
+</View>
 
-      <AppHeader title="" showClose />
+
 
       {/* <ScrollView contentContainerStyle={styles.content}> */}
       
@@ -122,7 +135,6 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     marginBottom: 12,
   },
-
    customHeader: {
     height: 65,
     backgroundColor: '#080C4C',

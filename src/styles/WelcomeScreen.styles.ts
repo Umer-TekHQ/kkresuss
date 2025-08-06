@@ -11,7 +11,8 @@ export default StyleSheet.create({
   height: height * 0.2,
   },
   content: {
-    marginTop: height *0.001,
+   // marginTop: height *0.001, (QA changes)
+  marginBottom:125,
     alignItems: 'center',
     justifyContent:'center',
     gap:8,
@@ -25,6 +26,7 @@ export default StyleSheet.create({
     fontSize: 36,
     fontWeight: 'bold',
     color: '#fff',
+     lineHeight: 34,
   },
   subheading: {
     fontSize: 19,
@@ -38,8 +40,8 @@ export default StyleSheet.create({
   caption: {
     fontSize: 16,
     color: '#ADD2FD',
-    marginTop: 4,
-    marginBottom: 12,
+    marginTop: 34,
+    marginBottom: -2,
   },
   downIcon: {
  position: 'absolute',
@@ -49,4 +51,15 @@ export default StyleSheet.create({
   height: 30,
   zIndex: 99,
 },
+  lostAccessContainer: {
+    position: 'absolute',
+    bottom: height * 0.028, 
+    alignSelf: 'center',
+    zIndex: 10,
+  },
+  lostAccessText: {
+    color: 'white',
+    fontSize: 15,
+    fontWeight:'semibold'
+  },
 })

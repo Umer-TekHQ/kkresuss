@@ -18,7 +18,7 @@ interface Props {
 
 const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
   const containerWidth = width * 0.9;
-  const containerHeight = width * 1.35;
+  const containerHeight = width * 1.3;
   const bgtopWidth = width * 0.89;
   const bgtopHeight = width * 0.7;
   const bgbottomWidth = width * 0.9;
@@ -100,7 +100,7 @@ overlay: {
     borderBottomLeftRadius: 20,
     paddingHorizontal: 10,
     borderColor: "#131c91ff",
-    // borderBottomWidth: 1,
+    borderBottomWidth: 1,
     borderRightWidth: 1,
     borderLeftWidth: 1,
   },

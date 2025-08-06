@@ -2,6 +2,9 @@ import React from 'react'
 import { View, Text, StyleSheet, Image, Switch, TouchableOpacity, Pressable } from 'react-native'
 import { Images } from '../assets'
 import { AppNavigatorParamList } from '../navigators/routeNames'
+import CustomSwitch from './CustomSwitch'
+
+
 interface Props {
   item: any
   isActive: boolean
@@ -27,7 +30,7 @@ const SecurityOptionItem = ({
           <View style={styles.checkCircle}>
             <Image
               source={Images.tick}
-              style={[styles.tickImage, isActive && { tintColor: '#FFD600' }]}
+              style={[styles.tickImage, isActive && { tintColor: '#CEB55A' }]}
             />
           </View>
         </Pressable>
@@ -39,25 +42,21 @@ const SecurityOptionItem = ({
         {item.pro && <Image source={Images.pro} style={styles.proBadge} />}
 
         
-        {/* {item.toggle ? (
-          <Switch
-            value={biometricsEnabled}
-            onValueChange={setBiometricsEnabled}
-            thumbColor="#FFFFFF"
-            trackColor={{ true: '#3D6AFF', false: '#3C4A6A' }}
-          />
-        ) : (
-          <TouchableOpacity>
-            <Image source={Images.forward} style={styles.forwardIcon} />
-          </TouchableOpacity>
-        )} */}
-
         {item.toggle ? (
-  <Switch
+  // <Switch   (QA requirements changes )
+  //   value={biometricsEnabled}
+  //   onValueChange={setBiometricsEnabled}
+  //   thumbColor="#FFFFFF"
+  //   trackColor={{ true: '#3D6AFF', false: '#030A74' }}
+  //    style={{
+  //   transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }],
+  //   marginRight: 4,
+    
+  // }}
+  // />
+   <CustomSwitch
     value={biometricsEnabled}
     onValueChange={setBiometricsEnabled}
-    thumbColor="#FFFFFF"
-    trackColor={{ true: '#3D6AFF', false: '#3C4A6A' }}
   />
 ) : item.route ? (
   <TouchableOpacity onPress={() => onNavigate?.(item.route)}>
@@ -93,9 +92,9 @@ const styles = StyleSheet.create({
     width: 22,
     height: 22,
     borderRadius: 11,
-    backgroundColor: '#092758',
-    borderWidth: 2,
-    borderColor: '#407BFF',
+    backgroundColor: '#01021D',
+    borderWidth: 1,
+    borderColor: '#10178A',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -103,7 +102,7 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
     resizeMode: 'contain',
-    tintColor: '#407BFF', // Default blue tick
+    tintColor: '#10178A', // Default blue tick
   },
   optionTitle: {
     flex: 1,
@@ -112,8 +111,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   forwardIcon: {
-    width: 10,
-    height: 10,
+    width: 13,
+    height: 13,
     resizeMode: 'contain',
    
   },
