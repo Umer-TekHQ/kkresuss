@@ -105,7 +105,7 @@ const TradeStatusScreen = ({navigation, route}: any) => {
       </View>
 
       <View style={styles.tradeCompleteBtn}>
-        <Text style={styles.tradeCompleteText}>✓ Trade Complete</Text>
+        <Text style={styles.tradeCompleteText}> <Image source={Images.tradecompletion} style={styles.tick}/> Trade Complete</Text>
       </View>
     </View>
 
@@ -120,7 +120,18 @@ const TradeStatusScreen = ({navigation, route}: any) => {
         usd="$0.01 USD" 
       />
       <Card label="Network Fees" value={`${displayAmount2} ${displayToken2.abbreviation}`}  usd="$0.01 USD" strike />
-      <Card label="Transaction ID" value="a32c...6dg4" />
+      <Card 
+        label="Transaction ID" 
+        value={
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ color: 'white' }}>a32c...6dg4</Text>
+            <Image
+              source={Images.copy}
+              style={{ width: 18, height: 18, marginLeft: 8 }}
+            />
+          </View>
+        }
+      />
 
     <View style={{alignItems: 'center'}}>
       <TouchableOpacity style={styles.bottombutton}>
@@ -240,12 +251,20 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     marginTop: 15,
     borderWidth: 1.5,
-    borderColor: '#6e75d0ff',
+    borderColor: '#4898F3',
     paddingHorizontal: 70,
     borderRadius: 30,
   },
   bottombtn:{
     color: 'white',
     fontSize: 15,
-  }
+  },
+  tick: {
+    width: 20,
+    height: 15,
+    marginRight: 8,
+    tintColor: '#0A0F3B',
+  },
 });
+
+

@@ -63,7 +63,6 @@ export const UserNameScreen = () => {
     <View style={{ flex: 1 }}>
       <Background showContent hideBottomImages={false} showLogo={false}>
         <View style={styles.wrapper}>
-          
           <TouchableOpacity
             style={styles.leftIcon}
             activeOpacity={0.7}
@@ -73,21 +72,15 @@ export const UserNameScreen = () => {
           </TouchableOpacity>
 
           <Image source={Images.logo} style={styles.logo} />
-       
-          <TouchableOpacity style={styles.commentIcon} activeOpacity={0.7}>
-          <Image source={Images.comment} style={{ width: 35, height: 35 }} />
-           </TouchableOpacity>
-
-
+          <Image source={Images.comment} style={styles.commentIcon} />
 
           <Text style={styles.heading}>Select a Username</Text>
 
           <AppInput
-            placeholder="Username"
+            placeholder="Enter your username"
             value={username}
             onChangeText={setUsernameLocal}
             onClear={() => setUsernameLocal('')} 
-            style={{ backgroundColor: '#090F5F' }} 
           />
 
           <View style={{ gap: 6, paddingLeft: 4 }}>

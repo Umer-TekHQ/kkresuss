@@ -16,12 +16,10 @@ interface AppInputProps {
   placeholder: string
   value: string                          
   onChangeText?: (text: string) => void
-  onClear?: () => void       
-  isElevated?: boolean       
-  style?: any       
+  onClear?: () => void                    
 }
 
-const AppInput = ({ placeholder, value, onChangeText, onClear,isElevated ,style}: AppInputProps) => {
+const AppInput = ({ placeholder, value, onChangeText, onClear }: AppInputProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputWrapper}>
@@ -30,22 +28,14 @@ const AppInput = ({ placeholder, value, onChangeText, onClear,isElevated ,style}
           onChangeText={onChangeText}
           placeholder={placeholder}
           placeholderTextColor="#ADD2FD"
-          style={[styles.input,
-             isElevated && styles.elevatedInput,
-             style
-          ]}
+          style={styles.input}
         />
 
         {value.length > 0 && (
           <>
             <Text style={styles.label}>{placeholder}</Text>
             <TouchableOpacity
-         
-              onPress={() => {
-             if (onChangeText) {
-             onChangeText(value.slice(0, -1)) 
-              }
-            }}
+              onPress={onClear}
               style={styles.clearButton}
             >
               <Image
@@ -78,14 +68,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingTop: 18,
-   backgroundColor: '#0B1171',
+    backgroundColor: '#0734A9',
     color: '#FFFFFF',
     fontSize: 18,
     paddingRight: 40,
-    textAlignVertical: 'center',
-    borderColor:'#0734A9',
-    borderWidth:1,
-
+    textAlignVertical: 'center'
   },
   label: {
     position: 'absolute',
@@ -103,9 +90,4 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
   },
-  elevatedInput: {
-  backgroundColor: '#080C50',
-  borderColor: '#4898F3',
-},
-
 })

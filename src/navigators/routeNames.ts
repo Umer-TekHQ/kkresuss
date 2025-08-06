@@ -27,7 +27,7 @@ export const routeNames = {
   Verification:"Verification",
   TokenAsset:"TokenDetail",
   ProfileBottom: "ProfileBottom", 
-  CardRecieveScreen: "CardRecieveScreen",
+  CardReceiveScreen: "CardReceiveScreen",
   SearchScreen: "SearchScreen",
   ReceiveTokenScreen: "ReceiveTokenScreen",
   TodayReturns:"TodayReturns",
@@ -63,7 +63,7 @@ export type AppNavigatorParamList = {
   Verification:undefined
   TokenDetail:undefined
   ProfileBottom: undefined
-    CardRecieveScreen: {
+    CardReceiveScreen: {
     card: {
       icon: any;
       title: string;
