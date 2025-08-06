@@ -18,7 +18,7 @@ const MySecurityScore = ({ score }: { score: number }) => {
               val <= score ? (
                 <LinearGradient
                   key={val}
-                  colors={['#F6C146', '#2B36E4']} // yellow to blue
+                  colors={['#F6C146', '#2B36E4']} 
                   style={styles.progressFilled}
                 />
               ) : (

@@ -32,7 +32,8 @@ const AppInput = ({ placeholder, value, onChangeText, onClear,isElevated ,style}
           placeholderTextColor="#ADD2FD"
           style={[styles.input,
              isElevated && styles.elevatedInput,
-             style
+             style,
+              value.length > 0 && styles.inputWithText,
           ]}
         />
 
@@ -41,11 +42,12 @@ const AppInput = ({ placeholder, value, onChangeText, onClear,isElevated ,style}
             <Text style={styles.label}>{placeholder}</Text>
             <TouchableOpacity
          
-              onPress={() => {
-             if (onChangeText) {
-             onChangeText(value.slice(0, -1)) 
-              }
-            }}
+               onPress={() => {
+                if (onChangeText) {
+                  onChangeText('') 
+                }
+              
+              }}
               style={styles.clearButton}
             >
               <Image
@@ -72,21 +74,21 @@ const styles = StyleSheet.create({
     position: 'relative',
     justifyContent: 'center',
   },
-  input: {
+ 
+    input: {
     width: '100%',
-    height: 60,
-    borderRadius: 8,
+    height: 65,
+    borderRadius: 12,//qa change
     paddingHorizontal: 16,
-    paddingTop: 18,
-   backgroundColor: '#0B1171',
+    backgroundColor: '#0B1171',
     color: '#FFFFFF',
-    fontSize: 18,
+    fontSize: 19,
     paddingRight: 40,
-    textAlignVertical: 'center',
+    textAlignVertical: 'center', 
     borderColor:'#0734A9',
     borderWidth:1,
-
   },
+
   label: {
     position: 'absolute',
     top: 6,
@@ -106,6 +108,9 @@ const styles = StyleSheet.create({
   elevatedInput: {
   backgroundColor: '#080C50',
   borderColor: '#4898F3',
-},
+},  inputWithText: {
+    paddingTop: 17, 
+  },
+
 
 })
