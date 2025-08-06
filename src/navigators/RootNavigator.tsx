@@ -58,7 +58,7 @@ const RootNavigator = () => {
       <Stack.Screen name={routeNames.Verification} component={AdvancedVerificationInfoScreen} />
       <Stack.Screen name={routeNames.TokenAsset} component={AssetDetailScreen} />
       <Stack.Screen name={routeNames.ProfileBottom} component={ProfileBottom} />
-      <Stack.Screen name={routeNames.CardReceiveScreen} component={CardRecieveScreen}/>
+      <Stack.Screen name={routeNames.CardRecieveScreen} component={CardRecieveScreen}/>
       <Stack.Screen name={routeNames.SearchScreen} component={SearchScreen}/>
       <Stack.Screen name={routeNames.ReceiveTokenScreen} component={ReceiveTokenScreen}/>
       {/* <Stack.Screen name={routeNames.TokenAsset} component={AssetDetailScreen} /> */}

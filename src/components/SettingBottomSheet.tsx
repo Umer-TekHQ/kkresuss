@@ -14,11 +14,6 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { AppNavigatorParamList } from '../navigators/routeNames'
 
 
-
-
-
-
-
 const SettingBottomSheet = ({ onClose }: { onClose: () => void, }) => {
 
 const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
@@ -130,10 +125,4 @@ line: {
   backgroundColor: '#183460', 
   marginBottom: 12,
 },
-
-
 })
-
-
-
-

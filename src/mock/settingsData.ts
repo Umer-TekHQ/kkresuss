@@ -26,12 +26,12 @@ export const settingsData:SettingItem[] = [
     icon: Images.identity,
     // route:'TokenDetail'
   },
-  {
-    title: 'TodayReturns Screen(temporary)',
+   {
+    title: 'Connections',
     subtitle: 'Connect to Coinbase, connected apps, WalletConnect',
     icon: Images.connections,
   },
- {
+    {
     title: 'Referrals and Rewards',
     subtitle: 'Get your unique referral code',
     icon: Images.referrals,
@@ -52,29 +52,13 @@ export const settingsData:SettingItem[] = [
     icon: Images.helpsupport,
   },
    {
-    title: 'Recovery and 2FA',
-    subtitle: 'Contact, legal, app info',
-    icon: Images.helpsupport,
-    route:"Recovery"
-  },{
     title: 'Privacy Policy',
     subtitle: 'Contact, legal, app info',
     icon: Images.helpsupport,
     route:"Privacy"
-  },{
-    title: 'Advanced Verification Information',
-    subtitle: 'Contact, legal, app info',
-    icon: Images.helpsupport,
-    route:"Verification"
-  }, {
-    title: 'Connections',
-    subtitle: 'Connect to Coinbase, connected apps, WalletConnect',
-    icon: Images.connections,
   },
-  {
-    title: 'Home(temporary)',
-    subtitle: 'Connect to Coinbase, connected apps, WalletConnect',
-    icon: Images.connections,
-    route:'BottomNavigator'
-  },
- ]
+ 
+ 
+   
+ 
+]

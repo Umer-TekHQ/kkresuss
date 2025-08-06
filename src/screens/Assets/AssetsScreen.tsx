@@ -145,7 +145,7 @@ const AssetsScreen = () => {
   });
 
   return (
-    <View style={{ flex: 1, backgroundColor: index === 1 ? '#01032C' : '#01021D', padding:5, }}>
+    <View style={{ flex: 1, backgroundColor: index === 1 ? '#01032C' : '#01021D' }}>
       <HeaderNav />
       <TabView
         navigationState={{ index, routes }}
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-    paddingHorizontal: 12,
+    paddingHorizontal: 5,
    
   },
   tabsContainer: {

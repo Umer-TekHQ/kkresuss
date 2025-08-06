@@ -37,9 +37,9 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
     setActiveFilter(filter);
   };
 
-const chartData = graphDataMap[activeFilter].map((value) => ({ value }));
+  const chartData = graphDataMap[activeFilter].map((value) => ({ value }));
 
-const MAX_CARD_HEIGHT = 320; 
+  const MAX_CARD_HEIGHT = 320; 
 const MIN_CARD_HEIGHT = 210; 
 
 const cardWidth = screenWidth * 0.86;
@@ -54,8 +54,8 @@ return (
       {
         height: cardHeight,
         width: cardWidth,
-        marginRight: screenWidth * 0.03,
-        padding: Math.min(0, cardHeight * 0.06), 
+        marginRight: screenWidth * 0.05,
+        padding: Math.min(0, cardHeight * 0.07), 
       },
     ]}
   >
@@ -79,7 +79,7 @@ return (
         <LineChart
           data={chartData}
           width={cardWidth * 0.94}
-          height={cardHeight * 0.22}
+          height={cardHeight * 0.26}
           curved
           areaChart
           spacing={12}
@@ -133,16 +133,14 @@ const styles = StyleSheet.create({
   timeFilterContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 3,
+    marginTop: 10,
     borderBottomWidth: 1,
     borderColor: '#0E1E83',
-    backgroundColor: '#06093C',
-    paddingBottom: 5,
-    margin: 15,
-    borderRadius: 10,
+    paddingBottom: 8,
+    borderBottomRightRadius: 10,
   },
   timeFilterButton: {
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
     paddingVertical: 8,
     borderRadius: 5,
     // backgroundColor: '#1a1a3c',
@@ -151,7 +149,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0E1E83',
   },
   timeFilterText: {
-    color: '#7AB7FD',
+    color: 'lightblue',
     fontSize: 14,
   },
   activeTimeFilterText: {

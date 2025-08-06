@@ -21,11 +21,10 @@ import { Images } from '../../assets';
 import { useSharedValue, withSpring } from 'react-native-reanimated';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setToken1, setToken2, setAmount1, setAmount2, toggleUSD } from '../../store/slices/tradeSlice';
-import { RootState } from '../../store';
 
 export const TradeScreen = () => {
   const dispatch = useAppDispatch();
-  const { token1, token2, amount1, amount2, isUSD } = useAppSelector((state:RootState) => state.trade);
+  const { token1, token2, amount1, amount2, isUSD } = useAppSelector((state) => state.trade);
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
   const translateY = useSharedValue(0);
   const bottomSheetRef = useRef<BottomSheetUnifiedRef>(null);
@@ -116,7 +115,7 @@ export const TradeScreen = () => {
             keyboardType="numeric"
             editable={editable}
             placeholder="0"
-            placeholderTextColor="#ADD2FD"
+            placeholderTextColor="#97B8E1"
           />
           <View style={styles.tokenDisplay}>
             <Image source={token.logo} style={styles.tokenLogo} />
@@ -124,14 +123,11 @@ export const TradeScreen = () => {
           </View>
           <Image
             source={Images.downarrow}
-            style={styles.downarrowtoken}
+            style={styles.downarrow}
           />
         </View>
       ) : (
-        <View style={{justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
-        <Text style={[styles.placeholderText, hasError && styles.errorText]}>Select Token </Text>
-          <Image source={Images.downarrow} style={styles.downfieldarrow}/>
-        </View>
+        <Text style={[styles.placeholderText, hasError && styles.errorText]}>Select Token</Text>
       )}
       {hasError && <Text style={styles.errorMessage}>This field is required</Text>}
     </TouchableOpacity>
@@ -224,12 +220,12 @@ const styles = StyleSheet.create({
   container: { 
     flex: 1, 
     backgroundColor: '#01021D', 
-    padding: 5
+    padding: 20 
   },
   headerRow: { 
     flexDirection: 'row', 
     justifyContent: 'space-between', 
-    marginBottom: 5, 
+    marginBottom: 20, 
     marginTop: 30, 
   },
   title: { 
@@ -250,7 +246,7 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: '#0734A9',
+    borderColor: '#052785',
     justifyContent: 'center',
     paddingHorizontal: 16,
     marginBottom: 16,
@@ -285,14 +281,8 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   downarrow: {
-    width: 20,
-    height: 25,
-    marginLeft: 15,
-    tintColor: '#0734A9'
-  },
-    downarrowtoken: {
-    width: 17,
-    height: 12,
+    width: 12,
+    height: 18,
     marginLeft: 15,
   },
   receiveLabel: {
@@ -301,16 +291,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   placeholderText: { 
-    color: "#ADD2FD", 
-    fontSize: 34, 
+    color: '#97B8E1', 
+    fontSize: 34 
   },
-  downfieldarrow:{
-    width: 17,
-    height: 12,
-  },
-
   gasText: { 
-    color: "#ADD2FD", 
+    color: '#97B8E1', 
     fontSize: 14, 
     textAlign: 'center', 
     marginBottom: 16 

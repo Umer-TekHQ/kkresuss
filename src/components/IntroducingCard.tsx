@@ -14,9 +14,9 @@ import { Images } from '../assets';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const CARD_WIDTH = screenWidth * 0.88;
-const CARD_HEIGHT = screenWidth * 0.24;
-const SPACING = 100;
+const CARD_WIDTH = 360;
+const CARD_HEIGHT = 100;
+const SPACING = 15;
 
 const data = [1, 2, 3]; 
 
@@ -64,7 +64,7 @@ export default function IntroducingCards() {
         pagingEnabled
         snapToInterval={CARD_WIDTH + SPACING}
         decelerationRate="fast"
-        contentContainerStyle={{ paddingHorizontal: (screenWidth - CARD_WIDTH) / 115 }}
+        contentContainerStyle={{ paddingHorizontal: (screenWidth - CARD_WIDTH) / 9 }}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { x: scrollX } } }],
           { useNativeDriver: false }
@@ -90,8 +90,8 @@ export default function IntroducingCards() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 25,
-    marginBottom: 25,
+    // marginTop: 10,
+    marginBottom: 20,
     alignItems: 'center',
 
   },
@@ -99,9 +99,9 @@ const styles = StyleSheet.create({
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
     backgroundColor: '#0D0C2B',
-    alignContent: 'center',
     borderRadius: 20,
-    marginRight: 30,
+    marginHorizontal: SPACING / 40,
+    marginRight: 10,
     justifyContent: 'center',
     paddingHorizontal: 15,
     borderWidth: 1,

@@ -76,7 +76,7 @@ const CardDeck = () => {
   };
 
   const handleCardPress = (card: typeof initialCards[0]) => {
-    navigation.navigate('CardReceiveScreen', { card });
+    navigation.navigate('CardRecieveScreen', { card });
   };
 
   return (
@@ -123,7 +123,7 @@ const CardDeck = () => {
 
 
   const AVATAR_SIZE = screenWidth * 0.19;
-  const ICON_SIZE = screenWidth * 0.09;
+  const ICON_SIZE = screenWidth * 0.04;
   const NAME_FONT = screenWidth * 0.048;
   const USERNAME_FONT = screenWidth * 0.04;
   const UPGRADE_FONT = screenWidth * 0.037;

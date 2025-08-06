@@ -14,16 +14,30 @@ interface AppButtonProps {
   label: string
   onPress: () => void
   width?: DimensionValue 
+  disabled?: boolean
 }
 
-const AppButton = ({ label, onPress, width }: AppButtonProps) => {
+const AppButton = ({ label, onPress, width,disabled }: AppButtonProps) => {
+const handlePress = () => {
+    if (!disabled) {
+      onPress()
+    }
+  }
+
+
   return (
     <TouchableOpacity
-      onPress={onPress}
-      style={[styles.button, { width: width || screenWidth * 0.9 }]} 
+      onPress={handlePress}
+       disabled={disabled} 
+      style={[styles.button, { width: width || screenWidth * 0.9 }, disabled && { backgroundColor: '#cccccc' }, ]} 
       activeOpacity={0.8}
     >
-      <Text style={styles.label}>{label}</Text>
+      <Text style={styles.label}
+        numberOfLines={1}
+       ellipsizeMode="tail"
+         adjustsFontSizeToFit
+      > 
+        {label}</Text>
     </TouchableOpacity>
   )
 }
