@@ -9,7 +9,6 @@ import {
   Keyboard,
   Pressable
 } from 'react-native'
-} from 'react-native';
 
 interface Props {
   onStartTyping?: () => void;
@@ -77,8 +76,6 @@ const OTPInputBox = ({ onStartTyping, onComplete }: Props) => {
     </View>
   )
 }
-  );
-};
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -102,7 +99,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(8, 12, 76, 0.66)',
   },
   activeBox: {
-    borderColor: '#FFFFFF',
     borderColor: '#CEB55A',
     borderWidth: 1.5,
   },

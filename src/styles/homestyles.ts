@@ -449,7 +449,7 @@ cryptoChangeTime: {
 //   color: 'white',
 // },
 prostext:{
-  color: '#8ba7e8ff',
+  color: '#7AB7FD',
   fontSize: 19,
   // fontWeight: 500,
   // width: 225,
