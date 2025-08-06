@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
   actionButtonText: {
     fontSize: screenWidth * 0.035,
     color: '#fff',
-    fontWeight: '500',
   },
 });
 

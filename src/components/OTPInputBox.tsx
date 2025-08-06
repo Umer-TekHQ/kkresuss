@@ -7,7 +7,8 @@ import {
   Text,
   TouchableWithoutFeedback,
   Keyboard,
-} from 'react-native';
+  Pressable
+} from 'react-native'
 
 interface Props {
   onStartTyping?: () => void;
@@ -44,6 +45,13 @@ const OTPInputBox = ({ onStartTyping, onComplete }: Props) => {
   return (
     <View style={styles.wrapper}>
       <View style={styles.boxRow}>
+        {Array(6).fill('').map((_, i) => (
+          <TouchableWithoutFeedback key={i} onPress={() => handleBoxPress(i)}>
+            <View style={[styles.box, otp.length === i && styles.activeBox]}>
+              <Text style={styles.digit}>{otp[i] || ''}</Text>
+            </View>
+          </TouchableWithoutFeedback>
+        ))}
         {Array(6)
           .fill('')
           .map((_, i) => (
@@ -66,8 +74,8 @@ const OTPInputBox = ({ onStartTyping, onComplete }: Props) => {
         style={styles.hiddenInput}
       />
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -84,8 +92,8 @@ const styles = StyleSheet.create({
     width: BOX_SIZE,
     height: BOX_SIZE * 1.4,
     borderWidth: 1,
-    borderColor: '#0734A9',
-    borderRadius: 12,
+    borderColor: '#ADD2FD',
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(8, 12, 76, 0.66)',

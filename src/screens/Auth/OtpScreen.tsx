@@ -42,9 +42,7 @@ export const OtpScreen = () => {
 
            
             <Image source={Images.logo} style={styles.logo} resizeMode="contain" />
-            <TouchableOpacity>            
-              <Image source={Images.comment} style={styles.commentIcon} />
-              </TouchableOpacity>
+            <Image source={Images.comment} style={styles.commentIcon} />
 
         
             <Text style={styles.heading}>Check Your Email</Text>
@@ -53,7 +51,7 @@ export const OtpScreen = () => {
 
           
             <OTPInputBox onStartTyping={() => setOtpStarted(true)} 
-              onComplete={() => navigation.navigate('OtpSuccess')}
+              onComplete={() => navigation.navigate('UserName')}
               />
 
            
@@ -72,19 +70,15 @@ export const OtpScreen = () => {
 
           
             <View style={styles.checkContainer}>
-           
-          <CheckboxRow
-            isChecked={acceptTerms}
-            onToggle={() => setAcceptTerms(!acceptTerms)}
-            hasLink={true}
-            prefixText="Accept the"
-            linkText="terms and conditions"
-          />
-
               <CheckboxRow
+                label="Accept the Terms and Conditions"
+                isChecked={acceptTerms}
+                onToggle={() => setAcceptTerms(!acceptTerms)}
+              />
+              <CheckboxRow
+                label="Keep me up to date with marketting emails"
                 isChecked={keepUpdated}
                 onToggle={() => setKeepUpdated(!keepUpdated)}
-                 prefixText="Keep me up to date with marketing emails"
               />
             </View>
           </View>
@@ -175,3 +169,4 @@ const styles = StyleSheet.create({
 },
 
 })
+
