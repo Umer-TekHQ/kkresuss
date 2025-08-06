@@ -79,7 +79,7 @@ return (
         <LineChart
           data={chartData}
           width={cardWidth * 0.94}
-          height={cardHeight * 0.26}
+          height={cardHeight * 0.22}
           curved
           areaChart
           spacing={12}
@@ -133,14 +133,16 @@ const styles = StyleSheet.create({
   timeFilterContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 10,
+    marginTop: 3,
     borderBottomWidth: 1,
     borderColor: '#0E1E83',
-    paddingBottom: 8,
-    borderBottomRightRadius: 10,
+    backgroundColor: '#06093C',
+    paddingBottom: 5,
+    margin: 15,
+    borderRadius: 10,
   },
   timeFilterButton: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 5,
     // backgroundColor: '#1a1a3c',
@@ -149,7 +151,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0E1E83',
   },
   timeFilterText: {
-    color: 'lightblue',
+    color: '#7AB7FD',
     fontSize: 14,
   },
   activeTimeFilterText: {
