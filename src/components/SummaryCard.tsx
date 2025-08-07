@@ -54,8 +54,8 @@ return (
       {
         height: cardHeight,
         width: cardWidth,
-        marginRight: screenWidth * 0.03,
-        padding: Math.min(0, cardHeight * 0.06), 
+        marginRight: screenWidth * 0.05,
+        padding: Math.min(0, cardHeight * 0.07), 
       },
     ]}
   >

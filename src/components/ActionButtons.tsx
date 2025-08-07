@@ -19,7 +19,7 @@ export const ActionButtons: React.FC = () => {
 
   const handlePress = (name: string) => {
     if (name === 'Send') {
-      navigation.navigate('SendDetails');
+      navigation.navigate('Currency');
     }
   };
 

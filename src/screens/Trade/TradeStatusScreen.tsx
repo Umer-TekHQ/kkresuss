@@ -105,7 +105,7 @@ const TradeStatusScreen = ({navigation, route}: any) => {
       </View>
 
       <View style={styles.tradeCompleteBtn}>
-        <Text style={styles.tradeCompleteText}> <Image source={Images.tradecompletion} style={styles.tick}/> Trade Complete</Text>
+        <Text style={styles.tradeCompleteText}>✓ Trade Complete</Text>
       </View>
     </View>
 
@@ -250,18 +250,12 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     marginTop: 15,
     borderWidth: 1.5,
-    borderColor: '#4898F3',
+    borderColor: '#6e75d0ff',
     paddingHorizontal: 70,
     borderRadius: 30,
   },
   bottombtn:{
     color: 'white',
     fontSize: 15,
-  },
-  tick: {
-    width: 20,
-    height: 15,
-    marginRight: 8,
-    tintColor: '#0A0F3B',
-  },
+  }
 });

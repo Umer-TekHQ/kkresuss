@@ -19,7 +19,7 @@ export const BottomSheetScreen = ({navigation}: any) => {
               <TouchableOpacity onPress={() => navigation.goBack()}>
               <View style={styles.backborder}>
               <Image
-              source={Images.cancel}
+              source={Images.crossoverlay}
               style={styles.cross}
               />
               </View>
@@ -62,33 +62,5 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginTop: 20,
     // borderRadius: 20,    
-  },
-  launch:{
-    position: 'static',
-    bottom: 0,
-    width: '100%',
-    height: 500,
-    backgroundColor: 'lightblue',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-    launchbtn: {
-    width: 10,
-    height: 10,
-    marginLeft: 10,
-    tintColor: 'white',
-  },
-    launchBtn: {
-    backgroundColor: '#0a0a23',
-    paddingVertical: 12,
-    alignItems: 'center',
-    justifyContent: `center`,
-    marginHorizontal: 20,
-    borderRadius: 25,
-    borderColor: '#4898F3',
-    borderWidth: 1.5,
-    marginTop: 100,
-  },
+  }
 })

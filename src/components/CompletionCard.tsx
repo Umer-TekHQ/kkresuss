@@ -4,7 +4,7 @@ import { useAppSelector } from '../store/hooks';
 
 interface CardProps {
   label: string;
-  value: React.ReactNode;
+  value: string;
   usd?: string;
   strike?: boolean;
   isLink?: boolean;

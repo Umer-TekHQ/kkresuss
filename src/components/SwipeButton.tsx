@@ -36,11 +36,15 @@ const SwipeButton: React.FC<SwipeButton> = ({ placeholder = 'Swipe to Send', onN
   const handleTradeComplete = () => {
     setIsCompleted(true);
     
+    // Capture the current trade state before resetting it
     const { token1, token2, amount1, amount2 } = tradeState;
     
+    // Navigate to the status screen with the current trade data
     setTimeout(() => {
+      // Navigate first, then reset the trade state
       navigation.navigate(routeNames.TradeStatusScreen);
       
+      // Reset trade state after a delay to ensure the TradeStatusScreen has time to capture it
       setTimeout(() => {
         dispatch(resetTrade());
       }, 100);
@@ -89,7 +93,7 @@ const SwipeButton: React.FC<SwipeButton> = ({ placeholder = 'Swipe to Send', onN
 
   const interpolatedBg = bgColor.interpolate({
     inputRange: [0, 1, 2],
-    outputRange: ['#10132C', '#1d658dff', '#2ED459'], 
+    outputRange: ['#292A3D', '#1d658dff', '#2ED459'], 
   });
 
   return (

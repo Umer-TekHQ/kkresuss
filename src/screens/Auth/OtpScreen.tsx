@@ -78,7 +78,7 @@ export const OtpScreen = () => {
             onToggle={() => setAcceptTerms(!acceptTerms)}
             hasLink={true}
             prefixText="Accept the"
-            linkText="terms and conditions"
+            linkText="terms & conditions"
           />
 
               <CheckboxRow

@@ -18,7 +18,7 @@ const MySecurityScore = ({ score }: { score: number }) => {
               val <= score ? (
                 <LinearGradient
                   key={val}
-                  colors={['#F6C146', '#2B36E4']} // yellow to blue
+                  colors={['#F6C146', '#2B36E4']} 
                   style={styles.progressFilled}
                 />
               ) : (
@@ -63,12 +63,12 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontWeight: '600',
-    fontSize: 14,
+    fontSize: 15,
     top:-6,
   },
   scoreText: {
-    color: '#89A5FF',
-    fontSize: 12,
+    color: '#CEB55A',
+    fontSize: 15,
     marginTop: 4,
     right:20, // ye b dekhna 
     top:-6 //ye height of text check krni 

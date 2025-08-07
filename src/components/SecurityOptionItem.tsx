@@ -30,7 +30,7 @@ const SecurityOptionItem = ({
           <View style={styles.checkCircle}>
             <Image
               source={Images.tick}
-              style={[styles.tickImage, isActive && { tintColor: '#FFD600' }]}
+              style={[styles.tickImage, isActive && { tintColor: '#CEB55A' }]}
             />
           </View>
         </Pressable>
@@ -92,9 +92,9 @@ const styles = StyleSheet.create({
     width: 22,
     height: 22,
     borderRadius: 11,
-    backgroundColor: '#092758',
-    borderWidth: 2,
-    borderColor: '#407BFF',
+    backgroundColor: '#01021D',
+    borderWidth: 1,
+    borderColor: '#10178A',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
     resizeMode: 'contain',
-    tintColor: '#407BFF', // Default blue tick
+    tintColor: '#10178A', // Default blue tick
   },
   optionTitle: {
     flex: 1,
@@ -111,8 +111,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   forwardIcon: {
-    width: 10,
-    height: 10,
+    width: 13,
+    height: 13,
     resizeMode: 'contain',
    
   },
