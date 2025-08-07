@@ -63,23 +63,6 @@ const BackgroundStyles  = StyleSheet.create({
   paddingHorizontal: 24,
   transform: [{ translateY: -height * 0.05 }],
 },
-lostAccessContainer: {
-  position: 'absolute',
-  bottom: height * 0.05,  
-  alignSelf: 'center',
-  zIndex: 5,             
-  backgroundColor: 'transparent',
-  paddingVertical: 6,
-  paddingHorizontal: 12,
-},
-
-
-lostAccessText: {
-  color: 'white',
-  fontSize: 15,
-  opacity: 0.8,
-  fontWeight:'bold'
-},
 
 
 

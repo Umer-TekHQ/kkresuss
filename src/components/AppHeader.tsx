@@ -16,7 +16,7 @@ interface AppHeaderProps {
 }
 
 const { width } = Dimensions.get('window')
-const ICON_SIZE = width * 0.085
+const ICON_SIZE = width * 0.08 
 
 const AppHeader = ({ title, showClose = false, onBackPress }: AppHeaderProps) => {
    const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
