@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   Platform,
+  ToastAndroid 
 } from 'react-native'
 import Background from '../../components/Background'
 import AppInput from '../../components/AppInput'
@@ -19,6 +20,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { setEmail } from '../../store/slices/userSlice'
+import { userVerify } from '../../utils/api'
 
 
 const { height } = Dimensions.get('window')
@@ -97,9 +99,22 @@ const [isEmailValid, setIsEmailValid] = useState(false)
     navigation.navigate('Otp')
   }
 
+//api not working 
+// const handleContinue = async () => { 
+//   try {
+//     const result = await userVerify(emailText)
+//     console.log('Verification success:', result)
+//     dispatch(setEmail(emailText))
+//     navigation.navigate('Otp', { token: result.token })
+//   } 
+//   catch (error) {
+//     ToastAndroid.show('User does not exist', ToastAndroid.SHORT)
+//   }
+// }
+
   return (
     <View style={{ flex: 1 }}>
-      <Background showContent showLogo={false} hideBottomImages={keyboardVisible}>
+      <Background showContent showLogo={false} hideBottomImages={keyboardVisible} showLostAccess={!keyboardVisible}>
       
         <Animated.Image
           source={Images.logo}
@@ -119,7 +134,8 @@ const [isEmailValid, setIsEmailValid] = useState(false)
         <Animated.View
           style={[
             WelcomeStyles.content,
-            { transform: [{ translateY: inputTranslateY }] },
+            { transform: [{ translateY: inputTranslateY }], 
+            marginTop: 40,  },// qa  bug 2nd build
           ]}
         >
           {!keyboardVisible && (
@@ -129,7 +145,7 @@ const [isEmailValid, setIsEmailValid] = useState(false)
               <Text style={WelcomeStyles.subheading}>
                 Earn and Explore with heightened security.
               </Text>
-              <Text style={WelcomeStyles.caption}>Sign Up or Log In</Text>
+              <Text style={WelcomeStyles.caption}>Sign Up r Log In</Text>
             </>
           )}
 
@@ -171,18 +187,6 @@ const [isEmailValid, setIsEmailValid] = useState(false)
                 // disabled={!isEmailValid} 
           />
         )}
-
-        {!keyboardVisible && (
-  <TouchableOpacity
-    
-    style={WelcomeStyles.lostAccessContainer}
-    activeOpacity={0.8}
-  >
-    <Text style={WelcomeStyles.lostAccessText}>Lost access to email or phone?</Text>
-  </TouchableOpacity>
-)}
-
-
       </Background>
     </View>
   )

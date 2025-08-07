@@ -18,6 +18,7 @@
     "@react-navigation/native-stack": "^7.3.21",
     "@reduxjs/toolkit": "^2.8.2",
     "@svgdotjs/svg.js": "^3.2.4",
+    "axios": "^1.11.0",
     "d3": "^7.9.0",
     "navigation": "^6.3.0",
     "react": "19.1.0",
