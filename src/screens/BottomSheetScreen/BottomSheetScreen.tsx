@@ -27,7 +27,7 @@ export const BottomSheetScreen = ({navigation}: any) => {
                             <View style={styles.launch}>
                 <TouchableOpacity style={styles.launch}>
                     <Text style={{ color: 'white', fontSize: 16 }}>
-                    Launch <Image source={Images.launcharrow} style={styles.launchbtn}/>
+                    Launch <Image source={Images.backarrow} style={styles.launchbtn}/>
                     </Text>
                 </TouchableOpacity>
               </View>
@@ -55,6 +55,8 @@ const styles = StyleSheet.create({
     tintColor: 'white',
     
   },
+  launch:{},
+  launchbtn:{},
   backborder:{
     // backgroundColor: 'grey',
     // borderWidth: 1,

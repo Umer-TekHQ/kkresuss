@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import {Images} from '../assets/index'
-import Clipboard from '@react-native-clipboard/clipboard';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 

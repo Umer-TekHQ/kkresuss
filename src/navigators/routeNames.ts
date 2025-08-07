@@ -70,6 +70,7 @@ export type AppNavigatorParamList = {
       address: string;
       background: any;
       backgroundColor?: string;
+      value?: string;
     };
   };
   SearchScreen: {

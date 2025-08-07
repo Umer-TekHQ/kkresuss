@@ -45,7 +45,6 @@ const TransactionCompleteCard: React.FC<Props> = ({ name, image }) => {
         <Text style={styles.userLabel}>{rname || subtext || 'Unnamed'}</Text>
       </View>
 
-      {/* Token Info */}
       <View style={styles.tokenSection}>
         <View style={{ flex: 1 }}>
           <Text style={styles.tokenLabel}>Sent</Text>
