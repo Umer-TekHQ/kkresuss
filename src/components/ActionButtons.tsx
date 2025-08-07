@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: screenWidth * 0.04,
-    paddingHorizontal: screenWidth * 0.38,
+    paddingHorizontal: screenWidth * 0.04,
   },
   actionButton: {
     alignItems: 'center',
