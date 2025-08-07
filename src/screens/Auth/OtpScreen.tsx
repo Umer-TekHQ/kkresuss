@@ -9,13 +9,16 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useAppSelector } from '../../store/hooks'
+import { userCodeVerify } from '../../utils/api'
+
 
 const { width, height } = Dimensions.get('window')
 
 export const OtpScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
-  const route = useRoute<RouteProp<AppNavigatorParamList, 'Otp'>>()
-  
+ // const route = useRoute<RouteProp<AppNavigatorParamList, 'Otp'>>()
+ // const { token } = route.params
+
   const email = useAppSelector(state => state.user.email)
 
   const [acceptTerms, setAcceptTerms] = useState(false)
@@ -55,6 +58,17 @@ export const OtpScreen = () => {
           
             <OTPInputBox onStartTyping={() => setOtpStarted(true)} 
                onComplete={() => navigation.navigate('OtpSuccess')}
+                    // onComplete={async (code: string) => {
+                    //   try {
+                    //     const result = await userCodeVerify(code, token)
+                    //     console.log('OTP verified:', result)
+
+                    //     navigation.navigate('OtpSuccess') 
+                    //   } catch (err) {
+                    //     console.error('OTP verification failed:', err)
+                    //     // Optionally show alert or toast
+                    //   }
+                    // }}
              
               />
 

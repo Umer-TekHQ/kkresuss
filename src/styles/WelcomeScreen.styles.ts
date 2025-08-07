@@ -51,15 +51,4 @@ export default StyleSheet.create({
   height: 30,
   zIndex: 99,
 },
-  lostAccessContainer: {
-    position: 'absolute',
-    bottom: height * 0.028, 
-    alignSelf: 'center',
-    zIndex: 10,
-  },
-  lostAccessText: {
-    color: 'white',
-    fontSize: 15,
-    fontWeight:'semibold'
-  },
 })
