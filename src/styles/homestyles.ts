@@ -202,11 +202,11 @@ skeletonExploreCard: {
   earnBadge: {
     position: 'absolute',
     top: 10,
-    left: 10,
+    left: 8,
     zIndex: 1,
     backgroundColor: '#0e4cc7ff',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
     borderRadius: 8,
   },
   earnBadgeText: {
@@ -216,7 +216,7 @@ skeletonExploreCard: {
   },
   bannerImage: {
     width: '100%',
-    height: screenHeight * 0.28, // responsive height
+    height: screenHeight * 0.30, 
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
   },

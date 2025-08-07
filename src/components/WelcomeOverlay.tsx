@@ -18,7 +18,7 @@ interface Props {
 
 const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
   const containerWidth = width * 0.9;
-  const containerHeight = width * 1.3;
+  const containerHeight = width * 1.4;
   const bgtopWidth = width * 0.89;
   const bgtopHeight = width * 0.7;
   const bgbottomWidth = width * 0.9;
@@ -79,7 +79,7 @@ export default WelcomeOverlay;
 const styles = StyleSheet.create({
 overlay: {
   ...StyleSheet.absoluteFillObject,
-  backgroundColor: 'rgba(0, 0, 0, 0.6)', 
+  backgroundColor: 'rgba(0, 0, 0, 0.7)', 
   justifyContent: 'center',
   alignItems: 'center',
   zIndex: 999,
@@ -100,7 +100,6 @@ overlay: {
     borderBottomLeftRadius: 20,
     paddingHorizontal: 10,
     borderColor: "#131c91ff",
-    borderBottomWidth: 1,
     borderRightWidth: 1,
     borderLeftWidth: 1,
   },

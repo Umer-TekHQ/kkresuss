@@ -14,11 +14,11 @@ import { Images } from '../assets';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const CARD_WIDTH = 360;
-const CARD_HEIGHT = 100;
-const SPACING = 15;
+const CARD_WIDTH = screenWidth * 0.8; 
+const CARD_HEIGHT = screenWidth * 0.28; 
+const SPACING = screenWidth * 0.02;
 
-const data = [1, 2, 3]; 
+const data = [1, 2, 3];
 
 export default function IntroducingCards() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -37,17 +37,24 @@ export default function IntroducingCards() {
   const renderItem = () => (
     <View style={styles.card}>
       <View style={styles.content}>
-        <View>
         <Image
-          source={Images.vaulticon} 
+          source={Images.vaulticon}
           style={styles.icon}
           resizeMode="contain"
         />
-        </View>
-        <View style={{height: 100, width: 1, backgroundColor: '#464688ff',}}></View>
-        <View style={{ backgroundColor: '#080C4C', width: '87%', height: '92%', justifyContent: 'center',  borderTopRightRadius: 20, borderBottomRightRadius: 20,}}>
+        <View style={styles.divider} />
+        <View style={styles.textContainer}>
           <Text style={styles.title}>Introducing Kresus Pro</Text>
-          <Text style={styles.subtitle}>$10K in insurance and 350{'\n'}monthly gasless transactions</Text>
+          <View style={styles.subtitleRow}>
+            <Text style={styles.subtitle}>
+              $10K in insurance and 350{'\n'}monthly gasless transactions
+            </Text>
+            <Image
+              source={Images.back}
+              style={styles.iconintro}
+              resizeMode="contain"
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -64,7 +71,7 @@ export default function IntroducingCards() {
         pagingEnabled
         snapToInterval={CARD_WIDTH + SPACING}
         decelerationRate="fast"
-        contentContainerStyle={{ paddingHorizontal: (screenWidth - CARD_WIDTH) / 9 }}
+        contentContainerStyle={{ paddingHorizontal: SPACING }}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { x: scrollX } } }],
           { useNativeDriver: false }
@@ -90,18 +97,15 @@ export default function IntroducingCards() {
 
 const styles = StyleSheet.create({
   container: {
-    // marginTop: 10,
     marginBottom: 20,
     alignItems: 'center',
-
   },
   card: {
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
     backgroundColor: '#0D0C2B',
     borderRadius: 20,
-    marginHorizontal: SPACING / 40,
-    marginRight: 10,
+    marginRight: SPACING,
     justifyContent: 'center',
     paddingHorizontal: 15,
     borderWidth: 1,
@@ -112,21 +116,46 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    width: 40,
-    height: 40,
-    marginRight: 15,
+    width: screenWidth * 0.1,
+    height: screenWidth * 0.1,
+    marginRight: 10,
+  },
+  iconintro: {
+    width: screenWidth * 0.05,
+    height: screenWidth * 0.05,
+    marginLeft: 10,
+  },
+  divider: {
+    height: '80%',
+    width: 1,
+    backgroundColor: '#464688ff',
+    marginRight: 10,
+  },
+  textContainer: {
+    backgroundColor: '#080C4C',
+    flex: 1,
+    height: '92%',
+    justifyContent: 'center',
+    borderTopRightRadius: 20,
+    borderBottomRightRadius: 20,
+    paddingHorizontal: 10,
   },
   title: {
     color: 'white',
     fontWeight: '600',
     fontSize: 16,
-    marginBottom: 4,
-    marginLeft: 15,
+    marginBottom: 6,
+    marginLeft: 5,
+  },
+  subtitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 5,
   },
   subtitle: {
     color: '#B1B6CC',
     fontSize: 13,
-    marginLeft: 15,
+    flex: 1,
   },
   dotsContainer: {
     flexDirection: 'row',

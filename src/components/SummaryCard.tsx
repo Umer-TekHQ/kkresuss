@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions, StyleSheet} from 'react-native';
 import { LineChart } from 'react-native-gifted-charts';
 import { useState } from 'react';
+import LinearGradient from 'react-native-linear-gradient';
 
 type SummaryCardProps = {
   currency?: string;
@@ -42,7 +43,7 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
   const MAX_CARD_HEIGHT = 320; 
 const MIN_CARD_HEIGHT = 210; 
 
-const cardWidth = screenWidth * 0.86;
+const cardWidth = screenWidth * 0.85;
 let cardHeight = screenHeight * 0.31;
 if (cardHeight > MAX_CARD_HEIGHT) cardHeight = MAX_CARD_HEIGHT;
 if (cardHeight < MIN_CARD_HEIGHT) cardHeight = MIN_CARD_HEIGHT;
@@ -54,7 +55,7 @@ return (
       {
         height: cardHeight,
         width: cardWidth,
-        marginRight: screenWidth * 0.05,
+        marginRight: screenWidth * 0.039,
         padding: Math.min(0, cardHeight * 0.07), 
       },
     ]}
@@ -75,11 +76,11 @@ return (
         </View>
       </View>
 
-      <View style={{ marginTop: 10, marginBottom: 8, height: cardHeight * 0.23, width: '100%' }}>
+      <View style={{ marginTop: 10, height: cardHeight * 0.23, width: '100%' }}>
         <LineChart
           data={chartData}
-          width={cardWidth * 0.94}
-          height={cardHeight * 0.26}
+          width={cardWidth * 0.90}
+          height={cardHeight * 0.20}
           curved
           areaChart
           spacing={12}
@@ -103,6 +104,7 @@ return (
           adjustToWidth
         />
       </View>
+
 
       <View style={styles.timeFilterContainer}>
         {['1D', '1W', '1M', '1Y', 'ALL'].map((filter) => (
@@ -133,7 +135,7 @@ const styles = StyleSheet.create({
   timeFilterContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 10,
+    marginTop: 6,
     borderBottomWidth: 1,
     borderColor: '#0E1E83',
     paddingBottom: 8,
@@ -143,7 +145,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 8,
     borderRadius: 5,
-    // backgroundColor: '#1a1a3c',
   },
   activeTimeFilterButton: {
     backgroundColor: '#0E1E83',
