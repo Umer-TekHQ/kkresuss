@@ -22,6 +22,7 @@ export const OtpScreen = () => {
   const [keepUpdated, setKeepUpdated] = useState(false)
   const [otpStarted, setOtpStarted] = useState(false)
 
+
   return (
     <View style={{ flex: 1 }}>
       <Background showContent hideBottomImages={false} showLogo={false}>
@@ -37,7 +38,7 @@ export const OtpScreen = () => {
               activeOpacity={0.7}
               onPress={() => navigation.goBack()}
             >
-              <Image source={Images.backscreen} style={{ width: 30, height: 30 }} />
+              <Image source={Images.backscreen} style={{ position:'absolute',width: 35, height: 35, left:15, }} />
             </TouchableOpacity>
 
            
@@ -53,7 +54,8 @@ export const OtpScreen = () => {
 
           
             <OTPInputBox onStartTyping={() => setOtpStarted(true)} 
-              onComplete={() => navigation.navigate('OtpSuccess')}
+               onComplete={() => navigation.navigate('OtpSuccess')}
+             
               />
 
            
@@ -75,7 +77,9 @@ export const OtpScreen = () => {
            
           <CheckboxRow
             isChecked={acceptTerms}
-            onToggle={() => setAcceptTerms(!acceptTerms)}
+             onToggle={() => setAcceptTerms(!acceptTerms)} 
+
+
             hasLink={true}
             prefixText="Accept the"
             linkText="terms & conditions"
