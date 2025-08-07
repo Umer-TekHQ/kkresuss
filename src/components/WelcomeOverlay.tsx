@@ -22,7 +22,7 @@ const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
   const bgtopWidth = width * 0.89;
   const bgtopHeight = width * 0.7;
   const bgbottomWidth = width * 0.9;
-  const bgbottomHeight = width * 0.6;
+  const bgbottomHeight = width * 0.69;
 
   return (
     <View style={styles.overlay}>

@@ -7,16 +7,15 @@ import {
   Dimensions,
   Image,
   Animated,
-  TouchableOpacity,
   ViewToken,
 } from 'react-native';
 import { Images } from '../assets';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const CARD_WIDTH = screenWidth * 0.8; 
-const CARD_HEIGHT = screenWidth * 0.28; 
-const SPACING = screenWidth * 0.02;
+const CARD_WIDTH = screenWidth * 0.84;
+const CARD_HEIGHT = screenWidth * 0.26; 
+const SPACING = screenWidth * 0.05;
 
 const data = [1, 2, 3];
 
@@ -107,7 +106,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginRight: SPACING,
     justifyContent: 'center',
-    paddingHorizontal: 15,
+    paddingHorizontal: 5,
     borderWidth: 1,
     borderColor: '#464688ff',
   },
@@ -124,9 +123,10 @@ const styles = StyleSheet.create({
     width: screenWidth * 0.05,
     height: screenWidth * 0.05,
     marginLeft: 10,
+    marginBottom: 20,
   },
   divider: {
-    height: '80%',
+    height: '100%',
     width: 1,
     backgroundColor: '#464688ff',
     marginRight: 10,
@@ -134,11 +134,11 @@ const styles = StyleSheet.create({
   textContainer: {
     backgroundColor: '#080C4C',
     flex: 1,
-    height: '92%',
+    height: '100%',
     justifyContent: 'center',
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
   },
   title: {
     color: 'white',
@@ -162,8 +162,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   dot: {
-    width: 8,
-    height: 8,
+    width: 6,
+    height: 6,
     borderRadius: 4,
     marginHorizontal: 5,
   },
