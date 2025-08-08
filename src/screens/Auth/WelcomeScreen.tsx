@@ -99,7 +99,8 @@ const [isEmailValid, setIsEmailValid] = useState(false)
     navigation.navigate('Otp')
   }
 
-//api not working 
+//server off rightnow
+
 // const handleContinue = async () => { 
 //   try {
 //     const result = await userVerify(emailText)
@@ -107,10 +108,11 @@ const [isEmailValid, setIsEmailValid] = useState(false)
 //     dispatch(setEmail(emailText))
 //     navigation.navigate('Otp', { token: result.token })
 //   } 
-//   catch (error) {
-//     ToastAndroid.show('User does not exist', ToastAndroid.SHORT)
-//   }
+//   catch (error: any) {
+//   const msg = error?.response?.data?.message || 'User not found';
+//   ToastAndroid.show(msg, ToastAndroid.SHORT);
 // }
+//}
 
   return (
     <View style={{ flex: 1 }}>
@@ -145,7 +147,7 @@ const [isEmailValid, setIsEmailValid] = useState(false)
               <Text style={WelcomeStyles.subheading}>
                 Earn and Explore with heightened security.
               </Text>
-              <Text style={WelcomeStyles.caption}>Sign Up r Log In</Text>
+              <Text style={WelcomeStyles.caption}>Sign Up or Log In</Text>
             </>
           )}
 
@@ -184,7 +186,7 @@ const [isEmailValid, setIsEmailValid] = useState(false)
           <AppButton
             label="Continue"
             onPress={handleContinue}
-                // disabled={!isEmailValid} 
+            // disabled={!isEmailValid} 
           />
         )}
       </Background>

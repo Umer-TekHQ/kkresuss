@@ -111,10 +111,11 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   forwardIcon: {
-    width: 13,
-    height: 13,
+    width: 14,
+    height: 14,
     resizeMode: 'contain',
-   
+   tintColor:'#0734A9',
+  
   },
   proBadge: {
     width: 40,

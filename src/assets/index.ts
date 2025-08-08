@@ -120,5 +120,6 @@ buyerlogo:require('./images/buyerlogo.png'),
 basecardlogo: require('./images/basecardlogo.png'),
 basebg: require('./images/basecardbg.png'),
 hamburger:require('./images/hamburger.png'),
-hamburgerbg:require('./images/hamburger.png')
+hamburgerbg:require('./images/hamburger.png'),
+questionmark:require('./images/questionmark.png')
 }
