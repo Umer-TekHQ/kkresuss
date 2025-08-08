@@ -53,7 +53,7 @@ const handleItemPress = (route?: keyof AppNavigatorParamList) => {
         showsVerticalScrollIndicator={false}
       />
 
-      <TouchableOpacity onPress={() => navigation.navigate('BottomNavigator')}>
+      <TouchableOpacity >
           <Text style={styles.delete}>Delete Account</Text>
       </TouchableOpacity>
 
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   itemSubtitle: {
-    color: '#A6A6C3',
+    color: '#ADD2FD',
     fontSize: 13,
     marginTop: 2,
   },
