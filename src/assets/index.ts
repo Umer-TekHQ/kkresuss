@@ -122,5 +122,7 @@ basecardlogo: require('./images/basecardlogo.png'),
 // tradecompletion: require('./images/tradecomplete.png'),
 basebg: require('./images/basecardbg.png'),
 hamburger:require('./images/hamburger.png'),
-hamburgerbg:require('./images/hamburger.png')
+hamburgerbg:require('./images/hamburger.png'),
+slb: require('./images/slb.png'),
+profileheadlogo: require('./images/profileheadlogo.png'),
 }

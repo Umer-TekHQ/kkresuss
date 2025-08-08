@@ -99,8 +99,7 @@ export const HomeScreen: React.FC = () => {
                   </View>
                 )}
                 showsHorizontalScrollIndicator={false}
-                // contentContainerStyle={{ paddingHorizontal: 5 }}
-                ItemSeparatorComponent={() => <View style={{ width: 16 }} />}
+                ItemSeparatorComponent={() => <View style={{ width: 28 }} />}
               />
               <IntroducingCards />
               <Text style={styles.prostext}>Projects to Try</Text>

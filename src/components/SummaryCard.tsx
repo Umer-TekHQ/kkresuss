@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Dimensions, StyleSheet} from 'react-native';
 import { LineChart } from 'react-native-gifted-charts';
 import { useState } from 'react';
-import LinearGradient from 'react-native-linear-gradient';
 
 type SummaryCardProps = {
   currency?: string;
@@ -40,10 +39,10 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
 
   const chartData = graphDataMap[activeFilter].map((value) => ({ value }));
 
-  const MAX_CARD_HEIGHT = 320; 
+const MAX_CARD_HEIGHT = 320; 
 const MIN_CARD_HEIGHT = 210; 
 
-const cardWidth = screenWidth * 0.85;
+const cardWidth = screenWidth * 0.87;
 let cardHeight = screenHeight * 0.31;
 if (cardHeight > MAX_CARD_HEIGHT) cardHeight = MAX_CARD_HEIGHT;
 if (cardHeight < MIN_CARD_HEIGHT) cardHeight = MIN_CARD_HEIGHT;
@@ -55,7 +54,7 @@ return (
       {
         height: cardHeight,
         width: cardWidth,
-        marginRight: screenWidth * 0.039,
+        marginRight: screenWidth * 0.04,
         padding: Math.min(0, cardHeight * 0.07), 
       },
     ]}

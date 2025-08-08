@@ -29,7 +29,7 @@ import { ProfileBottom } from '../screens/Profile/ProfileBottomSheet';
 import { useAppSelector } from '../store/hooks';
 import SwipeToSend from './SwipeButton';
 import SwipeButton from './SwipeButton';
-
+import LinearGradient from 'react-native-linear-gradient';
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -57,7 +57,7 @@ const TRANSLATE_Y_CONFIG = {
   profile: {
     initial: -SCREEN_HEIGHT / 10,
     min: -SCREEN_HEIGHT / 10,
-    max: -SCREEN_HEIGHT / 2,
+    max: -SCREEN_HEIGHT / 2.5,
   },
   profilebottom: {
     initial: -SCREEN_HEIGHT / 1.8,
@@ -177,7 +177,6 @@ export interface BottomSheetUnifiedRef {
 
   const responsiveHomeHeadMargin = Math.max(5, SCREEN_WIDTH * 0.012);
   const responsiveHomeNumbersMargin = Math.max(30, SCREEN_WIDTH * 0.18);
-  const responsiveProfileHeadMargin = Math.max(5, SCREEN_WIDTH * 0.012);
 
   const isAtMax = useDerivedValue(() => {
     return (
@@ -222,15 +221,22 @@ export interface BottomSheetUnifiedRef {
                   <Image source={Images.bottomhead} style={styles.headimg} />
                   <Text style={styles.heading}>My Security Score</Text>
                   <Text style={[styles.numbers, { marginLeft: responsiveHomeNumbersMargin }]}>1/5</Text>
+                  <View>
                   <Animated.Image
                     source={isAtMax.value ? Images.down : Images.up}
                     style={styles.upimg}
                   />
+                  </View>
                 </View>
 
                 <View style={styles.linner}>
-                  <View style={styles.line1} />
-                  {[...Array(4)].map((_, i) => (
+                          <LinearGradient
+                            colors={['#2B36E4', '#CEB55B']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
+                            style={styles.line1}
+                          />
+                  {[...Array(3)].map((_, i) => (
                     <View key={i} style={styles.line} />
                   ))}
                 </View>
@@ -311,22 +317,41 @@ export interface BottomSheetUnifiedRef {
           )}
 
           {screen === 'profile' && (
-            <View>
-              <View style={[styles.head, { marginHorizontal: responsiveProfileHeadMargin }]}>
-                <Image source={Images.pbottom} style={styles.headimg} />
-                <Text style={styles.headingP}>Supported Networks</Text>
-                <Animated.Image
-                  source={isAtMax.value ? Images.downarroww : Images.up}
-                  style={styles.upimgP}
-                />
+            <View style={{ flex: 1 }}>
+              <View style={styles.head}>
+                {!isAtMax.value && (
+                  <Image source={Images.profileheadlogo} style={styles.headimgP} />
+                )}
+                <Text
+                  style={[
+                    styles.headingP,
+                    isAtMax.value && { marginLeft: 0 }, 
+                  ]}
+                >
+                  Supported Networks
+                </Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'flex-end',
+                    flex: 1,
+                    marginRight: SCREEN_WIDTH * 0.04,
+                  }}
+                >
+                  <Animated.Image
+                    source={isAtMax.value ? Images.downarrow : Images.up}
+                    style={styles.upimgP}
+                  />
+                </View>
               </View>
               <View style={styles.l1}>
-                <Image source={Images.base} />
+                <Image source={Images.base} style={styles.solanalogo} />
                 <Text style={styles.l1text}> Base Network</Text>
                 <Text style={styles.l12text}>Crypto and NFTs</Text>
               </View>
               <View style={styles.l12}>
-                <Image source={Images.solanalogo} style={styles.solanalogo} />
+                <Image source={Images.slb} style={styles.solanalogo} />
                 <Text style={styles.l1text}> Solana Network</Text>
                 <Text style={styles.l121text}>Crypto only</Text>
               </View>
@@ -562,7 +587,7 @@ const styles = StyleSheet.create({
     width: 55,
     height: 4,
     marginLeft: 4,
-    backgroundColor: 'grey',
+    backgroundColor: '#10132C',
     alignSelf: 'center',
     marginVertical: 15,
     // marginRight: 10,
@@ -615,7 +640,7 @@ const styles = StyleSheet.create({
   //   borderRadius: 2,
   // },
   line1: {
-    width: 100,
+    width: SCREEN_WIDTH * 0.42,
     height: 4,
     backgroundColor: 'gold',
     alignSelf: 'center',
@@ -623,9 +648,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
   },
   head: {
+    display: 'flex',
     flexDirection: 'row',
-    marginVertical: 15,
-    marginHorizontal: 5,
+    marginVertical: 12,
+    // justifyContent: 'space-between',
     textAlign: 'center',
     alignItems: 'center',
     },
@@ -634,9 +660,17 @@ const styles = StyleSheet.create({
     padding: 12,
     // marginBottom: 15,
     marginLeft: 15,
-    // marginTop: 5,
+    width: SCREEN_WIDTH * 0.062,
+    height: SCREEN_WIDTH * 0.07,
+    marginTop: 7,
     // marginTop: 2,
     // tintColor: 'gold',
+  },
+  headimgP:{
+    padding: 12,
+    marginLeft: 15,
+    width: SCREEN_WIDTH * 0.09,
+    height: SCREEN_WIDTH * 0.07,
   },
   heading: {
     color: '#ffffff',
@@ -662,8 +696,9 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 15,
     fontWeight: '600',
-    marginTop: 6,
-    marginLeft: 20,
+    marginTop: 2,
+    marginLeft: 15,
+    // marginLeft: SCREEN_WIDTH * 0.04,
   },
   headingTB:{
     color: '#2ED459',
@@ -686,13 +721,18 @@ const styles = StyleSheet.create({
     color: 'gold',
   },
   upimg: {
-    marginLeft: 15,
+    marginLeft: SCREEN_WIDTH * 0.06,
+    marginTop: 5,
+    // width: SCREEN_WIDTH * 0.07,
+    // height: SCREEN_HEIGHT * 0.04,
   },
   upimgP:{
-    marginLeft: 130,
-    width: 30,
-    height: 35,
-    tintColor: 'lightblue'
+    // marginRight: SCREEN_WIDTH * 0.08,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    width: SCREEN_WIDTH * 0.05,
+    height: SCREEN_HEIGHT * 0.01,
+    tintColor: '#ADD2FD'
   },
   TBlogo: {
     marginLeft: 150,
@@ -802,8 +842,8 @@ const styles = StyleSheet.create({
   },
   l1:{
     flexDirection:'row',
-    marginTop: 10,
-    marginLeft: 20,
+    // marginTop: 10,
+    // marginLeft: 20,
     // borderTopWidth: 0.5,
     // // borderBottomWidth: 0.5,
     // borderColor: 'lightblue',
@@ -811,8 +851,8 @@ const styles = StyleSheet.create({
   },
   l12:{
     flexDirection:'row',
-    marginTop: 10,
-    marginLeft: 22,
+    // marginTop: 10,
+    // marginLeft: 22,
     borderTopWidth: 0.5,
     borderBottomWidth: 0.5,
     borderColor: 'lightblue',
@@ -824,24 +864,25 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   l12text:{
-    color: 'lightblue',
+    color: '#ADD2FD',
     marginTop: 2,
-    marginLeft: 85,
+    marginLeft: SCREEN_WIDTH * 0.3,
     fontSize: 15,
   },
   l121text:{
-    color: 'lightblue',
+    color: '#ADD2FD',
     marginTop: 2,
-    marginLeft: 110,
+    marginLeft: SCREEN_WIDTH * 0.35,
     fontSize: 15,
   },
   solanalogo:{
-    width: 20,
-    height: 20,
+    width: 30,
+    height: 30,
   },
   bottomtext:{
-    color: 'lightblue',
-    marginHorizontal: 25,
+    color: '#ADD2FD',
+    fontSize: 15,
+    // marginHorizontal: 25,
     marginTop: 15,
   },
   LMBtn:{
@@ -850,8 +891,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 20,
     borderRadius: 15,
-    borderColor: 'lightblue',
-    borderWidth: 1,
+    borderColor: '#4898F3',
+    borderWidth: 1.5,
     marginTop: 15,
   },
   tokenInputContainer: {
