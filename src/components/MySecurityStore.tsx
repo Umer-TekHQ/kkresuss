@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   progressEmpty: {
     flex: 1,
     height: 4,
-    backgroundColor: '#25345E',
+    backgroundColor: '#01032C',
     borderRadius: 2,
    
   },

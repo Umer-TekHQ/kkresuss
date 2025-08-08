@@ -186,7 +186,7 @@ const [isEmailValid, setIsEmailValid] = useState(false)
           <AppButton
             label="Continue"
             onPress={handleContinue}
-            // disabled={!isEmailValid} 
+            disabled={!isEmailValid} 
           />
         )}
       </Background>
