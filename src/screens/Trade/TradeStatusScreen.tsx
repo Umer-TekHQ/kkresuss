@@ -120,8 +120,18 @@ const TradeStatusScreen = ({navigation, route}: any) => {
         usd="$0.01 USD" 
       />
       <Card label="Network Fees" value={`${displayAmount2} ${displayToken2.abbreviation}`}  usd="$0.01 USD" strike />
-      <Card label="Transaction ID" value="a32c...6dg4" />
-
+      <Card 
+        label="Transaction ID" 
+        value={
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ color: 'white' }}>a32c...6dg4</Text>
+            <Image
+              source={Images.copy}
+              style={{ width: 18, height: 18, marginLeft: 8 }}
+            />
+          </View>
+        }
+      />
     <View style={{alignItems: 'center'}}>
       <TouchableOpacity style={styles.bottombutton}>
         <Text style={styles.bottombtn}>View Details on BaseScan</Text>

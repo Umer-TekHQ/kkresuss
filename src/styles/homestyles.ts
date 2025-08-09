@@ -119,18 +119,17 @@ export default StyleSheet.create({
   },
   buyersSellersContainer: {
     flexDirection: 'row',
-    height: 1,
+    height: 2,
     borderRadius: 4,
     overflow: 'hidden',
     backgroundColor: '#333',
   },
   buyersBar: {
     backgroundColor: '#56f3a7ff',
-    height: 5,
+    marginRight: 4,
   },
   sellersBar: {
     backgroundColor: '#FF4D4D',
-    height: 5,
   },
   BSpercent: {
     flexDirection: 'row',
@@ -202,11 +201,11 @@ skeletonExploreCard: {
   earnBadge: {
     position: 'absolute',
     top: 10,
-    left: 10,
+    left: 8,
     zIndex: 1,
     backgroundColor: '#0e4cc7ff',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
     borderRadius: 8,
   },
   earnBadgeText: {
@@ -216,7 +215,7 @@ skeletonExploreCard: {
   },
   bannerImage: {
     width: '100%',
-    height: screenHeight * 0.28, // responsive height
+    height: screenHeight * 0.30, 
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
   },
@@ -563,7 +562,7 @@ cryptoChangeNegative: {
   container: {
     flex: 1,
     backgroundColor: '#01021C',
-    padding: 5
+    // paddingHorizontal: 5,
   },
   content: {
     padding: 10,

@@ -9,8 +9,6 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useAppSelector } from '../../store/hooks'
-import { userCodeVerify } from '../../utils/api'
-
 
 const { width, height } = Dimensions.get('window')
 

@@ -100,7 +100,7 @@ const CardDeck = () => {
                   { translateY: withSpring(isTop ? 0 : -65) },
                   { scale: withSpring(isTop ? 1 : 0.98) },
                 ],
-                opacity: withSpring(isTop ? 1 : 0.85),
+                opacity: withSpring(isTop ? 1 : 1),
               };
             }, [topCardIndex]);
 
@@ -123,7 +123,7 @@ const CardDeck = () => {
 
 
   const AVATAR_SIZE = screenWidth * 0.19;
-  const ICON_SIZE = screenWidth * 0.04;
+  const ICON_SIZE = screenWidth * 0.038;
   const NAME_FONT = screenWidth * 0.048;
   const USERNAME_FONT = screenWidth * 0.04;
   const UPGRADE_FONT = screenWidth * 0.037;
@@ -172,20 +172,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
     paddingTop: 20,
-    paddingHorizontal: Math.max(10, screenWidth * 0.02), // Responsive horizontal padding
+    paddingHorizontal: Math.max(10, screenWidth * 0.02), 
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   icon: {
-    width: 20,
-    height: 20,
+    width: 10,
+    height: 10,
   },
   editText: {
     color: '#fff',
     marginRight: 10,
-    marginTop: 15,
+    marginTop: 6,
   },
   profileSection: {
     alignItems: 'center',

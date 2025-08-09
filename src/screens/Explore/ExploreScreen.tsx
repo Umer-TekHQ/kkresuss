@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   StatusBar,
+  Dimensions
 } from 'react-native';
 import styles from '../../styles/homestyles';
 import { Images } from '../../assets';
@@ -15,6 +16,8 @@ import { ExploreCard } from '../../components/ExploreCards';
 import { exploreSections } from '../../mock/exploreData';
 import { HeaderNav } from '../../components/HeaderNav';
 
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export const ExploreScreen: React.FC = ({ navigation }: any) => {
   const [loading, setLoading] = useState(true);
@@ -26,6 +29,10 @@ export const ExploreScreen: React.FC = ({ navigation }: any) => {
 
     return () => clearTimeout(timer);
   }, []);
+  const titleFontSize = Math.max(28, Math.min(40, screenWidth * 0.09));
+  const titleWidth = Math.max(120, Math.min(180, screenWidth * 0.38));
+  const cardRowMarginTop = Math.max(10, Math.min(24, screenHeight * 0.02));
+  const sectionTitleFontSize = Math.max(16, Math.min(22, screenWidth * 0.055));
 
   return (
     <View style={styles.container}>

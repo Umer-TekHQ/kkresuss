@@ -7,7 +7,6 @@ import {
   Image,
   TouchableOpacity,
   Platform,
-  ToastAndroid 
 } from 'react-native'
 import Background from '../../components/Background'
 import AppInput from '../../components/AppInput'
@@ -20,7 +19,6 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { setEmail } from '../../store/slices/userSlice'
-import { userVerify } from '../../utils/api'
 
 
 const { height } = Dimensions.get('window')
@@ -116,7 +114,7 @@ const [isEmailValid, setIsEmailValid] = useState(false)
 
   return (
     <View style={{ flex: 1 }}>
-      <Background showContent showLogo={false} hideBottomImages={keyboardVisible} showLostAccess={!keyboardVisible}>
+      <Background showContent showLogo={false} hideBottomImages={keyboardVisible}>
       
         <Animated.Image
           source={Images.logo}
@@ -136,8 +134,7 @@ const [isEmailValid, setIsEmailValid] = useState(false)
         <Animated.View
           style={[
             WelcomeStyles.content,
-            { transform: [{ translateY: inputTranslateY }], 
-            marginTop: 40,  },// qa  bug 2nd build
+            { transform: [{ translateY: inputTranslateY }] },
           ]}
         >
           {!keyboardVisible && (
@@ -189,6 +186,18 @@ const [isEmailValid, setIsEmailValid] = useState(false)
             disabled={!isEmailValid} 
           />
         )}
+
+        {!keyboardVisible && (
+  <TouchableOpacity
+    
+    style={WelcomeStyles.lostAccessContainer}
+    activeOpacity={0.8}
+  >
+    <Text style={WelcomeStyles.lostAccessText}>Lost access to email or phone?</Text>
+  </TouchableOpacity>
+)}
+
+
       </Background>
     </View>
   )

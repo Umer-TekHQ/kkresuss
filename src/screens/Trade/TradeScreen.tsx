@@ -22,6 +22,7 @@ import { useSharedValue, withSpring } from 'react-native-reanimated';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setToken1, setToken2, setAmount1, setAmount2, toggleUSD } from '../../store/slices/tradeSlice';
 
+
 export const TradeScreen = () => {
   const dispatch = useAppDispatch();
   const { token1, token2, amount1, amount2, isUSD } = useAppSelector((state) => state.trade);
@@ -127,8 +128,10 @@ export const TradeScreen = () => {
           />
         </View>
       ) : (
-        <Text style={[styles.placeholderText, hasError && styles.errorText]}>Select Token</Text>
-      )}
+        <View style={{justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
+        <Text style={[styles.placeholderText, hasError && styles.errorText]}>Select Token </Text>
+          <Image source={Images.downarrow} style={styles.downfieldarrow}/>
+        </View>      )}
       {hasError && <Text style={styles.errorMessage}>This field is required</Text>}
     </TouchableOpacity>
   );
@@ -220,7 +223,7 @@ const styles = StyleSheet.create({
   container: { 
     flex: 1, 
     backgroundColor: '#01021D', 
-    padding: 20 
+    // paddingHorizontal: 5,
   },
   headerRow: { 
     flexDirection: 'row', 
@@ -281,9 +284,19 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   downarrow: {
-    width: 12,
-    height: 18,
+    width: 20,
+    height: 25,
     marginLeft: 15,
+    tintColor: '#0734A9'
+  },
+  downarrowtoken: {
+    width: 17,
+    height: 12,
+    marginLeft: 15,
+  },
+  downfieldarrow:{
+    width: 17,
+    height: 12,
   },
   receiveLabel: {
     fontSize: 22,

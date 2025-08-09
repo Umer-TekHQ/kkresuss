@@ -47,7 +47,7 @@ export type AppNavigatorParamList = {
   Splash: undefined
   Welcome: undefined
   Home: undefined
-  Otp:  { token: string } | undefined
+  Otp: undefined
   OtpSuccess: undefined
   BottomNavigator: {
     screen?: string;
@@ -70,6 +70,7 @@ export type AppNavigatorParamList = {
       address: string;
       background: any;
       backgroundColor?: string;
+      value?: string;
     };
   };
   SearchScreen: {
