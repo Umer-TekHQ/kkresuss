@@ -46,7 +46,6 @@ const SecurityScreen = () => {
 
       <FlatList
         data={securityOptions} 
-       
        renderItem={({ item }: { item: SecurityOption }) => (
   <SecurityOptionItem
     item={item}
@@ -62,10 +61,12 @@ const SecurityScreen = () => {
         contentContainerStyle={{ paddingHorizontal: 20 }}
         ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
       />
-
+      <View style={styles.seedPhrase}>
+      <Image source={Images.questionmark}  />
       <TouchableOpacity style={styles.whyText}>
         <Text style={styles.whyQuestion}>Why no seed phrases?</Text>
       </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -81,12 +82,21 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   whyText: {
-    marginTop: 30,
+    marginTop: 0,
     alignItems: 'center',
+    justifyContent:'center',
+    
   },
   whyQuestion: {
-    color: '#A6A6C3',
-    fontSize: 12,
-    bottom: 10,
+    color: '#FFFFFF',
+    fontSize: 15,
+  
   },
+  seedPhrase:{
+    flexDirection:'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 8,
+    bottom:10,
+  }
 })

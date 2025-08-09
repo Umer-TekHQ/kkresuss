@@ -26,8 +26,8 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
   buyersPercentage = 40,
   sellersPercentage = 60,
 }) => {
-  const cardWidth = screenWidth * 0.86;
-  const gap = cardWidth * 0.15;
+  const cardWidth = screenWidth * 0.87;
+  const gap = cardWidth * 0.10;
 
   return (
     <View style={[styles.marketActivityCard, { width: cardWidth }]}>

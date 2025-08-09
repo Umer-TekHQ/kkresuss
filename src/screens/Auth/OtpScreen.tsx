@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {View,Text,StyleSheet,TouchableOpacity,Image,Dimensions,KeyboardAvoidingView,Platform,ScrollView} from 'react-native'
+import {View,Text,StyleSheet,TouchableOpacity,Image,Dimensions,KeyboardAvoidingView,Platform,ScrollView,ToastAndroid} from 'react-native'
 import Background from '../../components/Background'
 import OTPInputBox from '../../components/OTPInputBox'
 import CheckboxRow from '../../components/CheckboxRow'
@@ -14,8 +14,9 @@ const { width, height } = Dimensions.get('window')
 
 export const OtpScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
-  const route = useRoute<RouteProp<AppNavigatorParamList, 'Otp'>>()
-  
+ //const route = useRoute<RouteProp<AppNavigatorParamList, 'Otp'>>()
+ //const token = route?.params?.token
+
   const email = useAppSelector(state => state.user.email)
 
   const [acceptTerms, setAcceptTerms] = useState(false)
@@ -55,7 +56,22 @@ export const OtpScreen = () => {
           
             <OTPInputBox onStartTyping={() => setOtpStarted(true)} 
                onComplete={() => navigation.navigate('OtpSuccess')}
-             
+                //               onComplete={async (code: string) => {
+                //   try {
+                //     const result = await userCodeVerify(code, token);
+
+                //     // ✅ Check API response
+                //     if (!result?.success) {
+                //       ToastAndroid.show(result?.message || 'Wrong OTP', ToastAndroid.SHORT);
+                //       return;
+                //     }
+                //     console.log('OTP verified:', result);
+                //     navigation.navigate('OtpSuccess');
+                //   } catch (error: any) {
+                //     const msg = typeof error === 'string' ? error : 'Something went wrong';
+                //     ToastAndroid.show(msg, ToastAndroid.SHORT);
+                //   }
+                // }}
               />
 
            

@@ -118,7 +118,12 @@ warning:require('./images/warning.png'),
 sellerlogo:require('./images/sellerlogo.png'),
 buyerlogo:require('./images/buyerlogo.png'),
 basecardlogo: require('./images/basecardlogo.png'),
+// launcharrow: require('./images/launcharrow.png'),
+// tradecompletion: require('./images/tradecomplete.png'),
 basebg: require('./images/basecardbg.png'),
 hamburger:require('./images/hamburger.png'),
-hamburgerbg:require('./images/hamburger.png')
+hamburgerbg:require('./images/hamburger.png'),
+slb: require('./images/slb.png'),
+profileheadlogo: require('./images/profileheadlogo.png'),
+questionmark:require('./images/questionmark.png')
 }

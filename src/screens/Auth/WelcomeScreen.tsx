@@ -97,6 +97,21 @@ const [isEmailValid, setIsEmailValid] = useState(false)
     navigation.navigate('Otp')
   }
 
+//server off rightnow
+
+// const handleContinue = async () => { 
+//   try {
+//     const result = await userVerify(emailText)
+//     console.log('Verification success:', result)
+//     dispatch(setEmail(emailText))
+//     navigation.navigate('Otp', { token: result.token })
+//   } 
+//   catch (error: any) {
+//   const msg = error?.response?.data?.message || 'User not found';
+//   ToastAndroid.show(msg, ToastAndroid.SHORT);
+// }
+//}
+
   return (
     <View style={{ flex: 1 }}>
       <Background showContent showLogo={false} hideBottomImages={keyboardVisible}>
@@ -168,7 +183,7 @@ const [isEmailValid, setIsEmailValid] = useState(false)
           <AppButton
             label="Continue"
             onPress={handleContinue}
-                // disabled={!isEmailValid} 
+            disabled={!isEmailValid} 
           />
         )}
 
