@@ -20,6 +20,7 @@ const RecoveryAnd2FAScreen = () => {
   return (
     <View style={styles.container}>
       <AppHeader title="Recovery and 2FA" />
+      <View style={styles.subcontainer}>
  <View style={styles.dividertwo} />
       <View style={styles.section}>
         <Text style={styles.label}>Email</Text>
@@ -63,11 +64,8 @@ const RecoveryAnd2FAScreen = () => {
            
             <SecondaryButton label="+ Add" />
       </View>
-
-
-
-
-    </View>
+      </View>
+      </View>
   )
 }
 
@@ -78,7 +76,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#010D2A',
-    paddingHorizontal: 18,
+  },
+  subcontainer:{
+ paddingHorizontal: 18,
   },
   section: {
     marginTop: 20,

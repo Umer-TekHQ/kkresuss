@@ -24,8 +24,7 @@ const AssetDetailScreen = () => {
   }, []);
 
   if (loading) {
-    // return <SkeletonLoader variant="asset-detail" />
-    return<AssetDetailSkeleton />
+    return<AssetDetailSkeleton data={mockAssetData} onBack={() => navigation.goBack()} />
   }
 
   return (

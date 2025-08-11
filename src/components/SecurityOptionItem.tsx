@@ -11,7 +11,9 @@ interface Props {
   onToggleTick: () => void
   biometricsEnabled: boolean
   setBiometricsEnabled: (val: boolean) => void
-  onNavigate?: (route: keyof AppNavigatorParamList) => void // 
+  onNavigate?: (route: keyof AppNavigatorParamList) => void 
+   totalItems: number
+     index: number
 }
 
 const SecurityOptionItem = ({
@@ -20,7 +22,10 @@ const SecurityOptionItem = ({
   onToggleTick,
   biometricsEnabled,
   setBiometricsEnabled,
-  onNavigate
+  onNavigate,
+totalItems,
+index
+
 }: Props) => {
   return (
     <View>
@@ -72,7 +77,11 @@ const SecurityOptionItem = ({
       </View>
 
   
-      <View style={styles.divider} />
+  {index !== totalItems - 1 &&(
+  <View style={[styles.divider,
+  { marginLeft: styles.checkCircle.width + styles.leftCheck.marginRight }
+]} />
+)}
     </View>
   )
 }
@@ -125,9 +134,11 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 1,
-    backgroundColor: '#1B2A52',
+    backgroundColor: '#030A74',
     marginTop: 10,
     marginBottom: 5,
+    
+   //  marginLeft: 34,
   },
 })
 

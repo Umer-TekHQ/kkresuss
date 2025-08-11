@@ -1,21 +1,23 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions,Image,TouchableOpacity,Text } from 'react-native';
 import { Images } from '../assets';
+
 
 const { width } = Dimensions.get('window');
 
-const AssetDetailSkeleton = () => {
+const AssetDetailSkeleton = ({ data, onBack }: { data: any, onBack?: () => void }) => {
   return (
     <View style={styles.container}>
-
-
-      <View style={styles.priceHeader}>
+  <View style={styles.priceHeader}>
  
-  <View style={styles.topBar}>
-    <View style={styles.backButton} />
-    <View style={styles.titleBlock} />
+ <View style={styles.topBar}>
+    <TouchableOpacity onPress={onBack} style={styles.backButtonReal}>
+      <Image source={Images.backscreen} style={styles.backIcon} />
+    </TouchableOpacity>
+    <Text style={styles.titleReal}>{data.name}</Text>
   </View>
 
+ 
   <View style={styles.priceBox}>
     <View style={styles.priceLarge} />
     <View style={styles.priceChangeRow}>
@@ -148,7 +150,7 @@ export default AssetDetailSkeleton;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#010D2A',
+    backgroundColor: '#01021D',
     padding: 16,
   },
 priceHeader: {
@@ -161,34 +163,18 @@ topBar: {
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
-  marginBottom: 12,
+ marginBottom: 12,
   position: 'relative',
 },
-
-backButton: {
-  position: 'absolute',
-  left: 0,
-  width: 24,
-  height: 24,
-  backgroundColor: '#192655',
-  borderRadius: 4,
-},
-
-titleBlock: {
-  width: 100,
-  height: 20,
-  backgroundColor: '#192655',
-  borderRadius: 4,
-},
-
 priceBox: {
   alignItems: 'center',
 },
 
 priceLarge: {
+  marginTop:58,
   width: 160,
   height: 50,
-  backgroundColor: '#192655',
+  backgroundColor: '#030A74',
   borderRadius: 6,
   marginBottom: 8,
 },
@@ -201,14 +187,14 @@ priceChangeRow: {
 priceChange: {
   width: 60,
   height: 16,
-  backgroundColor: '#192655',
+  backgroundColor: '#030A74',
   borderRadius: 4,
 },
 
 timeBlock: {
   width: 80,
   height: 16,
-  backgroundColor: '#192655',
+  backgroundColor: '#030A74',
   borderRadius: 4,
 },
 
@@ -223,12 +209,13 @@ timeBlock: {
     marginBottom: 24,
   },
   positionCard: {
-    backgroundColor: '#112244',
+    backgroundColor: '#01032C',
     padding: 16,
     borderRadius: 12,
+    //borderTopColor:'#020B8B'
   },
 chartBox: {
-  backgroundColor: '#112244',
+// backgroundColor: '#112244',
   borderRadius: 12,
   marginBottom: 16,
   paddingVertical: 12,
@@ -238,26 +225,27 @@ chartBox: {
 chartLineArea: {
   height: 150,
   borderRadius: 10,
-  backgroundColor: '#192655',
+  backgroundColor: '#030A74',
   marginBottom: 12,
 },
 
 filterButton: {
-  width: 40,
-  height: 20,
-  backgroundColor: '#192655',
+  marginTop:42,
+  width: 25,
+  height: 25,
+  backgroundColor: '#030A74',
   borderRadius: 4,
 },
 
 divider: {
   height: 1,
   backgroundColor: '#334466',
-  marginVertical: 10,
+  marginVertical: 5,
 },
 
 progressBar: {
   flexDirection: 'row',
-  height: 3,
+  height: 8,
   borderRadius: 4,
   overflow: 'hidden',
   backgroundColor: '#222',
@@ -265,12 +253,12 @@ progressBar: {
 },
 
 greenBarSkeleton: {
-  backgroundColor: '#192655',
+  backgroundColor: '#030A74',
   width: '76%', 
 },
 
 redBarSkeleton: {
-  backgroundColor: '#192655',
+  backgroundColor: '#030A74',
   width: '24%', 
 },
 
@@ -290,21 +278,21 @@ chartRowItem: {
 iconBox: {
   width: 16,
   height: 16,
-  borderRadius: 4,
-  backgroundColor: '#192655',
+  borderRadius: 12,
+  backgroundColor: '#030A74',
 },
 
 labelBox: {
   width: 70,
   height: 12,
   borderRadius: 4,
-  backgroundColor: '#192655',
+  backgroundColor: '#030A74',
 },
 
 actionButton: {
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundColor: '#112244',
+// backgroundColor: '#112244',
   borderRadius: 12,
   paddingVertical: 12,
   paddingHorizontal: 10,
@@ -312,10 +300,10 @@ actionButton: {
 },
 
 actionIconPlaceholder: {
-  width: 28,
-  height: 28,
-  borderRadius: 14,
-  backgroundColor: '#192655',
+  width: 38,
+  height: 38,
+  borderRadius: 22,
+  backgroundColor: '#030A74',
   marginBottom: 6,
 },
 
@@ -323,7 +311,7 @@ actionTextPlaceholder: {
   width: 30,
   height: 10,
   borderRadius: 4,
-  backgroundColor: '#192655',
+  backgroundColor: '#030A74',
 },
 
 cardHeaderRow: {
@@ -335,31 +323,31 @@ cardHeaderRow: {
 cardTitleSkeleton: {
   width: 100,
   height: 16,
-  backgroundColor: '#192655',
+ backgroundColor: '#030B8C',
   borderRadius: 4,
 },
 cardIconSkeleton: {
   width: 20,
   height: 20,
-  backgroundColor: '#192655',
+  backgroundColor: '#030B8C',
   borderRadius: 4,
 },
 labelSkeleton: {
   width: 60,
   height: 12,
-  backgroundColor: '#192655',
+  backgroundColor: '#030B8C',
   borderRadius: 4,
 },
 valueSkeleton: {
   width: 80,
   height: 18,
-  backgroundColor: '#192655',
+  backgroundColor: '#030B8C',
   borderRadius: 6,
 },
 metricLabelSkeleton: {
   width: 70,
   height: 10,
-  backgroundColor: '#192655',
+  backgroundColor: '#030B8C',
   borderRadius: 4,
 },
 greenTextSkeleton: {
@@ -379,7 +367,7 @@ redTextSkeleton: {
 lightValueSkeleton: {
   width: 80,
   height: 12,
-  backgroundColor: '#192655',
+   backgroundColor: '#192655',
   borderRadius: 4,
   marginTop: 4,
 },
@@ -405,10 +393,31 @@ iconSmallSkeleton: {
     padding: 10,
     borderRadius: 12,
     backgroundColor: '#1A1A2E',
+   //backgroundColor:'red'
   },
   iconRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
   },
+
+
+backButtonReal: {
+  position: 'absolute',
+  left: 0,
+},
+titleReal: {
+  color: 'white',
+  fontSize: 18,
+  fontWeight: '600',
+},
+backIcon: {
+  width: 24,
+  height: 24,
+  resizeMode: 'contain',
+}
+
+
+
+
 });

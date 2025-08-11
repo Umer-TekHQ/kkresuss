@@ -1,13 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import {
-  View,
-  Text,
-  Animated,
-  Keyboard,
-  Image,
-  TouchableOpacity,
-  Platform,
-} from 'react-native'
+import { View, Text, Animated, Keyboard, Image, TouchableOpacity, Platform,} from 'react-native'
 import Background from '../../components/Background'
 import AppInput from '../../components/AppInput'
 import WelcomeStyles from '../../styles/WelcomeScreen.styles'

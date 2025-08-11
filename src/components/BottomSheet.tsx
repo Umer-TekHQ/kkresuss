@@ -480,7 +480,7 @@ export interface BottomSheetUnifiedRef {
             <Text style={styles.headingAV}>Why Add Advanced Verification?</Text>
             <Text style={styles.bottomparaAV}>
               Separate from the biometrics used by your phone, adding advanced verification{' '}
-              <Text style={{ fontStyle: 'italic' }}>ensures an additional layer of protection</Text> when recovering your
+              <Text>ensures an additional layer of protection</Text> when recovering your
               Kresus wallet, transferring to a new device, or updating sensitive security settings.
             </Text>
             <View style={styles.tipBox}>
