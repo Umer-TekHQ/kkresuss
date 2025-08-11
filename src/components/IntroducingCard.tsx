@@ -13,7 +13,7 @@ import { Images } from '../assets';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const CARD_WIDTH = screenWidth * 0.84;
+const CARD_WIDTH = screenWidth * 0.87;
 const CARD_HEIGHT = screenWidth * 0.26; 
 const SPACING = screenWidth * 0.05;
 
@@ -36,12 +36,14 @@ export default function IntroducingCards() {
   const renderItem = () => (
     <View style={styles.card}>
       <View style={styles.content}>
+        <View style={styles.iconcontainer}>
         <Image
           source={Images.vaulticon}
           style={styles.icon}
           resizeMode="contain"
         />
-        <View style={styles.divider} />
+        </View>
+        {/* <View style={styles.divider} /> */}
         <View style={styles.textContainer}>
           <Text style={styles.title}>Introducing Kresus Pro</Text>
           <View style={styles.subtitleRow}>
@@ -85,9 +87,9 @@ export default function IntroducingCards() {
             key={i}
             style={[
               styles.dot,
-              { backgroundColor: i === currentIndex ? '#3C6FF8' : '#888DA7' },
+              { backgroundColor: i === currentIndex ? '#888DA7' : '#3C6FF8' },
             ]}
-          />
+          />              
         ))}
       </View>
     </View>
@@ -98,43 +100,47 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: 20,
     alignItems: 'center',
-  },
+    },
   card: {
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
-    backgroundColor: '#0D0C2B',
+    backgroundColor: '#080C4C',
     borderRadius: 20,
     marginRight: SPACING,
-    justifyContent: 'center',
-    paddingHorizontal: 5,
-    borderWidth: 1,
-    borderColor: '#464688ff',
+    borderWidth: 1.5,
+    borderColor: '#080C4C',
   },
   content: {
     flexDirection: 'row',
+  },
+  iconcontainer: {
+    width: screenWidth * 0.22,
+    height: screenWidth * 0.25,
+    justifyContent: 'center',
     alignItems: 'center',
+    // marginLeft: 10,
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
+    marginRight: 10,
+    backgroundColor: '#10132C',
   },
   icon: {
     width: screenWidth * 0.1,
     height: screenWidth * 0.1,
     marginRight: 10,
+    marginLeft: 10,
   },
   iconintro: {
     width: screenWidth * 0.05,
     height: screenWidth * 0.05,
-    marginLeft: 10,
     marginBottom: 20,
-  },
-  divider: {
-    height: '100%',
-    width: 1,
-    backgroundColor: '#464688ff',
-    marginRight: 10,
+    tintColor: '#086DE1',
   },
   textContainer: {
-    backgroundColor: '#080C4C',
+    // backgroundColor: '#080C4C',
     flex: 1,
     height: '100%',
+    width: '100%',
     justifyContent: 'center',
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
@@ -162,8 +168,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   dot: {
-    width: 6,
-    height: 6,
+    width: 5,
+    height: 5,
     borderRadius: 4,
     marginHorizontal: 5,
   },

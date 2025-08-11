@@ -34,7 +34,7 @@ const OverlayBackground: React.FC<Props> = ({
 
   return (
     <LinearGradient
-      colors={['#080C4C', '#0E1799']}
+      colors={['#031B7E', '#031B7E']}
       locations={[0, 1]}
       style={backgroundStyle}
     >
@@ -70,6 +70,7 @@ const OverlayBackground: React.FC<Props> = ({
         </View>
       )}
       {children && <View style={styles.childrenContainer}>{children}</View>}
+      <View/>
     </LinearGradient>
   );
 };
@@ -100,20 +101,21 @@ const styles = StyleSheet.create({
   },
   waves: {
     width: '100%',
-    height: 30,
+    height: 60,
   },
   land1: {
     position: 'absolute',
     bottom: 10,
     left: 0,
-    height: 60,
-    width: 60,
+    height: 155,
+    width: 180,
+    tintColor: '#161f6fff',
   },
   land2: {
     position: 'absolute',
     bottom: 10,
     right: 0,
-    height: 60,
-    width: 60,
+    height: 150,
+    width: 280,
   },
 });

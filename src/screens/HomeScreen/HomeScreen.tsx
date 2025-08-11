@@ -94,14 +94,18 @@ export const HomeScreen: React.FC = () => {
                 pagingEnabled
                 keyExtractor={(item, index) => `market-${index}`}
                 renderItem={() => (
-                  <View style={{ width: screenWidth * 0.84, height: screenWidth * 0.54 }}>
+                  <View style={{ width: screenWidth * 0.83, height: screenWidth * 0.45 }}>
                     <MarketActivityCard />
                   </View>
                 )}
                 showsHorizontalScrollIndicator={false}
-                ItemSeparatorComponent={() => <View style={{ width: 28 }} />}
+                snapToAlignment="center"
+                ItemSeparatorComponent={() => <View style={{ width: 25 }} />}
               />
-              <IntroducingCards />
+              <View>
+                  <IntroducingCards />
+              </View>
+              
               <Text style={styles.prostext}>Projects to Try</Text>
               <Projects />
               <ProjectsList />

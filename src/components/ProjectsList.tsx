@@ -28,7 +28,7 @@ export const ProjectsList: React.FC = () => {
   );
 
   return (
-        <FlatList
+      <FlatList
        data={projects}
        renderItem={renderItem}
        keyExtractor={(item) => item.id}
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     // backgroundColor: '#111132',
-    borderTopWidth: 0.5,
+    borderBottomWidth: 0.5,
     borderColor: '#1b57cf',
     // borderRadius: 10,
     padding: 12,
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 15,
-    borderColor: 'lightblue',
+    borderColor: '#4898F3',
     borderWidth: 1.5,
   },
   buttonText: {

@@ -18,11 +18,11 @@ interface Props {
 
 const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
   const containerWidth = width * 0.9;
-  const containerHeight = width * 1.25;
+  const containerHeight = width * 1.35;
   const bgtopWidth = width * 0.89;
   const bgtopHeight = width * 0.7;
   const bgbottomWidth = width * 0.9;
-  const bgbottomHeight = width * 0.69;
+  const bgbottomHeight = width * 0.6;
 
   return (
     <View style={styles.overlay}>
@@ -98,7 +98,7 @@ overlay: {
     alignItems: 'center',
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 26,
     borderColor: "#131c91ff",
     borderRightWidth: 1.5,
     borderLeftWidth: 1.5,
@@ -114,6 +114,7 @@ overlay: {
     top: 12,
     right: 12,
     zIndex: 10,
+    backgroundColor: 'transparent',
   },
   logo: {
     height: 90,
@@ -131,9 +132,10 @@ overlay: {
   primaryButton: {
     flexDirection: 'row',
     backgroundColor: '#ffffff',
+    textAlign: 'center',
     borderRadius: 32,
-    paddingVertical: 12,
-    paddingHorizontal: 24,
+    paddingVertical: 10,
+    paddingHorizontal: 11,
     width: '100%',
     alignItems: 'center',
     marginBottom: 10,
@@ -142,22 +144,24 @@ overlay: {
   primaryText: {
     color: '#0A0E27',
     fontWeight: 'bold',
+    textAlign: 'center',
     marginLeft: 75,
+    fontSize: 15,
   },
   secondaryButton: {
     flexDirection: 'row',
     borderRadius: 32,
-    paddingVertical: 14,
-    paddingHorizontal: 24,
+    paddingVertical: 10,
+    paddingHorizontal: 11,
     width: '100%',
     alignItems: 'center',
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: '#5875f5ff',
+    borderColor: '#4898F3',
   },
   secondaryText: {
     color: '#fff',
-    fontSize: 13,
+    fontSize: 15,
     marginLeft: 50,
   },
   secondaryText1: {
@@ -167,16 +171,16 @@ overlay: {
   laterText: {
     color: 'white',
     marginTop: 8,
-    fontSize: 14,
+    fontSize: 15,
   },
   icons: {
-    width: 36,
+    width: 34,
     height: 24,
     marginRight: 10,
   },
   icons1:{
     width: 24,
-    height: 25,
+    height: 24,
     marginRight: 10,
   }
 });

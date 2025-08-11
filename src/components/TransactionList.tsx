@@ -1,6 +1,5 @@
 //not using it right now 
 
-
 import React from 'react';
 import {
   View,

@@ -158,10 +158,12 @@ const styles = StyleSheet.create({
   },
   summaryCard: {
     borderTopWidth: 1.5,
+    borderRightWidth:1,
+    borderLeftWidth: 1,
     marginTop: 10,
     borderColor: '#0E1E83',
     backgroundColor: '#080C4C',
-    borderRadius: 16,
+    borderRadius: 25,
     padding: 10,
     marginBottom: 8,
   },

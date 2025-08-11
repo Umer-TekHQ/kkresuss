@@ -42,7 +42,7 @@ const TRANSLATE_Y_CONFIG = {
   home: {
     initial: -SCREEN_HEIGHT / 6.7,
     min: -SCREEN_HEIGHT / 6.7,
-    max: -SCREEN_HEIGHT / 1.5,
+    max: -SCREEN_HEIGHT / 1.7,
   },
   explore: {
     initial: -SCREEN_HEIGHT / 1.6,
@@ -274,7 +274,7 @@ export interface BottomSheetUnifiedRef {
                   ))}
                 </View>
 
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Settings')}>
                   <View style={styles.btnsty}>
                     <Image source={Images.secure} style={styles.secure} />
                     <Text style={styles.btntext}>Manage In Settings</Text>

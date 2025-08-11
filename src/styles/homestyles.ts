@@ -237,18 +237,18 @@ skeletonExploreCard: {
   },
   title: {
     color: 'white',
-    fontWeight: '600',
-    fontSize: 14,
+    fontSize: 19,
+    width: screenWidth * 0.4,
   },
   subtitle: {
-    color: '#A0A8BC',
-    fontSize: 12,
+    color: '#ADD2FD',
+    fontSize: 13,
     marginTop: 2,
   },
   launchButton: {
     backgroundColor: 'white',
     paddingHorizontal: 14,
-    paddingVertical: 6,
+    paddingVertical: 8,
     borderRadius: 20,
   },
   launchButtonText: {
@@ -469,6 +469,7 @@ prosicon:{
   height: screenHeight * 0.05,
   width: screenWidth * 0.08,
   marginBottom: screenHeight * 0.012,
+  marginRight: screenWidth * 0.05,
 },
   cryptoSummaryCard: {
   backgroundColor: '#101038',
@@ -562,18 +563,19 @@ cryptoChangeNegative: {
   container: {
     flex: 1,
     backgroundColor: '#01021C',
-    // paddingHorizontal: 5,
+    // paddingLeft: 5,
   },
   content: {
     padding: 10,
     paddingBottom: 80, 
+    paddingLeft: 15,
+
   },
     header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    // paddingHorizontal: 5,
-    paddingVertical: 8,
+    padding: 20,
     // borderBottomWidth: 1,
     // borderBottomColor: '#1a1a2e',
     position: 'relative'
