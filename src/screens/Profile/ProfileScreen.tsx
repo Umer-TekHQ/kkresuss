@@ -57,7 +57,7 @@ export const ProfileScreen = () => {
       title: 'Base Wallet Address',
       address: 'dDCQNn...c7c8',
       background: Images.basebg, 
-      backgroundColor: '#000', 
+      backgroundColor: '#020105ff', 
     },
   ];
 
@@ -97,8 +97,8 @@ const CardDeck = () => {
                 position: 'absolute',
                 zIndex: isTop ? 2 : 1,
                 transform: [
-                  { translateY: withSpring(isTop ? 0 : -65) },
-                  { scale: withSpring(isTop ? 1 : 0.98) },
+                  { translateY: withSpring(isTop ? 0 : -75) },
+                  { scale: withSpring(isTop ? 0.96 : 0.97) },
                 ],
                 opacity: withSpring(isTop ? 1 : 1),
               };
@@ -123,7 +123,7 @@ const CardDeck = () => {
 
 
   const AVATAR_SIZE = screenWidth * 0.19;
-  const ICON_SIZE = screenWidth * 0.038;
+  const ICON_SIZE = screenWidth * 0.035;
   const NAME_FONT = screenWidth * 0.048;
   const USERNAME_FONT = screenWidth * 0.04;
   const UPGRADE_FONT = screenWidth * 0.037;
@@ -158,7 +158,7 @@ const CardDeck = () => {
         </TouchableOpacity>
       </View>
 
-      <View style={{ marginTop: CARDS_MARGIN_TOP }}>
+      <View style={{ marginTop: CARDS_MARGIN_TOP,}}>
         <CardDeck />
       </View>
 
@@ -172,14 +172,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
     paddingTop: 20,
-    paddingHorizontal: Math.max(10, screenWidth * 0.02), 
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   icon: {
-    width: 10,
+    width: 8,
     height: 10,
   },
   editText: {

@@ -5,11 +5,11 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  Dimensions,
   ImageBackground,
   Modal,
   Platform
 } from 'react-native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { GestureDetector, Gesture, TextInput } from 'react-native-gesture-handler';
 import { forwardRef, useImperativeHandle } from 'react';
 import Animated,
@@ -20,18 +20,21 @@ import Animated,
   withTiming,
   Easing,
   useDerivedValue,
+  withClamp,
+  withDelay,
+  interpolate,Extrapolate,
+  useAnimatedReaction,
+  runOnJS
 } from 'react-native-reanimated';
 import { Images } from '../assets';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { AppNavigatorParamList } from '../navigators/routeNames'
-import { ProfileBottom } from '../screens/Profile/ProfileBottomSheet';
 import { useAppSelector } from '../store/hooks';
-import SwipeToSend from './SwipeButton';
 import SwipeButton from './SwipeButton';
 import LinearGradient from 'react-native-linear-gradient';
+import BackgroundDim from './BackgroundDim';
 
-const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 
 interface Props {
   translateY: Animated.SharedValue<number>;
@@ -40,45 +43,45 @@ interface Props {
 
 const TRANSLATE_Y_CONFIG = {
   home: {
-    initial: -SCREEN_HEIGHT / 6.7,
-    min: -SCREEN_HEIGHT / 6.7,
-    max: -SCREEN_HEIGHT / 1.7,
+    initial: -hp('16.93%'),
+    min: -hp('16.93%'),
+    max: -hp('70.67%'),
   },
   explore: {
-    initial: -SCREEN_HEIGHT / 1.6,
-    min: -SCREEN_HEIGHT / 1.6,
-    max: -SCREEN_HEIGHT,
+    initial: -hp('62.50%'),
+    min: -hp('62.50%'),
+    max: -hp('100%'),
   },
   pro: {
-    initial: -SCREEN_HEIGHT / 1.8,
-    min: -SCREEN_HEIGHT / 1.8,
-    max: -SCREEN_HEIGHT,
+    initial: -hp('55.56%'),
+    min: -hp('55.56%'),
+    max: -hp('100%'),
   },
   profile: {
-    initial: -SCREEN_HEIGHT / 10,
-    min: -SCREEN_HEIGHT / 10,
-    max: -SCREEN_HEIGHT / 2.5,
+    initial: -hp('9%'),
+    min: -hp('10%'),
+    max: -hp('50%'),
   },
   profilebottom: {
-    initial: -SCREEN_HEIGHT / 1.8,
-    min: -SCREEN_HEIGHT / 1.8,
-    max: -SCREEN_HEIGHT,
+    initial: -hp('55.56%'),
+    min: -hp('55.56%'),
+    max: -hp('100%'),
   },
     trade: {
-    initial: -SCREEN_HEIGHT / 10,
-    min: -SCREEN_HEIGHT / 10,
-    max: -SCREEN_HEIGHT / 1.35,
+    initial: -hp('10%'),
+    min: -hp('10%'),
+    max: -hp('74.07%'),
   },
 todaysReturn: {
   
-   initial: -SCREEN_HEIGHT / 1.8,
-    min: -SCREEN_HEIGHT / 1.8,
-    max: -SCREEN_HEIGHT,
+   initial: -hp('55.56%'),
+    min: -hp('55.56%'),
+    max: -hp('100%'),
 },
 AdvanceVerification:{
-    initial: -SCREEN_HEIGHT / 1.8,
-    min: -SCREEN_HEIGHT / 1.8,
-    max: -SCREEN_HEIGHT,
+    initial: -hp('55.56%'),
+    min: -hp('55.56%'),
+    max: -hp('100%'),
 }
 
 
@@ -88,7 +91,7 @@ const screenStyles = {
   home: { backgroundColor: '#030A74' },
   explore: { backgroundColor: '#010217' },
   pro: { backgroundColor: '#01032C' },
-  profile: { backgroundColor: '#010217' },
+  profile: { backgroundColor: '#05051C' },
   profilebottom: { backgroundColor: '#010217' },
   trade: {backgroundColor: '#01032C'},
   todaysReturn: { backgroundColor: '#01021D' },
@@ -105,6 +108,9 @@ export interface BottomSheetUnifiedRef {
 ) => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
   const context = useSharedValue({ y: 0 });
+  const MAX_TRANSLATE_Y = TRANSLATE_Y_CONFIG.home.max;
+  const START_TRANSLATE_Y = TRANSLATE_Y_CONFIG.home.initial;
+
   
   const { token1, token2, amount1, amount2 } = useAppSelector(state => state.trade);
   
@@ -123,7 +129,28 @@ export interface BottomSheetUnifiedRef {
       mass: 0.8,
     });
   };
-  
+  const dimOpacity = useSharedValue(0);
+
+  const dimStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translateY.value,
+      [MAX_TRANSLATE_Y, START_TRANSLATE_Y],
+      [0.5, 0],
+      Extrapolate.CLAMP
+    );
+    dimOpacity.value = opacity; 
+    return { opacity };
+  });
+
+  const [blockingPointerEvents, setBlockingPointerEvents] = React.useState(false);
+
+  useAnimatedReaction(
+    () => dimOpacity.value,
+    (currentOpacity) => {
+      runOnJS(setBlockingPointerEvents)(currentOpacity > 0);
+    }
+  );
+
   useImperativeHandle(ref, () => ({
     openSheet,
     closeSheet
@@ -162,7 +189,7 @@ export interface BottomSheetUnifiedRef {
     });
 
   useEffect(() => {
-    if (translateY.value === 0 || translateY.value === SCREEN_HEIGHT) {
+    if (translateY.value === 0 || translateY.value === hp('100%')) {
       translateY.value = withSpring(TRANSLATE_Y_CONFIG[screen].initial, { 
         damping: 15,
         stiffness: 80,
@@ -175,37 +202,51 @@ export interface BottomSheetUnifiedRef {
     transform: [{ translateY: translateY.value }],
   }));
 
-  const responsiveHomeHeadMargin = Math.max(5, SCREEN_WIDTH * 0.012);
-  const responsiveHomeNumbersMargin = Math.max(30, SCREEN_WIDTH * 0.18);
+  const responsiveHomeHeadMargin = Math.max(0.5, wp('0.5%'));
+  const responsiveHomeNumbersMargin = Math.max(30, wp('18%'));
+  const responsiveProfileHeadMargin = Math.max(5, wp('1%'));
+
 
   const isAtMax = useDerivedValue(() => {
-    return (
-      (screen === 'home' && translateY.value === TRANSLATE_Y_CONFIG.home.max) ||
-      (screen === 'profile' && translateY.value === TRANSLATE_Y_CONFIG.profile.max)
-    );
+    return translateY.value === TRANSLATE_Y_CONFIG[screen].max;
   });
+  const logoAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: withTiming(isAtMax.value ? 0 : 1, ),
+  }));
+  const LOGO_WIDTH = 45; 
+  const LOGO_MARGIN = 8; 
+  const headingAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      {
+        translateX: withSpring(isAtMax.value ? -(LOGO_WIDTH + LOGO_MARGIN) : 0, {
+        }),
+      },
+    ],
+  }));
 
   const showDimBackground = useDerivedValue(() =>
   screen === 'trade' && translateY.value === TRANSLATE_Y_CONFIG.trade.max
 );
 
+  const arrowStyle = useAnimatedStyle(() => {
+    const { min, max } = TRANSLATE_Y_CONFIG[screen];
+    const range = max - min;
+    const progress = Math.max(0, Math.min(1, (translateY.value - min) / range));
+    const rotateDeg = progress * 180; 
+    return { transform: [{ rotate: `${rotateDeg}deg` }] };
+  });
+  
   return (
     <>
-      {showDimBackground.value && (
-        <View
-          pointerEvents="box-none"
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: SCREEN_WIDTH,
-            height: SCREEN_HEIGHT,
-            backgroundColor: Platform.OS === 'ios'
-              ? 'rgba(0,0,0,0.7)'
-              : 'rgba(0,0,0,0.7)',
-            zIndex: 999,
-          }}
-        />
+      <Animated.View
+        style={[
+          StyleSheet.absoluteFillObject,
+          { backgroundColor: 'black' },
+          dimStyle,
+        ]}
+      />
+      {blockingPointerEvents && (
+        <View style={[StyleSheet.absoluteFillObject]} pointerEvents="auto" />
       )}
       <GestureDetector gesture={gesture}>
         <Animated.View style={[
@@ -217,25 +258,24 @@ export interface BottomSheetUnifiedRef {
           {screen === 'home' && (
             <>
               <TouchableOpacity activeOpacity={1} onPress={openSheet}>
+                <View style={styles.linehome} />
                 <View style={[styles.head, { marginHorizontal: responsiveHomeHeadMargin }]}>
                   <Image source={Images.bottomhead} style={styles.headimg} />
                   <Text style={styles.heading}>My Security Score</Text>
                   <Text style={[styles.numbers, { marginLeft: responsiveHomeNumbersMargin }]}>1/5</Text>
-                  <View>
                   <Animated.Image
-                    source={isAtMax.value ? Images.down : Images.up}
-                    style={styles.upimg}
+                    source={Images.up}
+                    style={[styles.upimg, arrowStyle]}
                   />
-                  </View>
                 </View>
 
                 <View style={styles.linner}>
-                          <LinearGradient
-                            colors={['#2B36E4', '#CEB55B']}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 0 }}
-                            style={styles.line1}
-                          />
+                  <LinearGradient
+                    colors={['#2B36E4', '#CEB55B']} 
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={styles.line1}
+                  />
                   {[...Array(3)].map((_, i) => (
                     <View key={i} style={styles.line} />
                   ))}
@@ -250,6 +290,7 @@ export interface BottomSheetUnifiedRef {
                     'Email Verification',
                   ].map((item, i) => (
                     <View style={styles.list} key={i}>
+                      <TouchableOpacity>
                       <View style={styles.L1}>
                         <Image
                           source={i < 3 ? Images.checked : Images.checked1}
@@ -270,6 +311,7 @@ export interface BottomSheetUnifiedRef {
                           />
                         )}
                       </View>
+                      </TouchableOpacity>
                     </View>
                   ))}
                 </View>
@@ -317,41 +359,26 @@ export interface BottomSheetUnifiedRef {
           )}
 
           {screen === 'profile' && (
-            <View style={{ flex: 1 }}>
-              <View style={styles.head}>
-                {!isAtMax.value && (
-                  <Image source={Images.profileheadlogo} style={styles.headimgP} />
-                )}
-                <Text
-                  style={[
-                    styles.headingP,
-                    isAtMax.value && { marginLeft: 0 }, 
-                  ]}
-                >
+            <View>
+              <View style={[styles.head, { marginHorizontal: responsiveProfileHeadMargin }]}>
+                <Animated.Image
+                  source={Images.profileheadlogo}
+                  style={[styles.headimgP, logoAnimatedStyle]}
+                />
+
+                <Animated.Text style={[styles.headingP, headingAnimatedStyle]}>
                   Supported Networks
-                </Text>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'flex-end',
-                    flex: 1,
-                    marginRight: SCREEN_WIDTH * 0.04,
-                  }}
-                >
-                  <Animated.Image
-                    source={isAtMax.value ? Images.downarrow : Images.up}
-                    style={styles.upimgP}
-                  />
-                </View>
+                </Animated.Text>
+
+                <Animated.Image source={Images.up} style={[styles.upimgP, arrowStyle]} />
               </View>
               <View style={styles.l1}>
-                <Image source={Images.base} style={styles.solanalogo} />
+                <Image source={Images.base} />
                 <Text style={styles.l1text}> Base Network</Text>
                 <Text style={styles.l12text}>Crypto and NFTs</Text>
               </View>
               <View style={styles.l12}>
-                <Image source={Images.slb} style={styles.solanalogo} />
+                <Image source={Images.solanalogo} style={styles.solanalogo} />
                 <Text style={styles.l1text}> Solana Network</Text>
                 <Text style={styles.l121text}>Crypto only</Text>
               </View>
@@ -502,11 +529,11 @@ export interface BottomSheetUnifiedRef {
 
 const styles = StyleSheet.create({
   container: {
-    height: SCREEN_HEIGHT,
-    width: SCREEN_WIDTH,
+    height: hp('100%'),
+    width: wp('100%'),
     backgroundColor: '#030A74',
     position: 'absolute',
-    top: SCREEN_HEIGHT,
+    top: hp('100%'),
     borderRadius: 15,
   },
   bgcolorprofile:{
@@ -517,7 +544,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   input1:{
-    // backgroundColor: 'white',
     width: '80%',
     height: 50,
     borderRadius: 10,
@@ -573,14 +599,12 @@ const styles = StyleSheet.create({
   },
   tipText: {
     fontSize: 16,
-    // color: '#ADD2FD',
     color: "#fff",
     lineHeight: 20,
     marginLeft: 27,
   },
   linner:{
     flexDirection: 'row',
-    // justifyContent: 'space-between',
     marginHorizontal: 10,
   },
   line: {
@@ -590,7 +614,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#10132C',
     alignSelf: 'center',
     marginVertical: 15,
-    // marginRight: 10,
+    marginHorizontal: 8,
+    borderRadius: 2,
+  },
+  linehome:{
+    width: 55,
+    height: 4,
+    marginLeft: 4,
+    backgroundColor: '#0734A9',
+    alignSelf: 'center',
+    // marginVertical: 15,
+    marginTop:5,
     marginHorizontal: 8,
     borderRadius: 2,
   },
@@ -601,7 +635,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#030A74',
     alignSelf: 'center',
     marginTop: 15,
-    // marginRight: 10,
     marginHorizontal: 8,
     borderRadius: 2,
   },
@@ -612,7 +645,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#030A74',
     alignSelf: 'center',
     marginTop: 15,
-    // marginRight: 10,
     marginHorizontal: 8,
     borderRadius: 2,
   },
@@ -631,47 +663,36 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     borderRadius: 2,
   },
-  // PBline:{
-  //   width: 50,
-  //   height: 4,
-  //   backgroundColor: '#030A74',
-  //   alignSelf: 'center',
-  //   marginVertical: 15,
-  //   borderRadius: 2,
-  // },
+
   line1: {
-    width: SCREEN_WIDTH * 0.42,
+    width: 120,
     height: 4,
-    backgroundColor: 'gold',
     alignSelf: 'center',
+    backgroundColor: 'gold',
     borderRadius: 2,
     marginHorizontal: 4,
   },
   head: {
-    display: 'flex',
     flexDirection: 'row',
-    marginVertical: 12,
-    // justifyContent: 'space-between',
+    // marginVertical: 12,
+    // marginHorizontal: 15,
+    marginTop: 5,
+    marginBottom: 7,
     textAlign: 'center',
     alignItems: 'center',
     },
   headimg: {
-    // fontSize: 25,
-    padding: 12,
-    // marginBottom: 15,
-    marginLeft: 15,
-    width: SCREEN_WIDTH * 0.062,
-    height: SCREEN_WIDTH * 0.07,
-    marginTop: 7,
-    // marginTop: 2,
-    // tintColor: 'gold',
-  },
-  headimgP:{
     padding: 12,
     marginLeft: 15,
-    width: SCREEN_WIDTH * 0.09,
-    height: SCREEN_WIDTH * 0.07,
   },
+  headimgP: {
+  padding: wp('3%'), 
+  marginTop: 5,
+  marginLeft: wp('4%'),
+  width: wp('9%'),
+  height: hp('5%'),
+  resizeMode: 'contain'
+},
   heading: {
     color: '#ffffff',
     fontSize: 18,
@@ -682,7 +703,6 @@ const styles = StyleSheet.create({
   headingAV:{
     color: '#ffffff',
     fontSize: 32,
-    // fontWeight: '600',
     marginTop: 20,
     marginLeft: 20,
   },
@@ -696,9 +716,8 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 15,
     fontWeight: '600',
-    marginTop: 2,
-    marginLeft: 15,
-    // marginLeft: SCREEN_WIDTH * 0.04,
+    marginTop: 6,
+    marginLeft: 20,
   },
   headingTB:{
     color: '#2ED459',
@@ -721,18 +740,15 @@ const styles = StyleSheet.create({
     color: 'gold',
   },
   upimg: {
-    marginLeft: SCREEN_WIDTH * 0.06,
+    marginLeft: 15,
     marginTop: 5,
-    // width: SCREEN_WIDTH * 0.07,
-    // height: SCREEN_HEIGHT * 0.04,
   },
   upimgP:{
-    // marginRight: SCREEN_WIDTH * 0.08,
-    display: 'flex',
-    justifyContent: 'flex-end',
-    width: SCREEN_WIDTH * 0.05,
-    height: SCREEN_HEIGHT * 0.01,
-    tintColor: '#ADD2FD'
+    marginLeft: 110,
+    marginTop: 5,
+    width: 28,
+    height: 25,
+    tintColor: '#4898F3'
   },
   TBlogo: {
     marginLeft: 150,
@@ -824,7 +840,7 @@ const styles = StyleSheet.create({
   },
   Lists: {},
   list: {
-    marginHorizontal: 20,
+    marginHorizontal: 12,
     marginBottom: 15,
   },
   L1: {
@@ -842,20 +858,21 @@ const styles = StyleSheet.create({
   },
   l1:{
     flexDirection:'row',
-    // marginTop: 10,
-    // marginLeft: 20,
-    // borderTopWidth: 0.5,
-    // // borderBottomWidth: 0.5,
-    // borderColor: 'lightblue',
+    marginTop: 10,
+    marginLeft: 20,
+    borderTopWidth: 0.5,
+    borderColor: '#101684',
     paddingVertical: 20,
+    borderTopRightRadius: 20,
+
   },
   l12:{
     flexDirection:'row',
-    // marginTop: 10,
-    // marginLeft: 22,
+    marginTop: 10,
+    marginLeft: 22,
     borderTopWidth: 0.5,
-    borderBottomWidth: 0.5,
-    borderColor: 'lightblue',
+    borderColor: '#101684',
+    borderTopRightRadius: 20,
     paddingVertical: 20,
   },
   l1text:{
@@ -864,35 +881,34 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   l12text:{
-    color: '#ADD2FD',
+    color: 'lightblue',
     marginTop: 2,
-    marginLeft: SCREEN_WIDTH * 0.3,
+    marginLeft: 58,
     fontSize: 15,
   },
   l121text:{
-    color: '#ADD2FD',
+    color: 'lightblue',
     marginTop: 2,
-    marginLeft: SCREEN_WIDTH * 0.35,
+    marginLeft: 82,
     fontSize: 15,
   },
   solanalogo:{
-    width: 30,
-    height: 30,
+    width: 20,
+    height: 20,
   },
   bottomtext:{
-    color: '#ADD2FD',
-    fontSize: 15,
-    // marginHorizontal: 25,
+    color: 'lightblue',
+    marginHorizontal: 25,
     marginTop: 15,
   },
   LMBtn:{
     backgroundColor: '#0a0a23',
-    paddingVertical: 8,
+    paddingVertical: 10,
     alignItems: 'center',
     marginHorizontal: 20,
-    borderRadius: 15,
+    borderRadius: 20,
     borderColor: '#4898F3',
-    borderWidth: 1.5,
+    borderWidth: 1,
     marginTop: 15,
   },
   tokenInputContainer: {

@@ -1,7 +1,8 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Dimensions, StyleSheet} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { LineChart } from 'react-native-gifted-charts';
-import { useState } from 'react';
+import LinearGradient from 'react-native-linear-gradient';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 type SummaryCardProps = {
   currency?: string;
@@ -10,11 +11,7 @@ type SummaryCardProps = {
   changePercentage?: string;
   time?: string;
   isPositive?: boolean;
-  activeFilter?: string;
-  onFilterChange?: (filter: string) => void;
 };
-
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 const graphDataMap: Record<string, number[]> = {
   '1D': [10,20,20,30,20,10, 65, 70, 48, 56, 60, 72, 40, 55, 30, 68, 66, 70, 75, 15, 20, 30, 40, 45, 50, 40, 30],
@@ -31,34 +28,34 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
   changePercentage = '12.2%',
   time = '3:31 PM',
   isPositive = true,
-  }) => {
-    const [activeFilter, setActiveFilter] = useState('1D');
-    const onFilterChange = (filter: string) => {
+}) => {
+  const [activeFilter, setActiveFilter] = useState('1D');
+  const onFilterChange = (filter: string) => {
     setActiveFilter(filter);
   };
 
-  const chartData = graphDataMap[activeFilter].map((value) => ({ value }));
+  const chartData = graphDataMap[activeFilter].map(value => ({ value }));
 
-const MAX_CARD_HEIGHT = 320; 
-const MIN_CARD_HEIGHT = 210; 
+  const MAX_CARD_HEIGHT = hp('44%');  
+  const MIN_CARD_HEIGHT = hp('28%'); 
+  let cardHeight = hp('33%'); 
+  if (cardHeight > MAX_CARD_HEIGHT) cardHeight = MAX_CARD_HEIGHT;
+  if (cardHeight < MIN_CARD_HEIGHT) cardHeight = MIN_CARD_HEIGHT;
 
-const cardWidth = screenWidth * 0.87;
-let cardHeight = screenHeight * 0.31;
-if (cardHeight > MAX_CARD_HEIGHT) cardHeight = MAX_CARD_HEIGHT;
-if (cardHeight < MIN_CARD_HEIGHT) cardHeight = MIN_CARD_HEIGHT;
+  const cardWidth = wp('85%'); 
 
-return (
-  <View
-    style={[
-      styles.summaryCard,
-      {
-        height: cardHeight,
-        width: cardWidth,
-        marginRight: screenWidth * 0.04,
-        padding: Math.min(0, cardHeight * 0.07), 
-      },
-    ]}
-  >
+  return (
+    <View
+      style={[
+        styles.summaryCard,
+        {
+          height: cardHeight,
+          width: cardWidth,
+          marginRight: wp('3.5%'),
+          padding: Math.min(0, cardHeight * 0.07), 
+        },
+      ]}
+    >
       <View style={styles.summaryTopSection}>
         <Text style={styles.currencyhead}>{currency}</Text>
         <Text style={styles.cryptoTotalValue}>{totalValue}</Text>
@@ -75,10 +72,10 @@ return (
         </View>
       </View>
 
-      <View style={{ marginTop: 10, height: cardHeight * 0.23, width: '100%' }}>
+      <View style={{ marginTop: hp('1.3%'), height: cardHeight * 0.23, width: '100%' }}>
         <LineChart
           data={chartData}
-          width={cardWidth * 0.90}
+          width={cardWidth * 0.9}
           height={cardHeight * 0.20}
           curved
           areaChart
@@ -103,10 +100,8 @@ return (
           adjustToWidth
         />
       </View>
-
-
       <View style={styles.timeFilterContainer}>
-        {['1D', '1W', '1M', '1Y', 'ALL'].map((filter) => (
+        {['1D', '1W', '1M', '1Y', 'ALL'].map(filter => (
           <TouchableOpacity
             key={filter}
             style={[
@@ -133,24 +128,28 @@ return (
 const styles = StyleSheet.create({
   timeFilterContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 6,
-    borderBottomWidth: 1,
-    borderColor: '#0E1E83',
-    paddingBottom: 8,
-    borderBottomRightRadius: 10,
+    justifyContent: 'space-between',
+    marginTop: hp('0.8%'),
+    borderBottomWidth: 0.5,
+    borderLeftWidth: 0.05,
+    borderRightWidth: 0.05,
+    borderRadius: wp('3%'),
+    marginHorizontal: wp('2.5%'),
+    backgroundColor: '#121547ff',
+    borderColor: '#23298A',
+    padding: hp('1%'),
   },
   timeFilterButton: {
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderRadius: 5,
+    paddingHorizontal: wp('3%'),
+    paddingVertical: hp('1.4%'),
+    borderRadius: wp('1.2%'),
   },
   activeTimeFilterButton: {
     backgroundColor: '#0E1E83',
   },
   timeFilterText: {
     color: 'lightblue',
-    fontSize: 14,
+    fontSize: wp('3.2%'),
   },
   activeTimeFilterText: {
     color: '#fff',
@@ -158,37 +157,38 @@ const styles = StyleSheet.create({
   },
   summaryCard: {
     borderTopWidth: 1.5,
-    borderRightWidth:1,
-    borderLeftWidth: 1,
-    marginTop: 10,
+    borderRightWidth: 0.1,
+    borderLeftWidth: 0.1,
+    marginTop: hp('1%'),
     borderColor: '#0E1E83',
     backgroundColor: '#080C4C',
-    borderRadius: 25,
-    padding: 10,
-    marginBottom: 8,
+    borderRadius: wp('5%'),
+    padding: wp('2.5%'),
+    marginBottom: hp('1.2%'),
   },
   summaryTopSection: {
-    marginBottom: 3,
+    marginBottom: hp('0.8%'),
+    padding: wp('1%'),
   },
   cryptoTotalValue: {
-    fontSize: 30,
+    fontSize: wp('7%'),
     fontWeight: 'bold',
     color: 'white',
-    marginBottom: 3,
-    marginLeft: 16
+    marginBottom: hp('0.6%'),
+    marginLeft: wp('4%'),
   },
   cryptoChangeRow: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   cryptoChangeText: {
-    fontSize: 12,
+    fontSize: wp('3.2%'),
     fontWeight: '700',
-    marginLeft: 16,
+    marginLeft: wp('4%'),
   },
   cryptoChangeTime: {
     color: 'lightblue',
-    fontSize: 12,
+    fontSize: wp('3.2%'),
   },
   positiveChange: {
     color: '#00FF85',
@@ -196,14 +196,13 @@ const styles = StyleSheet.create({
   negativeChange: {
     color: '#FF4D4D',
   },
-  currencyhead:{
-    width: 62,
-    height: 25,
-    // marginLeft:10,
+  currencyhead: {
+    width: wp('20%'),
+    height: hp('3.5%'),
     color: '#ADD2FD',
-    fontSize: 20,
-    marginBottom: 5,
-    marginLeft: 16,
-    marginTop: 16
+    fontSize: wp('5.2%'),
+    marginBottom: hp('0.7%'),
+    marginLeft: wp('4%'),
+    // marginTop: hp('4%'),
   },
 });

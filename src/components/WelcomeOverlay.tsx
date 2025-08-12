@@ -22,7 +22,7 @@ const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
   const bgtopWidth = width * 0.89;
   const bgtopHeight = width * 0.7;
   const bgbottomWidth = width * 0.9;
-  const bgbottomHeight = width * 0.6;
+  const bgbottomHeight = width * 0.68;
 
   return (
     <View style={styles.overlay}>
@@ -90,7 +90,7 @@ overlay: {
     alignItems: 'center',
     position: 'relative',
     borderWidth: 2,
-    borderColor: "#131c91ff",
+    borderColor: "#080C4C",
     backgroundColor: "#01032C"
   },
   bgbottom:{
@@ -99,9 +99,11 @@ overlay: {
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
     paddingHorizontal: 26,
-    borderColor: "#131c91ff",
+    height: '100%',
+    borderColor: "#080C4C",
     borderRightWidth: 1.5,
     borderLeftWidth: 1.5,
+    borderBottomWidth: 2
   },
   bgtop:{
     backgroundColor: "#131c91ff",
@@ -145,7 +147,7 @@ overlay: {
     color: '#0A0E27',
     fontWeight: 'bold',
     textAlign: 'center',
-    marginLeft: 75,
+    marginLeft: 55,
     fontSize: 15,
   },
   secondaryButton: {
@@ -162,15 +164,15 @@ overlay: {
   secondaryText: {
     color: '#fff',
     fontSize: 15,
-    marginLeft: 50,
+    marginLeft: 35,
   },
   secondaryText1: {
     color: '#fff',
-    marginLeft: 14,
+    marginLeft: 8,
   },
   laterText: {
     color: 'white',
-    marginTop: 8,
+    marginTop: 20,
     fontSize: 15,
   },
   icons: {

@@ -41,17 +41,14 @@ export const ProjectsList: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 8,
-    // backgroundColor: '#0a0a23',
   },
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    // backgroundColor: '#111132',
     borderBottomWidth: 0.5,
     borderColor: '#1b57cf',
-    // borderRadius: 10,
-    padding: 12,
+    paddingBottom: 15,
+    paddingRight: 15,
     marginVertical: 8,
   },
   logo: {
@@ -68,7 +65,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     flexWrap: 'wrap',
     height: 40,
-    width: '75%',
+    width: '85%',
     fontSize: 14,
     fontWeight: 'bold',
     marginTop: 8,

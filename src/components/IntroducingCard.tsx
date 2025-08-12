@@ -15,7 +15,7 @@ const { width: screenWidth } = Dimensions.get('window');
 
 const CARD_WIDTH = screenWidth * 0.87;
 const CARD_HEIGHT = screenWidth * 0.26; 
-const SPACING = screenWidth * 0.05;
+const SPACING = screenWidth * 0.005;
 
 const data = [1, 2, 3];
 
@@ -43,7 +43,6 @@ export default function IntroducingCards() {
           resizeMode="contain"
         />
         </View>
-        {/* <View style={styles.divider} /> */}
         <View style={styles.textContainer}>
           <Text style={styles.title}>Introducing Kresus Pro</Text>
           <View style={styles.subtitleRow}>
@@ -87,7 +86,7 @@ export default function IntroducingCards() {
             key={i}
             style={[
               styles.dot,
-              { backgroundColor: i === currentIndex ? '#888DA7' : '#3C6FF8' },
+              { backgroundColor: i === currentIndex ? '#7AB7FD' : '#1B45B0' },
             ]}
           />              
         ))}
@@ -99,7 +98,9 @@ export default function IntroducingCards() {
 const styles = StyleSheet.create({
   container: {
     marginBottom: 20,
+    marginTop: 20,
     alignItems: 'center',
+    marginRight: 15,
     },
   card: {
     width: CARD_WIDTH,
@@ -168,8 +169,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   dot: {
-    width: 5,
-    height: 5,
+    width: 4,
+    height: 4,
     borderRadius: 4,
     marginHorizontal: 5,
   },

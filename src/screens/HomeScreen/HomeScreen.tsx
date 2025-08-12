@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   ScrollView,
   FlatList,
-  Dimensions,
   StatusBar,
 } from 'react-native';
 
@@ -27,17 +26,14 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppNavigatorParamList } from '../../navigators/routeNames';
 import styles from '../../styles/homestyles';
 import IntroducingCards from '../../components/IntroducingCard';
-
-
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export const HomeScreen: React.FC = () => {
-  const translateY = useSharedValue(screenHeight);
+  const translateY = useSharedValue(hp('100%'));
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState('1D');
   const [showContent, setShowContent] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const bottomSheetRef = useRef<BottomSheetUnifiedRef>(null);
 
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
@@ -62,70 +58,74 @@ export const HomeScreen: React.FC = () => {
   }, [loading]);
 
   return (
-      <View style={styles.container}>
-        <StatusBar barStyle="light-content" />
-        <HeaderNav />
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
+      <HeaderNav />
 
-        <ScrollView contentContainerStyle={styles.content}>
-          {showContent ? (
-            <>
-              <FlatList
-                data={[1, 2]}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                pagingEnabled
-                keyExtractor={(item, index) => `summary-${index}`}
-                renderItem={() => (
-                  <SummaryCard activeFilter={activeFilter} onFilterChange={setActiveFilter} />
-                )}
-                contentContainerStyle={{}}
-                snapToAlignment="center"
-              />
-              <ActionButtons />
-              <View style={styles.prossection}>
-                <Text style={styles.prostext}>What the Pros are Buying</Text>
-                <TouchableOpacity style={{}} onPress={() => navigation.navigate('ProsScreen')}>
-                  <Image source={Images.pros} style={styles.prosicon} />
-                </TouchableOpacity>
-              </View>
-              <FlatList
-                data={[1, 2, 3]}
-                horizontal
-                pagingEnabled
-                keyExtractor={(item, index) => `market-${index}`}
-                renderItem={() => (
-                  <View style={{ width: screenWidth * 0.83, height: screenWidth * 0.45 }}>
-                    <MarketActivityCard />
-                  </View>
-                )}
-                showsHorizontalScrollIndicator={false}
-                snapToAlignment="center"
-                ItemSeparatorComponent={() => <View style={{ width: 25 }} />}
-              />
-              <View>
-                  <IntroducingCards />
-              </View>
-              
-              <Text style={styles.prostext}>Projects to Try</Text>
-              <Projects />
-              <ProjectsList />
-            </>
-          ) : (
-            <>
-              <SkeletonLoader variant="home" />
-            </>
-          )}
-        </ScrollView>
+      <ScrollView contentContainerStyle={styles.content}>
+        {showContent ? (
+          <>
+            <FlatList
+              data={[1, 2]}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              pagingEnabled
+              keyExtractor={(item, index) => `summary-${index}`}
+              renderItem={() => (
+                <SummaryCard activeFilter={activeFilter} onFilterChange={setActiveFilter} />
+              )}
+              snapToAlignment="center"
+            />
 
-        {showOverlay && <WelcomeOverlay onClose={() => setShowOverlay(false)} />}
+            <ActionButtons />
 
-        <View pointerEvents="box-none" style={styles.bottomSheetContainer}>
-          <BottomSheetUnified 
-            ref={bottomSheetRef}
-            screen="home" 
-            translateY={translateY}
-          />
-        </View>
+            <View style={styles.prossection}>
+              <Text style={styles.prostext}>What the Pros are Buying</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('ProsScreen')}>
+                <Image
+                  source={Images.pros}
+                  style={[
+                    styles.prosicon,
+                    {
+                      width: wp('10%'), 
+                      height: wp('10%'),
+                    },
+                  ]}
+                />
+              </TouchableOpacity>
+            </View>
+
+            <FlatList
+              data={[1, 2]}
+              horizontal
+              pagingEnabled
+              keyExtractor={(item, index) => `market-${index}`}
+              renderItem={() => (
+                <View style={{ width: wp('85%'), height: wp('45%') }}>
+                  <MarketActivityCard />
+                </View>
+              )}
+              showsHorizontalScrollIndicator={false}
+              snapToAlignment="center"
+              ItemSeparatorComponent={() => <View style={{ width: wp('3.5%') }} />}
+            />
+
+            <IntroducingCards />
+
+            <Text style={styles.prostext}>Projects to Try</Text>
+            <Projects />
+            <ProjectsList />
+          </>
+        ) : (
+          <SkeletonLoader variant="home" />
+        )}
+      </ScrollView>
+
+      {showOverlay && <WelcomeOverlay onClose={() => setShowOverlay(false)} />}
+
+      <View pointerEvents="box-none" style={styles.bottomSheetContainer}>
+        <BottomSheetUnified ref={bottomSheetRef} screen="home" translateY={translateY} />
       </View>
+    </View>
   );
 };

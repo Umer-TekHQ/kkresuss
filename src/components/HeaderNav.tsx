@@ -22,8 +22,9 @@ export const HeaderNav: React.FC = () => {
         <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')} >
           <Image source={profilePicture || Images.profileicon} style={styles.profileIcon} />
         </TouchableOpacity>
-        
+        <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
         <Text style={styles.profileName}>{displayName}</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.headerIcons}>
         <TouchableOpacity>

@@ -37,11 +37,10 @@ const ProfileCard: React.FC<Props> = ({ icon, title, address, background }) => {
 const styles = StyleSheet.create({
   card: {
     height: 230,
-    width: 370,
+    width: 355,
     borderRadius: 20,
     overflow: 'hidden',
-    backgroundColor: 'black'
-    // marginBottom: 20,
+    backgroundColor: 'black',
   },
   bgImage: {
     ...StyleSheet.absoluteFillObject,
@@ -50,7 +49,6 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     padding: 20,
-    // justifyContent: 'space-between',
   },
   icon: {
     width: 34,
@@ -65,7 +63,6 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: 16,
-    // fontWeight: '600',
     marginBottom: 10,
   },
   addressContainer: {

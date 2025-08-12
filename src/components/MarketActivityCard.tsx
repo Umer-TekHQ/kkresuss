@@ -27,19 +27,17 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
   sellersPercentage = 60,
 }) => {
   const cardWidth = screenWidth * 0.85;
-  const gap = cardWidth * 0.10;
+  const gap = cardWidth * 0.08;
 
   return (
     <View style={[styles.marketActivityCard, { width: cardWidth }]}>
       <View>
         <View style={styles.coinInfoHeader}>
-          <View>
             <Image 
               source={Images.coinlogo}
               style={styles.coinLogo}
               resizeMode="contain"
             />
-          </View>
           <View style={{ flexDirection: 'row', gap: gap }}>
             <View>
               <View>
