@@ -41,6 +41,9 @@ const OTPInputBox = ({ onStartTyping, onComplete }: Props) => {
     inputRef.current?.focus();
   };
 
+
+ 
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.boxRow}>
@@ -66,6 +69,8 @@ const OTPInputBox = ({ onStartTyping, onComplete }: Props) => {
         style={styles.hiddenInput}
       />
     </View>
+  
+
   );
 };
 
@@ -103,11 +108,19 @@ const styles = StyleSheet.create({
   hiddenInput: {
     position: 'absolute',
     opacity: 0.05,
-    height: 20,
+    height: 60,// according to qa it is increase from 20 
     width: width * 0.9,
     textAlign: 'center',
     paddingTop: 15,
+   
   },
+  bottomTouchArea: {
+  position: 'absolute',
+  top: BOX_SIZE * 1.4, // boxes ke neeche
+  height: 40, // jitna neeche click capture karna hai
+  width: width * 0.9,
+  backgroundColor: 'transparent',
+},
 });
 
 export default OTPInputBox;

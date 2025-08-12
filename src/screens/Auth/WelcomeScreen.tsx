@@ -106,7 +106,7 @@ const [isEmailValid, setIsEmailValid] = useState(false)
 
   return (
     <View style={{ flex: 1 }}>
-      <Background showContent showLogo={false} hideBottomImages={keyboardVisible}>
+      <Background showContent showLogo={false} hideBottomImages={keyboardVisible} showLostAccess={!keyboardVisible}>
       
         <Animated.Image
           source={Images.logo}
@@ -178,18 +178,6 @@ const [isEmailValid, setIsEmailValid] = useState(false)
             disabled={!isEmailValid} 
           />
         )}
-
-        {!keyboardVisible && (
-  <TouchableOpacity
-    
-    style={WelcomeStyles.lostAccessContainer}
-    activeOpacity={0.8}
-  >
-    <Text style={WelcomeStyles.lostAccessText}>Lost access to email or phone?</Text>
-  </TouchableOpacity>
-)}
-
-
       </Background>
     </View>
   )

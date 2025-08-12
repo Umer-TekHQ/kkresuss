@@ -26,8 +26,27 @@ const handleItemPress = (route?: keyof AppNavigatorParamList) => {
 }
 
 
-  const renderItem = ({ item }: any) => (
-    <View style={styles.item}>
+  const renderItem = ({ item,index }: any) =>{
+      const isLastItem = index === settingsData.length - 1
+    return (
+      <View>
+   {index === 0 && (
+        <View
+          style={{
+            height: 0.5,
+            backgroundColor: '#183460',
+            marginLeft: 33,
+            marginBottom:12,
+          }}
+        />
+      )}
+
+    {/* <View style={styles.item}> */}
+    <TouchableOpacity
+        style={styles.item}
+        onPress={() => handleItemPress(item.route)}
+        activeOpacity={0.7}
+      >
       <Image source={item.icon} style={styles.icon} />
       <View style={{ flex: 1 }}>
         <Text style={styles.itemTitle}>{item.title}</Text>
@@ -37,10 +56,24 @@ const handleItemPress = (route?: keyof AppNavigatorParamList) => {
        
       <Image source={Images.forward} style={styles.arrow} />
       </TouchableOpacity>
-    </View>
-  )
+      </TouchableOpacity>
+    {/* </View> */}
+     {!isLastItem && (
+        <View
+          style={{
+            height: 0.5,
+            backgroundColor: '#183460',
+            marginLeft: 33,
+             marginTop: 12,
+             marginBottom: 12
+          }}
+        />
+      )}
+  </View>
+  )}
 
   return (
+   
     <View style={styles.container}>
       <View style={styles.line} />
       <Text style={styles.sheetTitle}>Settings</Text>
@@ -53,11 +86,12 @@ const handleItemPress = (route?: keyof AppNavigatorParamList) => {
         showsVerticalScrollIndicator={false}
       />
 
-      <TouchableOpacity >
+      <TouchableOpacity onPress={()=> navigation.navigate('Welcome')} >
           <Text style={styles.delete}>Delete Account</Text>
       </TouchableOpacity>
 
     </View>
+   
   )
 }
 
@@ -69,8 +103,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 10,
     backgroundColor: '#01032C',
-  //  borderTopLeftRadius: 20,
-    //borderTopRightRadius: 20,
+   borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   sheetTitle: {
     color: 'white',
@@ -83,7 +117,7 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 24,
+   // marginBottom: 24,
   },
   icon: {
     width: 17,
@@ -103,8 +137,8 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   arrow: {
-    width: 12,
-    height: 12,
+    width: 14,
+    height: 14,
    resizeMode:'contain',
     marginLeft: 10,
     marginTop: 10,
@@ -124,5 +158,7 @@ line: {
   borderRadius: 4,
   backgroundColor: '#183460', 
   marginBottom: 12,
-},
+},radiusColor:{
+  backgroundColor:'#BOB4A'
+}
 })

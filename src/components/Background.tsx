@@ -3,7 +3,7 @@ import { View, Image, StyleSheet, Dimensions ,DimensionValue} from 'react-native
 import LinearGradient from 'react-native-linear-gradient'
 import { Images } from '../assets'
 import BackgroundStyles from '../styles/Background.styles'
-import { StyleProp, ViewStyle } from 'react-native';
+import { StyleProp, ViewStyle ,TouchableOpacity,Text} from 'react-native';
 
 
 
@@ -14,9 +14,10 @@ type Props = {
     hideBottomImages?: boolean
     containerHeight?: DimensionValue
     containerStyle?: StyleProp<ViewStyle>;
+     showLostAccess?: boolean
 }
 
-const Background = ({ showContent = true,children ,showLogo,hideBottomImages,containerHeight, containerStyle  }: Props) => {
+const Background = ({ showContent = true,children ,showLogo,hideBottomImages,containerHeight, containerStyle , showLostAccess = false  }: Props) => {
   return (
     <LinearGradient
      colors={['#080C4C',  '#0E1799']} 
@@ -35,7 +36,18 @@ const Background = ({ showContent = true,children ,showLogo,hideBottomImages,con
     )}
 {!hideBottomImages &&(
       <View style={BackgroundStyles.bottomContainer}>
+
         <Image source={Images.waves} style={BackgroundStyles.waves} resizeMode="stretch" />
+               {showLostAccess && (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={BackgroundStyles.lostAccessContainer}
+                >
+                  <Text style={BackgroundStyles.lostAccessText}>
+                    Lost access to email or phone?
+                  </Text>
+                </TouchableOpacity>
+              )}
         <Image source={Images.land1} style={BackgroundStyles.land1} resizeMode="contain" />
         <Image source={Images.land2} style={BackgroundStyles.land2} resizeMode="contain" />
       </View>

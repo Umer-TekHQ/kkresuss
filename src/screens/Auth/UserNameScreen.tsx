@@ -6,6 +6,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
@@ -27,7 +28,7 @@ export const UserNameScreen = () => {
   const [username, setUsernameLocal] = useState(savedUsername || '')
   const isCharTyped = username.length > 0
   const isLengthTooLong = username.length > 20
-  const isCharValid = /^[a-zA-Z0-9 ]*$/.test(username)  
+  const isCharValid = /^[a-zA-Z0-9]*$/.test(username)  
   const isLengthValid = username.length >= 8 && username.length <= 20
 
   const getCharRuleColor = () => {
@@ -98,12 +99,13 @@ export const UserNameScreen = () => {
               {getCharSymbol()} No special characters
             </Text>
           </View>
-
+          <View style={styles.buttonPosition} >
           <AppButton 
             label="Continue" 
             onPress={handleContinue} 
             disabled={!isCharValid || !isLengthValid || isLengthTooLong}
           />
+          </View>
         </View>
       </Background>
     </View>
@@ -146,6 +148,11 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     marginBottom: 20,
     textAlign: 'center',
-  },
+  },buttonPosition:{
+    flex: 1, 
+    justifyContent: 'flex-end',
+    marginTop:10,
+   // paddingBottom: 20
+  }
 })
 
