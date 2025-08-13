@@ -128,5 +128,7 @@ profileheadlogo: require('./images/profileheadlogo.png'),
 questionmark:require('./images/questionmark.png'),
 cash:require('./images/cash.png'),
 reddown:require('./images/reddown.png'),
-greenup:require('./images/greenup.png')
+greenup:require('./images/greenup.png'),
+secure1: require('./images/secure1.png')
+
 }
