@@ -54,8 +54,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: BUTTON_SIZE,
     height: BUTTON_SIZE,
-    // borderRadius: BUTTON_SIZE / 2,
-    // backgroundColor: '#181A3A',
     elevation: 2,
   },
   actionButtonIcon: {

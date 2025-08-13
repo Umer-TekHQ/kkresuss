@@ -147,6 +147,7 @@ export default StyleSheet.create({
   fontSize: 22,
   fontWeight: '400',
   marginBottom: 12,
+  marginHorizontal: wp('4%')
 },
 
 cardRow: {
@@ -154,6 +155,7 @@ cardRow: {
   justifyContent: 'space-between',
   flexWrap: 'wrap',
   marginBottom: 20,
+  marginHorizontal: 5,
 },
 skeletonExploreGrid: {
   flexDirection: 'row',
@@ -558,7 +560,7 @@ cryptoChangeNegative: {
   container: {
     flex: 1,
     backgroundColor: '#01021D',
-    // paddingLeft: 5,
+    // padding: 5,
   },
   content: {
     // padding: 10,
