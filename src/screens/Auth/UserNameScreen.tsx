@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import {
   View,
   Text,
@@ -6,7 +6,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
-  
+  Keyboard
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
@@ -25,6 +25,19 @@ export const UserNameScreen = () => {
   const dispatch = useAppDispatch()
   const savedUsername = useAppSelector(state => state.user.username)
 
+
+  useEffect(() => {
+  const showSub = Keyboard.addListener('keyboardDidShow', () => setKeyboardVisible(true))
+  const hideSub = Keyboard.addListener('keyboardDidHide', () => setKeyboardVisible(false))
+
+  return () => {
+    showSub.remove()
+    hideSub.remove()
+  }
+}, [])
+
+  
+const [keyboardVisible, setKeyboardVisible] = useState(false)
   const [username, setUsernameLocal] = useState(savedUsername || '')
   const isCharTyped = username.length > 0
   const isLengthTooLong = username.length > 20
@@ -62,7 +75,7 @@ export const UserNameScreen = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Background showContent hideBottomImages={false} showLogo={false}>
+      <Background showContent hideBottomImages={keyboardVisible} showLogo={false}>
         <View style={styles.wrapper}>
           
           <TouchableOpacity

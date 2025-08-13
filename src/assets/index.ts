@@ -125,5 +125,6 @@ hamburger:require('./images/hamburger.png'),
 hamburgerbg:require('./images/hamburger.png'),
 slb: require('./images/slb.png'),
 profileheadlogo: require('./images/profileheadlogo.png'),
-questionmark:require('./images/questionmark.png')
+questionmark:require('./images/questionmark.png'),
+cash:require('./images/cash.png')
 }

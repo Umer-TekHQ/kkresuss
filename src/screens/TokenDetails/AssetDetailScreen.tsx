@@ -3,13 +3,12 @@ import { View, StyleSheet, FlatList,Text } from 'react-native';
 import { mockAssetData } from '../../mock/mockData';
 import PriceHeader from '../../components/PriceHeader'
 import ChartSection from '../../components/ChartSection'
-import { ActionButtons } from '../../components/ActionButtons';
 import PositionCard from '../../components/PositionCard'
 import { SkeletonLoader } from '../../components/SkeletonLoader';
 import TransactionListItem from '../../components/TransactionListItem'
 import { useNavigation } from '@react-navigation/native';
 import AssetDetailSkeleton from '../../components/AssetDetailSkeleton';
-
+import { TokenActionButtons } from '../../components/TokenActionButtons';
 
 const AssetDetailScreen = () => {
   const navigation = useNavigation();
@@ -38,7 +37,7 @@ const AssetDetailScreen = () => {
         <View>
           <PriceHeader data={assetData} onBack={() => navigation.goBack()} />
           <ChartSection />
-          <ActionButtons />
+          <TokenActionButtons />
           <PositionCard data={assetData} />
           <Text style={styles.title}>Recent Transactions</Text>
         </View>

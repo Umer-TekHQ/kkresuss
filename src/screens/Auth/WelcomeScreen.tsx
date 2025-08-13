@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { View, Text, Animated, Keyboard, Image, TouchableOpacity, Platform,} from 'react-native'
+import { View, Text, Animated, Keyboard, Image, TouchableOpacity, Platform, } from 'react-native'
 import Background from '../../components/Background'
 import AppInput from '../../components/AppInput'
 import WelcomeStyles from '../../styles/WelcomeScreen.styles'
@@ -37,6 +37,13 @@ const [isEmailValid, setIsEmailValid] = useState(false)
   const inputTranslateY = useRef(new Animated.Value(0)).current
   const [emailText, setEmailText] = useState(userEmail || '')
 
+  // ✅ Auto-validate whenever emailText changes (also runs on first render)
+  useEffect(() => {
+    setIsEmailValid(isValidEmail(emailText))
+  }, [emailText])
+
+
+  
   useEffect(() => {
     const showSub = Keyboard.addListener('keyboardDidShow', () => {
       setKeyboardVisible(true)

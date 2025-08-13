@@ -94,7 +94,7 @@ export default PositionCard;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#112244',
+    backgroundColor: '#080C4C',
     marginHorizontal: 16,
     marginBottom: 16,
     padding: 16,
