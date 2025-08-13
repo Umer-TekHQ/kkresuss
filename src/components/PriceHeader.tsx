@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Images } from '../assets';
 import SecondaryButton from './SecondaryButton';
+import SecondaryButtonWithIcon from './SecondaryButtonWithIcon'
 
 
 const PriceHeader = ({ data, onBack }: { data: any, onBack?: () => void }) => (
@@ -16,7 +17,8 @@ const PriceHeader = ({ data, onBack }: { data: any, onBack?: () => void }) => (
     </View>
 
    
-    <SecondaryButton label='Get insured'/>
+    {/* <SecondaryButton label='Get insured'/> */}
+    <SecondaryButtonWithIcon label=" Get Insured" onPress={() => {}} />
 
     
     <View style={styles.priceBox}>
@@ -35,7 +37,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    marginBottom: 12,
+    marginBottom: 8,
     position: 'relative',
   },
   backButton: {
@@ -83,8 +85,8 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
    backIcon: {
-    width: 24,
-    height: 24,
+    width: 30,
+    height:30,
     resizeMode: 'contain',
   },sub2:{
      color: '#7AB7FD',

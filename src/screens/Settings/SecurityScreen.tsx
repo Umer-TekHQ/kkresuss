@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import { View, FlatList, StyleSheet, Text, TouchableOpacity,Image } from 'react-native'
 import { Images } from '../../assets'
 import AppHeader from '../../components/AppHeader'
 import MySecurityScore from '../../components/MySecurityStore'
 import SecurityOptionItem from '../../components/SecurityOptionItem'
-
-
-
 import { securityOptions } from '../../mock/securityOptions'
 import type { SecurityOption } from '../../mock/securityOptions'
 
@@ -14,21 +11,35 @@ import { useNavigation } from '@react-navigation/native'
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
 import { AppNavigatorParamList } from '../../navigators/routeNames'
-
+import { useSelector,useDispatch  } from 'react-redux';
+import { RootState } from '../../store';
+import { setTicks, toggleTick } from '../../store/slices/securitySlice';
 
 
 const SecurityScreen = () => {
-
+ const dispatch = useDispatch();
    const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
+const activeTicks = useSelector((state: RootState) => state.security.ticks);
+     const email = useSelector((state: RootState) => state.user.email);
+ const [score, setScore] = useState(0);
   const [biometricsEnabled, setBiometricsEnabled] = useState(false)
-  const [activeTicks, setActiveTicks] = useState<{ [key: string]: boolean }>({})
+  //const [activeTicks, setActiveTicks] = useState<{ [key: string]: boolean }>({})
 
-  const toggleTick = (title: string) => {
-    setActiveTicks((prev) => ({
-      ...prev,
-      [title]: !prev[title],
-    }))
-  }
+ useEffect(() => {
+   
+    if (email && !activeTicks['Email']) {
+      dispatch(setTicks({ ...activeTicks, Email: true }));
+    }
+  }, [email]);
+
+  const handleToggleTick = (title: string) => {
+    dispatch(toggleTick(title));
+  };
+
+    useEffect(() => {
+    const tickCount = Object.values(activeTicks).filter(Boolean).length;
+    setScore(tickCount);
+  }, [activeTicks]);
 
   const handleNavigate = (route: keyof AppNavigatorParamList) => {
     navigation.navigate(route as any)
@@ -41,19 +52,21 @@ const SecurityScreen = () => {
       
       <View style={styles.component}>
         <AppHeader title="Security"  />
-        <MySecurityScore score={1} />
+        <MySecurityScore score={score} />
       </View>
 
       <FlatList
         data={securityOptions} 
-       renderItem={({ item }: { item: SecurityOption }) => (
+       renderItem={({ item,index }: { item: SecurityOption,  index: number }) => (
   <SecurityOptionItem
     item={item}
+    index={index}
     isActive={!!activeTicks[item.title]}
-    onToggleTick={() => toggleTick(item.title)}
+    onToggleTick={() => handleToggleTick(item.title)}
     biometricsEnabled={biometricsEnabled}
     setBiometricsEnabled={setBiometricsEnabled}
-     onNavigate={handleNavigate} 
+    onNavigate={handleNavigate} 
+    totalItems={securityOptions.length}
   />
 )}
 
@@ -97,6 +110,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 8,
-    bottom:10,
+    bottom:22,
   }
 })

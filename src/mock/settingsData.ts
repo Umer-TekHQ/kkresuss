@@ -24,7 +24,7 @@ export const settingsData:SettingItem[] = [
     title: 'Identity',
     subtitle: 'Profile picture, username, Kresus ID',
     icon: Images.identity,
-    // route:'TokenDetail'
+     route:'ProfileScreen'
   },
    {
     title: 'Connections',

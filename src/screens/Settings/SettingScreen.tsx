@@ -18,7 +18,7 @@ const { width, height } = Dimensions.get('window')
   const [isSheetOpen, setIsSheetOpen] = useState(true)
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1 , backgroundColor:'#0B0B49'}}>
       <Background showContent hideBottomImages={false} showLogo={false}
        containerHeight={height * 0.50}
       >

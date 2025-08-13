@@ -5,6 +5,7 @@ import selectedAssetReducer from './slices/selectedAssetSlice'
 import noteReducer from './slices/noteSlice';
 import amountReducer from './slices/amountSlice';
 import recipientReducer from './slices/recipientSlice'
+import securityReducer from './slices/securitySlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     note: noteReducer,
     amount: amountReducer,
     recipient: recipientReducer,
+    security: securityReducer,
   },
 });
 

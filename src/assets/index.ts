@@ -126,5 +126,7 @@ hamburgerbg:require('./images/hamburger.png'),
 slb: require('./images/slb.png'),
 profileheadlogo: require('./images/profileheadlogo.png'),
 questionmark:require('./images/questionmark.png'),
-secure1: require('./images/secure1.png')
+cash:require('./images/cash.png'),
+reddown:require('./images/reddown.png'),
+greenup:require('./images/greenup.png')
 }

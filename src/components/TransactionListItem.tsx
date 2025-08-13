@@ -2,7 +2,11 @@ import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { Images } from '../assets';
 
-const TransactionListItem = ({ item }: { item: any }) => (
+const TransactionListItem = ({ item }: { item: any }) => {
+  const isPositive = item.amountUSD.trim().startsWith('+');
+
+
+  return(
   <View style={styles.item}>
     <View style={styles.leftSection}>
       <Image
@@ -18,15 +22,16 @@ const TransactionListItem = ({ item }: { item: any }) => (
     </View>
 
     <View style={styles.rightSection}>
-      <Text style={[styles.amount, item.type === 'Sent' ? styles.sent : styles.received]}>
+      <Text style={[styles.amount,{ color: isPositive ? '#30DB5B' : '#FFFFFF' }]}>
         {item.amountUSD}
       </Text>
-      <Text style={[styles.ethAmount, item.type === 'Sent' ? styles.sent : styles.received]}>
+      <Text style={styles.ethAmount}>
         {item.amountETH}
       </Text>
     </View>
   </View>
 );
+}
 
 export default TransactionListItem;
 
@@ -52,29 +57,24 @@ const styles = StyleSheet.create({
   },
   name: {
     color: 'white',
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '500',
   },
   meta: {
-    color: '#aaa',
-    fontSize: 12,
+    color: '#ADD2FD',
+    fontSize: 13,
     marginTop: 2,
   },
   rightSection: {
     alignItems: 'flex-end',
   },
   amount: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
   },
   ethAmount: {
-    fontSize: 12,
+    fontSize: 13,
     marginTop: 2,
-  },
-  sent: {
-    color: '#f44336',
-  },
-  received: {
-    color: '#4CAF50',
+    color: '#ADD2FD'
   },
 });

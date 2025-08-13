@@ -10,7 +10,6 @@ const BackgroundStyles  = StyleSheet.create({
     alignItems: 'center' 
   },
   gradient: {
- 
    //  flex: 1,
   width: '100%',
   height: '100%', 
@@ -34,7 +33,7 @@ const BackgroundStyles  = StyleSheet.create({
   },
   waves: {
     width: width,
-    height: height * 0.15,
+    height: height * 0.17,//orignal was 0.15
   },
   land1: {
     position: 'absolute',
@@ -63,7 +62,23 @@ const BackgroundStyles  = StyleSheet.create({
   paddingHorizontal: 24,
   transform: [{ translateY: -height * 0.05 }],
 },
-
+ lostAccessContainer: {
+   position: 'absolute',
+    top: '40%', 
+    left: 0,
+    right: 0,
+    //top:0,
+    bottom:0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
+  },
+  lostAccessText: {
+    color: '#fff',
+    fontSize: 15,
+    fontWeight:'semibold'
+  
+  }
 
 
 })

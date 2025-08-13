@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import {View,Text,StyleSheet,TouchableOpacity,Image,Dimensions,KeyboardAvoidingView,Platform,ScrollView,ToastAndroid} from 'react-native'
+import React, { useState,useEffect } from 'react'
+import {View,Text,StyleSheet,TouchableOpacity,Image,Dimensions,KeyboardAvoidingView,Platform,ScrollView,ToastAndroid, Keyboard} from 'react-native'
 import Background from '../../components/Background'
 import OTPInputBox from '../../components/OTPInputBox'
 import CheckboxRow from '../../components/CheckboxRow'
@@ -17,16 +17,35 @@ export const OtpScreen = () => {
  //const route = useRoute<RouteProp<AppNavigatorParamList, 'Otp'>>()
  //const token = route?.params?.token
 
+
+ //for keuyboard open useefeect and this us state used
+const [keyboardVisible, setKeyboardVisible] = useState(true);
+const [keyboardHeight, setKeyboardHeight] = useState(0);
   const email = useAppSelector(state => state.user.email)
 
   const [acceptTerms, setAcceptTerms] = useState(false)
   const [keepUpdated, setKeepUpdated] = useState(false)
   const [otpStarted, setOtpStarted] = useState(false)
 
+    useEffect(() => {
+    const showSub = Keyboard.addListener('keyboardDidShow', (e) =>{
+      setKeyboardHeight(e.endCoordinates.height);
+      setKeyboardVisible(true)});
+
+    const hideSub = Keyboard.addListener('keyboardDidHide', () =>{
+     setKeyboardHeight(0);
+    setKeyboardVisible(false);
+    });
+
+    return () => {
+      showSub.remove();
+      hideSub.remove();
+    };
+  }, [])
 
   return (
     <View style={{ flex: 1 }}>
-      <Background showContent hideBottomImages={false} showLogo={false}>
+      <Background showContent hideBottomImages={keyboardVisible} showLogo={false} > 
          <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           style={{ flex: 1 }}
@@ -34,19 +53,22 @@ export const OtpScreen = () => {
 
           <View style={styles.wrapper}>
           
+            <View style={styles.topIcons}>
             <TouchableOpacity
-              style={styles.leftIcon}
               activeOpacity={0.7}
               onPress={() => navigation.goBack()}
             >
-              <Image source={Images.backscreen} style={{ position:'absolute',width: 35, height: 35, left:15, }} />
+              <Image source={Images.backscreen} style={styles.backIcon} />
             </TouchableOpacity>
+
+            <TouchableOpacity>
+              <Image source={Images.comment} style={styles.commentIcon} />
+            </TouchableOpacity>
+          </View>
 
            
             <Image source={Images.logo} style={styles.logo} resizeMode="contain" />
-            <TouchableOpacity>            
-              <Image source={Images.comment} style={styles.commentIcon} />
-              </TouchableOpacity>
+         
 
         
             <Text style={styles.heading}>Check Your Email</Text>
@@ -74,7 +96,8 @@ export const OtpScreen = () => {
                 // }}
               />
 
-           
+           <View style={{ marginBottom: keyboardHeight ? keyboardHeight + 80 : 0 }}>
+        
             <View style={styles.infoWrapper}>
               <Text style={styles.infoText}>Security code sent to</Text>
               <Text style={styles.emailText}>{email}</Text>
@@ -84,7 +107,7 @@ export const OtpScreen = () => {
             <View style={styles.resendWrapper}>
               <SecondaryButton label="Resend Code" onPress={() => {}} />
             </View>
-
+            </View>
        
             <View style={styles.divider} />
 
@@ -140,9 +163,9 @@ const styles = StyleSheet.create({
     height: height * 0.12,
   },
   commentIcon: {
-    position: 'absolute',
-    top: 70,
-    right: 0,
+
+   // top: 70,
+   // right: 0,
     width: 35,
     height: 35,
   },
@@ -193,5 +216,25 @@ const styles = StyleSheet.create({
   flexGrow: 1,
   justifyContent: 'flex-start',
 },
+topIcons: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  position: 'absolute',
+  top: 70,
+  left: 0,
+  right: 0,
+  paddingHorizontal: 15,
+  zIndex: 10,
+},
+backIcon: {
+  width: 35,
+  height: 35,
+},
+
+
 
 })
+
+
+

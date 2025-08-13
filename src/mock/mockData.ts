@@ -8,15 +8,17 @@ export const mockAssetData = {
   sellersPercent: 24,
   position: {
     value: '3,635.94',
-    todayReturn: '+122.55',
+    todayReturn: '$122.55',
     todayReturnPercent: '4.99%',
-    yearHigh: '4,066.69',
+    yearHigh: '$4,066.69',
     yearHighPercent: '-9.68%',
     quantityOwned: '1.48092201',
     holders: '272,997,469',
     circulatingSupply: '120,326,064',
     maxSupply: '',
   },
+
+  
   transactions: [
     {
       id: 1,

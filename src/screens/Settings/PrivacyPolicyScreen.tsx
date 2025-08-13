@@ -28,10 +28,6 @@ const PrivacyPolicyScreen = () => {
     <Image source={Images.whitecross} style={styles.headerIcon} />
   </TouchableOpacity>
 </View>
-
-
-
-      {/* <ScrollView contentContainerStyle={styles.content}> */}
       
         <View style={styles.topSection}>
           
@@ -48,26 +44,24 @@ const PrivacyPolicyScreen = () => {
 
 
           <Text style={styles.privacyTitle}>Privacy Policy</Text>
-          <Text style={styles.lastUpdated}>Last modified: February 20, 2024</Text>
+           <Text style={styles.lastUpdated}></Text> 
         </View>
 
       
         <View style={styles.whiteSection}>
+  <Text style={styles.lastUpdated}>Last modified: February 20, 2024</Text>
+
           <Text style={styles.sectionTitle}>Introduction</Text>
           <Text style={styles.bodyText}>
             Kresus Labs, Inc. (“Kresus” or “We”) respect your privacy and are committed to protecting it. This Privacy
             Policy (the “Policy”) describes the types of Personal Data we may collect or that you may provide in
             connection with your access or use the Kresus website, kresus.com (the “Website”), the Kresus SuperApp (the
             “App”) and any other websites or apps that link to this Policy (jointly, the “Services”) and how we process
-            your Personal Data.
-          </Text>
-          <Text style={styles.bodyText}>
-            This Policy also explains your rights and choices about how we use your Personal Data, including how you can
+            your Personal Data. This Policy also explains your rights and choices about how we use your Personal Data, including how you can
             access or update certain information about you. Beyond the Privacy Policy, your use of our Services and
-            Website is also subject to our Terms and Conditions.
+            Website is also subject to our<Text style={{color:'#ADD2FD', fontWeight:'bold'}}> Terms and Conditions.</Text>
           </Text>
         </View>
-      {/* </ScrollView> */}
     </View>
   )
 }
@@ -86,12 +80,13 @@ const styles = StyleSheet.create({
   topSection: {
     paddingHorizontal: 20,
     paddingTop: 10,
-    backgroundColor: '#010D2A',
+    backgroundColor: '#070942',
   },
   logoRow: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 10,
+    marginLeft: -10,// to make more good 
   },
   logo: {
     width: 48,
@@ -112,8 +107,9 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   lastUpdated: {
-    color: '#ADD2FD',
+    color: 'black',
     fontSize: 13,
+    fontWeight:'500',
     marginBottom: 16,
   },
   whiteSection: {
@@ -128,6 +124,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     marginBottom: 8,
+    textDecorationLine:'underline'
   },
   bodyText: {
     color: 'black',

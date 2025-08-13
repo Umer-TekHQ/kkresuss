@@ -583,7 +583,7 @@ export interface BottomSheetUnifiedRef {
                 <View style={styles.line} />
             <Text style={styles.headingPro}>Today's Return</Text>
           
-            <Text style={styles.bottompara1}>
+            <Text style={styles.bottompara2}>
                 Today’s return refers to the percentage change in the value of a crypto investment from the beginning 
                 of the day to the current time. It measures the gain or loss on the investment within a single 
                 trading day, reflecting the token’s price fluctuations over that period. This metric helps investors 
@@ -591,13 +591,16 @@ export interface BottomSheetUnifiedRef {
             </Text>
           </View>
           )}
+
+
+ 
           {screen === 'AdvanceVerification' && (
           <>
             <View style={styles.lineAV} />
             <Text style={styles.headingAV}>Why Add Advanced Verification?</Text>
             <Text style={styles.bottomparaAV}>
               Separate from the biometrics used by your phone, adding advanced verification{' '}
-              <Text style={{ fontStyle: 'italic' }}>ensures an additional layer of protection</Text> when recovering your
+              <Text>ensures an additional layer of protection</Text> when recovering your
               Kresus wallet, transferring to a new device, or updating sensitive security settings.
             </Text>
             <View style={styles.tipBox}>
@@ -887,6 +890,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     // fontWeight: '400',
   },
+  bottompara2:{
+    color: '#ADD2FD',
+    marginHorizontal: 15,
+    marginTop: 25,
+    fontSize: 20,
+    // fontWeight: '400',
+  },
+
   button: {
     flexDirection: 'row',
     alignSelf: 'center',

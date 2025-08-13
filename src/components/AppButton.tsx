@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Dimensions,
    ViewStyle,
+   StyleProp
 } from 'react-native'
 
 import type { DimensionValue } from 'react-native'

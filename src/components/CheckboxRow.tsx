@@ -35,7 +35,7 @@ const CheckboxRow = ({ isChecked,onToggle,hasLink, prefixText = '',
           {prefixText}{' '}
           <Text
             style={styles.link}
-            onPress={() => navigation.navigate('Settings')}
+           // onPress={() => navigation.navigate('Settings')}
           >
             {linkText}
           </Text>

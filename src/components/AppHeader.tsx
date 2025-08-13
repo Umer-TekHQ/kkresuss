@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   icon: {
     opacity:1,
     position: 'absolute',
-   // left: 20, ( as qa reuired )
+    left: 6, 
      zIndex: 20, 
   },
   rightIcon: {

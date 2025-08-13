@@ -45,11 +45,11 @@ export default FingerprintModal
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    marginTop: height * 0.14,
+    marginTop: height * 0.09, //0.14 was actual 
   },
   modalBox: {
     width: 343,
-    height: 441,
+    height: 411, //actual 441 hai 
     backgroundColor: '#10178A',
     borderRadius: 20,
     borderTopWidth: 1,
@@ -84,10 +84,11 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 30,
     fontWeight: '600',
-    paddingTop:10,
+   //paddingTop:2, //actual was 10
+   marginBottom:2,
   },
   subText: {
-    marginTop:-45, 
+    marginTop:-25, //-45 tha
     fontSize: 19,
     color: '#ADD2FD',
     textAlign: 'center',

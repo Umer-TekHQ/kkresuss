@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, FlatList,Text } from 'react-native';
+import { View, StyleSheet, FlatList,Text, } from 'react-native';
 import { mockAssetData } from '../../mock/mockData';
 import PriceHeader from '../../components/PriceHeader'
 import ChartSection from '../../components/ChartSection'
-import { ActionButtons } from '../../components/ActionButtons';
 import PositionCard from '../../components/PositionCard'
-import { SkeletonLoader } from '../../components/SkeletonLoader';
 import TransactionListItem from '../../components/TransactionListItem'
 import { useNavigation } from '@react-navigation/native';
 import AssetDetailSkeleton from '../../components/AssetDetailSkeleton';
-
+import { TokenActionButtons } from '../../components/TokenActionButtons';
+import { ContactAddress } from '../../components/ContactAddress';
 
 const AssetDetailScreen = () => {
   const navigation = useNavigation();
@@ -24,8 +23,7 @@ const AssetDetailScreen = () => {
   }, []);
 
   if (loading) {
-    // return <SkeletonLoader variant="asset-detail" />
-    return<AssetDetailSkeleton />
+    return<AssetDetailSkeleton data={mockAssetData} onBack={() => navigation.goBack()} />
   }
 
   return (
@@ -39,9 +37,11 @@ const AssetDetailScreen = () => {
         <View>
           <PriceHeader data={assetData} onBack={() => navigation.goBack()} />
           <ChartSection />
-          <ActionButtons />
+          <TokenActionButtons />
           <PositionCard data={assetData} />
+          <ContactAddress />
           <Text style={styles.title}>Recent Transactions</Text>
+          <View style={styles.divider} />
         </View>
       }
     />
@@ -65,4 +65,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#222',
     marginHorizontal: 16,
   },
+  divider:{
+    height:1,
+    marginHorizontal:16,
+    backgroundColor:'#0734A9'
+  }
 });
