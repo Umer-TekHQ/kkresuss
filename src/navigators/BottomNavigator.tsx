@@ -1,6 +1,5 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import { HomeScreen, TradeScreen, ExploreScreen, AssetsScreen } from '../screens';
 import { HomeScreen } from '../screens/HomeScreen/HomeScreen';
 import { ExploreScreen } from '../screens/Explore/ExploreScreen';
 import { TradeScreen } from '../screens/Trade/TradeScreen';
@@ -8,7 +7,6 @@ import AssetsScreen  from '../screens/Assets/AssetsScreen';
 import { Image, Text } from 'react-native';
 import { Images } from '../assets/index'; 
 import styles from '../styles/homestyles';
-import PrivacyPolicyScreen from '../screens/Settings/PrivacyPolicyScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,8 +37,6 @@ export const BottomNavigator = () => {
           ...styles.footer,
           height: 60,
           paddingBottom: 10,
-          // paddingTop: 4,
-          // marginBottom: 10,
         },
       })}
     >
@@ -48,7 +44,6 @@ export const BottomNavigator = () => {
       <Tab.Screen name="Assets" component={AssetsScreen} />
       <Tab.Screen name="Trade" component={TradeScreen} />
       <Tab.Screen name="Explore" component={ExploreScreen} />
-      {/* <Tab.Screen name="PrivacyPolicyScreen" component={PrivacyPolicyScreen} /> */}
     </Tab.Navigator>
   );
 };

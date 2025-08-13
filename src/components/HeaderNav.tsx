@@ -31,7 +31,7 @@ export const HeaderNav: React.FC = () => {
           <Image source={Images.scanner} style={styles.headerIcon} />
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>navigation.navigate('Settings')}>
-          <Image source={Images.secure} style={[styles.headerIcon, { marginLeft: 20 }]} />
+          <Image source={Images.secure} style={[styles.secureIcon, { marginLeft: 20 }]} />
         </TouchableOpacity>
       </View>
     </View>

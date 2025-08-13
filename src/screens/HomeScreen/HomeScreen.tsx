@@ -114,7 +114,9 @@ export const HomeScreen: React.FC = () => {
 
             <Text style={styles.prostext}>Projects to Try</Text>
             <Projects />
+            <View style={{marginBottom: 50,}}>
             <ProjectsList />
+            </View>
           </>
         ) : (
           <SkeletonLoader variant="home" />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 interface ExploreCardProps {
   title: string;
@@ -21,34 +22,37 @@ export const ExploreCard: React.FC<ExploreCardProps> = ({ title, description, im
 
 const styles = StyleSheet.create({
   card: {
-    width: 170,
-    backgroundColor: '#1E1E3F',
+    width: wp('47%'),
+    backgroundColor: '#080C4C',
     borderRadius: 12,
     overflow: 'hidden',
     marginBottom: 16,
-    height: 210,
-    
+    height: hp('30%'),
+    borderTopWidth: 2.5,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    borderColor: '#080C4C'
   },
   image: {
-    width: 170,
-    height: 105,
+    width: wp('47%'),
+    height: hp('15%'),
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
   },
   textContainer: {
-    padding: 8,
+    paddingHorizontal: 12,
+    justifyContent: 'space-between'
   },
   title: {
     marginTop: 15,
     color: '#fff',
-    fontWeight: '600',
-    fontSize: 16,
+    fontSize: 19,
     marginBottom: 4,
   },
   description: {
     marginTop: 3,
-    color: 'lightblue',
-    fontSize: 14,
-    marginBottom: 20,
+    color: '#ADD2FD',
+    fontSize: 15,
+    lineHeight: 19,
   },
 });

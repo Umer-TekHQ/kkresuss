@@ -4,9 +4,6 @@ import React from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Images } from '../../assets/index'
 import {BottomSheetUnified} from '../../components/BottomSheet'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { AppNavigatorParamList } from '../../navigators/routeNames'
-import { useNavigation } from '@react-navigation/native'
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 

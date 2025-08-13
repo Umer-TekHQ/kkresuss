@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import {Images} from '../assets/index'
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 interface Props {
   icon: any;

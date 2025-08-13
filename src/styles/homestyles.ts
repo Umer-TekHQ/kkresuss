@@ -1,4 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default StyleSheet.create({
@@ -263,14 +265,14 @@ activeFooterIcon: {
 inactiveFooterIcon: {
   width: 24,
   height: 24,
-  tintColor: 'lightblue',
+  tintColor: '#7AB7FD',
 },
 activeFooterText: {
   color: '#ffffff',
   fontWeight: '600',
 },
 inactiveFooterText: {
-  color: 'lightblue',
+  color: '#7AB7FD',
 },
 footer: {
   backgroundColor: '#01021d',
@@ -491,15 +493,14 @@ cryptoChangeNegative: {
   },
   actionButtonIcon: {
     resizeMode: 'contain',
-    width: 22,
-    height: 20,
-    marginBottom: 9,
+    width: wp('5.5%'),
+    height: hp('6%'),
     marginTop: 10,
     tintColor: '#7AB7FD',
   },
   actionButtonText: {
     color: '#7AB7FD',
-    fontSize: 12,
+    fontSize: 14,
   },
 
   prosBuyingCard: {
@@ -560,10 +561,10 @@ cryptoChangeNegative: {
     // paddingLeft: 5,
   },
   content: {
-    padding: 10,
-    paddingBottom: 80, 
-    paddingLeft: 20,
-
+    // padding: 10,
+    // paddingBottom: 80, 
+    // paddingLeft: 20,
+    paddingHorizontal: wp('4%'),
   },
     header: {
     flexDirection: 'row',
@@ -602,6 +603,10 @@ cryptoChangeNegative: {
     width: 24,
     height: 24,
     tintColor: 'white',
+  },
+  secureIcon:{
+    width: 42,
+    height: 42
   },
   footerItem: {
     alignItems: 'center',

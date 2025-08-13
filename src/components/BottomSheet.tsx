@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   ImageBackground,
   Modal,
-  Platform
+  Platform,
+  Dimensions
 } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { GestureDetector, Gesture, TextInput } from 'react-native-gesture-handler';
@@ -33,7 +34,6 @@ import { AppNavigatorParamList } from '../navigators/routeNames'
 import { useAppSelector } from '../store/hooks';
 import SwipeButton from './SwipeButton';
 import LinearGradient from 'react-native-linear-gradient';
-import BackgroundDim from './BackgroundDim';
 
 
 interface Props {
@@ -108,33 +108,36 @@ export interface BottomSheetUnifiedRef {
 ) => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
   const context = useSharedValue({ y: 0 });
-  const MAX_TRANSLATE_Y = TRANSLATE_Y_CONFIG.home.max;
-  const START_TRANSLATE_Y = TRANSLATE_Y_CONFIG.home.initial;
+  const initialY = useSharedValue(TRANSLATE_Y_CONFIG.home.initial);
+  const minY = useSharedValue(TRANSLATE_Y_CONFIG.home.min);
+  const maxY = useSharedValue(TRANSLATE_Y_CONFIG.home.max);
 
   
   const { token1, token2, amount1, amount2 } = useAppSelector(state => state.trade);
   
   const openSheet = () => {
-    translateY.value = withSpring(TRANSLATE_Y_CONFIG[screen].max, { 
+    translateY.value = withSpring(maxY.value, { 
       damping: 15,  
       stiffness: 80, 
       mass: 0.8,     
     });
+    setBlockingPointerEvents(true);
   };
   
   const closeSheet = () => {
-    translateY.value = withSpring(TRANSLATE_Y_CONFIG[screen].initial, { 
+    translateY.value = withSpring(initialY.value, { 
       damping: 15,
       stiffness: 80,
       mass: 0.8,
     });
+    setBlockingPointerEvents(false);
   };
   const dimOpacity = useSharedValue(0);
 
   const dimStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       translateY.value,
-      [MAX_TRANSLATE_Y, START_TRANSLATE_Y],
+      [maxY.value, initialY.value],
       [0.5, 0],
       Extrapolate.CLAMP
     );
@@ -145,9 +148,13 @@ export interface BottomSheetUnifiedRef {
   const [blockingPointerEvents, setBlockingPointerEvents] = React.useState(false);
 
   useAnimatedReaction(
-    () => dimOpacity.value,
-    (currentOpacity) => {
-      runOnJS(setBlockingPointerEvents)(currentOpacity > 0);
+    () => {
+      const range = maxY.value - minY.value;
+      const progress = Math.max(0, Math.min(1, (translateY.value - minY.value) / range));
+      return progress;
+    },
+    (progress) => {
+      runOnJS(setBlockingPointerEvents)(progress > 0.95);
     }
   );
 
@@ -156,30 +163,117 @@ export interface BottomSheetUnifiedRef {
     closeSheet
   }));
 
+  const computeTranslateConfig = (s: Props['screen']) => {
+    switch (s) {
+      case 'home':
+        return {
+          initial: -hp('15.93%'),
+          min: -hp('15.93%'),
+          max: -hp('70.67%'),
+        };
+      case 'explore':
+        return {
+          initial: -hp('62.50%'),
+          min: -hp('62.50%'),
+          max: -hp('100%'),
+        };
+      case 'pro':
+        return {
+          initial: -hp('55.56%'),
+          min: -hp('55.56%'),
+          max: -hp('100%'),
+        };
+      case 'profile':
+        return {
+          initial: -hp('9%'),
+          min: -hp('10%'),
+          max: -hp('50%'),
+        };
+      case 'profilebottom':
+        return {
+          initial: -hp('55.56%'),
+          min: -hp('55.56%'),
+          max: -hp('100%'),
+        };
+      case 'trade':
+        return {
+          initial: -hp('10%'),
+          min: -hp('10%'),
+          max: -hp('74.07%'),
+        };
+      case 'todaysReturn':
+        return {
+          initial: -hp('55.56%'),
+          min: -hp('55.56%'),
+          max: -hp('100%'),
+        };
+      case 'AdvanceVerification':
+        return {
+          initial: -hp('55.56%'),
+          min: -hp('55.56%'),
+          max: -hp('100%'),
+        };
+      default:
+        return {
+          initial: -hp('16.93%'),
+          min: -hp('16.93%'),
+          max: -hp('70.67%'),
+        };
+    }
+  };
+
+  useEffect(() => {
+    const { initial, min, max } = computeTranslateConfig(screen);
+    initialY.value = initial;
+    minY.value = min;
+    maxY.value = max;
+    if (translateY.value === 0 || translateY.value === hp('100%')) {
+      translateY.value = withSpring(initial, { 
+        damping: 15,
+        stiffness: 80,
+        mass: 0.8,
+      });
+    }
+  }, [screen]);
+
+  useEffect(() => {
+    const handler = () => {
+      const { initial, min, max } = computeTranslateConfig(screen);
+      initialY.value = initial;
+      minY.value = min;
+      maxY.value = max;
+    };
+    const sub = Dimensions.addEventListener('change', handler);
+    return () => {
+      if (sub && typeof sub.remove === 'function') sub.remove();
+    };
+  }, [screen]);
+
   const gesture = Gesture.Pan()
     .onStart(() => {
       context.value = { y: translateY.value };
     })
     .onUpdate((event) => {
-      const { min, max } = TRANSLATE_Y_CONFIG[screen];
-      translateY.value = Math.max(Math.min(event.translationY + context.value.y, min), max);
+      translateY.value = Math.max(
+        Math.min(event.translationY + context.value.y, minY.value),
+        maxY.value
+      );
     })
     .onEnd((event) => {
-      const { min, max } = TRANSLATE_Y_CONFIG[screen];
-      const midPoint = (min + max) / 2;
+      const midPoint = (minY.value + maxY.value) / 2;
       
       const shouldOpenFully = event.velocityY < -500 || 
-                             (event.velocityY > -200 && translateY.value < midPoint);
+                              (event.velocityY > -200 && translateY.value < midPoint);
       
       if (shouldOpenFully) {
-        translateY.value = withSpring(max, { 
+        translateY.value = withSpring(maxY.value, { 
           damping: 15,
           stiffness: 80,
           mass: 0.8,
           velocity: event.velocityY
         });
       } else {
-        translateY.value = withSpring(min, { 
+        translateY.value = withSpring(minY.value, { 
           damping: 15,
           stiffness: 80,
           mass: 0.8,
@@ -188,15 +282,6 @@ export interface BottomSheetUnifiedRef {
       }
     });
 
-  useEffect(() => {
-    if (translateY.value === 0 || translateY.value === hp('100%')) {
-      translateY.value = withSpring(TRANSLATE_Y_CONFIG[screen].initial, { 
-        damping: 15,
-        stiffness: 80,
-        mass: 0.8,
-      });
-    }
-  }, [screen]);
 
   const rStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
@@ -204,11 +289,17 @@ export interface BottomSheetUnifiedRef {
 
   const responsiveHomeHeadMargin = Math.max(0.5, wp('0.5%'));
   const responsiveHomeNumbersMargin = Math.max(30, wp('18%'));
-  const responsiveProfileHeadMargin = Math.max(5, wp('1%'));
-
+  
+  const securityItems = [
+    { label: 'Advanced Verification', screen: 'Recovery' as const },
+    { label: 'Recovery Phone', screen: 'Recovery' as const },
+    { label: 'Insurance Coverage' },
+    { label: 'Device Biometrics' },
+    { label: 'Email Verification' },
+  ] as const;
 
   const isAtMax = useDerivedValue(() => {
-    return translateY.value === TRANSLATE_Y_CONFIG[screen].max;
+    return translateY.value === maxY.value;
   });
   const logoAnimatedStyle = useAnimatedStyle(() => ({
     opacity: withTiming(isAtMax.value ? 0 : 1, ),
@@ -225,13 +316,12 @@ export interface BottomSheetUnifiedRef {
   }));
 
   const showDimBackground = useDerivedValue(() =>
-  screen === 'trade' && translateY.value === TRANSLATE_Y_CONFIG.trade.max
-);
+    screen === 'trade' && translateY.value === maxY.value
+  );
 
   const arrowStyle = useAnimatedStyle(() => {
-    const { min, max } = TRANSLATE_Y_CONFIG[screen];
-    const range = max - min;
-    const progress = Math.max(0, Math.min(1, (translateY.value - min) / range));
+    const range = maxY.value - minY.value;
+    const progress = Math.max(0, Math.min(1, (translateY.value - minY.value) / range));
     const rotateDeg = progress * 180; 
     return { transform: [{ rotate: `${rotateDeg}deg` }] };
   });
@@ -239,6 +329,7 @@ export interface BottomSheetUnifiedRef {
   return (
     <>
       <Animated.View
+        pointerEvents="none"
         style={[
           StyleSheet.absoluteFillObject,
           { backgroundColor: 'black' },
@@ -255,48 +346,44 @@ export interface BottomSheetUnifiedRef {
           rStyle,
           showDimBackground.value && { zIndex: 1000 }
         ]}>
-          {screen === 'home' && (
-            <>
-              <TouchableOpacity activeOpacity={1} onPress={openSheet}>
-                <View style={styles.linehome} />
-                <View style={[styles.head, { marginHorizontal: responsiveHomeHeadMargin }]}>
-                  <Image source={Images.bottomhead} style={styles.headimg} />
-                  <Text style={styles.heading}>My Security Score</Text>
-                  <Text style={[styles.numbers, { marginLeft: responsiveHomeNumbersMargin }]}>1/5</Text>
+      {screen === 'home' && (
+          <>
+            <TouchableOpacity activeOpacity={1} onPress={openSheet}>
+              <View style={styles.linehome} />
+              <View style={[styles.head, { marginHorizontal: responsiveHomeHeadMargin }]}>
+                <Image source={Images.bottomhead} style={styles.headimg} />
+                <Text style={styles.heading}>My Security Score</Text>
+                <Text style={[styles.numbers, { marginLeft: responsiveHomeNumbersMargin }]}>1/5</Text>
+                <TouchableOpacity onPress={(e) => { e.stopPropagation(); closeSheet(); }}>
                   <Animated.Image
                     source={Images.up}
                     style={[styles.upimg, arrowStyle]}
                   />
-                </View>
+                </TouchableOpacity>
+              </View>
 
-                <View style={styles.linner}>
-                  <LinearGradient
-                    colors={['#2B36E4', '#CEB55B']} 
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
-                    style={styles.line1}
-                  />
-                  {[...Array(3)].map((_, i) => (
-                    <View key={i} style={styles.line} />
-                  ))}
-                </View>
+              <View style={styles.linner}>
+                <LinearGradient
+                  colors={['#2B36E4', '#CEB55B']} 
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                  style={styles.line1}
+                />
+                {[...Array(3)].map((_, i) => (
+                  <View key={i} style={styles.line} />
+                ))}
+              </View>
 
-                <View style={styles.Lists}>
-                  {[
-                    'Advanced Verification',
-                    'Recovery Phone',
-                    'Insurance Coverage',
-                    'Device Biometrics',
-                    'Email Verification',
-                  ].map((item, i) => (
-                    <View style={styles.list} key={i}>
-                      <TouchableOpacity>
+              <View style={styles.Lists}>
+                {securityItems.map((item, i) => (
+                  <View style={styles.list} key={i}>
+                    <TouchableOpacity onPress={'screen' in item ? () => navigation.navigate(item.screen) : undefined}>
                       <View style={styles.L1}>
                         <Image
                           source={i < 3 ? Images.checked : Images.checked1}
                           style={styles.img1}
                         />
-                        <Text style={styles.T1}>{item}</Text>
+                        <Text style={styles.T1}>{item.label}</Text>
                         {i === 2 && (
                           <Image source={Images.probadge} style={styles.probdg} />
                         )}
@@ -311,21 +398,20 @@ export interface BottomSheetUnifiedRef {
                           />
                         )}
                       </View>
-                      </TouchableOpacity>
-                    </View>
-                  ))}
-                </View>
-
-                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Settings')}>
-                  <View style={styles.btnsty}>
-                    <Image source={Images.secure} style={styles.secure} />
-                    <Text style={styles.btntext}>Manage In Settings</Text>
+                    </TouchableOpacity>
                   </View>
-                </TouchableOpacity>
+                ))}
+              </View>
+
+              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Settings')}>
+                <View style={styles.btnsty}>
+                  <Image source={Images.secure1} style={styles.secure} />
+                  <Text style={styles.btntext}>Manage In Settings</Text>
+                </View>
               </TouchableOpacity>
-            </>
-            
-          )}
+            </TouchableOpacity>
+              </>
+            )}
 
           {screen === 'pro' && (
             <>
@@ -360,7 +446,7 @@ export interface BottomSheetUnifiedRef {
 
           {screen === 'profile' && (
             <View>
-              <View style={[styles.head, { marginHorizontal: responsiveProfileHeadMargin }]}>
+              <View style={styles.headProfileRow}>
                 <Animated.Image
                   source={Images.profileheadlogo}
                   style={[styles.headimgP, logoAnimatedStyle]}
@@ -373,14 +459,18 @@ export interface BottomSheetUnifiedRef {
                 <Animated.Image source={Images.up} style={[styles.upimgP, arrowStyle]} />
               </View>
               <View style={styles.l1}>
-                <Image source={Images.base} />
-                <Text style={styles.l1text}> Base Network</Text>
-                <Text style={styles.l12text}>Crypto and NFTs</Text>
+                <View style={styles.rowLeft}>
+                  <Image source={Images.base} />
+                  <Text style={styles.l1text}> Base Network</Text>
+                </View>
+                <Text style={styles.trailingText}>Crypto and NFTs</Text>
               </View>
               <View style={styles.l12}>
-                <Image source={Images.solanalogo} style={styles.solanalogo} />
-                <Text style={styles.l1text}> Solana Network</Text>
-                <Text style={styles.l121text}>Crypto only</Text>
+                <View style={styles.rowLeft}>
+                  <Image source={Images.solanalogo} style={styles.solanalogo} />
+                  <Text style={styles.l1text}> Solana Network</Text>
+                </View>
+                <Text style={styles.trailingText}>Crypto only</Text>
               </View>
               <Text style={styles.bottomtext}>
                 Do not sent assets over Ethereum mainnets or they will be lost.
@@ -688,7 +778,6 @@ const styles = StyleSheet.create({
   headimgP: {
   padding: wp('3%'), 
   marginTop: 5,
-  marginLeft: wp('4%'),
   width: wp('9%'),
   height: hp('5%'),
   resizeMode: 'contain'
@@ -699,6 +788,14 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginTop: 6,
     marginLeft: 30,
+  },
+  headProfileRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: wp('4%'),
+    marginTop: 5,
+    marginBottom: 7,
   },
   headingAV:{
     color: '#ffffff',
@@ -717,7 +814,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '600',
     marginTop: 6,
-    marginLeft: 20,
+    flex: 1,
+    marginLeft: wp('2%'),
   },
   headingTB:{
     color: '#2ED459',
@@ -744,7 +842,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   upimgP:{
-    marginLeft: 110,
     marginTop: 5,
     width: 28,
     height: 25,
@@ -833,6 +930,8 @@ const styles = StyleSheet.create({
   },
   secure: {
     marginTop: 8,
+    width: 19,
+    height: 24
   },
   btnsty: {
     flexDirection: 'row',
@@ -858,8 +957,10 @@ const styles = StyleSheet.create({
   },
   l1:{
     flexDirection:'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginTop: 10,
-    marginLeft: 20,
+    paddingHorizontal: wp('4%'),
     borderTopWidth: 0.5,
     borderColor: '#101684',
     paddingVertical: 20,
@@ -868,29 +969,29 @@ const styles = StyleSheet.create({
   },
   l12:{
     flexDirection:'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginTop: 10,
-    marginLeft: 22,
+    paddingHorizontal: wp('4%'),
     borderTopWidth: 0.5,
     borderColor: '#101684',
     borderTopRightRadius: 20,
     paddingVertical: 20,
+  },
+  rowLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   l1text:{
     color: 'white',
     fontSize: 18,
     marginLeft: 10,
   },
-  l12text:{
+  trailingText:{
     color: 'lightblue',
     marginTop: 2,
-    marginLeft: 58,
     fontSize: 15,
-  },
-  l121text:{
-    color: 'lightblue',
-    marginTop: 2,
-    marginLeft: 82,
-    fontSize: 15,
+    textAlign: 'right'
   },
   solanalogo:{
     width: 20,
@@ -898,14 +999,14 @@ const styles = StyleSheet.create({
   },
   bottomtext:{
     color: 'lightblue',
-    marginHorizontal: 25,
+    marginHorizontal: wp('5%'),
     marginTop: 15,
   },
   LMBtn:{
     backgroundColor: '#0a0a23',
     paddingVertical: 10,
     alignItems: 'center',
-    marginHorizontal: 20,
+    marginHorizontal: wp('5%'),
     borderRadius: 20,
     borderColor: '#4898F3',
     borderWidth: 1,
