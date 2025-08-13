@@ -1,54 +1,63 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, StyleSheet,Image } from 'react-native';
-import { LineChart } from 'react-native-chart-kit';
+import { View, Text, TouchableOpacity, Dimensions, StyleSheet, Image } from 'react-native';
+import { LineChart } from 'react-native-gifted-charts';
 import { Images } from '../assets';
 
 const { width } = Dimensions.get('window');
 
 const graphDataMap: Record<string, number[]> = {
-  '1D': [20, 25, 30, 28, 26, 30, 32],
-  '1W': [18, 24, 29, 31, 33, 35, 36],
-  '1M': [15, 22, 27, 33, 38, 42, 47],
-  '1Y': [10, 20, 25, 35, 40, 50, 55],
-  'ALL': [5, 15, 20, 30, 40, 45, 50],
+  // '1D': [20, 25, 30, 28, 26, 30, 32],
+  // '1W': [18, 24, 29, 31, 33, 35, 36],
+  // '1M': [15, 22, 27, 33, 38, 42, 47],
+  // '1Y': [10, 20, 25, 35, 40, 50, 55],
+  // 'ALL': [5, 15, 20, 30, 40, 45, 50],
+  '1D': [14, 42, 92, 67, 55, 65, 74, 39, 53, 31, 70, 67, 62, 78, 37, 21, 29, 42, 47, 54, 38, 29],
+  '1W': [12, 70, 48, 55, 52, 63, 70, 42, 58, 28, 66, 64, 28, 73, 28, 22, 32, 38, 43, 52, 42, 33],
+  '1M': [14, 42, 92, 67, 55, 65, 74, 39, 53, 31, 70, 67, 62, 78, 37, 21, 29, 42, 47, 54, 38, 29],
+  '1Y': [11, 68, 66, 70, 54, 62, 71, 41, 56, 33, 69, 65, 39, 76, 16, 24, 28, 36, 44, 49, 37, 34],
+  'ALL':[13, 83, 49, 26, 57, 61, 73, 38, 54, 29, 67, 63, 61, 74, 59, 23, 31, 39, 46, 51, 41, 32],
 };
 
 const ChartSection = () => {
   const [activeFilter, setActiveFilter] = useState('1D');
- const buyersPercent = 76;
+  const buyersPercent = 76;
   const sellersPercent = 24;
-  const chartData = {
-    labels: [],
-    datasets: [
-      {
-        data: graphDataMap[activeFilter] || [],
-        color: () => '#00FF99',
-        strokeWidth: 1.5,
-      },
-    ],
-  };
+
+  // Transform data for gifted-charts
+  const chartData = graphDataMap[activeFilter].map((value) => ({ value }));
 
   return (
     <View style={styles.chartContainer}>
+      
       <LineChart
         data={chartData}
         width={width - 32}
         height={180}
-        withDots={false}
-        withInnerLines={false}
-        withOuterLines={false}
-        withVerticalLabels={false}
-        withHorizontalLabels={false}
-        chartConfig={{
-          backgroundColor: '#010D2A',
-          backgroundGradientFrom: '#040640',
-          backgroundGradientTo: '#040640',
-          color: () => '#00FF99',
-        }}
-        bezier
-        style={styles.chartStyle}
+        curved
+        areaChart
+        spacing={(width - 32) / (chartData.length - 1)}
+        thickness={2}
+        color="#00FF99"
+        startFillColor="#00FF99"
+        endFillColor="#00FF99"
+        startOpacity={0.35}
+        endOpacity={0.01}
+        hideDataPoints
+        hideRules
+        hideYAxisText
+        backgroundColor="transparent"
+        isAnimated
+        animateOnDataChange
+        animationDuration={400}
+        xAxisThickness={0}
+        yAxisThickness={0}
+        yAxisLabelWidth={0}
+        initialSpacing={0}
+        adjustToWidth
       />
 
+      {/* Time Filter Buttons */}
+      <View style={{marginHorizontal:16}}>
       <View style={styles.timeFilterContainer}>
         {['1D', '1W', '1M', '1Y', 'ALL'].map((filter) => (
           <TouchableOpacity
@@ -70,66 +79,65 @@ const ChartSection = () => {
           </TouchableOpacity>
         ))}
       </View>
+
       <View style={styles.divider} />
+
+      {/* Progress Bars */}
       <View style={styles.progressBar}>
         <View style={[styles.greenBar, { width: `${buyersPercent}%` }]} />
         <View style={[styles.redBar, { width: `${sellersPercent}%` }]} />
       </View>
 
-      
+      {/* Buyers/Sellers Row */}
       <View style={styles.bottomRow}>
         <View style={styles.rowItem}>
           <Image source={Images.rocket} style={styles.icon} />
           <Text style={styles.label}>{buyersPercent}% Buyers</Text>
         </View>
         <View style={styles.rowItem}>
-          <Text style={styles.label}>{sellersPercent}% Sellers</Text>
-          <Image source={Images.cashout} style={styles.icon} />
+          <Text style={styles.label}>Sellers {sellersPercent}%</Text>
+          <Image source={Images.cashout} style={styles.icon2} />
         </View>
       </View>
-<View style={styles.divider} />
+
+      <View style={styles.divider} />
+      </View>
     </View>
   );
 };
 
 export default ChartSection;
 
-
-
 const styles = StyleSheet.create({
   chartContainer: {
-    backgroundColor: '#112244',
-    borderRadius: 12,
-    marginHorizontal: 16,
-    marginBottom: 16,
-    paddingVertical: 8,
-  },
-  chartStyle: {
     borderRadius: 12,
   },
   timeFilterContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 8,
-    paddingBottom: 8,
+   // paddingBottom: 8,
+   
   },
   timeFilterButton: {
     paddingHorizontal: 12,
     paddingVertical: 4,
-    borderRadius: 6,
+    borderRadius: 4,
+    height:30,
+    textAlign:'center',
+    justifyContent:'center'
   },
   activeTimeFilterButton: {
     backgroundColor: '#0734A9',
   },
   timeFilterText: {
-    color: '#fff',
+    color: '#7AB7FD',
     fontSize: 12,
   },
   activeTimeFilterText: {
-    color: '#000',
+    color: 'white',
     fontWeight: 'bold',
   },
-
   progressBar: {
     flexDirection: 'row',
     height: 3,
@@ -138,6 +146,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#222',
     marginHorizontal: 16,
     marginBottom: 12,
+    gap: 2,
   },
   greenBar: {
     backgroundColor: '#4CAF50',
@@ -145,7 +154,6 @@ const styles = StyleSheet.create({
   redBar: {
     backgroundColor: '#f44336',
   },
-
   bottomRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -158,17 +166,26 @@ const styles = StyleSheet.create({
   },
   label: {
     color: 'white',
-    fontSize: 13,
+    fontSize: 15,
     fontWeight: '500',
     marginHorizontal: 6,
   },
   icon: {
-    width: 16,
-    height: 16,
+    width: 17,
+    height: 17,
     resizeMode: 'contain',
-  },divider: {
+  },
+  icon2: {
+    width: 20,
+    height: 20,
+    resizeMode: 'cover',
+  },
+  divider: {
     height: 1,
-    backgroundColor: '#334466',
+    backgroundColor: '#0734A9',
     marginVertical: 10,
   },
 });
+
+
+

@@ -36,31 +36,42 @@ const PositionCard = ({ data }: { data: any }) =>{
           </TouchableOpacity>
           <Image source={Images.identity} style={styles.iconSmall} />
         </View>
-        <Text style={styles.greenText}>
-          {data.position.todayReturn} ({data.position.todayReturnPercent})
-        </Text>
+        <Text style={styles.metricRowText}>
+    <Text style={styles.whiteText}>{data.position.todayReturn} </Text>
+    <Text style={styles.greenText}>({data.position.todayReturnPercent})</Text>
+       </Text>
       </View>
 
       <View style={styles.metricBlock}> 
         <View style={styles.iconRow}>
+          <TouchableOpacity>
           <Text style={styles.metricLabel}>1-Year High</Text>
+          </TouchableOpacity>
           <Image source={Images.identity} style={styles.iconSmall} />
         </View>
-        <Text style={styles.redText}>
-          {data.position.yearHigh} ({data.position.yearHighPercent})
-        </Text>
+      <Text style={styles.metricRowText}>
+        <Text style={styles.whiteText}>{data.position.yearHigh} </Text>
+        <Text style={styles.redText}>({data.position.yearHighPercent})</Text>
+      </Text>
       </View>
     </View>
 
   
     <View style={styles.metricRow}>
       <View style={styles.metricBlock}>
+        <TouchableOpacity>
         <Text style={styles.metricLabel}>Quantity Owned</Text>
+        </TouchableOpacity>
         <Text style={styles.lightValue}>{data.position.quantityOwned}</Text>
       </View>
 
       <View style={styles.metricBlock}>
+         <View style={styles.iconRow}>
+        <TouchableOpacity>
         <Text style={styles.metricLabel}>Holders</Text>
+        </TouchableOpacity>
+         <Image source={Images.identity} style={styles.iconSmall} />
+         </View>
         <Text style={styles.lightValue}>{data.position.holders}</Text>
       </View>
     </View>
@@ -69,7 +80,9 @@ const PositionCard = ({ data }: { data: any }) =>{
     <View style={styles.metricRow}>
       <View style={styles.metricBlock}>
         <View style={styles.iconRow}>
+          <TouchableOpacity>
           <Text style={styles.metricLabel}>Circulating Supply</Text>
+          </TouchableOpacity>
           <Image source={Images.identity} style={styles.iconSmall} />
         </View>
         <Text style={styles.lightValue}>{data.position.circulatingSupply}</Text>
@@ -77,7 +90,9 @@ const PositionCard = ({ data }: { data: any }) =>{
 
       <View style={styles.metricBlock}>
         <View style={styles.iconRow}>
-          <Text style={styles.metricLabel}>Max Supply</Text>
+          <TouchableOpacity>
+          <Text style={styles.metricLabel}>Maximum Supply</Text>
+          </TouchableOpacity>
           <Image source={Images.identity} style={styles.iconSmall} />
         </View>
         <Text style={styles.lightValue}>{data.position.maxSupply}</Text>
@@ -117,7 +132,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 1,
-    backgroundColor: '#334466',
+    backgroundColor: '#0734A9',
     marginVertical: 10,
   },
   rowSpaceBetween: {
@@ -127,7 +142,7 @@ const styles = StyleSheet.create({
   },
   value: {
     color: '#FFFFFF',
-    fontSize: 20,
+    fontSize: 19,
     fontWeight: '700',
   },
   metricRow: {
@@ -145,34 +160,35 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   metricLabel: {
-    color: '#999',
-    fontSize: 12,
+    color: '#ADD2FD',
+    fontSize: 13,
   },
   iconSmall: {
     width: 12,
     height: 12,
     marginLeft: 4,
+    tintColor:'#ADD2FD'
   },
   greenText: {
     color: '#00FF99',
     fontSize: 13,
     fontWeight: '500',
-    marginTop: 2,
+   // marginTop: 2,
   },
   redText: {
     color: '#FF5C5C',
     fontSize: 13,
     fontWeight: '500',
-    marginTop: 2,
+   // marginTop: 2,
   },
   lightValue: {
-    color: '#CCCCCC',
-    fontSize: 12,
+    color: 'white',
+    fontSize: 15,
     marginTop: 2,
   },
   label: {
-  color: '#CCCCCC',
-  fontSize: 12,
+  color: '#ADD2FD',
+  fontSize: 13,
   marginTop: 4,
 },
 
@@ -199,6 +215,14 @@ copyIcon: {
   width: 14,
   height: 14,
   tintColor: '#00FF99',
+},
+whiteText: {
+  color: '#FFFFFF',
+  fontSize: 15,
+  fontWeight: '500',
+},
+metricRowText: {
+  marginTop: 2,
 },
 
 

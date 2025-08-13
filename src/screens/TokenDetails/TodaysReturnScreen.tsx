@@ -1,13 +1,15 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View, } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
-import React from 'react'
+import React,{useRef} from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Images } from '../../assets/index'
 import {BottomSheetUnified} from '../../components/BottomSheet'
-
+import TodaysReturn, { TodaysReturnRef } from '../../components/TodaysReturn'
 
  const TodaysReturnScreen = ({navigation}: any) => {
   const translateY = useSharedValue(0);
+   const sheetRef = useRef<TodaysReturnRef>(null);
+
   return (
       <GestureHandlerRootView>
         <View style={styles.container}>
@@ -24,8 +26,9 @@ import {BottomSheetUnified} from '../../components/BottomSheet'
               </View>
               </TouchableOpacity>
         </View>
-        <BottomSheetUnified screen="todaysReturn" translateY={translateY} />
-        
+        {/* <BottomSheetUnified screen="todaysReturn" translateY={translateY} /> */}
+        {/* if error arises i will call uppar component */}
+       <TodaysReturn ref={sheetRef} />
       </GestureHandlerRootView>
   )
 }

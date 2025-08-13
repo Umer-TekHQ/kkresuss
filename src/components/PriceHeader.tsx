@@ -2,7 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Images } from '../assets';
 import SecondaryButton from './SecondaryButton';
-import SecondaryButtonWithIcon from './SecondaryButtonWithIcon ';
+import SecondaryButtonWithIcon from './SecondaryButtonWithIcon'
+
 
 const PriceHeader = ({ data, onBack }: { data: any, onBack?: () => void }) => (
   
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    marginBottom: 12,
+    marginBottom: 8,
     position: 'relative',
   },
   backButton: {
