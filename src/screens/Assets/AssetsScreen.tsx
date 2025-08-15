@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, FlatList, TouchableOpacity,ScrollView,Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, FlatList, TouchableOpacity,ScrollView,Image, Animated  } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import CryptoChart from '../../components/CryptoChart';
 import { ActionButtons } from '../../components/ActionButtons';
@@ -18,6 +18,7 @@ import TransactionCard from '../../components/TransactionCard';
 import nftImages from '../../mock/NftImages';
 import {transactionData} from '../../mock/nftRecentData'
 import TransactionButton from '../../components/TransactionButton';
+import { TokenActionButtons } from '../../components/TokenActionButtons';
 import { useAppDispatch } from '../../store/hooks';
 import { setToken1, setToken2 } from '../../store/slices/tradeSlice';
 
@@ -34,13 +35,13 @@ const CryptoTab = () => {
         contentContainerStyle={{
           paddingHorizontal: 12,
           paddingTop: 20,
-          paddingBottom: 200, 
+          paddingBottom: 40, 
         }}
         showsVerticalScrollIndicator={false}
       >
         <CryptoChart />
         <View style={styles.divider} />
-        <ActionButtons />
+        <TokenActionButtons />
 
         <View style={{ marginTop: 20, alignItems: 'center' }}>
           <TopAssetsCard />
@@ -147,7 +148,7 @@ const AssetsScreen = () => {
   return (
     <View style={{ flex: 1, backgroundColor: index === 1 ? '#01032C' : '#01021D' }}>
       <HeaderNav />
-      <TabView
+      {/* <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
@@ -162,8 +163,54 @@ const AssetsScreen = () => {
             inactiveColor="#7AB7FD"
           />
         )}
-      />
+      /> */}
       
+
+<TabView
+  navigationState={{ index, routes }}
+  renderScene={renderScene}
+  onIndexChange={setIndex}
+  initialLayout={initialLayout}
+  renderTabBar={(props) => (
+    <TabBar
+      {...props}
+      renderIndicator={(indicatorProps) => {
+        const { position, navigationState, getTabWidth } = indicatorProps;
+        const inputRange = navigationState.routes.map((_, i) => i);
+
+        const translateX = position.interpolate({
+          inputRange,
+          outputRange: inputRange.map((i) => {
+            let tabWidth = getTabWidth ? getTabWidth(i) : initialLayout.width / navigationState.routes.length;
+            let textWidth = navigationState.routes[i].title.length * 8; // Approx width per char
+            return (tabWidth - textWidth) / 2 + i * tabWidth ;
+          }),
+        });
+
+        return (
+          <Animated.View
+            style={{
+              position: 'absolute',
+              height: 2,
+              backgroundColor: '#7AB7FD',
+              bottom: 0,
+              width: navigationState.routes[index].title.length * 8 + 8, 
+              transform: [{ translateX }],
+            }}
+          />
+        );
+      }}
+      style={{
+        backgroundColor: index === 1 ? '#01032C' : '#01021D',
+      }}
+      activeColor="white"
+      inactiveColor="#7AB7FD"
+    />
+  )}
+/>
+
+
+
     </View>
   );
 };
@@ -260,14 +307,14 @@ popularIcons: {
 },
 
 popularIcon: {
-  width: 20,
-  height: 20,
+  width: 25,
+  height: 25,
   resizeMode: 'contain',
 },
   divider: {
     height: 1,
-    backgroundColor: '#334466',
-    marginVertical: 10,
+    backgroundColor: '#10178A',
+    marginHorizontal:22,
   },
   myNFTsText: {
   color: '#fff',
@@ -287,7 +334,7 @@ recentTransactions: {
   color: '#999',
   fontSize: 15,
   fontWeight: '500',
-//  marginBottom: 10,
+
 },
 bottomSpace:{
   marginBottom:60,

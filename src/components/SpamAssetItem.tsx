@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { Images } from '../assets';
 
 const SpamAssetItem = ({ item }: any) => {
   return (
@@ -9,14 +10,21 @@ const SpamAssetItem = ({ item }: any) => {
        
         <View style={{ flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}>
      <Text style={styles.name}>{item.name}</Text>
-     <Text
-    style={[
-      styles.change,
-      { color: item.isNegative ? '#FF4D4D' : '#00E38C' },
-    ]}
-     >
-    {'   '}{item.change}
-  </Text>
+
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 6 }}>
+            <Image
+              source={item.isNegative ? Images.reddown : Images.greenup}
+              style={styles.changeIcon}
+            />
+            <Text
+              style={[
+                styles.change,
+                { color: item.isNegative ? '#FF4D4D' : '#00E38C' },
+              ]}
+            >
+             {' '}{item.change}
+            </Text>
+          </View>
 </View>
 
         <Text style={styles.subPrice}>{item.subPrice}</Text>
@@ -81,5 +89,11 @@ const styles = StyleSheet.create({
   fontSize: 13,
   fontWeight: '500',
 },
+ changeIcon: {
+    width: 10,
+    height: 10,
+    resizeMode: 'contain',
+    
+  },
 
 });

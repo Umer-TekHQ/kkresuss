@@ -30,16 +30,14 @@ const CheckboxRow = ({ isChecked,onToggle,hasLink, prefixText = '',
        
           <Text style={styles.label}>{prefixText}</Text>
       
-      ) : (
-        <Text style={styles.label}>
-          {prefixText}{' '}
-          <Text
-            style={styles.link}
-           // onPress={() => navigation.navigate('Settings')}
-          >
-            {linkText}
-          </Text>
-        </Text>
+       ) 
+      : (
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+          <Text style={styles.label}>{prefixText} </Text>
+          <TouchableOpacity >
+            <Text style={styles.link}>{linkText}</Text>
+          </TouchableOpacity>
+        </View>
       )}
     </View>
   )

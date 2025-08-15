@@ -75,9 +75,15 @@ const SpamScreen = () => {
 
   
       <View style={styles.notificationBox}>
-        <Text style={styles.notificationText}>
-          <Text style={{ fontWeight: '600' }}>Rocket Pool ETH</Text> removed from spam
-        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <Image
+      source={Images.check}
+      style={{ width: 20, height: 20, resizeMode: 'contain', marginRight: 8 ,top:8}}
+    />
+    <Text style={styles.notificationText}>
+      <Text style={{ fontWeight: '600' }}>Rocket Pool ETH</Text> removed from spam
+    </Text>
+  </View>
       </View>
     </View>
   );

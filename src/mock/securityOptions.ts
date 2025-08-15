@@ -4,13 +4,13 @@ export interface SecurityOption {
   title: string
   pro?: boolean
   toggle?: boolean
-  route?: keyof AppNavigatorParamList // optional route key
+  route?: keyof AppNavigatorParamList 
 }
 
 export const securityOptions: SecurityOption[] = [
   {
     title: 'Email',
-    route: 'Home', // example route
+   // route: 'Home', 
   },
   {
     title: 'Recovery Phone',

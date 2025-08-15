@@ -35,11 +35,18 @@ const activeTicks = useSelector((state: RootState) => state.security.ticks);
   const handleToggleTick = (title: string) => {
     dispatch(toggleTick(title));
   };
+ 
+//for now commenting secuirty score dynamic behaviour
 
-    useEffect(() => {
-    const tickCount = Object.values(activeTicks).filter(Boolean).length;
-    setScore(tickCount);
-  }, [activeTicks]);
+  //   useEffect(() => {
+  //   const tickCount = Object.values(activeTicks).filter(Boolean).length;
+  //   setScore(tickCount);
+  // }, [activeTicks]);
+
+  useEffect(() => {
+  setScore(1);
+}, [activeTicks]);
+
 
   const handleNavigate = (route: keyof AppNavigatorParamList) => {
     navigation.navigate(route as any)

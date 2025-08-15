@@ -1,74 +1,79 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Dimensions, StyleSheet, Image } from 'react-native';
-import { LineChart } from 'react-native-chart-kit';
 import { Images } from '../assets'; 
+import { LineChart } from 'react-native-gifted-charts';
 
 const { width } = Dimensions.get('window');
 
 const graphDataMap: Record<string, number[]> = {
-  '1D': [20, 25, 30, 28, 26, 30, 32],
+  '1D': [12, 70, 48, 55, 52, 63, 70, 42, 58, 28, 66, 64, 28, 73, 28, 22, 32, 38, 43, 52, 42, 33],
   '1W': [18, 24, 29, 31, 33, 35, 36],
   '1M': [15, 22, 27, 33, 38, 42, 47],
   '1Y': [10, 20, 25, 35, 40, 50, 55],
-  'ALL': [5, 15, 20, 30, 40, 45, 50],
+  'ALL': [5, 15, 20, 30, 40, 45, 50,10,40,20],
 };
 
 const CryptoChart = () => {
   const [activeFilter, setActiveFilter] = useState<'1D' | '1W' | '1M' | '1Y' | 'ALL'>('1D');
 
-  const chartData = {
-    labels: [],
-    datasets: [
-      {
-        data: graphDataMap[activeFilter],
-        color: () => '#00FF99',
-        strokeWidth: 1.5,
-      },
-    ],
-  };
+
+  const chartData = graphDataMap[activeFilter].map((value) => ({
+    value,
+  }));
 
   return (
     <View style={styles.chartContainer}>
-   
+     
       <TouchableOpacity style={styles.insuredButton}>
         <Image source={Images.insured} style={styles.insuredIcon} />
         <Text style={styles.insuredButtonText}>Get Insured</Text>
       </TouchableOpacity>
 
-     
       <View style={styles.priceContainer}>
-        <Text style={styles.price}>$23,000</Text>
-        <Text style={styles.subInfo}>
-          <Text style={styles.greenText}>$440.22 (1.92%) </Text>
-          <Text style={styles.whiteText}>@3:36 am</Text>
-        </Text>
+  <Text style={styles.price}>$23,000</Text>
+
+  <View style={styles.subInfo}>
+    <Image
+      source={Images.greenup}
+      style={styles.greenUpIcon}
+    />
+    <Text style={styles.greenText}>$440.22 (1.92%) </Text>
+    <Text style={styles.whiteText}>@3:36 am</Text>
+  </View>
+</View>
+
+
+      <View style={{ marginTop: 10 }}>
+        <LineChart
+          data={chartData}
+          width={width}
+          height={130}
+          curved
+          areaChart
+          spacing={width / (chartData.length -1)} 
+          thickness={2}
+          color="#00FF99"
+          startFillColor="#00FF99"
+          endFillColor="#00FF99"
+          startOpacity={0.35}
+          endOpacity={0.01}
+          hideDataPoints
+          hideRules
+          hideYAxisText
+          backgroundColor="transparent"
+          isAnimated
+          animateOnDataChange
+          animationDuration={400}
+          xAxisThickness={0}
+          yAxisThickness={0}
+          yAxisLabelWidth={0}
+          initialSpacing={0}
+          endSpacing={0}
+          adjustToWidth={false}
+        />
       </View>
 
-  
-      <LineChart
-        data={chartData}
-        width={width}
-        height={180}
-        withDots={false}
-        withInnerLines={false}
-        withOuterLines={false}
-        withVerticalLabels={false}
-        withHorizontalLabels={false}
-        chartConfig={{
-          backgroundColor: '#01021D',
-          backgroundGradientFrom: '#01021D',
-          backgroundGradientTo: '#01021D',
-          fillShadowGradient: '#00FF99',
-           fillShadowGradientOpacity: 0.2,
-    color: () => '#00FF99',
-    strokeWidth: 2,
-        }}
-        bezier
-        style={styles.chartStyle}
-      /> 
-
-
-    
+     
       <View style={styles.timeFilterContainer}>
         {['1D', '1W', '1M', '1Y', 'ALL'].map((filter) => (
           <TouchableOpacity
@@ -134,43 +139,51 @@ const styles = StyleSheet.create({
   },
   subInfo: {
     marginTop: 4,
-    fontSize: 13,
+    //fontSize: 13,
+    flexDirection:'row',
+    alignItems:'center'
   },
   greenText: {
-    color: '#4CAF50',
+    color: '#30DB5B',
+    fontWeight:'semibold',
+    fontSize:13,
   },
   whiteText: {
-    color: '#FFFFFF',
+    color: '#ADD2FD',
+    fontWeight:'semibold',
+    fontSize:13,
   },
-  chartStyle: {
-    marginTop: 6,
-    //  backgroundColor: '#01021D', 
-  },
+greenUpIcon: {
+  width: 12,
+  height: 12,
+  resizeMode: 'contain',
+  marginRight: 4,
+},
+
   timeFilterContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 2,
+    marginTop: 6,
     paddingBottom: 4,
   },
   timeFilterButton: {
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 6,
+   height:30,
+    justifyContent: 'center', 
+  alignItems: 'center',  
   },
   activeTimeFilterButton: {
     backgroundColor: '#0734A9',
   },
   timeFilterText: {
-    color: '#fff',
-    fontSize: 12,
+    color: '#7AB7FD',
+    fontSize: 13,
+    fontWeight:'semibold'
   },
   activeTimeFilterText: {
-    color: '#000',
+    color: 'white',
     fontWeight: 'bold',
   },
-  chartWrapper: {
-  marginHorizontal: 0, 
-  paddingHorizontal: 0, 
-},
-
 });

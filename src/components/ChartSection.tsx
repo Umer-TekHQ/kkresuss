@@ -11,7 +11,7 @@ const graphDataMap: Record<string, number[]> = {
   // '1M': [15, 22, 27, 33, 38, 42, 47],
   // '1Y': [10, 20, 25, 35, 40, 50, 55],
   // 'ALL': [5, 15, 20, 30, 40, 45, 50],
-  '1D': [14, 42, 92, 67, 55, 65, 74, 39, 53, 31, 70, 67, 62, 78, 37, 21, 29, 42, 47, 54, 38, 29],
+  '1D': [14, 42, 92,67, 55, 65, 74, 39, 53, 31, 70, 67, 62, 78, 37, 21, 29, 42, 47, 54, 38, 29 ],
   '1W': [12, 70, 48, 55, 52, 63, 70, 42, 58, 28, 66, 64, 28, 73, 28, 22, 32, 38, 43, 52, 42, 33],
   '1M': [14, 42, 92, 67, 55, 65, 74, 39, 53, 31, 70, 67, 62, 78, 37, 21, 29, 42, 47, 54, 38, 29],
   '1Y': [11, 68, 66, 70, 54, 62, 71, 41, 56, 33, 69, 65, 39, 76, 16, 24, 28, 36, 44, 49, 37, 34],
@@ -26,16 +26,22 @@ const ChartSection = () => {
   // Transform data for gifted-charts
   const chartData = graphDataMap[activeFilter].map((value) => ({ value }));
 
+const spacingValue = chartData.length < 10
+  ? (width - 32) / (chartData.length - 1) // kam data → adjust kare
+  : 20; // zyada data → fixed sp
+
   return (
     <View style={styles.chartContainer}>
       
+
+      
       <LineChart
         data={chartData}
-        width={width - 32}
-        height={180}
+        width={width}
+        height={140}
         curved
         areaChart
-        spacing={(width - 32) / (chartData.length - 1)}
+        spacing={spacingValue}
         thickness={2}
         color="#00FF99"
         startFillColor="#00FF99"
@@ -53,7 +59,9 @@ const ChartSection = () => {
         yAxisThickness={0}
         yAxisLabelWidth={0}
         initialSpacing={0}
-        adjustToWidth
+       endSpacing={0}
+       adjustToWidth={false} 
+      //adjustToWidth={chartData.length < 10}
       />
 
       {/* Time Filter Buttons */}
@@ -82,20 +90,20 @@ const ChartSection = () => {
 
       <View style={styles.divider} />
 
-      {/* Progress Bars */}
+    
       <View style={styles.progressBar}>
         <View style={[styles.greenBar, { width: `${buyersPercent}%` }]} />
         <View style={[styles.redBar, { width: `${sellersPercent}%` }]} />
       </View>
 
-      {/* Buyers/Sellers Row */}
+
       <View style={styles.bottomRow}>
         <View style={styles.rowItem}>
           <Image source={Images.rocket} style={styles.icon} />
           <Text style={styles.label}>{buyersPercent}% Buyers</Text>
         </View>
         <View style={styles.rowItem}>
-          <Text style={styles.label}>Sellers {sellersPercent}%</Text>
+          <Text style={styles.label}>Sellers{sellersPercent}%</Text>
           <Image source={Images.cashout} style={styles.icon2} />
         </View>
       </View>
@@ -123,7 +131,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 4,
-    height:30,
+    height:40,
     textAlign:'center',
     justifyContent:'center'
   },

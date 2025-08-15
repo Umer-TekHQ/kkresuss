@@ -21,7 +21,7 @@ const assets:Asset [] = [
   {
     name: 'Ethereum',
     short: 'ETH',
-    change: '+1.92%',
+    change: '1.92%',
     price: '$2,047.62',
     amount: '8.03',
     logo: Images.etherium,
@@ -30,7 +30,7 @@ const assets:Asset [] = [
   {
     name: 'Bitcoin',
     short: 'BTC',
-    change: '-2.10%',
+    change: '2.10%',
     price: '$15,751.87',
     amount: '0.02845532',
     logo: Images.bitcoin,
@@ -39,7 +39,7 @@ const assets:Asset [] = [
   {
     name: 'Solana',
     short: 'SOL',
-    change: '+1.93%',
+    change: '1.93%',
     price: '$209.30',
     amount: '12.5',
     logo: Images.sol,
@@ -52,7 +52,7 @@ const TopAssetsCard = ({ showChange = true ,onAssetPress }:TopAssetsCardProps) =
     <View style={styles.card}>
       {assets.map((item, index) => (
         <View key={index}>
- <TouchableOpacity
+         <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => onAssetPress?.(item)}
           >
@@ -62,13 +62,33 @@ const TopAssetsCard = ({ showChange = true ,onAssetPress }:TopAssetsCardProps) =
               <Text style={styles.assetName}>{item.name}</Text>
               <Text style={styles.assetSymbol}>{item.short}</Text>
             </View>
-            {showChange ? (
+            {/* {showChange ? (
             <Text style={[styles.change, { color: item.isPositive ? '#5AD78E' : '#FF5A5F' }]}>
               {item.change}
             </Text>
              ) : (
                <View style={styles.change} />
-             )}
+             )} */}
+                {showChange ? (
+                  <View style={styles.changeContainer}>
+                    <Image
+                      source={item.isPositive ? Images.greenup : Images.reddown}
+                      style={styles.changeIcon}
+                    />
+                    <Text
+                      style={[
+                        styles.changeText,
+                        { color: item.isPositive ? '#5AD78E' : '#FF5A5F' },
+                      ]}
+                    >
+                      {item.change}
+                    </Text>
+                  </View>
+                ) : (
+                  <View style={styles.changeContainer} />
+                )}
+
+
             <View style={styles.priceBlock}>
                   <Text style={styles.price}>{item.price}</Text>
               <Text style={styles.amount}>{item.amount}</Text>
@@ -97,6 +117,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between', 
     paddingVertical: 12,
   },
   logo: {
@@ -106,6 +127,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   assetInfo: {
+
     width: 100, 
   },
   assetName: {
@@ -141,7 +163,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginBottom: 2,
     alignSelf: 'flex-start', 
-    left:10
+    left:25,   //increased as per qa reuirement 
+  
   },
   divider: {
     height: 1,
@@ -150,4 +173,25 @@ const styles = StyleSheet.create({
     width: 287,
     marginVertical: 4,
   },
+ changeContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  width: 60,
+  marginRight: 10,
+  bottom:7,
+  right:32
+},
+changeIcon: {
+  width: 11,
+  height: 11,
+  resizeMode: 'contain',
+  marginRight: 4,
+},
+changeText: {
+  fontSize: 13,
+  fontWeight: '600',
+},
+
+
 });

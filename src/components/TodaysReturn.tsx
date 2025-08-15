@@ -90,22 +90,30 @@ const TodaysReturnComponent =forwardRef<TodaysReturnRef, Props>((props, ref) => 
   return { opacity };
 });
 
- 
-  const headingStyle = useAnimatedStyle(() => {
-    const progress = interpolate(
-      translateY.value,
-      [minY, maxY], 
-      [0, 1],       
-      Extrapolation.CLAMP
-    );
+const headingStyle = useAnimatedStyle(() => {
+  const progress = interpolate(
+    translateY.value,
+    [minY, maxY],
+    [0, 1],
+    Extrapolation.CLAMP
+  );
 
-    return {
-      fontSize: interpolate(progress, [0, 1], [30, 19]),
-      textAlign: progress > 0.5 ? 'center' : 'left',
-      alignSelf: progress > 0.5 ? 'center' : 'flex-start',
-      marginLeft: progress > 0.5 ? 10 : 15,
-    };
-  });
+  const backBtnWidth = 30; // back icon area + gap
+  const textWidth = 160; 
+  const startX = -15; // extreme left ke liye (back button ke right se start karega)
+  const endX = (SCREEN_WIDTH / 2) - (textWidth / 2) - backBtnWidth / 2;
+
+  return {
+    fontSize: interpolate(progress, [0, 1], [30, 19]),
+    transform: [
+      {
+        translateX: interpolate(progress, [0, 1], [startX, endX]),
+      },
+    ],
+  };
+});
+
+
 
   
   const backButtonStyle = useAnimatedStyle(() => {
@@ -127,8 +135,6 @@ const TodaysReturnComponent =forwardRef<TodaysReturnRef, Props>((props, ref) => 
       <Animated.View style={[styles.container, rStyle]}>
       
 <Animated.View style={[styles.line, lineStyle]} />
-
-
    <Animated.View style={[styles.headerRow]}>
   <Animated.View style={[styles.backBtnContainer, backButtonStyle]}>
     <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -164,6 +170,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: SCREEN_HEIGHT,
     borderRadius: 15,
+    
   },
   line: {
     width: 55,
@@ -181,7 +188,7 @@ const styles = StyleSheet.create({
   },
   description: {
     color: '#ADD2FD',
-    marginHorizontal: 15,
+    marginHorizontal: 20,
     marginTop: 25,
     fontSize: 20,
   },
@@ -200,8 +207,8 @@ const styles = StyleSheet.create({
   headerRow: {
   flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-start',
   marginHorizontal: 15,
-  marginTop: -20, // moves the heading a bit higher
+  marginTop: -20, 
 },
 });
