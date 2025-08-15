@@ -353,7 +353,7 @@ export interface BottomSheetUnifiedRef {
               <View style={[styles.head, { marginHorizontal: responsiveHomeHeadMargin }]}>
                 <Image source={Images.bottomhead} style={styles.headimg} />
                 <Text style={styles.heading}>My Security Score</Text>
-                <Text style={[styles.numbers, { marginLeft: responsiveHomeNumbersMargin }]}>1/5</Text>
+                <Text style={[styles.numbers, { marginLeft: responsiveHomeNumbersMargin }]}>2/5</Text>
                 <TouchableOpacity onPress={(e) => { e.stopPropagation(); closeSheet(); }}>
                   <Animated.Image
                     source={Images.up}
@@ -927,7 +927,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginLeft: 90,
     marginTop: 12,
-    tintColor: 'lightblue',
+    tintColor: '#086CE1',
   },
   backbtn1: {
     marginLeft: 143,

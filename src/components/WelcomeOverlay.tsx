@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Images } from '../assets/index';
 import OverlayBackground from './OverlayBackgroung';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const { width, height } = Dimensions.get('window');
 
@@ -134,7 +135,7 @@ overlay: {
   primaryButton: {
     flexDirection: 'row',
     backgroundColor: '#ffffff',
-    textAlign: 'center',
+    alignContent: 'center',
     borderRadius: 32,
     paddingVertical: 10,
     paddingHorizontal: 11,
@@ -146,8 +147,8 @@ overlay: {
   primaryText: {
     color: '#0A0E27',
     fontWeight: 'bold',
-    textAlign: 'center',
-    marginLeft: 55,
+    // textAlign: 'center',
+    marginLeft: wp('20%'),
     fontSize: 15,
   },
   secondaryButton: {
@@ -164,11 +165,11 @@ overlay: {
   secondaryText: {
     color: '#fff',
     fontSize: 15,
-    marginLeft: 35,
+    marginLeft: wp('12%'),
   },
   secondaryText1: {
     color: '#fff',
-    marginLeft: 8,
+    marginLeft: wp('6%'),
   },
   laterText: {
     color: 'white',

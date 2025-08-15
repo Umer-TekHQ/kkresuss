@@ -77,7 +77,7 @@ export const ExploreScreen: React.FC = ({ navigation }: any) => {
           Explore
         </Text>
 
-        <View style={{ backgroundColor: styles.container.backgroundColor, zIndex: 10 }}>
+        <View style={{ backgroundColor: styles.container.backgroundColor, zIndex: 10, marginBottom: 20, }}>
           <ExploreButtons onPressAction={handleButtonPress} />
         </View>
 
