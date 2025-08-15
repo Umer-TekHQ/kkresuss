@@ -21,6 +21,7 @@ import { Images } from '../../assets';
 import { useSharedValue, withSpring } from 'react-native-reanimated';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setToken1, setToken2, setAmount1, setAmount2, toggleUSD } from '../../store/slices/tradeSlice';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 
 export const TradeScreen = () => {
@@ -228,30 +229,32 @@ const styles = StyleSheet.create({
   headerRow: { 
     flexDirection: 'row', 
     justifyContent: 'space-between', 
-    marginBottom: 20, 
     marginTop: 30, 
+    marginBottom: 5,
   },
   title: { 
-    color: 'white', 
-    fontSize: 22,
-    // fontWeight: 'bold'
+    color: '#FFFFFF', 
+    fontSize: 19,
+    marginLeft: 5
   },
   toggleRow: { 
     flexDirection: 'row', 
     alignItems: 'center' 
   },
   enterUsdText: { 
-    color: '#97B8E1', 
+    color: '#ADD2FD', 
     marginRight: 8,
-    fontSize: 14 
+    // lineHeight: 15,
+    fontSize: 13 
   },
   tokenField: {
-    height: 90,
+    height: hp('11%'),
     borderRadius: 12,
-    borderWidth: 1.5,
-    borderColor: '#052785',
+    borderWidth: 1,
+    borderColor: '#0734A9',
     justifyContent: 'center',
     paddingHorizontal: 16,
+    marginHorizontal: 12,
     marginBottom: 16,
   },
   errorField: {
@@ -284,10 +287,10 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   downarrow: {
-    width: 20,
-    height: 25,
+    width: wp('4%'),
+    height: hp('2.5%'),
     marginLeft: 15,
-    tintColor: '#0734A9'
+    tintColor: '#086DE1'
   },
   downarrowtoken: {
     width: 17,
@@ -295,13 +298,15 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   downfieldarrow:{
-    width: 17,
-    height: 12,
+    width: 13,
+    height: 8,
+    tintColor: '#4898F3'
   },
   receiveLabel: {
-    fontSize: 22,
-    color: '#fff',
-    marginBottom: 10,
+    color: '#FFFFFF', 
+    fontSize: 19,
+    marginLeft: 5,
+    marginBottom: 5,
   },
   placeholderText: { 
     color: '#97B8E1', 
@@ -311,19 +316,19 @@ const styles = StyleSheet.create({
     color: '#97B8E1', 
     fontSize: 14, 
     textAlign: 'center', 
-    marginBottom: 16 
+    marginBottom: 30 
   },
   continueBtn: {
     backgroundColor: '#0734A9',
-    height: 55,
-    borderRadius: 25,
+    height: 65,
+    borderRadius: 35,
     justifyContent: 'center',
     alignItems: 'center',
+    marginHorizontal: 20
   },
-  continueText: { 
-    color: 'white', 
-    fontWeight: 'bold', 
-    fontSize: 18
+  continueText: {  
+    fontSize: 22,
+    fontWeight: '500'
   },
   tokenDisplay: { 
     flexDirection: 'column',
@@ -342,6 +347,6 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   },
   footer: {
-    marginTop: 150,
+    marginTop: hp('22%'),
   },
 });

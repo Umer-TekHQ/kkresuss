@@ -197,7 +197,7 @@ export interface BottomSheetUnifiedRef {
         };
       case 'trade':
         return {
-          initial: -hp('10%'),
+          initial: -hp('5%'),
           min: -hp('10%'),
           max: -hp('74.07%'),
         };
