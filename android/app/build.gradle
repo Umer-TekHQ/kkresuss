@@ -93,15 +93,6 @@ android {
             keyPassword 'android'
         }
     }
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            if (variant.buildType.name == "release") {
-                outputFileName = "androidApk13Aug.apk"
-            }
-        }
-    }
-}
-
     buildTypes {
         debug {
             signingConfig signingConfigs.debug

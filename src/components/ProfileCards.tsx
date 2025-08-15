@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import {Images} from '../assets/index'
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 
 interface Props {
@@ -36,9 +35,9 @@ const ProfileCard: React.FC<Props> = ({ icon, title, address, background }) => {
 
 const styles = StyleSheet.create({
   card: {
-    height: hp('27%'),
-    width: wp('90%'),
-    borderRadius: 30,
+    height: 230,
+    width: 355,
+    borderRadius: 20,
     overflow: 'hidden',
     backgroundColor: 'black',
   },

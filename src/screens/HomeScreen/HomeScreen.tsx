@@ -117,7 +117,7 @@ export const HomeScreen: React.FC = () => {
                 <Projects />
             </View>
             
-            <View style={{marginBottom: 50,}}>
+            <View style={{marginBottom: 50, marginLeft: 5}}>
             <ProjectsList />
             </View>
           </>
