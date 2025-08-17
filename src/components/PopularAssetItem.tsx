@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { Images } from '../assets';
 
 interface PopularAssetItemProps {
   item: {
@@ -26,7 +27,12 @@ const PopularAssetItem = ({ item }: { item: PopularAssetItemProps['item'] }) => 
 
     <View style={styles.rightSection}>
       <Text style={styles.amount}>{item.amountUSD}</Text>
-      {item.profit && <Text style={styles.profit}>{item.profit}</Text>}
+      {item.profit && 
+      <View style={styles.profitRow}>
+          <Image source={Images.greenup} style={styles.profitIcon} />
+      <Text style={styles.profit}>{item.profit}</Text>
+      </View>
+      }
     </View>
   </View>
 );
@@ -37,7 +43,7 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+   // alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 12,
   },
@@ -78,4 +84,16 @@ const styles = StyleSheet.create({
     color: '#30DB5B',
     marginTop: 2,
   },
+ profitRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 2,
+  },
+  profitIcon: {
+    width: 10,
+    height: 10,
+    marginRight: 4,
+    resizeMode: 'contain',
+  },
+
 });

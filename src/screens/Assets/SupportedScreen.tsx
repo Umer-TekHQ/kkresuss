@@ -26,8 +26,8 @@ const SupportedScreen = () => {
     <ScrollView style={styles.container}>
       <AssetsHeader title="Supported" showRightIcons={true} />
 
-        <View>
-         <SearchBox value={searchText} onChangeText={setSearchText} placeholder="Search" />
+        <View style={{marginTop:5}}>
+         <SearchBox value={searchText} onChangeText={setSearchText} placeholder="Search"  onClear={() => setSearchText('')}  />
       </View>
 
       <View style={styles.assetsList}>

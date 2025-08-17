@@ -3,8 +3,8 @@ import { Images } from '../assets';
 export const allAssets = [
   { title: 'USD Coin', amountUSD: '$1.00', amountETH: 'USDC', logo: Images.usd },
   { title: 'DAI Stablecoin', amountUSD: '$1.00', amountETH: 'DAI', logo: Images.dai },
-  { title: 'Aave', amountUSD: '$87.30', amountETH: 'AAVE', logo: Images.aero,profit: '+13.18%' },
-  { title: 'Theat Token', amountUSD: '$0.23', amountETH: 'THETA', logo: Images.bret ,profit: '+13.18%'},
+  { title: 'Aave', amountUSD: '$87.30', amountETH: 'AAVE', logo: Images.aero,profit: '13.18%' },
+  { title: 'Theat Token', amountUSD: '$0.23', amountETH: 'THETA', logo: Images.bret ,profit: '13.18%'},
   { title: 'Lido', amountUSD: '$2.23', amountETH: 'LDO', logo: Images.lido },
   { title: 'Bitcoin', amountUSD: '$67,000', amountETH: 'BTC', logo: Images.logo },
   { title: 'Ethereum', amountUSD: '$3,500', amountETH: 'ETH', logo: Images.logo },

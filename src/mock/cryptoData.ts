@@ -8,7 +8,7 @@ export const cryptoData = [
     subPrice: 'Price: $2.19',
     change: '2.03%',
     changeValue: '2.189998338',
-    icon: Images.logo,
+    icon: Images.ape,
     isNegative: true,
   },
   {
@@ -18,7 +18,7 @@ export const cryptoData = [
     subPrice: 'Price: $1.12',
     change: '1.92%',
     changeValue: '$43.15 (6.46%)',
-    icon: Images.logo,
+    icon: Images.polygon,
     isNegative: false,
   },
   {
@@ -28,7 +28,7 @@ export const cryptoData = [
     subPrice: 'Price: $591.16',
     change: '2.03%',
     changeValue: '$11.44 (1.94%)',
-    icon: Images.logo,
+    icon: Images.usdc,
     isNegative: true,
   },
   {
@@ -38,7 +38,7 @@ export const cryptoData = [
     subPrice: 'Price: $0.18',
     change: '2.03%',
     changeValue: '$27.21 (5.58%)',
-    icon: Images.logo,
+    icon: Images.dogecoin,
     isNegative: true,
   },
   {
@@ -48,7 +48,7 @@ export const cryptoData = [
     subPrice: 'Price: $17.25',
     change: '1.92%',
     changeValue: '$17.27 (3.32%)',
-    icon: Images.logo,
+    icon: Images.chainlink,
     isNegative: false,
   },
   {
@@ -58,7 +58,7 @@ export const cryptoData = [
     subPrice: 'Price: $0.000029',
     change: '1.92%',
     changeValue: '$23.13 (8.87%)',
-    icon: Images.logo,
+    icon: Images.shiba,
     isNegative: false,
   },
 ];

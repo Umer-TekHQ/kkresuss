@@ -130,6 +130,12 @@ cash:require('./images/cash.png'),
 reddown:require('./images/reddown.png'),
 greenup:require('./images/greenup.png'),
 secure1: require('./images/secure1.png'),
-check:require('./images/check.png')
+check:require('./images/check.png'),
+ape:require('./images/ape.png'),
+polygon:require('./images/polygon.png'),
+usdc:require('./images/usdc.png'),
+dogecoin:require('./images/dogecoin.png'),
+chainlink:require('./images/chainlink.png'),
+shiba:require('./images/shiba.png')
 
 }

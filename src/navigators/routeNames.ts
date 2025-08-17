@@ -83,7 +83,7 @@ export type AppNavigatorParamList = {
   };
   TodayReturns:undefined
   Supported:undefined
-  Spam:undefined
+   Spam: { defaultTab?: 'Crypto' | 'NFTs' };
   Currency:undefined
   Recepient:undefined
   QR:undefined

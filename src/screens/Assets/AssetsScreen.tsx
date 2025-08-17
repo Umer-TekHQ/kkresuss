@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, FlatList, TouchableOpacity,ScrollView,Image, Animated  } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, FlatList, TouchableOpacity,ScrollView,Image, Animated,  } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import CryptoChart from '../../components/CryptoChart';
 import { ActionButtons } from '../../components/ActionButtons';
@@ -65,10 +65,11 @@ const CryptoTab = () => {
         >
           <Text style={styles.viewAllText}>View All</Text>
         </TouchableOpacity>
-
+        <View style={{marginTop:45,}}>
         <CoinbaseCard />
+        </View>
         <View style={{ marginTop: 10, marginBottom: 40 }}>
-          <SecondaryButton label="View Spam" onPress={() => navigation.navigate('Spam')} />
+          <SecondaryButton label="View Spam" onPress={() => navigation.navigate('Spam', { defaultTab: 'Crypto' })} />
         </View>
       </ScrollView>
 
@@ -83,6 +84,12 @@ const CryptoTab = () => {
 const NFTsTab = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
 
+const screenWidth = Dimensions.get("window").width;
+const ITEM_MARGIN = 4;
+const NUM_COLUMNS = 2;
+const ITEM_WIDTH = (screenWidth - ITEM_MARGIN * (NUM_COLUMNS + 1)) / NUM_COLUMNS;
+
+
   return (
     <ScrollView style={{ flex: 1, backgroundColor: '#01032C' }} contentContainerStyle={{ padding: 16 }}>
       <Text style={styles.myNFTsText}>My NFTs</Text>
@@ -90,7 +97,12 @@ const NFTsTab = () => {
       <View style={styles.nftGrid}>
        <FlatList
         data={nftImages}
-        renderItem={({ item }) => <NFTCard image={item.image} />}
+        renderItem={({ item }) =>(
+          <View  style={{ margin: ITEM_MARGIN }}>
+           <NFTCard image={item.image} style={{ width: ITEM_WIDTH }}
+           />
+           </View>
+  )}
         keyExtractor={(item) => item.id}
         numColumns={2}
         scrollEnabled={false}
@@ -99,7 +111,7 @@ const NFTsTab = () => {
       </View>
 
       <View style={{ marginTop: 20,  }}>
-        <SecondaryButton label="View Spam" onPress={() => navigation.navigate('Spam')} />
+        <SecondaryButton label="View Spam" onPress={() => navigation.navigate('Spam', { defaultTab: 'NFTs' })} />
       </View>
 
       <View style={{ height: 28, marginTop:20 }}>
@@ -115,7 +127,7 @@ const NFTsTab = () => {
         />
     </View>
     <View style={styles.bottomSpace} >
-  <TransactionButton onPress={() => navigation.navigate('Currency')} />
+  <TransactionButton  />
     </View>
   
   </ScrollView>
@@ -331,9 +343,9 @@ nftGrid: {
 },
 
 recentTransactions: {
-  color: '#999',
+  color: 'white',
   fontSize: 15,
-  fontWeight: '500',
+  fontWeight: 'bold',
 
 },
 bottomSpace:{

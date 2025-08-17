@@ -3,7 +3,7 @@ import React from 'react'
 import {Images} from '../assets';
 
 interface Props{
-    onPress:(event: GestureResponderEvent) => void
+    onPress?:(event: GestureResponderEvent) => void
 }
 
 const TransactionButton = ({onPress}:Props) => {
@@ -34,9 +34,9 @@ viewAllTxnBtn: {
   borderWidth: 1,
   borderColor: '#030A74',
   borderRadius: 8,
-  paddingHorizontal: 24,
+  paddingHorizontal: 12, //before qa it was 24
   justifyContent: 'center',
-  width: '93%', // or use Dimensions.get('window').width - 48
+  width: '93%', 
   alignSelf: 'center',
   marginTop: 10,
   left:4,
@@ -50,13 +50,13 @@ innerContainer: {
 
 viewAllTxnText: {
   color: '#7AB7FD',
-  fontSize: 14,
+  fontSize: 15,
 },
 
 forwardIcon: {
   tintColor: '#086DE1',
-  width: 10,
-  height: 9,
+  width: 12,
+  height: 12,
   resizeMode:'stretch'
 },
 
