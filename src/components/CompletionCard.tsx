@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useAppSelector } from '../store/hooks';
 
 interface CardProps {
-  label: string;
+  label: string | React.ReactNode;
   value: string | React.ReactNode;
   usd?: string;
   strike?: boolean;
@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
   cardContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // backgroundColor: '#b1b8feff',
     borderRadius: 12,
     borderBottomWidth: 1,
     borderBottomColor: '#182281ff',
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   label: {
-    fontSize: 17,
+    fontSize: 15,
     color: '#A1C4EE',
     marginBottom: 6,
   },

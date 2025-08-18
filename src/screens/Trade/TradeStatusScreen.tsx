@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { Images } from '../../assets';
 import { Card } from '../../components/CompletionCard'; 
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { useAppSelector} from '../../store/hooks';
 import { tokens } from './tokens';
 import { Token } from './types';
 
@@ -119,7 +119,14 @@ const TradeStatusScreen = ({navigation, route}: any) => {
         value={`${displayAmount2} ${displayToken2.abbreviation}`}  
         usd="$0.01 USD" 
       />
-      <Card label="Network Fees" value={`${displayAmount2} ${displayToken2.abbreviation}`}  usd="$0.01 USD" strike />
+      <Card 
+        label={
+        <View>
+          <Text style={{color: '#ADD2FD', fontSize: 15  }}>Network Fees</Text>
+          <Text style={{color: '#ADD2FD', fontSize: 15}}> (Waived )</Text>
+        </View>}
+        value={`${displayAmount2} ${displayToken2.abbreviation}`}  
+        usd="$0.01 USD" strike />
       <Card 
         label="Transaction ID" 
         value={

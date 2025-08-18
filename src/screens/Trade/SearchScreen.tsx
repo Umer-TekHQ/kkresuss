@@ -28,7 +28,6 @@ const SearchScreen = () => {
       dispatch(setToken2(token));
     }
     
-    // If onSelectToken callback is provided, call it (for backward compatibility)
     if (route.params.onSelectToken) {
       route.params.onSelectToken(token);
     }
@@ -101,28 +100,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     borderRadius: 40,
-    borderColor: '#041B6A',
+    borderColor: '#0734A9',
     borderWidth: 1.5,
-    paddingVertical: 12,
-    // paddingHorizontal: 90,
+    paddingVertical: 10,
     paddingLeft: 20,
     color: '#8DABD5',
     fontSize: 16,
-
   },
-  // searchBar: {
-  //   // backgroundColor: '#12193A',
-  //   borderRadius: 40,
-  //   borderColor: '#041B6A',
-  //   borderWidth: 1.5,
-  //   paddingVertical: 22,
-  //   paddingHorizontal: 90,
-  //   color: '#8DABD5',
-  //   fontSize: 16,
-  // },
   sectionTitle: {
     marginTop: 20,
-    color: '#8DABD5',
+    color: '#ADD2FD',
     fontSize: 15,
     fontWeight: '600',
   },
@@ -132,8 +119,7 @@ const styles = StyleSheet.create({
   tokenItem: {
     paddingTop: 20,
     borderTopWidth:1,
-    // marginTop: 10,
-    borderColor: '#041B6A',
+    borderColor: '#030A74',
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
@@ -154,7 +140,7 @@ const styles = StyleSheet.create({
     // fontWeight: '600',
   },
   tokenAbbr: {
-    color: '#8DABD5',
+    color: '#ADD2FD',
     fontSize: 14,
   },
   amountContainer: {
@@ -166,7 +152,7 @@ const styles = StyleSheet.create({
     // fontWeight: '600',
   },
   price: {
-    color: '#8DABD5',
+    color: '#ADD2FD',
     fontSize: 13,
   },
 });

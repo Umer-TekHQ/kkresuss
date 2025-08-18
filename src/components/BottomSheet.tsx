@@ -70,21 +70,19 @@ const TRANSLATE_Y_CONFIG = {
     trade: {
     initial: -hp('10%'),
     min: -hp('10%'),
-    max: -hp('74.07%'),
+    max: -hp('54.07%'),
   },
-todaysReturn: {
-  
-   initial: -hp('55.56%'),
-    min: -hp('55.56%'),
-    max: -hp('100%'),
-},
-AdvanceVerification:{
+  todaysReturn: {
+    
     initial: -hp('55.56%'),
-    min: -hp('55.56%'),
-    max: -hp('100%'),
-}
-
-
+      min: -hp('55.56%'),
+      max: -hp('100%'),
+  },
+  AdvanceVerification:{
+      initial: -hp('55.56%'),
+      min: -hp('55.56%'),
+      max: -hp('100%'),
+  }
 };
 
 const screenStyles = {
@@ -199,7 +197,7 @@ export interface BottomSheetUnifiedRef {
         return {
           initial: -hp('5%'),
           min: -hp('10%'),
-          max: -hp('74.07%'),
+          max: -hp('44.07%'),
         };
       case 'todaysReturn':
         return {
@@ -217,7 +215,7 @@ export interface BottomSheetUnifiedRef {
         return {
           initial: -hp('16.93%'),
           min: -hp('16.93%'),
-          max: -hp('70.67%'),
+          max: -hp('60.67%'),
         };
     }
   };
@@ -468,7 +466,7 @@ export interface BottomSheetUnifiedRef {
               <View style={styles.l12}>
                 <View style={styles.rowLeft}>
                   <Image source={Images.solanalogo} style={styles.solanalogo} />
-                  <Text style={styles.l1text}> Solana Network</Text>
+                  <Text style={styles.l1textS}> Solana Network</Text>
                 </View>
                 <Text style={styles.trailingText}>Crypto only</Text>
               </View>
@@ -964,7 +962,6 @@ const styles = StyleSheet.create({
   },
   img1: {
     marginTop: 4,
-    // tintColor: 'darkblue',
   },
   l1:{
     flexDirection:'row',
@@ -997,6 +994,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     marginLeft: 10,
+  },
+  l1textS:{
+    color: 'white',
+    fontSize: 18,
+    marginLeft: 16,
   },
   trailingText:{
     color: 'lightblue',

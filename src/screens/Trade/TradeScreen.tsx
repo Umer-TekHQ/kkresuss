@@ -23,7 +23,6 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setToken1, setToken2, setAmount1, setAmount2, toggleUSD } from '../../store/slices/tradeSlice';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-
 export const TradeScreen = () => {
   const dispatch = useAppDispatch();
   const { token1, token2, amount1, amount2, isUSD } = useAppSelector((state) => state.trade);
@@ -45,21 +44,35 @@ export const TradeScreen = () => {
     }
   }, [token1, token2, isBottomSheetOpen]);
 
+  const tokenRates: Record<string, number> = {
+    NORMIE: 0.001733, 
+    SNORT: 0.000502,
+    USDC: 1,
+    rETH: 4915.27,
+    AERO: 4915.27,
+    BRETT: 0.052976,
+    TOSHI: 0.052976,
+    BSHIB: 0,
+  };
+
   const handleToggleUSD = (value: boolean) => {
     dispatch(toggleUSD());
   };
-  
+
   const handleSelectToken = (field: 'token1' | 'token2') => {
-    if (field === 'token1') {
-      navigation.navigate('SearchScreen', {
-        field,
-      });
+    if (field === 'token1' && token2) {
+      navigation.navigate('SearchScreen', { field, excludeToken: token2.abbreviation });
+    } else if (field === 'token2' && token1) {
+      navigation.navigate('ReceiveTokenScreen', { field, excludeToken: token1.abbreviation });
     } else {
-      navigation.navigate('ReceiveTokenScreen', {
-        field,
-      });
+      if (field === 'token1') {
+        navigation.navigate('SearchScreen', { field });
+      } else {
+        navigation.navigate('ReceiveTokenScreen', { field });
+      }
     }
   };
+
 
   const validateFields = () => {
     const newErrors = {
@@ -68,9 +81,7 @@ export const TradeScreen = () => {
       amount1: !amount1 || amount1 === '0',
       amount2: !amount2 || amount2 === '0',
     };
-    
     setErrors(newErrors);
-    
     return !Object.values(newErrors).some(error => error);
   };
 
@@ -78,7 +89,6 @@ export const TradeScreen = () => {
     if (validateFields()) {
       bottomSheetRef.current?.openSheet();
       setIsBottomSheetOpen(true);
-      
       const screenHeight = Dimensions.get('window').height;
       setTimeout(() => {
         translateY.value = withSpring(-screenHeight / 1.35, { damping: 50 });
@@ -99,13 +109,40 @@ export const TradeScreen = () => {
     }
   };
 
+  const handleAmount1Change = (text: string) => {
+    dispatch(setAmount1(text));
+    if (errors.amount1) setErrors(prev => ({ ...prev, amount1: !text || text === '0' }));
+
+    if (token1 && token2 && tokenRates[token1.abbreviation] && tokenRates[token2.abbreviation]) {
+      const amountNum = parseFloat(text) || 0;
+      const usdValue = amountNum * tokenRates[token1.abbreviation];
+      const converted = usdValue / tokenRates[token2.abbreviation];
+      const rounded = parseFloat(converted.toFixed(6));
+      dispatch(setAmount2(rounded.toString()));
+    }
+  };
+
+  const handleAmount2Change = (text: string) => {
+    dispatch(setAmount2(text));
+    if (errors.amount2) setErrors(prev => ({ ...prev, amount2: !text || text === '0' }));
+
+    if (token1 && token2 && tokenRates[token1.abbreviation] && tokenRates[token2.abbreviation]) {
+      const amountNum = parseFloat(text) || 0;
+      const usdValue = amountNum * tokenRates[token2.abbreviation];
+      const converted = usdValue / tokenRates[token1.abbreviation];
+      const rounded = parseFloat(converted.toFixed(6));
+      dispatch(setAmount1(rounded.toString()));
+    }
+  };
+
   const renderTokenField = (
     token: Token | null, 
     amount: string, 
     onAmountChange: (text: string) => void,
     onPress: () => void, 
     editable: boolean,
-    hasError: boolean
+    hasError: boolean,
+    showUSD: boolean 
   ) => (
     <TouchableOpacity onPress={onPress} style={[styles.tokenField, hasError && styles.errorField]}>
       {token ? (
@@ -123,25 +160,29 @@ export const TradeScreen = () => {
             <Image source={token.logo} style={styles.tokenLogo} />
             <Text style={styles.tokenSymbol}>{token.abbreviation}</Text>
           </View>
-          <Image
-            source={Images.downarrow}
-            style={styles.downarrow}
-          />
+          <Image source={Images.downarrow} style={styles.downarrow} />
         </View>
       ) : (
         <View style={{justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
-        <Text style={[styles.placeholderText, hasError && styles.errorText]}>Select Token </Text>
+          <Text style={[styles.placeholderText, hasError && styles.errorText]}>Select Token </Text>
           <Image source={Images.downarrow} style={styles.downfieldarrow}/>
-        </View>      )}
+        </View>
+      )}
+      {showUSD && token && amount ? (
+        <Text style={{color: '#97B8E1', fontSize: 14, marginTop: 4}}>
+          ${ (parseFloat(amount) * tokenRates[token.abbreviation]).toFixed(2) }
+        </Text>
+      ) : null}
       {hasError && <Text style={styles.errorMessage}>This field is required</Text>}
     </TouchableOpacity>
   );
+
 
   return (
     <TouchableWithoutFeedback onPress={handleBackgroundPress}>
       <View style={styles.container}>
         <HeaderNav/>
-        
+
         <View style={styles.headerRow}>
           <Text style={styles.title}>Trade</Text>
           <View style={styles.toggleRow}>
@@ -155,50 +196,38 @@ export const TradeScreen = () => {
           </View>
         </View>
 
-        {renderTokenField(
-          token1, 
-          amount1, 
-          (text) => {
-            dispatch(setAmount1(text));
-            if (errors.amount1) {
-              setErrors(prev => ({...prev, amount1: !text || text === '0'}));
-            }
-          }, 
-          () => {
-            handleSelectToken('token1');
-            if (errors.token1) {
-              setErrors(prev => ({...prev, token1: false}));
-            }
-          }, 
-          true,
-          errors.token1 || errors.amount1
-        )}
+          {renderTokenField(
+            token1, 
+            amount1, 
+            handleAmount1Change, 
+            () => {
+              handleSelectToken('token1');
+              if (errors.token1) setErrors(prev => ({...prev, token1: false}));
+            }, 
+            true,
+            errors.token1 || errors.amount1,
+            true 
+          )}
 
         <View style={styles.arrowContainer}>
           <Image source={Images.downarroww} style={styles.downarrow} />
         </View>
-        
+
         <Text style={styles.receiveLabel}>Receive</Text>
 
         {renderTokenField(
           token2, 
           amount2, 
-          (text) => {
-            dispatch(setAmount2(text));
-            if (errors.amount2) {
-              setErrors(prev => ({...prev, amount2: !text || text === '0'}));
-            }
-          }, 
+          handleAmount2Change, 
           () => {
             handleSelectToken('token2');
-            if (errors.token2) {
-              setErrors(prev => ({...prev, token2: false}));
-            }
+            if (errors.token2) setErrors(prev => ({...prev, token2: false}));
           }, 
           true,
-          errors.token2 || errors.amount2
+          errors.token2 || errors.amount2,
+          false 
         )}
-        
+
         <View style={styles.footer}>
           <Text style={styles.gasText}>30 gas-free transactions remaining</Text>
           <TouchableOpacity 
@@ -207,9 +236,8 @@ export const TradeScreen = () => {
           >
             <Text style={styles.continueText}>Continue</Text>
           </TouchableOpacity>
-
         </View>
-        
+
         <BottomSheetUnified
           ref={bottomSheetRef}
           screen="trade"
@@ -224,7 +252,6 @@ const styles = StyleSheet.create({
   container: { 
     flex: 1, 
     backgroundColor: '#01021D', 
-    // paddingHorizontal: 5,
   },
   headerRow: { 
     flexDirection: 'row', 
@@ -244,7 +271,6 @@ const styles = StyleSheet.create({
   enterUsdText: { 
     color: '#ADD2FD', 
     marginRight: 8,
-    // lineHeight: 15,
     fontSize: 13 
   },
   tokenField: {
@@ -309,11 +335,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   placeholderText: { 
-    color: '#97B8E1', 
+    color: '#ADD2FD', 
     fontSize: 34 
   },
   gasText: { 
-    color: '#97B8E1', 
+    color: '#ADD2FD', 
     fontSize: 14, 
     textAlign: 'center', 
     marginBottom: 30 
