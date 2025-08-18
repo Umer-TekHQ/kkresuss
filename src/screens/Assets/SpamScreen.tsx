@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
-import { useRoute,RouteProp } from '@react-navigation/native'; // 👈 yeh import zaroori hai
+import { useRoute,RouteProp } from '@react-navigation/native'; 
 import AssetsHeader from '../../components/AssetsHeader ';
 import { Images } from '../../assets'; 
 import SpamAssetItem from '../../components/SpamAssetItem';

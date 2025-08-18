@@ -19,6 +19,7 @@ import nftImages from '../../mock/NftImages';
 import {transactionData} from '../../mock/nftRecentData'
 import TransactionButton from '../../components/TransactionButton';
 import { TokenActionButtons } from '../../components/TokenActionButtons';
+import BottomSheetNetwork from '../../components/BottomSheetNetwork';
 import { useAppDispatch } from '../../store/hooks';
 import { setToken1, setToken2 } from '../../store/slices/tradeSlice';
 
@@ -27,6 +28,7 @@ const initialLayout = { width: Dimensions.get('window').width };
 
 const CryptoTab = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
+const [showSheet, setShowSheet] = useState(false);
 
   return (
     <View style={{ flex: 1 ,}}>
@@ -49,12 +51,12 @@ const CryptoTab = () => {
 
         <View style={styles.popularHeader}>
           <Text style={styles.sectionTitle}>Popular</Text>
-          <View style={styles.popularIcons}>
+            <TouchableOpacity onPress={() => setShowSheet(true)}>
+            <View style={styles.popularIcons}>
             <Image source={Images.base} style={styles.popularIcon} />
-            <TouchableOpacity>
-              <Image source={Images.down} style={[styles.popularIcon, { marginLeft: 4 }]} />
+            <Image source={Images.down} style={[styles.popularIcon, { marginLeft: 4 }]} />
+            </View>
             </TouchableOpacity>
-          </View>
         </View>
 
         <View style={styles.popularDivider} />
@@ -75,7 +77,8 @@ const CryptoTab = () => {
 
      
       <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
-        <BottomSheetBase />
+        {/* <BottomSheetBase /> */}
+        <BottomSheetNetwork visible={showSheet} onClose={() => setShowSheet(false)} />
       </View>
     </View>
   );
@@ -268,7 +271,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
-    marginBottom: 10,
+   // marginBottom: 10,
   },
  
   placeholder: {
@@ -284,7 +287,7 @@ const styles = StyleSheet.create({
 },
 popularDivider: {
   height: 1,
-  backgroundColor: '#1E2D56',
+  backgroundColor: '#080C4C',
   marginVertical: 8,
 },
 
@@ -308,9 +311,10 @@ viewAllText: {
 popularHeader: {
   flexDirection: 'row',
   justifyContent: 'space-between',
-  alignItems: 'center',
+  alignItems: 'flex-end',
   marginTop: 20,
   marginBottom: 10,
+  marginLeft:4,
 },
 
 popularIcons: {
@@ -319,8 +323,8 @@ popularIcons: {
 },
 
 popularIcon: {
-  width: 25,
-  height: 25,
+  width: 27,
+  height: 27,
   resizeMode: 'contain',
 },
   divider: {

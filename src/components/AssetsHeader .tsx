@@ -11,11 +11,12 @@ import { AppNavigatorParamList } from '../navigators/routeNames'
 interface HeaderProps {
   title: string;
   showRightIcons?: boolean;
-   leftIcon?: ImageSourcePropType;
+  leftIcon?: ImageSourcePropType;
+  onRightPress?: () => void;
 }
 
 
-const AssetsHeader: React.FC<HeaderProps> = ({ title, showRightIcons = false ,leftIcon}) => {
+const AssetsHeader: React.FC<HeaderProps> = ({ title, showRightIcons = false ,leftIcon, onRightPress}) => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
 
   return (
@@ -33,11 +34,14 @@ const AssetsHeader: React.FC<HeaderProps> = ({ title, showRightIcons = false ,le
     
       <View style={styles.sideContainer}>
         {showRightIcons ? (
+          <TouchableOpacity onPress={onRightPress}>
           <View style={styles.rightIcons}>
             <Image source={Images.bothsolanabase} style={styles.icon} />
             <Image source={Images.down} style={[styles.icon, { marginLeft: 8 }]} />
           </View>
-        ) : null}
+          </TouchableOpacity>
+        ) 
+        : null}
       </View>
     </View>
   );
@@ -55,8 +59,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   sideContainer: {
-    width: 50, // 👈 left/right equal width, title center ho jayega
+    width: 70, //real is 50 
     alignItems: 'flex-start',
+   
   },
   title: {
     flex: 1,
@@ -66,8 +71,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   icon: {
-    width: 30,
-    height: 30,
+    width: 33,
+    height: 33,
     resizeMode: 'contain',
   },
   icon1: {

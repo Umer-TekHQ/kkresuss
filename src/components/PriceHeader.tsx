@@ -35,14 +35,19 @@ const PriceHeader = ({ data, onBack }: { data: any, onBack?: () => void }) => (
 
 export default PriceHeader;
 const styles = StyleSheet.create({
-  container: { padding: 16, alignItems: 'center' },
+  container: {
+    // padding: 16,
+     alignItems: 'center' ,
+     paddingVertical:16,
+     paddingHorizontal:16,
+    },
 
   topBar: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    marginBottom: 14,
+    marginBottom: 20,
     position: 'relative',
   },
   backButton: {
@@ -93,6 +98,7 @@ const styles = StyleSheet.create({
     width: 30,
     height:30,
     resizeMode: 'contain',
+    tintColor:'white'
   },sub2:{
      color: '#7AB7FD',
   },

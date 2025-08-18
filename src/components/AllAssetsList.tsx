@@ -49,8 +49,9 @@ export default AllAssetsList;
 const styles = StyleSheet.create({
   divider: {
     height: 1,
-    backgroundColor: '#1E2D56',
+    backgroundColor: '#080C4C',
     marginVertical: 8,
+      marginLeft: 68,
   },
     emptyContainer: {
     paddingVertical: 20,

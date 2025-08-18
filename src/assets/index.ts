@@ -136,6 +136,11 @@ polygon:require('./images/polygon.png'),
 usdc:require('./images/usdc.png'),
 dogecoin:require('./images/dogecoin.png'),
 chainlink:require('./images/chainlink.png'),
-shiba:require('./images/shiba.png')
+shiba:require('./images/shiba.png'),
+jupiter:require('./images/jupiter.png'),
+tether:require('./images/tether.png'),
+bonk:require('./images/bonk.png'),
+render:require('./images/render.png'),
+raydium:require('./images/raydium.png')
 
 }

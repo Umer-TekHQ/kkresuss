@@ -5,7 +5,7 @@ import { Images } from '../assets';
 export const ContactAddress = () => {
   return (
     <View style={styles.contactRow}>
-      <Text style={styles.contactLabel}>Contact Address</Text>
+      <Text style={styles.contactLabel}>Contract Address</Text>
       <View style={styles.contactRight}>
         <Text style={styles.contactValue}>0x71C7…976F</Text>
         <Image source={Images.copy} style={styles.copyIcon} resizeMode="contain" />
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 16,
     marginTop: 6,
+    marginBottom:15,
   },
   contactLabel: {
     fontSize: 13,
