@@ -113,8 +113,11 @@ export const HomeScreen: React.FC = () => {
             <IntroducingCards />
 
             <Text style={styles.prostext}>Projects to Try</Text>
-            <Projects />
-            <View style={{marginBottom: 50,}}>
+            <View style={{marginLeft: 5}}>
+                <Projects />
+            </View>
+            
+            <View style={{marginBottom: 50, marginLeft: 5}}>
             <ProjectsList />
             </View>
           </>

@@ -5,9 +5,9 @@ import {
   TouchableOpacity,
   ScrollView,
   StatusBar,
-  Dimensions,
-  StyleSheet
+  Dimensions
 } from 'react-native';
+import styles from '../../styles/homestyles';
 import { SkeletonLoader } from '../../components/SkeletonLoader';
 import { ExploreButtons } from '../../components/ExploreButtons';
 import { ExploreCard } from '../../components/ExploreCards';
@@ -15,12 +15,15 @@ import { exploreSections } from '../../mock/exploreData';
 import { HeaderNav } from '../../components/HeaderNav';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+const { height: screenHeight } = Dimensions.get('window');
 
 export const ExploreScreen: React.FC = ({ navigation }: any) => {
   const [loading, setLoading] = useState(true);
   const scrollRef = useRef<ScrollView>(null);
+  const scrollYRef = useRef(0); 
   const sectionPositions = useRef<{ [key: string]: number }>({});
+
+  const stickyHeaderHeight = 60; 
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2500);
@@ -30,12 +33,20 @@ export const ExploreScreen: React.FC = ({ navigation }: any) => {
   const handleButtonPress = (sectionName: string) => {
     const y = sectionPositions.current[sectionName];
     if (y !== undefined && scrollRef.current) {
-      scrollRef.current.scrollTo({ y, animated: true });
+      const currentY = scrollYRef.current;
+      if (Math.abs(currentY - y) < 2) {
+        scrollRef.current.scrollTo({ y: y + 1, animated: false });
+        setTimeout(() => {
+          scrollRef.current?.scrollTo({ y, animated: true });
+        }, 10);
+      } else {
+        scrollRef.current.scrollTo({ y, animated: true });
+      }
     }
   };
 
   const onSectionLayout = (name: string, event: any) => {
-    sectionPositions.current[name] = event.nativeEvent.layout.y - 60; 
+    sectionPositions.current[name] = event.nativeEvent.layout.y - stickyHeaderHeight;
   };
 
   return (
@@ -47,6 +58,10 @@ export const ExploreScreen: React.FC = ({ navigation }: any) => {
         contentContainerStyle={{ paddingBottom: 20 }}
         stickyHeaderIndices={[2]} 
         showsVerticalScrollIndicator={false}
+        scrollEventThrottle={16}
+        onScroll={(e) => {
+          scrollYRef.current = e.nativeEvent.contentOffset.y;
+        }}
       >
         <HeaderNav />
 
@@ -54,10 +69,9 @@ export const ExploreScreen: React.FC = ({ navigation }: any) => {
           style={{
             fontSize: 40,
             lineHeight: 50,
-            marginBottom: 20,
-            marginTop: 20,
             color: '#fff',
-            marginHorizontal: wp('2%'),
+            marginHorizontal: wp('4%'),
+            marginVertical: wp('4%')
           }}
         >
           Explore
@@ -103,25 +117,3 @@ export const ExploreScreen: React.FC = ({ navigation }: any) => {
     </View>
   );
 };
-
-
-const styles = StyleSheet.create ({
-    container: {
-    flex: 1,
-    backgroundColor: '#01022C',
-    // paddingLeft: 5,
-  },
-    sectionTitle: {
-  color: '#fff',
-  fontSize: 22,
-  fontWeight: '400',
-  marginBottom: 12,
-  marginLeft: 15,
-},
-cardRow: {
-  flexDirection: 'row',
-  justifyContent: 'space-around',
-  flexWrap: 'wrap',
-  marginBottom: 20,
-},
-})

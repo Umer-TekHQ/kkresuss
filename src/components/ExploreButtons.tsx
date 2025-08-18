@@ -5,7 +5,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 
 export const ExploreButtons: React.FC<{ onPressAction: (name: string) => void }> = ({ onPressAction }) => {
   const actions = [
-    { name: 'Trade', icon: Images.trade }, 
+    { name: 'Trade', icon: Images.trade },
     { name: 'Earn', icon: Images.earn },
     { name: 'Social', icon: Images.social },
     { name: 'NFTs', icon: Images.nfts },
