@@ -498,76 +498,68 @@ export interface BottomSheetUnifiedRef {
           )}
            {screen === 'trade' && (
             <View style={styles.tradebottomsheet}>
-              <View style={styles.lineTB} />
-              <View style={styles.head}>
-                <Image source={Images.tradebottom} style={styles.headimg} />
-                <Text style={styles.headingTB}>Transaction Ready</Text>
-                <TouchableOpacity 
-                  style={styles.closeButton} 
-                  onPress={closeSheet}
-                >
-                  <Image source={Images.pros} style={styles.closeIcon} />
+              <View style={[styles.lineTB, { width: wp('17%'), height: hp('0.65%'), marginTop: hp('1%') }]} />
+              
+              <View style={[styles.head, { marginBottom: hp('1%') }]}>
+                <Image source={Images.tradebottom} style={[styles.headimg, { width: wp('4%'), height: hp('2%'),  marginTop: hp('2%') }]} />
+                <Text style={[styles.headingTB, { fontSize: wp('4.5%'),  marginTop: hp('2%') }]}>Transaction Ready</Text>
+                <TouchableOpacity style={styles.closeButton} onPress={closeSheet}>
+                  <Image source={Images.pros} style={[styles.closeIcon, { width: wp('8%'), height: hp('6%') }]} />
                 </TouchableOpacity>
               </View>
+
               {token1 && token2 && (
                 <>
                   <View style={styles.inputfields}>
-                    <View style={styles.tokenInputContainer}>
+                    <View style={[styles.tokenInputContainer, { width: wp('90%'), height: hp('8.5%'), marginVertical: hp('1%') }]}>
                       {token1 ? (
                         <>
-                          <Text style={styles.tradeAmount}>{amount1}</Text>
+                        <View style={{}}>
+                        <Text style={{color: 'white', fontSize: 15}}>Trading</Text>
+                        </View>
+                        <View style={{display: 'flex', justifyContent: 'center'}}>
+                          <Text style={[styles.tradeAmount, { fontSize: wp('5%') }]}>{amount1}</Text>
+                        </View>
                           <View style={styles.tokenDisplay}>
-                            <Text style={styles.tokenSymbol}>
-                              {token1.abbreviation}
-                            </Text>
-                            <Image 
-                              source={token1.logo} 
-                              style={styles.tokenLogo} 
-                            />
-                            
+                            <Text style={[styles.tokenSymbol, { fontSize: wp('4%'), top: 20 }]}>{token1.abbreviation}</Text>
+                            <Image source={token1.logo} style={[styles.tokenLogo, { width: wp('10%'), height: wp('10%') }]} />
                           </View>
                         </>
                       ) : (
-                        <Text style={styles.placeholderText}>Select Token</Text>
+                        <Text style={[styles.placeholderText, { fontSize: wp('4%') }]}>Select Token</Text>
                       )}
                     </View>
-                    
+
                     <View style={styles.arrowContainer}>
-                      <Image source={Images.downarroww} style={styles.downarrow} />
+                      <Image source={Images.downarroww} style={[styles.downarrow, { width: wp('5%'), height: hp('3%') }]} />
                     </View>
-                    
-                    <View style={styles.tokenInputContainer}>
+
+                    <View style={[styles.tokenInputContainer, { width: wp('90%'), height: hp('8.5%'), marginVertical: hp('1%') }]}>
                       {token2 ? (
-                        <>
                         <View style={styles.tokenDisplay}>
-                          <Text style={styles.tradeAmount}>{amount2}</Text>
-                          <Text style={styles.tokenSymbol}>
-                              {token2.abbreviation}
-                            </Text>
-                            <Image 
-                              source={token2.logo} 
-                              style={styles.tokenLogo} 
-                            />
-                            
-                          </View>
-                        </>
+                          <Text style={[styles.tradeAmount, { fontSize: wp('5%') }]}>{amount2}</Text>
+                          <Text style={[styles.tokenSymbol, { fontSize: wp('3%') }]}>{token2.abbreviation}</Text>
+                          <Image source={token2.logo} style={[styles.tokenLogo, { width: wp('10%'), height: wp('10%') }]} />
+                        </View>
                       ) : (
-                        <Text style={styles.placeholderText}>Select Token</Text>
+                        <Text style={[styles.placeholderText, { fontSize: wp('4%') }]}>Select Token</Text>
                       )}
                     </View>
                   </View>
-                  
-                  <View style={styles.feescontainer}>
-                    <Text style={styles.fees}>Fees</Text>
-                    <Text style={styles.fees}>1.73144653 SNORT</Text>
+
+                  <View style={[styles.feescontainer, { marginHorizontal: wp('5%'), paddingVertical: hp('2%') }]}>
+                    <Text style={[styles.fees, { fontSize: wp('4%') }]}>Fees</Text>
+                    <Text style={[styles.fees, { fontSize: wp('4%') }]}>1.73144653 SNORT</Text>
                   </View>
-                  <Text style={styles.bottomtext1}>Kresus covers your network fee</Text>
-                  <View>
-                    <SwipeButton
-                      placeholder='Swipe to Trade'
-                      onNavigate={() => {
-                        translateY.value = withSpring(0, { damping: 50 });
-                      }}
+
+                  <Text style={[styles.bottomtext1, { fontSize: wp('4%'), marginTop: hp('2%') }]}>
+                    Kresus covers your network fee
+                  </Text>
+
+                  <View style={{ marginTop: hp('3.5%') }}>
+                    <SwipeButton 
+                      placeholder='Swipe to Trade' 
+                      onNavigate={() => { translateY.value = withSpring(0, { damping: 50 }); }} 
                     />
                   </View>
                 </>
@@ -648,25 +640,23 @@ const styles = StyleSheet.create({
   },
   arrowContainer: {
     alignItems: 'center',
-    marginVertical: 10,
-    height: 10,
-    width: 10,
+    marginVertical: 15,
   },
   fees:{
-    color: 'lightblue'
+    color: '#ADD2FD'
   },
   feescontainer:{
     flexDirection:'row',
-    marginTop: 10,
+    marginTop: 20,
     marginHorizontal: 22,
-    borderTopWidth: 0.5,
-    borderBottomWidth: 0.5,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
     borderColor: '#28569B',
     paddingVertical: 20,
     justifyContent: 'space-between'
   },
   bottomtext1:{
-    color: 'lightblue',
+    color: '#ADD2FD',
     marginTop: 15,
     textAlign: 'center'
   },
@@ -1029,11 +1019,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '80%',
-    height: 65,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#28569B',
+    borderRadius: 20,
+    borderWidth: 1.5,
+    borderColor: '#4898F3',
     paddingHorizontal: 10,
     marginVertical: 10,
   },
@@ -1044,7 +1032,7 @@ const styles = StyleSheet.create({
   },
   tokenDisplay: {
     flexDirection: 'row',
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   tokenLogo: {
     width: 40,
@@ -1055,7 +1043,6 @@ const styles = StyleSheet.create({
   tokenSymbol: {
     color: '#fff',
     fontSize: 12,
-    fontWeight: '500',
     marginRight: 4,
   },
   placeholderText: {
@@ -1064,7 +1051,7 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     position: 'absolute',
-    right: 10,
+    right: 3,
     top: 0,
     padding: 5,
   },
