@@ -35,11 +35,10 @@ export default StyleSheet.create({
   },
   coinInfoHeader: {
     flexDirection: 'row',
-    alignItems: 'center',
   },
   coinLogo: {
-    width: screenWidth * 0.22,
-    height: screenWidth * 0.15,
+    width: screenWidth * 0.24,
+    height: screenWidth * 0.17,
     borderRadius: (screenWidth * 0.15) / 2,
   },
   coinName: {
@@ -117,6 +116,7 @@ export default StyleSheet.create({
     borderRadius: 4,
     overflow: 'hidden',
     backgroundColor: '#333',
+    marginHorizontal: 12,
   },
   buyersBar: {
     backgroundColor: '#56f3a7ff',
@@ -129,6 +129,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 8,
+    marginHorizontal: 12,
   },
   buyersText: {
     flexDirection: 'row',
@@ -189,7 +190,7 @@ skeletonExploreCard: {
     backgroundColor: '#0D1A47',
     borderRadius: 16,
     overflow: 'hidden',
-    marginBottom: screenHeight * 0.025,
+    marginBottom: screenHeight * 0.015,
     paddingBottom: screenHeight * 0.015,
     marginTop: screenHeight * 0.013,
   },
@@ -447,11 +448,7 @@ cryptoChangeTime: {
 prostext:{
   color: '#7AB7FD',
   fontSize: 19,
-  // fontWeight: 500,
-  // width: 225,
   marginLeft: 10,
-  // height: 25,
-  // marginBottom: 10,
 },
 prossection:{
   flexDirection: 'row',
@@ -464,9 +461,7 @@ prossection:{
     width: '100%',
   },
 prosicon:{
-  height: screenHeight * 0.1,
-  width: screenWidth * 0.1,
-  marginBottom: screenHeight * 0.012,
+  paddingBottom: 15,
   marginRight: screenWidth * 0.05,
 },
   cryptoSummaryCard: {

@@ -68,9 +68,9 @@ const TRANSLATE_Y_CONFIG = {
     max: -hp('100%'),
   },
     trade: {
-    initial: -hp('10%'),
+    initial: -hp('5%'),
     min: -hp('10%'),
-    max: -hp('54.07%'),
+    max: -hp('34.07%'),
   },
   todaysReturn: {
     
@@ -197,7 +197,7 @@ export interface BottomSheetUnifiedRef {
         return {
           initial: -hp('5%'),
           min: -hp('10%'),
-          max: -hp('44.07%'),
+          max: -hp('74.07%'),
         };
       case 'todaysReturn':
         return {

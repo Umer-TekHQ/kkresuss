@@ -50,9 +50,15 @@ export const TradeScreen = () => {
     USDC: 1,
     rETH: 4915.27,
     AERO: 495.27,
-    BRETT: 0.052976,
+    BRETT: 0.0576,
     TOSHI: 0.052976,
     BSHIB: 0,
+    cbETH: 0.000209561,
+    MOCHI: 66497700,
+    ADA: 49536.1,
+    XPR: 49536.1
+
+
   };
 
   const handleToggleUSD = (value: boolean) => {

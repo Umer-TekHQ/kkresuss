@@ -18,8 +18,6 @@ import TransactionCard from '../../components/TransactionCard';
 import nftImages from '../../mock/NftImages';
 import {transactionData} from '../../mock/nftRecentData'
 import TransactionButton from '../../components/TransactionButton';
-import { useAppDispatch } from '../../store/hooks';
-import { setToken1, setToken2 } from '../../store/slices/tradeSlice';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -133,7 +131,7 @@ const AssetsScreen = () => {
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    { key: 'crypto', title: 'Crypto' },
+    { key: 'crypto', title: 'Crypto'},
     { key: 'nfts', title: 'NFTs' },
     { key: 'earn', title: 'Earn' },
   ]);
@@ -156,10 +154,10 @@ const AssetsScreen = () => {
           <TabBar
             {...props}
             indicatorStyle={{ backgroundColor: '#7AB7FD',height:2 }}
-            // style={{ backgroundColor: '#000' }}
            style={{ backgroundColor: index === 1 ? '#01032C' : '#01021D' }}
             activeColor="white"
             inactiveColor="#7AB7FD"
+            
           />
         )}
       />

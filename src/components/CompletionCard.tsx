@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
   },
   value: {
     fontSize: 16,
-    // fontWeight: '600',
     color: '#A1C4EE',
     alignSelf: 'flex-end'
   },
