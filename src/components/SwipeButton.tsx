@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import {
   StyleSheet,
   Text,
-  View,
   Dimensions,
   Animated,
   PanResponder,
@@ -15,6 +14,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppNavigatorParamList, routeNames } from '../navigators/routeNames';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { resetTrade } from '../store/slices/tradeSlice';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 const { width } = Dimensions.get('window');
 const SWIPE_WIDTH = width - 40;
@@ -90,7 +90,7 @@ const SwipeButton: React.FC<SwipeButton> = ({ placeholder = 'Swipe to Send', onN
     outputRange: ['#08032C', '#1d658dff', '#2ED459'], 
   });
 
-  return (
+  return(
     <ImageBackground
       source={Images.waves}
       style={styles.background}
@@ -100,7 +100,13 @@ const SwipeButton: React.FC<SwipeButton> = ({ placeholder = 'Swipe to Send', onN
         <Animated.View
           {...panResponder.panHandlers}
           style={[styles.whiteCircle, { transform: [{ translateX: panX }] }]}
-        />
+        >
+          <Image
+            source={Images.swipearrow}
+            style={styles.arrowIcon}
+            resizeMode="contain"
+          />
+        </Animated.View>
         <Text style={styles.swipeText}>
           {isCompleted ? "Trade Completed!" : placeholder}
         </Text>
@@ -115,14 +121,16 @@ const styles = StyleSheet.create({
   background: {
     width: '100%',
     height: 126,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
+    bottom: 0
   },
   swipeContainer: {
     width: SWIPE_WIDTH,
-    height: 59,
+    height: hp('8%'),
     borderRadius: 99,
     justifyContent: 'center',
+    marginTop: hp('2%'),
     overflow: 'hidden',
     position: 'relative',
   },
@@ -132,6 +140,8 @@ const styles = StyleSheet.create({
     borderRadius: 99,
     backgroundColor: '#fff',
     position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
     left: 4,
     zIndex: 1,
   },
@@ -139,5 +149,11 @@ const styles = StyleSheet.create({
     color: '#D4EBFF',
     fontSize: 18,
     alignSelf: 'center',
+    letterSpacing: 0.5,
   },
+  arrowIcon: {
+  width: 26,
+  height: 26,
+  tintColor: '#08032C', 
+},
 });

@@ -49,7 +49,7 @@ export const TradeScreen = () => {
     SNORT: 0.000502,
     USDC: 1,
     rETH: 4915.27,
-    AERO: 4915.27,
+    AERO: 495.27,
     BRETT: 0.052976,
     TOSHI: 0.052976,
     BSHIB: 0,

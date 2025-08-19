@@ -497,75 +497,73 @@ export interface BottomSheetUnifiedRef {
             </>
           )}
            {screen === 'trade' && (
-            <View style={styles.tradebottomsheet}>
-              <View style={[styles.lineTB, { width: wp('17%'), height: hp('0.65%'), marginTop: hp('1%') }]} />
-              
-              <View style={[styles.head, { marginBottom: hp('1%') }]}>
-                <Image source={Images.tradebottom} style={[styles.headimg, { width: wp('4%'), height: hp('2%'),  marginTop: hp('2%') }]} />
-                <Text style={[styles.headingTB, { fontSize: wp('4.5%'),  marginTop: hp('2%') }]}>Transaction Ready</Text>
-                <TouchableOpacity style={styles.closeButton} onPress={closeSheet}>
-                  <Image source={Images.pros} style={[styles.closeIcon, { width: wp('8%'), height: hp('6%') }]} />
-                </TouchableOpacity>
-              </View>
+              <View style={[styles.tradebottomsheet, { paddingTop: hp('2%') }]}>
+                <View style={[styles.lineTB, { width: wp('15%'), height: hp('0.5%'), marginTop: hp('1%') }]} />
 
-              {token1 && token2 && (
-                <>
-                  <View style={styles.inputfields}>
-                    <View style={[styles.tokenInputContainer, { width: wp('90%'), height: hp('8.5%'), marginVertical: hp('1%') }]}>
-                      {token1 ? (
-                        <>
-                        <View style={{}}>
-                        <Text style={{color: 'white', fontSize: 15}}>Trading</Text>
-                        </View>
-                        <View style={{display: 'flex', justifyContent: 'center'}}>
-                          <Text style={[styles.tradeAmount, { fontSize: wp('5%') }]}>{amount1}</Text>
-                        </View>
-                          <View style={styles.tokenDisplay}>
-                            <Text style={[styles.tokenSymbol, { fontSize: wp('4%'), top: 20 }]}>{token1.abbreviation}</Text>
-                            <Image source={token1.logo} style={[styles.tokenLogo, { width: wp('10%'), height: wp('10%') }]} />
-                          </View>
-                        </>
-                      ) : (
-                        <Text style={[styles.placeholderText, { fontSize: wp('4%') }]}>Select Token</Text>
-                      )}
-                    </View>
+                <View style={[styles.head, { marginBottom: hp('1%') }]}>
+                  <Image source={Images.tradebottom} style={[styles.headimg, { width: wp('4%'), height: hp('2.5%'), marginLeft: wp('3%'), marginTop: hp('1%') }]} />
+                  <Text style={[styles.headingTB, { fontSize: wp('4.5%'), marginLeft: wp('4%') }]}>Transaction Ready</Text>
+                  <TouchableOpacity style={styles.closeButton} onPress={closeSheet}>
+                    <Image source={Images.pros} style={[styles.closeIcon, { width: wp('6%'), height: hp('6%') , paddingBottom: hp('5%') }]} />
+                  </TouchableOpacity>
+                </View>
 
-                    <View style={styles.arrowContainer}>
-                      <Image source={Images.downarroww} style={[styles.downarrow, { width: wp('5%'), height: hp('3%') }]} />
-                    </View>
+                {token1 && token2 && (
+                  <>
+                    <View style={styles.inputfields}>
 
-                    <View style={[styles.tokenInputContainer, { width: wp('90%'), height: hp('8.5%'), marginVertical: hp('1%') }]}>
-                      {token2 ? (
+                      <View style={[styles.tokenInputContainer, { width: wp('90%'), height: hp('10%'), marginVertical: hp('1%') }]}>
+                        <Text style={[styles.labelText, { fontSize: wp('3.5%'), color: '#ADD2FD', marginBottom: hp('0.5%') }]}>
+                          TRADING
+                        </Text>
                         <View style={styles.tokenDisplay}>
-                          <Text style={[styles.tradeAmount, { fontSize: wp('5%') }]}>{amount2}</Text>
-                          <Text style={[styles.tokenSymbol, { fontSize: wp('3%') }]}>{token2.abbreviation}</Text>
+                          <View>
+                            <Text style={[styles.tradeAmount, { fontSize: wp('5%') }]}>{amount1}</Text>
+                            <Text style={[styles.tokenSymbol, { fontSize: wp('4%') }]}>{token1.abbreviation}</Text>
+                          </View>
+                          <Image source={token1.logo} style={[styles.tokenLogo, { width: wp('10%'), height: wp('10%') }]} />
+                        </View>
+                      </View>
+
+                      <View style={styles.arrowContainer}>
+                        <Image source={Images.downarroww} style={[styles.downarrow, { width: wp('3%'), height: hp('2%') }]} />
+                      </View>
+
+                      <View style={[styles.tokenInputContainer, { width: wp('90%'), height: hp('10%'), marginVertical: hp('1%') }]}>
+                        <Text style={[styles.labelText, { fontSize: wp('3.5%'), color: '#ADD2FD', marginBottom: hp('0.5%') }]}>
+                          FOR
+                        </Text>
+                        <View style={styles.tokenDisplay}>
+                          <View>
+                            <Text style={[styles.tradeAmount, { fontSize: wp('5%') }]}>{amount2}</Text>
+                            <Text style={[styles.tokenSymbol, { fontSize: wp('4%'), }]}>{token2.abbreviation}</Text>
+                          </View>
                           <Image source={token2.logo} style={[styles.tokenLogo, { width: wp('10%'), height: wp('10%') }]} />
                         </View>
-                      ) : (
-                        <Text style={[styles.placeholderText, { fontSize: wp('4%') }]}>Select Token</Text>
-                      )}
+                      </View>
+
                     </View>
-                  </View>
 
-                  <View style={[styles.feescontainer, { marginHorizontal: wp('5%'), paddingVertical: hp('2%') }]}>
-                    <Text style={[styles.fees, { fontSize: wp('4%') }]}>Fees</Text>
-                    <Text style={[styles.fees, { fontSize: wp('4%') }]}>1.73144653 SNORT</Text>
-                  </View>
+                    <View style={[styles.feescontainer, { marginHorizontal: wp('5%'), paddingVertical: hp('2%') }]}>
+                      <Text style={[styles.fees, { fontSize: wp('4.5' ) }]}>Fees</Text>
+                      <Text style={[styles.fees, { fontSize: wp('4.5%') }]}>1.73144653 SNORT</Text>
+                    </View>
 
-                  <Text style={[styles.bottomtext1, { fontSize: wp('4%'), marginTop: hp('2%') }]}>
-                    Kresus covers your network fee
-                  </Text>
+                    <Text style={[styles.bottomtext1, { fontSize: wp('4.5%'), marginTop: hp('1%') }]}>
+                      Kresus covers your network fee
+                    </Text>
 
-                  <View style={{ marginTop: hp('3.5%') }}>
-                    <SwipeButton 
-                      placeholder='Swipe to Trade' 
-                      onNavigate={() => { translateY.value = withSpring(0, { damping: 50 }); }} 
-                    />
-                  </View>
-                </>
-              )}
-            </View>
-          )}
+                    <View style={{ marginTop: hp('2%') }}>
+                      <SwipeButton
+                        placeholder='Swipe to Trade'
+                        onNavigate={() => { translateY.value = withSpring(0, { damping: 50 }); }}
+                      />
+                    </View>
+                  </>
+                )}
+              </View>
+            )}
+
 
           {screen === 'todaysReturn' && (
             <View>
@@ -704,11 +702,20 @@ const styles = StyleSheet.create({
     marginLeft: 4,
     backgroundColor: '#0734A9',
     alignSelf: 'center',
-    // marginVertical: 15,
     marginTop:5,
     marginHorizontal: 8,
     borderRadius: 2,
   },
+  labelText: {
+  letterSpacing: 0.5,
+},
+
+tokenDisplay: {
+  flexDirection: 'row',
+  // justifyContent: 'flex-end',
+  alignItems: 'center',
+},
+
   lineTB:{
     width: 55,
     height: 4,
@@ -755,8 +762,6 @@ const styles = StyleSheet.create({
   },
   head: {
     flexDirection: 'row',
-    // marginVertical: 12,
-    // marginHorizontal: 15,
     marginTop: 5,
     marginBottom: 7,
     textAlign: 'center',
@@ -811,7 +816,6 @@ const styles = StyleSheet.create({
   headingTB:{
     color: '#2ED459',
     fontSize: 15,
-    // fontWeight: '600',
     marginTop: 6,
     marginLeft: 20,
   },
@@ -1026,13 +1030,9 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   tradeAmount: {
-    color: '#97B8E1',
+    color: '#FFF',
     fontSize: 24,
-    flex: 1,
-  },
-  tokenDisplay: {
-    flexDirection: 'row',
-    // alignItems: 'center',
+    marginRight: 10,
   },
   tokenLogo: {
     width: 40,
@@ -1044,6 +1044,9 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 12,
     marginRight: 4,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    letterSpacing: 0.5,
   },
   placeholderText: {
     color: '#97B8E1',
