@@ -53,7 +53,7 @@ const TransactionCard = ({ item }: { item: any }) => {
 
       <View style={{ flex: 1, paddingHorizontal: 10 }}>
         <Text style={[styles.txnTitle, { color: getTextColor(item.status, 'name') }]} numberOfLines={1}>{item.name}</Text>
-        <Text style={[styles.txnStatus, { color: getTextColor(item.status, 'status') }]}>
+        <Text style={[styles.txnStatus, { color: getTextColor(item.status, 'status') }]}  numberOfLines={1}>
           {item.status} • {item.time}
         </Text>
       </View>

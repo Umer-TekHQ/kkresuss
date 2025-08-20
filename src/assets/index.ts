@@ -141,6 +141,6 @@ jupiter:require('./images/jupiter.png'),
 tether:require('./images/tether.png'),
 bonk:require('./images/bonk.png'),
 render:require('./images/render.png'),
-raydium:require('./images/raydium.png')
-
+raydium:require('./images/raydium.png'),
+arrowforward:require('./images/arrowforward.png')
 }

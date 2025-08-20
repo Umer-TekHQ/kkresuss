@@ -67,7 +67,7 @@ const [showSheet, setShowSheet] = useState(false);
         >
           <Text style={styles.viewAllText}>View All</Text>
         </TouchableOpacity>
-        <View style={{marginTop:45,}}>
+        <View style={{marginTop:35,marginBottom:35}}>
         <CoinbaseCard />
         </View>
         <View style={{ marginTop: 10, marginBottom: 40 }}>
@@ -163,24 +163,7 @@ const AssetsScreen = () => {
   return (
     <View style={{ flex: 1, backgroundColor: index === 1 ? '#01032C' : '#01021D' }}>
       <HeaderNav />
-      {/* <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={initialLayout}
-        renderTabBar={props => (
-          <TabBar
-            {...props}
-            indicatorStyle={{ backgroundColor: '#7AB7FD',height:2 }}
-            // style={{ backgroundColor: '#000' }}
-           style={{ backgroundColor: index === 1 ? '#01032C' : '#01021D' }}
-            activeColor="white"
-            inactiveColor="#7AB7FD"
-          />
-        )}
-      /> */}
-      
-
+ 
 <TabView
   navigationState={{ index, routes }}
   renderScene={renderScene}
@@ -197,7 +180,7 @@ const AssetsScreen = () => {
           inputRange,
           outputRange: inputRange.map((i) => {
             let tabWidth = getTabWidth ? getTabWidth(i) : initialLayout.width / navigationState.routes.length;
-            let textWidth = navigationState.routes[i].title.length * 8; // Approx width per char
+            let textWidth = navigationState.routes[i].title.length * 9; // Approx width per char
             return (tabWidth - textWidth) / 2 + i * tabWidth ;
           }),
         });
@@ -217,9 +200,15 @@ const AssetsScreen = () => {
       }}
       style={{
         backgroundColor: index === 1 ? '#01032C' : '#01021D',
+         borderBottomWidth: 2,
+        borderBottomColor: '#030A74',
+        height:45, //as per qa changes
       }}
+     
       activeColor="white"
       inactiveColor="#7AB7FD"
+      
+
     />
   )}
 />
@@ -354,7 +343,12 @@ recentTransactions: {
 },
 bottomSpace:{
   marginBottom:60,
-}
+},
+  tabLabel: {
+    fontSize: 14,
+    fontWeight: '600',
+    textTransform: 'capitalize',
+  },
 
 });
 

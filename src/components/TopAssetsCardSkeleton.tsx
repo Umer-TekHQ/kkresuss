@@ -27,12 +27,12 @@ const TopAssetsCardSkeleton = () => {
 
 export default TopAssetsCardSkeleton;
 
-const skeletonColor = '#1A2267';
+const skeletonColor = '#030A74';
 
 const styles = StyleSheet.create({
   card: {
     width: 345,
-    backgroundColor: '#10178A',
+    backgroundColor: '#01032C',
     borderRadius: 20,
     borderTopWidth: 1,
     borderColor: '#1E2D56',
@@ -55,16 +55,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   assetName: {
-    width: 60,
-    height: 14,
-    borderRadius: 4,
+    width: 140,
+    height: 16,
+  //  borderRadius: 4,
     backgroundColor: skeletonColor,
     marginBottom: 4,
   },
   assetSymbol: {
-    width: 30,
-    height: 12,
-    borderRadius: 4,
+    width: 140,
+    height: 14,
+  //  borderRadius: 4,
     backgroundColor: skeletonColor,
   },
 //   change: {
@@ -82,16 +82,16 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   price: {
-    width: 60,
-    height: 15,
-    borderRadius: 4,
+    width: 90,
+    height: 16,
+    //borderRadius: 4,
     backgroundColor: skeletonColor,
     marginBottom: 6,
   },
   amount: {
-    width: 40,
-    height: 13,
-    borderRadius: 4,
+    width: 90,
+    height: 14,
+   // borderRadius: 4,
     backgroundColor: skeletonColor,
     marginBottom: 2,
   },

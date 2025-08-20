@@ -90,7 +90,7 @@ export default SpamScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: '#01021D',
     paddingHorizontal: 16,
     paddingTop: 6,
   },
@@ -126,10 +126,12 @@ rightTab: {
   tabText: {
     color: '#ADD2FD',
     fontWeight: '500',
+    fontSize:15,
   },
   activeTabText: {
     color: '#fff',
     fontWeight: '600',
+    fontSize:15,
   },
   nftContainer: {
     flex: 1,

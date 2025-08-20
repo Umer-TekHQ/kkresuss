@@ -91,7 +91,7 @@ const handlePress = (item: Recipient) => {
 
   return (
     <View style={styles.container}>
-      <AssetsHeader title="Select Recepient" showRightIcons={true} />
+      <AssetsHeader title="Select Recipient" />
 
       <SearchBox
         placeholder="Enter Name or Wallet Address"
@@ -124,6 +124,12 @@ const handlePress = (item: Recipient) => {
     data={filteredData}
     renderItem={renderItem}
     keyExtractor={(item) => item.id}
+   ListEmptyComponent={
+    !loading ? (
+      <Text style={styles.noUserText}>No user name found</Text>
+    ) : null
+  }
+
   />
 )}
 
@@ -159,7 +165,7 @@ const styles = StyleSheet.create({
     resizeMode:'contain'
   },
   syncText: {
-    color: '#fff',
+    color: '#4898F3',
     fontSize: 15,
   },
   divider: {
@@ -180,24 +186,33 @@ const styles = StyleSheet.create({
     backgroundColor: '#2E2F40',
     borderRadius: 25,
     marginRight: 12,
+  resizeMode:'contain'
   },
   textContent: {
     justifyContent: 'space-between',
   },
   name: {
     color: '#FFFFFF',
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: 'bold',
   },
   email: {
-    color: '#B0B0B0',
-    fontSize: 12,
+    color: '#ADD2FD',
+    fontSize: 13,
   },
   semtImage: {
-  width: 50,
-  height: 50,
-  borderRadius: 25,
-  resizeMode: 'cover',
+ width: '100%',
+  height: '100%',
 },
+noUserText: {
+  color: '#4898F3',
+  fontSize: 15,
+  textAlign: 'center',
+  marginTop: 20,
+},
+
+
+
+
 
 });
