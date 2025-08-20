@@ -4,7 +4,8 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
-  runOnJS
+  runOnJS,
+  withTiming 
 } from 'react-native-reanimated';
 import {
   GestureDetector,
@@ -24,10 +25,15 @@ type Props = {
 const BottomSheetNetwork = ({ visible, onClose }: Props) => {
   const translateY = useSharedValue(0);
 
+  // useEffect(() => {
+  //   translateY.value = withSpring(visible ? MAX_TRANSLATE_Y : 0);
+  // }, [visible]);
+
   useEffect(() => {
-    // jab visible true ho → open karo
-    translateY.value = withSpring(visible ? MAX_TRANSLATE_Y : 0);
-  }, [visible]);
+  translateY.value = withTiming(visible ? MAX_TRANSLATE_Y : 0, {
+    duration: 250,
+  });
+}, [visible]);
 
   const panGesture = Gesture.Pan()
     .onUpdate((event) => {
@@ -39,7 +45,10 @@ const BottomSheetNetwork = ({ visible, onClose }: Props) => {
       if (translateY.value > MAX_TRANSLATE_Y / 2) {
        runOnJS(onClose)();
       } else {
-        translateY.value = withSpring(MAX_TRANSLATE_Y);
+        // translateY.value = withSpring(MAX_TRANSLATE_Y);
+          translateY.value = withTiming(MAX_TRANSLATE_Y, {
+        duration: 250,
+      });
       }
     });
 
@@ -47,24 +56,24 @@ const BottomSheetNetwork = ({ visible, onClose }: Props) => {
     transform: [{ translateY: translateY.value }],
   }));
 
-  if (!visible) return null; // agar visible false hai to render hi mat karo
+  if (!visible) return null; 
 
   return (
     <GestureHandlerRootView style={StyleSheet.absoluteFill}>
-      {/* overlay */}
+     
       <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={onClose} />
 
-      {/* bottom sheet */}
+  
       <GestureDetector gesture={panGesture}>
         <Animated.View style={[styles.bottomSheet, animatedStyle]}>
           <View style={styles.handle} />
-          <Text style={styles.sheetTitle}>Select Network</Text>
+          <Text style={styles.sheetTitle}>Select Network(s)</Text>
           <View style={styles.divider} />
 
           <View style={styles.optionBox}>
             <View style={styles.optionRow}>
-              <Text style={styles.option}>Both Network</Text>
-              <Image source={Images.bothsolanabase} style={styles.optionIcon} />
+              <Text style={styles.option}>Both Networks</Text>
+              <Image source={Images.bothsolanabase} />
             </View>
 
             <View style={styles.optionRow}>
@@ -106,7 +115,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 4,
     borderRadius: 2,
-    backgroundColor: '#444',
+    backgroundColor: '#0734A9',
     alignSelf: 'center',
     marginBottom: 10,
   },
@@ -128,7 +137,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 1,
-    backgroundColor: '#1E2D56',
+    backgroundColor: '#10178A',
   },
   optionRow: {
     flexDirection: 'row',
@@ -137,6 +146,11 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
   },
   optionIcon: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
+  },
+  optionIcon1: {
     width: 24,
     height: 24,
     resizeMode: 'contain',

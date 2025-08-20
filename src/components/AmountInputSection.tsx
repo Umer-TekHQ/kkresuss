@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, TextInput, Image, StyleSheet } from 'react-native';
+import React ,{useState}from 'react';
+import { View, Text, TextInput, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Images } from '../assets';
 
 type Props = {
@@ -9,21 +9,55 @@ type Props = {
 };
 
 const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
+  const [subAmount, setSubAmount] = useState("1.146382610  ");
+   const [isSwapped, setIsSwapped] = useState(false);
   return (
     <View style={styles.amountInputWrapper}>
       <View style={styles.amountInputBox}>
-        <Text style={[styles.dollarSign, { color: isInsufficient ? '#FF5A5F' : '#FFFFFF' }]}>$</Text>
+        <Text style={[styles.dollarSign, { color: isInsufficient ? '#FF5A5F' : '#FFFFFF',
+           fontSize: isSwapped ? 40 : 60, 
+         }]}>$</Text>
         <TextInput
           placeholder="0.00"
           placeholderTextColor="#7A7A7A"
-          style={[styles.amountInputField, { color: isInsufficient ? '#FF5A5F' : '#FFFFFF' }]}
+          style={[styles.amountInputField, { color: isInsufficient ? '#FF5A5F' : '#FFFFFF' ,
+                fontSize: isSwapped ? 40 : 60, 
+          }]}
           keyboardType="decimal-pad"
           value={amount}
-          onChangeText={setAmount}
+         // onChangeText={setAmount} 
+         //multiple decimal points not allowed now
+           onChangeText={(val) => {
+            const sanitized = val.replace(/[^0-9.]/g, ''); 
+            const parts = sanitized.split('.');
+
+            if (parts.length > 2) {
+              return; 
+            }
+            setAmount(sanitized);
+          }}
+   
         />
+        <TouchableOpacity
+          onPress={() => {
+          const currentAmount = amount;
+          const currentSub = subAmount;
+          setAmount(currentSub);
+          setSubAmount(currentAmount);
+          setIsSwapped((prev) => !prev); 
+        }}
+        >
         <Image source={Images.swap} style={styles.swapIcon} />
+        </TouchableOpacity>
       </View>
-      <Text style={styles.subAmount}>1.146382610 rETH</Text>
+       {!isSwapped ? (
+      <Text style={styles.subAmount}
+      >{subAmount}<Text>rETH</Text></Text>
+       ):(
+      <Text style={styles.subAmount}>
+          {subAmount}
+      </Text>
+       )}
     </View>
   );
 };
@@ -41,34 +75,39 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     paddingHorizontal: 12,
-    paddingVertical: 8,
-    marginVertical: 12,
+   // paddingVertical: 8,
+    //marginVertical: 12,
     alignSelf: 'center',
     position: 'relative',
+   
   },
   dollarSign: {
-    fontSize: 60,
+    //fontSize: 60,
     fontWeight: 'bold',
     textAlign: 'center',
    
   },
   amountInputField: {
-    fontSize: 60,
+   // fontSize: 60,
     fontWeight: 'bold',
-    textAlign: 'center',
+    textAlign: 'left',
     width: 140,
+    
   },
   swapIcon: {
-    width: 14,
-    height: 14,
+    width: 18,
+    height: 18,
     marginLeft: 8,
     resizeMode: 'contain',
-    left: 80,
-    top: 10,
+    left: 75,
+    tintColor:'#ADD2FD'
+   // top: 5,
   },
   subAmount: {
     fontSize: 14,
     color: '#FF5A5F',
-    right: 10,
+    //right: 10,
+    bottom:10, // as per qa
+   marginBottom:20,
   },
 });

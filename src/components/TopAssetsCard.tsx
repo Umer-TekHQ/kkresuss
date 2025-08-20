@@ -108,7 +108,7 @@ export default TopAssetsCard;
 const styles = StyleSheet.create({
   card: {
     width: 345,
-    backgroundColor: '#10178A',
+    backgroundColor: '#080C4C',
     borderRadius: 20,
     borderTopWidth: 1,
     borderColor: '#1E2D56',
@@ -186,7 +186,8 @@ changeIcon: {
   width: 11,
   height: 11,
   resizeMode: 'contain',
-  marginRight: 4,
+  marginRight: 12,
+  left:9
 },
 changeText: {
   fontSize: 13,
