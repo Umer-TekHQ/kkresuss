@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   subtitle: {
-    color: '#2DD2FD',
+    color: '#ADD2FD',
     fontSize: 13,
     flex: 1,
   },

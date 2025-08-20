@@ -196,7 +196,7 @@ export interface BottomSheetUnifiedRef {
       case 'trade':
         return {
           initial: -hp('5%'),
-          min: -hp('10%'),
+          min: -hp('5%'),
           max: -hp('74.07%'),
         };
       case 'todaysReturn':
@@ -497,7 +497,7 @@ export interface BottomSheetUnifiedRef {
             </>
           )}
            {screen === 'trade' && (
-              <View style={[styles.tradebottomsheet, { paddingTop: hp('2%') }]}>
+              <View style={[styles.tradebottomsheet, { paddingTop: hp('1%') }]}>
                 <View style={[styles.lineTB, { width: wp('15%'), height: hp('0.5%'), marginTop: hp('1%') }]} />
 
                 <View style={[styles.head, { marginBottom: hp('1%') }]}>
@@ -553,7 +553,7 @@ export interface BottomSheetUnifiedRef {
                       Kresus covers your network fee
                     </Text>
 
-                    <View style={{ marginTop: hp('2%') }}>
+                    <View style={{ marginTop: hp('1.5%') }}>
                       <SwipeButton
                         placeholder='Swipe to Trade'
                         onNavigate={() => { translateY.value = withSpring(0, { damping: 50 }); }}
@@ -712,7 +712,6 @@ const styles = StyleSheet.create({
 
 tokenDisplay: {
   flexDirection: 'row',
-  // justifyContent: 'flex-end',
   alignItems: 'center',
 },
 
@@ -811,7 +810,7 @@ tokenDisplay: {
     fontWeight: '600',
     marginTop: 6,
     flex: 1,
-    marginLeft: wp('2%'),
+    marginLeft: wp('5%'),
   },
   headingTB:{
     color: '#2ED459',

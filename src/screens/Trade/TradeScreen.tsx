@@ -7,7 +7,6 @@ import {
   TouchableWithoutFeedback,
   Image,
   StyleSheet,
-  Switch,
   Alert,
   Dimensions,
 } from 'react-native';
@@ -20,8 +19,9 @@ import { HeaderNav } from '../../components/HeaderNav';
 import { Images } from '../../assets';
 import { useSharedValue, withSpring } from 'react-native-reanimated';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setToken1, setToken2, setAmount1, setAmount2, toggleUSD } from '../../store/slices/tradeSlice';
+import { setAmount1, setAmount2, toggleUSD } from '../../store/slices/tradeSlice';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import TradeSwitch from '../../components/TradeSwitch';
 
 export const TradeScreen = () => {
   const dispatch = useAppDispatch();
@@ -65,6 +65,9 @@ export const TradeScreen = () => {
     dispatch(toggleUSD());
   };
 
+  const isContinueEnabled = token1 && token2 && amount1 && amount2 && amount1 !== '0' && amount2 !== '0';
+
+
   const handleSelectToken = (field: 'token1' | 'token2') => {
     if (field === 'token1' && token2) {
       navigation.navigate('SearchScreen', { field, excludeToken: token2.abbreviation });
@@ -77,6 +80,15 @@ export const TradeScreen = () => {
         navigation.navigate('ReceiveTokenScreen', { field });
       }
     }
+  };
+
+  const sanitizeInput = (text: string) => {
+  const cleaned = text.replace(/[^0-9.]/g, '');        
+  const parts = cleaned.split('.');                    
+  if (parts.length > 2) {
+    return parts[0] + '.' + parts[1];
+  }
+  return cleaned;
   };
 
 
@@ -115,31 +127,52 @@ export const TradeScreen = () => {
     }
   };
 
-  const handleAmount1Change = (text: string) => {
-    dispatch(setAmount1(text));
-    if (errors.amount1) setErrors(prev => ({ ...prev, amount1: !text || text === '0' }));
+  const formatToSix = (num: number) => {
+      return parseFloat(num.toFixed(6)).toString();
+  };
+
+const handleAmount1Change = (text: string) => {
+  const safeText = sanitizeInput(text);
+
+  if (isUSD) {
+    const usdAmount = parseFloat(safeText) || 0;
+
+    if (token1 && tokenRates[token1.abbreviation]) {
+      const tokenAmount = usdAmount / tokenRates[token1.abbreviation];
+      dispatch(setAmount1(formatToSix(tokenAmount)));
+    }
 
     if (token1 && token2 && tokenRates[token1.abbreviation] && tokenRates[token2.abbreviation]) {
-      const amountNum = parseFloat(text) || 0;
+      const tokenAmount = usdAmount / tokenRates[token1.abbreviation];
+      const converted = tokenAmount * tokenRates[token1.abbreviation] / tokenRates[token2.abbreviation];
+      dispatch(setAmount2(formatToSix(converted)));
+    }
+  } else {
+    dispatch(setAmount1(safeText));
+    if (errors.amount1) setErrors(prev => ({ ...prev, amount1: !safeText || safeText === '0' }));
+
+    if (token1 && token2 && tokenRates[token1.abbreviation] && tokenRates[token2.abbreviation]) {
+      const amountNum = parseFloat(safeText) || 0;
       const usdValue = amountNum * tokenRates[token1.abbreviation];
       const converted = usdValue / tokenRates[token2.abbreviation];
-      const rounded = parseFloat(converted.toFixed(6));
-      dispatch(setAmount2(rounded.toString()));
+      dispatch(setAmount2(formatToSix(converted)));
     }
-  };
+  }
+};
 
-  const handleAmount2Change = (text: string) => {
-    dispatch(setAmount2(text));
-    if (errors.amount2) setErrors(prev => ({ ...prev, amount2: !text || text === '0' }));
 
-    if (token1 && token2 && tokenRates[token1.abbreviation] && tokenRates[token2.abbreviation]) {
-      const amountNum = parseFloat(text) || 0;
-      const usdValue = amountNum * tokenRates[token2.abbreviation];
-      const converted = usdValue / tokenRates[token1.abbreviation];
-      const rounded = parseFloat(converted.toFixed(6));
-      dispatch(setAmount1(rounded.toString()));
-    }
-  };
+const handleAmount2Change = (text: string) => {
+  dispatch(setAmount2(text));
+  if (errors.amount2) setErrors(prev => ({ ...prev, amount2: !text || text === '0' }));
+
+  if (token1 && token2 && tokenRates[token1.abbreviation] && tokenRates[token2.abbreviation]) {
+    const amountNum = parseFloat(text) || 0;
+    const usdValue = amountNum * tokenRates[token2.abbreviation];
+    const converted = usdValue / tokenRates[token1.abbreviation];
+    dispatch(setAmount1(formatToSix(converted)));
+  }
+};
+
 
   const renderTokenField = (
     token: Token | null, 
@@ -148,40 +181,62 @@ export const TradeScreen = () => {
     onPress: () => void, 
     editable: boolean,
     hasError: boolean,
-    showUSD: boolean 
-  ) => (
-    <TouchableOpacity onPress={onPress} style={[styles.tokenField, hasError && styles.errorField]}>
-      {token ? (
-        <View style={styles.tokenInputContainer}>
-          <TextInput
-            style={[styles.amountInput, !editable && styles.disabledInput]}
-            value={amount}
-            onChangeText={onAmountChange}
-            keyboardType="numeric"
-            editable={editable}
-            placeholder="0"
-            placeholderTextColor="#97B8E1"
-          />
-          <View style={styles.tokenDisplay}>
-            <Image source={token.logo} style={styles.tokenLogo} />
-            <Text style={styles.tokenSymbol}>{token.abbreviation}</Text>
+    field: 'token1' | 'token2'
+  ) => {
+    const usdValue = token && amount
+      ? parseFloat(amount) * (tokenRates[token.abbreviation] || 0)
+      : 0;
+
+    const displayMain =
+      isUSD && field === 'token1'
+        ? usdValue ? usdValue.toString() : ''  
+        : amount;
+
+
+    const displaySecondary =
+      isUSD && field === 'token1'
+        ? `${amount || 0} ${token?.abbreviation || ''}`
+        : !isUSD && field === 'token1' && usdValue
+          ? `$${usdValue.toFixed(2)}`
+          : null;
+
+    return (
+      <TouchableOpacity onPress={onPress} style={[styles.tokenField, hasError && styles.errorField]}>
+        {token ? (
+          <View style={styles.tokenInputContainer}>
+            <TextInput
+              style={[styles.amountInput, !editable && styles.disabledInput]}
+              value={displayMain}
+              onChangeText={onAmountChange}
+              keyboardType="numeric"
+              editable={editable}
+              placeholder="0"
+              placeholderTextColor="#97B8E1"
+            />
+            <View style={styles.tokenDisplay}>
+              <Image source={token.logo} style={styles.tokenLogo} />
+              <Text style={styles.tokenSymbol}>{token.abbreviation}</Text>
+            </View>
+            <Image source={Images.downarrow} style={styles.downfieldarrow} />
           </View>
-          <Image source={Images.downarrow} style={styles.downarrow} />
-        </View>
-      ) : (
-        <View style={{justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={[styles.placeholderText, hasError && styles.errorText]}>Select Token </Text>
-          <Image source={Images.downarrow} style={styles.downfieldarrow}/>
-        </View>
-      )}
-      {showUSD && token && amount ? (
-        <Text style={{color: '#97B8E1', fontSize: 14, marginTop: 4}}>
-          ${ (parseFloat(amount) * tokenRates[token.abbreviation]).toFixed(2) }
-        </Text>
-      ) : null}
-      {hasError && <Text style={styles.errorMessage}>This field is required</Text>}
-    </TouchableOpacity>
-  );
+
+
+        ) : (
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Text style={[styles.placeholderText, hasError && styles.errorText]}>Select Token</Text>
+            <Image source={Images.downarrow} style={styles.downfieldarrow} />
+          </View>
+        )}
+
+        {field === 'token1' && displaySecondary ? (
+          <Text style={styles.secondaryText}>{displaySecondary}</Text>
+          ) : null}
+
+
+        {hasError && <Text style={styles.errorMessage}>This field is required</Text>}
+      </TouchableOpacity>
+    );
+  };
 
 
   return (
@@ -193,11 +248,9 @@ export const TradeScreen = () => {
           <Text style={styles.title}>Trade</Text>
           <View style={styles.toggleRow}>
             <Text style={styles.enterUsdText}>Enter USD</Text>
-            <Switch 
-              value={isUSD} 
+            <TradeSwitch
               onValueChange={handleToggleUSD}
-              trackColor={{false: '#052785', true: '#81b0ff'}}
-              thumbColor={'#fff'}
+              value={isUSD}
             />
           </View>
         </View>
@@ -212,7 +265,7 @@ export const TradeScreen = () => {
             }, 
             true,
             errors.token1 || errors.amount1,
-            true 
+            'token1'
           )}
 
         <View style={styles.arrowContainer}>
@@ -231,17 +284,25 @@ export const TradeScreen = () => {
           }, 
           true,
           errors.token2 || errors.amount2,
-          false 
+          'token2'
         )}
 
         <View style={styles.footer}>
           <Text style={styles.gasText}>30 gas-free transactions remaining</Text>
-          <TouchableOpacity 
-            style={styles.continueBtn}
-            onPress={handleContinue}
-          >
-            <Text style={styles.continueText}>Continue</Text>
-          </TouchableOpacity>
+            <TouchableOpacity 
+              style={[
+                styles.continueBtn, 
+                isContinueEnabled && { backgroundColor: '#FFFFFF' } 
+              ]}
+              onPress={handleContinue}
+            >
+              <Text style={[
+                styles.continueText,
+                isContinueEnabled && { color: '#01021D' } 
+              ]}>
+                Continue
+              </Text>
+            </TouchableOpacity>
         </View>
 
         <BottomSheetUnified
@@ -309,6 +370,7 @@ const styles = StyleSheet.create({
     color: '#97B8E1',
     fontSize: 30,
     flex: 1,
+    marginTop: -7
   },
   disabledInput: {
     color: '#667',
@@ -320,7 +382,7 @@ const styles = StyleSheet.create({
   },
   downarrow: {
     width: wp('4%'),
-    height: hp('2.5%'),
+    height: hp('2.7%'),
     marginLeft: 15,
     tintColor: '#086DE1'
   },
@@ -363,7 +425,6 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   },
   tokenDisplay: { 
-    flexDirection: 'column',
     alignItems: 'center',
     marginLeft: 14,
   },
@@ -371,14 +432,20 @@ const styles = StyleSheet.create({
     width: 40, 
     height: 40, 
     borderRadius: 12,
-    marginRight: 3, 
+    marginRight: 15, 
   },
   tokenSymbol: { 
     color: '#fff', 
     fontSize: 15,
-    fontWeight: '500'
+    fontWeight: '500',
+    marginRight: 15
   },
   footer: {
     marginTop: hp('22%'),
   },
+  secondaryText:{
+    color: '#ADD2FD',
+    fontSize: 14,
+    marginTop: -17,
+  }
 });

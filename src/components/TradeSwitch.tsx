@@ -6,7 +6,7 @@ interface CustomSwitchProps {
   onValueChange: (val: boolean) => void;
 }
 
-const CustomSwitch = ({ value, onValueChange }: CustomSwitchProps) => {
+const TradeSwitch = ({ value, onValueChange }: CustomSwitchProps) => {
   const [animatedValue] = useState(new Animated.Value(value ? 1 : 0));
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const CustomSwitch = ({ value, onValueChange }: CustomSwitchProps) => {
   );
 };
 
-export default CustomSwitch;
+export default TradeSwitch;
 
 const styles = StyleSheet.create({
   track: {

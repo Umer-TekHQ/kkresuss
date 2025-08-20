@@ -121,7 +121,6 @@ const styles = StyleSheet.create({
   background: {
     width: '100%',
     height: 126,
-    // justifyContent: 'center',
     alignItems: 'center',
     bottom: 0
   },
@@ -130,7 +129,7 @@ const styles = StyleSheet.create({
     height: hp('8%'),
     borderRadius: 99,
     justifyContent: 'center',
-    marginTop: hp('2%'),
+    marginTop: hp('1.2%'),
     overflow: 'hidden',
     position: 'relative',
   },
