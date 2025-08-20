@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Images } from '../assets';
-import SecondaryButton from './SecondaryButton';
 import SecondaryButtonWithIcon from './SecondaryButtonWithIcon'
 
 
@@ -23,21 +22,32 @@ const PriceHeader = ({ data, onBack }: { data: any, onBack?: () => void }) => (
     
     <View style={styles.priceBox}>
       <Text style={styles.price}>${data.price}</Text>
-      <Text style={styles.sub}>{data.priceChange} <Text  style={styles.sub2}> @ {data.time}</Text></Text>
+ <View style={styles.subContainer}>
+<Image source={Images.greenup} style={styles.changeIcon} />
+      <Text style={styles.sub}>
+        {data.priceChange}
+      <Text  style={styles.sub2}> @ {data.time}</Text>
+      </Text>
+   </View>
     </View>
   </View>
 );
 
 export default PriceHeader;
 const styles = StyleSheet.create({
-  container: { padding: 16, alignItems: 'center' },
+  container: {
+    // padding: 16,
+     alignItems: 'center' ,
+     paddingVertical:16,
+     paddingHorizontal:16,
+    },
 
   topBar: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    marginBottom: 8,
+    marginBottom: 20,
     position: 'relative',
   },
   backButton: {
@@ -80,7 +90,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   sub: {
-    color: '#4CAF50',
+    color: '#30DB5B',
     fontSize: 14,
     marginTop: 4,
   },
@@ -88,7 +98,21 @@ const styles = StyleSheet.create({
     width: 30,
     height:30,
     resizeMode: 'contain',
+    tintColor:'white'
   },sub2:{
      color: '#7AB7FD',
-  }
+  },
+  subContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginTop: 4,
+},
+changeIcon: {
+   width: 10,
+   height: 12,
+  resizeMode: 'contain',
+  marginRight: 4,
+  marginTop:2,
+},
+
 });

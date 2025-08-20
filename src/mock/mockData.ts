@@ -2,7 +2,7 @@
 export const mockAssetData = {
   name: 'Ethereum',
   price: '2,455.19',
-  priceChange: '+$24.19 (1.16%)',
+  priceChange: '$24.19 (1.16%)',
   time: '4:36 PM',
   buyersPercent: 76,
   sellersPercent: 24,

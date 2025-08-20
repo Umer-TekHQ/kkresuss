@@ -1,9 +1,14 @@
 
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet ,ViewStyle} from 'react-native';
 
 
-const NFTCard = ({ image }: { image: any }) => {
+interface NFTCardProps {
+  image: any;
+  style?: ViewStyle;
+}
+
+const NFTCard = ({ image,style }: NFTCardProps) => {
   return (
     <View style={styles.nftBox}>
       <Image source={image} style={styles.nftImage} />

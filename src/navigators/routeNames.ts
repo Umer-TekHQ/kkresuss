@@ -71,7 +71,7 @@ export type AppNavigatorParamList = {
   ReceiveTokenScreen: { field: 'token1' | 'token2'; onSelectToken?: (token: Token) => void; excludeToken?: string };
   TodayReturns:undefined
   Supported:undefined
-  Spam:undefined
+   Spam: { defaultTab?: 'Crypto' | 'NFTs' };
   Currency:undefined
   Recepient:undefined
   QR:undefined

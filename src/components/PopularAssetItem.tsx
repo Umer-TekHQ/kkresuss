@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { Images } from '../assets';
 
 interface PopularAssetItemProps {
   item: {
@@ -15,7 +16,9 @@ interface PopularAssetItemProps {
 const PopularAssetItem = ({ item }: { item: PopularAssetItemProps['item'] }) => (
   <View style={styles.item}>
     <View style={styles.leftSection}>
+     <View style={styles.iconWrapper}>
       <Image source={item.logo} style={styles.icon} />
+      </View>
       <View style={{ marginLeft: 10 }}>
         <Text style={styles.name}>{item.title}</Text>
         <Text style={styles.meta}>{item.amountETH}</Text>
@@ -24,7 +27,12 @@ const PopularAssetItem = ({ item }: { item: PopularAssetItemProps['item'] }) => 
 
     <View style={styles.rightSection}>
       <Text style={styles.amount}>{item.amountUSD}</Text>
-      {item.profit && <Text style={styles.profit}>{item.profit}</Text>}
+      {item.profit && 
+      <View style={styles.profitRow}>
+          <Image source={Images.greenup} style={styles.profitIcon} />
+      <Text style={styles.profit}>{item.profit}</Text>
+      </View>
+      }
     </View>
   </View>
 );
@@ -35,7 +43,7 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+   // alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 12,
   },
@@ -44,12 +52,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    width: 40,
-    height: 40,
-    resizeMode: 'contain',
-    borderRadius: 20,
-    backgroundColor: '#1C1C2E',
+    width: '100%',
+    height: '100%',
   },
+  iconWrapper: {
+  width: 42,
+  height: 42,
+  borderRadius: 22,
+  backgroundColor: '#1C1C2E',
+},
   name: {
     color: 'white',
     fontSize: 15,
@@ -73,4 +84,16 @@ const styles = StyleSheet.create({
     color: '#30DB5B',
     marginTop: 2,
   },
+ profitRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 2,
+  },
+  profitIcon: {
+    width: 10,
+    height: 10,
+    marginRight: 4,
+    resizeMode: 'contain',
+  },
+
 });

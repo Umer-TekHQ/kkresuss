@@ -1,33 +1,29 @@
-
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
+import { useRoute,RouteProp } from '@react-navigation/native'; 
 import AssetsHeader from '../../components/AssetsHeader ';
 import { Images } from '../../assets'; 
 import SpamAssetItem from '../../components/SpamAssetItem';
 import { cryptoData } from '../../mock/cryptoData';
+import { AppNavigatorParamList } from '../../navigators/routeNames'
 
-
+type SpamScreenRouteProp = RouteProp<AppNavigatorParamList, 'Spam'>;
 
 const SpamScreen = () => {
-  const [tab, setTab] = useState<'Crypto' | 'NFTs'>('Crypto');
+  const route = useRoute<SpamScreenRouteProp>();
+  const { defaultTab } = route.params || {};   
+  const [tab, setTab] = useState<'Crypto' | 'NFTs'>(defaultTab || 'Crypto');
 
   return (
     <View style={styles.container}>
       <AssetsHeader title="Spam" showRightIcons={false} />
 
-  
       <View style={styles.tabs}>
         <TouchableOpacity
           onPress={() => setTab('Crypto')}
           style={[
             styles.tabButton,
+            styles.leftTab,
             tab === 'Crypto' && styles.activeTabButton,
           ]}
         >
@@ -45,6 +41,7 @@ const SpamScreen = () => {
           onPress={() => setTab('NFTs')}
           style={[
             styles.tabButton,
+            styles.rightTab,
             tab === 'NFTs' && styles.activeTabButton,
           ]}
         >
@@ -59,7 +56,6 @@ const SpamScreen = () => {
         </TouchableOpacity>
       </View>
 
-     
       {tab === 'Crypto' ? (
         <FlatList
           data={cryptoData}
@@ -73,11 +69,16 @@ const SpamScreen = () => {
         </View>
       )}
 
-  
       <View style={styles.notificationBox}>
-        <Text style={styles.notificationText}>
-          <Text style={{ fontWeight: '600' }}>Rocket Pool ETH</Text> removed from spam
-        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Image
+            source={Images.check}
+            style={{ width: 20, height: 20, resizeMode: 'contain', marginRight: 8 ,top:8}}
+          />
+          <Text style={styles.notificationText}>
+            <Text style={{ fontWeight: '600' }}>Rocket Pool ETH</Text> removed from spam
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -85,36 +86,52 @@ const SpamScreen = () => {
 
 export default SpamScreen;
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: '#01021D',
     paddingHorizontal: 16,
     paddingTop: 6,
   },
   tabs: {
     flexDirection: 'row',
-    backgroundColor: '#0B1736',
+    backgroundColor: '#01021D',
     borderRadius: 99,
     marginTop: 12,
     marginBottom: 10,
+      borderBottomWidth: 1,
+     borderBottomColor: '#030A74',
   },
   tabButton: {
     flex: 1,
     paddingVertical: 10,
     alignItems: 'center',
   },
+  leftTab: {
+  borderTopLeftRadius: 99,
+  borderBottomLeftRadius: 99,
+
+},
+
+rightTab: {
+  borderTopRightRadius: 99,
+  borderBottomRightRadius: 99,
+},
   activeTabButton: {
-    backgroundColor: '#086DE1',
+    backgroundColor: '#030A74',
     borderRadius: 99,
+      marginBottom: 3,
   },
   tabText: {
     color: '#ADD2FD',
     fontWeight: '500',
+    fontSize:15,
   },
   activeTabText: {
     color: '#fff',
     fontWeight: '600',
+    fontSize:15,
   },
   nftContainer: {
     flex: 1,

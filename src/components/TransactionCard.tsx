@@ -1,78 +1,13 @@
-
-
-// import React from 'react';
-// import { View, Text, Image, StyleSheet } from 'react-native';
-
-// const TransactionCard = ({ item }: { item: any }) => {
-//   return (
-//     <View style={styles.transactionRow}>
-//       <Image source={item.logo} style={styles.txnLeftImage} />
-      
-//       <View style={{ flex: 1, paddingHorizontal: 10 }}>
-//         <Text style={styles.txnTitle}>{item.name}</Text>
-//         <Text style={styles.txnStatus}>{item.status} • {item.time}</Text>
-//       </View>
-
-//       <View style={{ alignItems: 'flex-end' }}>
-//         <Text style={styles.txnTitle}>{item.keyword}</Text>
-//         <Text style={styles.txnSub}>{item.nftName}</Text>
-//       </View>
-
-//       <Image source={item.nft} style={styles.txnRightImage} />
-//     </View>
-//   );
-// };
-
-// export default TransactionCard;
-
-// const styles = StyleSheet.create({
-//   transactionRow: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     backgroundColor: '#0B0B2B',
-//     padding: 10,
-//     borderRadius: 10,
-//     marginBottom: 10,
-//     height: 70,
-//   },
-//   txnLeftImage: {
-//     width: 50,
-//     height: 50,
-//     borderRadius: 25,
-//   },
-//   txnRightImage: {
-//     width: 35,
-//     height: 35,
-//     borderRadius: 17,
-//     marginLeft: 10,
-//   },
-//   txnTitle: {
-//     color: '#fff',
-//     fontSize: 14,
-//     fontWeight: '600',
-//   },
-//   txnStatus: {
-//     color: '#999',
-//     fontSize: 12,
-//     marginTop: 2,
-//   },
-//   txnKeyword: {
-//     color: '#4898F3',
-//     fontSize: 12,
-//     marginTop: 2,
-//   },
-//   txnSub: {
-//     color: '#AAA', 
-//     fontSize: 11,
-//     marginTop: 2,
-//   },
-// });
-
-
-
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { Images } from '../assets'; // Adjust path if needed
+import { Images } from '../assets'; 
+
+
+const truncateText = (text: string, maxLength: number) => {
+  if (!text) return '';
+  return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+};
+
 
 const getStatusLogo = (status: string) => {
   switch (status.toLowerCase()) {
@@ -112,20 +47,20 @@ const getTextColor = (status: string, field: string) => {
 const TransactionCard = ({ item }: { item: any }) => {
   return (
     <View style={styles.transactionRow}>
-      {/* <Image source={item.logo} style={styles.txnLeftImage} /> */}
+     
       <Image source={getStatusLogo(item.status)} style={styles.txnLeftImage} />
 
 
       <View style={{ flex: 1, paddingHorizontal: 10 }}>
-        <Text style={[styles.txnTitle, { color: getTextColor(item.status, 'name') }]}>{item.name}</Text>
-        <Text style={[styles.txnStatus, { color: getTextColor(item.status, 'status') }]}>
+        <Text style={[styles.txnTitle, { color: getTextColor(item.status, 'name') }]} numberOfLines={1}>{item.name}</Text>
+        <Text style={[styles.txnStatus, { color: getTextColor(item.status, 'status') }]}  numberOfLines={1}>
           {item.status} • {item.time}
         </Text>
       </View>
 
       <View style={{ alignItems: 'flex-end' }}>
         <Text style={[styles.txnTitle, { color: getTextColor(item.status, 'keyword') }]}>{item.keyword}</Text>
-        <Text style={[styles.txnSub, { color: getTextColor(item.status, 'nft') }]}>{item.nftName}</Text>
+        <Text style={[styles.txnSub, { color: getTextColor(item.status, 'nft') }]}>{truncateText(item.nftName, 10)}</Text>
       </View>
 
       <Image source={item.nft} style={styles.txnRightImage} />
@@ -157,15 +92,15 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   txnTitle: {
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: 15,
+    fontWeight: '500',
   },
   txnStatus: {
-    fontSize: 12,
+    fontSize: 13,
     marginTop: 2,
   },
   txnSub: {
-    fontSize: 11,
+    fontSize: 13,
     marginTop: 2,
   },
 });

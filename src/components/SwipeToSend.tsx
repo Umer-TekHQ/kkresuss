@@ -7,8 +7,9 @@ import {
   Animated,
   PanResponder,
   ImageBackground,
+  Image
 } from 'react-native';
-import { Images } from '../assets'; // Adjust path as needed
+import { Images } from '../assets'; 
 
 const { width } = Dimensions.get('window');
 const SWIPE_WIDTH = width - 40;
@@ -47,7 +48,7 @@ const SwipeToSend: React.FC<SwipeToSendProps> = ({ placeholder = 'Swipe to Send'
 
   const interpolatedBg = bgColor.interpolate({
     inputRange: [0, 1],
-    outputRange: ['#292A3D', '#FF8C00'],
+    outputRange: ['#01032C', '#FF8C00'],
   });
 
   return (
@@ -57,10 +58,13 @@ const SwipeToSend: React.FC<SwipeToSendProps> = ({ placeholder = 'Swipe to Send'
       resizeMode="cover"
     >
       <Animated.View style={[styles.swipeContainer, { backgroundColor: interpolatedBg }]}>
-        <Animated.View
+            <Animated.View
           {...panResponder.panHandlers}
           style={[styles.whiteCircle, { transform: [{ translateX: panX }] }]}
-        />
+        >
+          <Image source={Images.arrowforward} style={styles.arrowIcon} resizeMode="contain" />
+        </Animated.View>
+
         <Text style={styles.swipeText}>{placeholder}</Text>
       </Animated.View>
     </ImageBackground>
@@ -92,6 +96,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 2,
     zIndex: 1,
+     justifyContent: 'center', 
+    alignItems: 'center',  
   },
   swipeText: {
     color: '#fff',
@@ -99,4 +105,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     alignSelf: 'center',
   },
+  arrowIcon: {
+  width: 24,
+  height: 24,
+  tintColor: '#000', 
+  alignSelf: 'center',
+},
 });

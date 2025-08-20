@@ -43,13 +43,6 @@ const BottomSheetBase = () => {
           <View style={styles.handle} />
           <Text style={styles.sheetTitle}>Select Network</Text>
            <View style={styles.divider} />
-          {/* <View style={styles.optionBox}>
-            <Text style={styles.option}>Both Network</Text>
-            <View style={styles.divider} />
-            <Text style={styles.option}>Solana</Text>
-            <View style={styles.divider} />
-            <Text style={styles.option}>Base</Text>
-          </View> */}
           <View style={styles.optionBox}>
   <View style={styles.optionRow}>
     <Text style={styles.option}>Both Network</Text>

@@ -30,12 +30,21 @@ const SearchBox = ({
         value={value}
         onChangeText={onChangeText}
       />
-      <TouchableOpacity onPress={showClearIcon ? onClear : onQrPress}>
+      {/* <TouchableOpacity onPress={showClearIcon ? onClear : onQrPress}>
         <Image
           source={showClearIcon ? Images.cross : Images.qr}
           style={styles.rightIcon}
         />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+        {showClearIcon ? (
+        <TouchableOpacity onPress={onClear}>
+          <Image source={Images.cross} style={styles.rightIcon} />
+        </TouchableOpacity>
+      ) : onQrPress ? (
+        <TouchableOpacity onPress={onQrPress}>
+          <Image source={Images.qr} style={styles.rightIcon} />
+        </TouchableOpacity>
+      ) : null}
     </View>
   );
 };

@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: '#2E2F40',
+    backgroundColor: '#062FA3',
     marginRight: 12,
   },
   textContainer: {
@@ -36,14 +36,14 @@ const styles = StyleSheet.create({
   namePlaceholder: {
     height: 15,
     width: '60%',
-    backgroundColor: '#2E2F40',
+    backgroundColor: '#062FA3',
     marginBottom: 6,
     borderRadius: 4,
   },
   emailPlaceholder: {
     height: 13,
     width: '40%',
-    backgroundColor: '#2E2F40',
+    backgroundColor: '#062FA3',
     borderRadius: 4,
   },
 });

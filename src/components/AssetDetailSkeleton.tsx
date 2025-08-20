@@ -412,9 +412,10 @@ titleReal: {
   fontWeight: '600',
 },
 backIcon: {
-  width: 24,
-  height: 24,
+  width: 30,
+  height: 30,
   resizeMode: 'contain',
+  tintColor:'white'
 }
 
 

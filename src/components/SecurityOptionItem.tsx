@@ -27,9 +27,18 @@ totalItems,
 index
 
 }: Props) => {
+
+ const handleRowPress = () => {
+    if (item.route) {
+      onNavigate?.(item.route)
+    }
+  }
+
+
   return (
     <View>
-      <View style={styles.optionRow}>
+      
+      <TouchableOpacity style={styles.optionRow} onPress={handleRowPress} >
        
         <Pressable onPress={onToggleTick} style={styles.leftCheck}>
           <View style={styles.checkCircle}>
@@ -39,6 +48,7 @@ index
             />
           </View>
         </Pressable>
+        
 
      
         <Text style={styles.optionTitle}>{item.title}</Text>
@@ -74,7 +84,7 @@ index
 
 )}
 
-      </View>
+      </TouchableOpacity>
 
   
   {index !== totalItems - 1 &&(

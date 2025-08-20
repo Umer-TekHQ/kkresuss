@@ -28,7 +28,7 @@ const PositionCard = ({ data }: { data: any }) =>{
     <View style={styles.divider} />
 
   
-    <View style={styles.metricRow}>
+    {/* <View style={styles.metricRow}>
       <View style={styles.metricBlock}>
         <View style={styles.iconRow}>
           <TouchableOpacity onPress={()=>navigation.navigate('TodayReturns')}>
@@ -38,7 +38,7 @@ const PositionCard = ({ data }: { data: any }) =>{
         </View>
         <Text style={styles.metricRowText}>
     <Text style={styles.whiteText}>{data.position.todayReturn} </Text>
-    <Text style={styles.greenText}>({data.position.todayReturnPercent})</Text>
+    <Text style={styles.greenText}>{data.position.todayReturnPercent}</Text>
        </Text>
       </View>
 
@@ -51,10 +51,75 @@ const PositionCard = ({ data }: { data: any }) =>{
         </View>
       <Text style={styles.metricRowText}>
         <Text style={styles.whiteText}>{data.position.yearHigh} </Text>
-        <Text style={styles.redText}>({data.position.yearHighPercent})</Text>
+        <Text style={styles.redText}>{data.position.yearHighPercent}</Text>
       </Text>
       </View>
+    </View> */}
+
+<View style={styles.metricRow}>
+
+  <View style={styles.metricBlock}>
+    <View style={styles.iconRow}>
+      <TouchableOpacity onPress={() => navigation.navigate('TodayReturns')}>
+        <Text style={styles.metricLabel}>Today's Return</Text>
+      </TouchableOpacity>
+      <Image source={Images.identity} style={styles.iconSmall} />
     </View>
+
+    <View style={styles.valueRow}>
+      <Text style={styles.whiteText}>{data.position.todayReturn} </Text>
+      <Image
+        source={
+          parseFloat(data.position.todayReturnPercent) >= 0
+            ? Images.greenup
+            : Images.reddown
+        }
+        style={styles.changeIcon}
+      />
+      <Text
+        style={
+          parseFloat(data.position.todayReturnPercent) >= 0
+            ? styles.greenText
+            : styles.redText
+        }
+      >
+        {data.position.todayReturnPercent}
+      </Text>
+    </View>
+  </View>
+
+
+  <View style={styles.metricBlock}>
+    <View style={styles.iconRow}>
+      <TouchableOpacity>
+        <Text style={styles.metricLabel}>1-Year High</Text>
+      </TouchableOpacity>
+      <Image source={Images.identity} style={styles.iconSmall} />
+    </View>
+
+    <View style={styles.valueRow}>
+      <Text style={styles.whiteText}>{data.position.yearHigh} </Text>
+      <Image
+        source={
+          parseFloat(data.position.yearHighPercent) >= 0
+            ? Images.greenup
+            : Images.reddown
+        }
+        style={styles.changeIcon}
+      />
+      <Text
+        style={
+          parseFloat(data.position.yearHighPercent) >= 0
+            ? styles.greenText
+            : styles.redText
+        }
+      >
+        {data.position.yearHighPercent}
+      </Text>
+    </View>
+  </View>
+</View>
+
 
   
     <View style={styles.metricRow}>
@@ -224,7 +289,17 @@ whiteText: {
 metricRowText: {
   marginTop: 2,
 },
-
+changeIcon: {
+  width: 12,
+  height: 12,
+  resizeMode: 'contain',
+  marginRight: 4,
+},
+valueRow: {
+ flexDirection: 'row',
+  alignItems: 'center',
+  marginTop: 2,
+},
 
 
 });

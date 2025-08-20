@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { View, StyleSheet ,TouchableOpacity} from 'react-native';
+import { View, StyleSheet ,TouchableOpacity,Text} from 'react-native';
 import PopularAssetItem from './PopularAssetItem';
 import { allAssets } from '../mock/assetData';
 import { useNavigation } from '@react-navigation/native';
@@ -20,6 +20,14 @@ const AllAssetsList: React.FC<AllAssetsListProps> = ({ showAll = false, searchTe
   );
 
   const assetsToShow = showAll ? filteredAssets : filteredAssets.slice(0, 5);
+
+  if (assetsToShow.length === 0) {
+    return (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.emptyText}>There is no item exist of this name</Text>
+      </View>
+    );
+  }
 
   return (
     <>
@@ -41,7 +49,16 @@ export default AllAssetsList;
 const styles = StyleSheet.create({
   divider: {
     height: 1,
-    backgroundColor: '#1E2D56',
+    backgroundColor: '#080C4C',
     marginVertical: 8,
+      marginLeft: 68,
+  },
+    emptyContainer: {
+    paddingVertical: 20,
+    alignItems: 'center',
+  },
+  emptyText: {
+    color: '#ADD2FD',
+    fontSize: 14,
   },
 });

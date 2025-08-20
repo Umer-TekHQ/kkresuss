@@ -64,7 +64,7 @@ return (
       <View style={styles.headerContent}>
         <ProfileInfo />
         
-        <AmountInputSection
+       <AmountInputSection
        amount={amount}
       setAmount={(val) => dispatch(setAmount(val))}
        isInsufficient={isInsufficient}
@@ -85,7 +85,7 @@ return (
 )}
 
 
-      <Text style={styles.noteLabel}>Note to Self (optional)</Text>
+      <Text style={styles.noteLabel}>Note to Self <Text style={styles.optionalText}>(Optional)</Text></Text>
       <TextInput
         placeholder="What's it for?"
         placeholderTextColor="#ADD2FD"
@@ -101,7 +101,7 @@ return (
     (
       <View style={styles.fixedBottom}>
         <View style={styles.buttonWrapper}>
-          <AppButton label="Review Transfer" onPress={handleReviewPress} />
+          <AppButton label="Review Transfer" onPress={handleReviewPress}  disabled={!amount}/>
         </View>
       </View>
     )}
@@ -118,24 +118,27 @@ const styles = StyleSheet.create({
     backgroundColor: '#01021D',
   },
   container: {
-    padding: 16,
+    paddingVertical: 12,
+    paddingHorizontal:12,//before qa padding:16
     paddingBottom: 60,
   },
   backBtn: {
     marginBottom: 16,
   },
   backIconSmall: {
-    width: 20,
-    height: 20,
+    tintColor:'white',
+    width: 31,
+    height: 31,
   },
   headerContent: {
     alignItems: 'center',
     marginBottom: 24,
   },
   availableLabel: {
-    color: '#FFFFFF',
+    color: '#ADD2FD',
     fontSize: 14,
     marginBottom: 4,
+    left:4, // it was 0 before 
   }, 
   noteLabel: {
     color: '#FFFFFF',
@@ -156,10 +159,14 @@ const styles = StyleSheet.create({
   },
   fixedBottom: {
   position: 'absolute',
-  bottom: 0,
+  bottom: 20,
   left: 0,
   right: 0,
   backgroundColor: '#01021D',
  
 },
+optionalText: {
+  color: '#ADD2FD',
+},
+
 });
