@@ -74,7 +74,8 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   cardWrapper: {
-    paddingHorizontal: 16,
+    //paddingHorizontal: 16,
     marginTop: 12,
+    alignItems:'center'
   },
 });

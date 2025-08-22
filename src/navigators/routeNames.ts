@@ -54,7 +54,7 @@ export type AppNavigatorParamList = {
   Recovery:{email:string} | undefined
   Privacy:undefined
   Verification:undefined
-  TokenDetail:undefined
+  TokenDetail:undefined |  { contractAddress: string }
   ProfileBottom: undefined
     CardRecieveScreen: {
     card: {

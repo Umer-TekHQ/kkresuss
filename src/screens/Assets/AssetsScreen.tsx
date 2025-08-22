@@ -35,7 +35,7 @@ const [showSheet, setShowSheet] = useState(false);
     
       <ScrollView
         contentContainerStyle={{
-          paddingHorizontal: 12,
+          paddingHorizontal: 8,
           paddingTop: 20,
           paddingBottom: 40, 
         }}
@@ -108,6 +108,7 @@ const ITEM_WIDTH = (screenWidth - ITEM_MARGIN * (NUM_COLUMNS + 1)) / NUM_COLUMNS
   )}
         keyExtractor={(item) => item.id}
         numColumns={2}
+         columnWrapperStyle={{ justifyContent: 'space-around',}}
         scrollEnabled={false}
           />
 

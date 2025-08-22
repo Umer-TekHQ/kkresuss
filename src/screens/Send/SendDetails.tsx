@@ -123,16 +123,17 @@ const styles = StyleSheet.create({
     paddingBottom: 60,
   },
   backBtn: {
-    marginBottom: 16,
+   //marginBottom: 16,
   },
   backIconSmall: {
     tintColor:'white',
-    width: 31,
-    height: 31,
+    width: 34,
+    height: 34,
   },
   headerContent: {
     alignItems: 'center',
     marginBottom: 24,
+    //marginTop:-20,
   },
   availableLabel: {
     color: '#ADD2FD',
