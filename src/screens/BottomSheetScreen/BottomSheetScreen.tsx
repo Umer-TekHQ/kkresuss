@@ -4,54 +4,92 @@ import React from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { BottomSheetUnified } from '../../components/BottomSheet'
 import { Images } from '../../assets/index';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 
 
-export const BottomSheetScreen = ({navigation}: any) => {
+export const BottomSheetScreen = ({ navigation }: any) => {
   const translateY = useSharedValue(0);
+
   return (
-      <GestureHandlerRootView>
-        <View style={styles.container}>
-              <Image
-              source={Images.trade1}
-              style={styles.image}
-              />
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-              <View style={styles.backborder}>
-              <Image
-              source={Images.crossoverlay}
-              style={styles.cross}
-              />
-              </View>
-              </TouchableOpacity>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <Image source={Images.trade1} style={styles.image} />
+
+        <TouchableOpacity onPress={() => navigation.goBack()} >
+          <View style={styles.backborder}>
+            <Image source={Images.explorecross} style={styles.cross} />
+          </View>
+        </TouchableOpacity>
         </View>
+
       <BottomSheetUnified screen="explore" translateY={translateY} />
-      </GestureHandlerRootView>
-  )
-}
+
+      <View style={styles.bottomOverlay}>
+        <TouchableOpacity
+          style={styles.bottomButton}
+        >
+          <Text style={styles.bottomButtonText}>Launch </Text>
+          <Image
+            source={Images.launchArrowUp}
+            style={styles.uparrow}
+          />
+        </TouchableOpacity>
+      </View>
+    </GestureHandlerRootView>
+  );
+};
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
-    backgroundColor: '#070807'
+    backgroundColor: "#070807",
   },
-  image:{
-    width: '100%',
-    height: 300,
-    position: 'absolute',
+  image: {
+    width: "100%",
+    height: hp("45%"),
+    position: "absolute",
   },
-  cross:{
-    color: 'white',
-    marginLeft: 5,
-    fontSize: 25,
-    fontWeight: '700',
-    tintColor: 'white',
-    
-  },
-  launch:{},
-  launchbtn:{},
-  backborder:{
+  cross: {
+    tintColor: "white",
+    width: wp('8'),
+    height: hp('4%')
+    },
+  backborder: {
     marginLeft: 20,
     marginTop: 20,
-  }
-})
+    backgroundColor: 'transparent'
+  },
+  bottomOverlay: {
+    borderTopWidth: 0.5,
+    borderColor: 'blue',
+    position: "absolute",
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: hp("3%"),
+    height: hp('10%'),
+    left: 0,
+    right: 0,
+    zIndex: 999,
+    backgroundColor: '#10132C'
+  },
+  bottomButton: {
+    borderColor: '#4898F3',
+    borderWidth: 1,
+    paddingHorizontal: 135,
+    paddingVertical: 12,
+    borderRadius: 30,
+    flexDirection: 'row'
+  },
+  bottomButtonText: {
+    color: "white",
+    fontSize: wp("4%"),
+    fontWeight: '500'
+  },
+  uparrow:{
+    width: wp('3%'),
+    height: hp('1.5%'),
+    marginLeft: 8,
+    marginTop: 5,
+  },
+});

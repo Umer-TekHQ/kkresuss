@@ -5,13 +5,10 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground,
-  Modal,
-  Platform,
   Dimensions
 } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { GestureDetector, Gesture, TextInput } from 'react-native-gesture-handler';
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { forwardRef, useImperativeHandle } from 'react';
 import Animated,
 {
@@ -19,10 +16,7 @@ import Animated,
   useAnimatedStyle,
   withSpring,
   withTiming,
-  Easing,
   useDerivedValue,
-  withClamp,
-  withDelay,
   interpolate,Extrapolate,
   useAnimatedReaction,
   runOnJS
@@ -87,9 +81,9 @@ const TRANSLATE_Y_CONFIG = {
 
 const screenStyles = {
   home: { backgroundColor: '#030A74' },
-  explore: { backgroundColor: '#010217' },
+  explore: { backgroundColor: '#10132C' },
   pro: { backgroundColor: '#01032C' },
-  profile: { backgroundColor: '#05051C' },
+  profile: { backgroundColor: '#10132C' },
   profilebottom: { backgroundColor: '#010217' },
   trade: {backgroundColor: '#01032C'},
   todaysReturn: { backgroundColor: '#01021D' },
@@ -155,7 +149,7 @@ export interface BottomSheetUnifiedRef {
       runOnJS(setBlockingPointerEvents)(progress > 0.95);
     }
   );
-
+  
   useImperativeHandle(ref, () => ({
     openSheet,
     closeSheet
@@ -171,8 +165,8 @@ export interface BottomSheetUnifiedRef {
         };
       case 'explore':
         return {
-          initial: -hp('62.50%'),
-          min: -hp('62.50%'),
+          initial: -hp('55%'),
+          min: -hp('55%'),
           max: -hp('100%'),
         };
       case 'pro':
@@ -246,7 +240,7 @@ export interface BottomSheetUnifiedRef {
       if (sub && typeof sub.remove === 'function') sub.remove();
     };
   }, [screen]);
-
+  
   const gesture = Gesture.Pan()
     .onStart(() => {
       context.value = { y: translateY.value };
@@ -425,7 +419,8 @@ export interface BottomSheetUnifiedRef {
 
           {screen === 'explore' && (
             <>
-              <View style={styles.line} />
+              <View style={{borderTopWidth: 0.5, borderColor: 'blue', }}>
+              <View style={styles.lineExplore} />
               <Text style={styles.headingPro}>Uniswap</Text>
               <Text style={styles.toppara}>
                 Swap, earn, and build on the leading decentralized crypto trading protocol.
@@ -438,6 +433,7 @@ export interface BottomSheetUnifiedRef {
               </Text>
               <View>
               
+              </View>
               </View>
             </>
           )}
@@ -500,11 +496,11 @@ export interface BottomSheetUnifiedRef {
               <View style={[styles.tradebottomsheet, { paddingTop: hp('1%') }]}>
                 <View style={[styles.lineTB, { width: wp('15%'), height: hp('0.5%'), marginTop: hp('1%') }]} />
 
-                <View style={[styles.head, { marginBottom: hp('1%') }]}>
+                <View style={[styles.head, { marginBottom: hp('1.5%') }]}>
                   <Image source={Images.tradebottom} style={[styles.headimg, { width: wp('4%'), height: hp('2.5%'), marginLeft: wp('3%'), marginTop: hp('1%') }]} />
                   <Text style={[styles.headingTB, { fontSize: wp('4.5%'), marginLeft: wp('4%') }]}>Transaction Ready</Text>
                   <TouchableOpacity style={styles.closeButton} onPress={closeSheet}>
-                    <Image source={Images.pros} style={[styles.closeIcon, { width: wp('6%'), height: hp('6%') , paddingBottom: hp('5%') }]} />
+                    <Image source={Images.pros} style={[styles.closeIcon, { width: wp('6%'), height: hp('5%'), marginRight: wp('3%')}]} />
                   </TouchableOpacity>
                 </View>
 
@@ -517,12 +513,19 @@ export interface BottomSheetUnifiedRef {
                           TRADING
                         </Text>
                         <View style={styles.tokenDisplay}>
-                          <View>
-                            <Text style={[styles.tradeAmount, { fontSize: wp('5%') }]}>{amount1}</Text>
-                            <Text style={[styles.tokenSymbol, { fontSize: wp('4%') }]}>{token1.abbreviation}</Text>
-                          </View>
-                          <Image source={token1.logo} style={[styles.tokenLogo, { width: wp('10%'), height: wp('10%') }]} />
+                        <View style={{ flexDirection: "column", alignItems: "flex-end" }}>
+                          <Text style={[styles.tradeAmount, { fontSize: wp('5%'), textAlign: "right" }]}>
+                            {amount1}
+                          </Text>
+                          <Text style={[styles.tokenSymbol, { fontSize: wp('4%'), marginTop: hp('0.5%') }]}>
+                            {token1.abbreviation}
+                          </Text>
                         </View>
+                        <Image
+                          source={token1.logo}
+                          style={[styles.tokenLogo, { width: wp('10%'), height: wp('10%') }]}
+                        />
+                      </View>
                       </View>
 
                       <View style={styles.arrowContainer}>
@@ -534,16 +537,21 @@ export interface BottomSheetUnifiedRef {
                           FOR
                         </Text>
                         <View style={styles.tokenDisplay}>
-                          <View>
-                            <Text style={[styles.tradeAmount, { fontSize: wp('5%') }]}>{amount2}</Text>
-                            <Text style={[styles.tokenSymbol, { fontSize: wp('4%'), }]}>{token2.abbreviation}</Text>
-                          </View>
-                          <Image source={token2.logo} style={[styles.tokenLogo, { width: wp('10%'), height: wp('10%') }]} />
+                        <View style={{ flexDirection: "column", alignItems: "flex-end" }}>
+                          <Text style={[styles.tradeAmount, { fontSize: wp('5%'), textAlign: "right" }]}>
+                            {amount2}
+                          </Text>
+                          <Text style={[styles.tokenSymbol, { fontSize: wp('4%'), marginTop: hp('0.5%'), marginRight: wp('2%')}]}>
+                            {token2.abbreviation}
+                          </Text>
                         </View>
+                        <Image
+                          source={token2.logo}
+                          style={[styles.tokenLogo, { width: wp('10%'), height: wp('10%') }]}
+                        />
                       </View>
-
+                      </View>
                     </View>
-
                     <View style={[styles.feescontainer, { marginHorizontal: wp('5%'), paddingVertical: hp('2%') }]}>
                       <Text style={[styles.fees, { fontSize: wp('4.5' ) }]}>Fees</Text>
                       <Text style={[styles.fees, { fontSize: wp('4.5%') }]}>1.73144653 SNORT</Text>
@@ -696,6 +704,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     borderRadius: 2,
   },
+  lineE:{
+    height: 8,
+    backgroundColor: '#f5f5f7ff',
+    alignSelf: 'center',
+    // marginVertical: 15,
+    // marginHorizontal: 8,
+    borderRadius: 2,
+  },
   linehome:{
     width: 55,
     height: 4,
@@ -750,7 +766,14 @@ tokenDisplay: {
     marginVertical: 15,
     borderRadius: 2,
   },
-
+    lineExplore: {
+    width: wp('15%'),
+    height: 4,
+    backgroundColor: '#030A74',
+    alignSelf: 'center',
+    marginVertical: 15,
+    borderRadius: 2,
+  },
   line1: {
     width: 120,
     height: 4,
@@ -822,7 +845,8 @@ tokenDisplay: {
     color: '#ffffff',
     fontSize: 30,
     fontWeight: '600',
-    marginVertical: 10,
+    marginVertical: 8,
+    marginBottom: 12,
     marginHorizontal: 15,
   },
   numbers: {
@@ -852,7 +876,9 @@ tokenDisplay: {
     marginLeft: 15,
     marginRight: 100,
     marginTop: 15,
-    fontWeight: '700',
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    fontSize: 17,
   },
   toppara1: {
     color: '#A2C5EF',
@@ -865,8 +891,9 @@ tokenDisplay: {
   bottompara: {
     color: '#ffffff',
     marginHorizontal: 15,
+    fontSize: 20.5,
     marginTop: 15,
-    fontWeight: '400',
+    letterSpacing: 1
   },
   bottomparaAV:{
     fontSize: 20,
@@ -1043,8 +1070,6 @@ tokenDisplay: {
     color: '#fff',
     fontSize: 12,
     marginRight: 4,
-    display: 'flex',
-    justifyContent: 'flex-end',
     letterSpacing: 0.5,
   },
   placeholderText: {
@@ -1058,10 +1083,8 @@ tokenDisplay: {
     padding: 5,
   },
   closeIcon: {
-    height: 40,
-    width: 30,
-    marginBottom: 10,
     tintColor: 'lightblue',
+
   },
   launchbtn: {
     width: 10,

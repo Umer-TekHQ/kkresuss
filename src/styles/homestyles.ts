@@ -423,28 +423,6 @@ cryptoChangeTime: {
   color: 'lightblue',
   fontSize: 12,
 },
-// timeFilterContainer: {
-//   flexDirection: 'row',
-//   justifyContent: 'space-between',
-//   marginBottom: 5,
-//   paddingHorizontal: 5,
-// },
-// timeFilterButton: {
-//   // backgroundColor: '#0734A9',
-//   paddingVertical: 5,
-//   paddingHorizontal: 5,
-//   borderRadius: 5,
-// },
-// activeTimeFilterButton: {
-//   backgroundColor: '#0734A9',
-// },
-// timeFilterText: {
-//   color: 'lightblue',
-//   fontSize: 14,
-// },
-// activeTimeFilterText: {
-//   color: 'white',
-// },
 prostext:{
   color: '#7AB7FD',
   fontSize: 19,
@@ -555,13 +533,10 @@ cryptoChangeNegative: {
   container: {
     flex: 1,
     backgroundColor: '#01021D',
-    // padding: 5,
   },
   content: {
-    // padding: 10,
-    // paddingBottom: 80, 
-    // paddingLeft: 20,
-    paddingHorizontal: wp('4%'),
+    paddingLeft: 20,
+    // paddingHorizontal: wp('4%'),
   },
     header: {
     flexDirection: 'row',
@@ -570,8 +545,6 @@ cryptoChangeNegative: {
     paddingHorizontal: 20,
     paddingTop: 15,
     paddingBottom: 10,
-    // borderBottomWidth: 1,
-    // borderBottomColor: '#1a1a2e',
     position: 'relative'
   },
   profileContainer: {

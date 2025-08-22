@@ -15,7 +15,6 @@ import { exploreSections } from '../../mock/exploreData';
 import { HeaderNav } from '../../components/HeaderNav';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
-// const { height: screenHeight } = Dimensions.get('window');
 
 export const ExploreScreen: React.FC = ({ navigation }: any) => {
   const [loading, setLoading] = useState(true);

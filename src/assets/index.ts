@@ -143,5 +143,7 @@ tether:require('./images/tether.png'),
 bonk:require('./images/bonk.png'),
 render:require('./images/render.png'),
 raydium:require('./images/raydium.png'),
-arrowforward:require('./images/arrowforward.png')
+arrowforward:require('./images/arrowforward.png'),
+explorecross: require('./images/explorecross.png'),
+launchArrowUp: require('./images/launcharrowup.png')
 }
