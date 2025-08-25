@@ -27,6 +27,7 @@ import Animated, {
   useAnimatedGestureHandler,
 } from 'react-native-reanimated';
 import { HandlerStateChangeEvent, PanGestureHandler, GestureHandlerRootView, PanGestureHandlerEventPayload, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler';
+import BottomSheetProfile from '../../components/BottomSheetProfile';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -162,7 +163,8 @@ const CardDeck = () => {
         <CardDeck />
       </View>
 
-      <BottomSheetUnified screen="profile" translateY={translateY} />
+      {/* <BottomSheetUnified screen="profile" translateY={translateY} /> */}
+      <BottomSheetProfile navigation={navigation}/>
     </ScrollView>
   );
 };

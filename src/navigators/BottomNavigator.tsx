@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeScreen } from '../screens/HomeScreen/HomeScreen';
 import { ExploreScreen } from '../screens/Explore/ExploreScreen';
@@ -7,6 +7,7 @@ import AssetsScreen  from '../screens/Assets/AssetsScreen';
 import { Image, Text } from 'react-native';
 import { Images } from '../assets/index'; 
 import styles from '../styles/homestyles';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -22,6 +23,7 @@ export const BottomNavigator = () => {
     <Tab.Navigator
       screenOptions={({ route }:any) => ({
         headerShown: false,
+        keyboardHidesTabBar: false,
         tabBarShowLabel: true,
         tabBarIcon: ({ focused }:any) => {
           const iconSource = tabBarIcons[route.name] || Images.home;

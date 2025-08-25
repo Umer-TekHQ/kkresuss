@@ -13,9 +13,9 @@ import { Images } from '../assets';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const CARD_WIDTH = screenWidth * 0.87;
+const CARD_WIDTH = screenWidth * 0.88;
 const CARD_HEIGHT = screenWidth * 0.26; 
-const SPACING = screenWidth * 0.005;
+const SPACING = screenWidth * 0.007;
 
 const data = [1, 2, 3];
 
@@ -70,12 +70,13 @@ export default function IntroducingCards() {
         renderItem={renderItem}
         pagingEnabled
         snapToInterval={CARD_WIDTH + SPACING}
+        snapToAlignment="center"
         decelerationRate="fast"
-        contentContainerStyle={{ paddingHorizontal: SPACING }}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          { useNativeDriver: false }
-        )}
+        // contentContainerStyle={{ paddingHorizontal: SPACING }}
+        // onScroll={Animated.event(
+        //   [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+        //   { useNativeDriver: false }
+        // )}
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewConfigRef}
       />
@@ -100,14 +101,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 20,
     alignItems: 'center',
-    marginRight: 15,
+    // marginRight: 15,
     },
   card: {
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
     backgroundColor: '#080C4C',
     borderRadius: 20,
-    marginRight: SPACING,
+    marginRight: 10,
     borderWidth: 1.5,
     borderColor: '#080C4C',
   },
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '600',
     fontSize: 16,
-    marginBottom: 6,
+    // marginBottom: 6,
     marginLeft: 5,
   },
   subtitleRow: {
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     color: '#ADD2FD',
-    fontSize: 13,
+    fontSize: 14,
     flex: 1,
   },
   dotsContainer: {

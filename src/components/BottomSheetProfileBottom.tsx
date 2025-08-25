@@ -92,15 +92,26 @@ const BottomSheetProfileBottom = forwardRef<BottomSheetProfileBottomRef>((props,
       }
     });
 
-  const rHeadingStyle = useAnimatedStyle(() => {
-    const marginLeft = interpolate(
-      translateY.value,
-      [minY.value, maxY.value],
-      [15, 40], 
-      Extrapolate.CLAMP
-    );
-    return { marginLeft };
-  });
+const rHeadingStyle = useAnimatedStyle(() => {
+  const range = maxY.value - minY.value;
+  const progress = Math.max(
+    0,
+    Math.min(1, (translateY.value - minY.value) / range)
+  );
+
+  const marginLeft = interpolate(
+    translateY.value,
+    [minY.value, maxY.value],
+    [0, 60],
+    Extrapolate.CLAMP
+  );
+
+  return {
+    fontSize: interpolate(progress, [0, 1], [30, 19]),
+    marginLeft,
+  };
+});
+
 
   const rLineStyle = useAnimatedStyle(() => {
     const opacity = interpolate(

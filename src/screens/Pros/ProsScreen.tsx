@@ -14,6 +14,7 @@ export const ProsScreen = ({navigation}: any) => {
               source={Images.prosimage}
               style={styles.image}
               />
+              <View style={{zIndex: 9999}}>
               <TouchableOpacity onPress={() => navigation.goBack()}>
               <View style={styles.backborder}>
               <Image
@@ -22,6 +23,7 @@ export const ProsScreen = ({navigation}: any) => {
               />
               </View>
               </TouchableOpacity>
+              </View>
         </View>
         <BottomSheetPro/>
         
@@ -36,25 +38,24 @@ const styles = StyleSheet.create({
   },
   image:{
     width: '60%',
-    height: 220,
+    height: '27%',
     position: 'absolute',
-    marginTop: 40,
-    marginHorizontal: 90, 
+    marginTop: 70,
+    alignSelf: 'center',
+    marginLeft: 15,
   },
   cross:{
-    marginLeft: 5,
+    // marginLeft: 5,
     marginTop: 10,
-    width: 12,
-    height: 16,
+    width: 10,
+    height: 14,
     fontWeight: '400',
-    tintColor: 'white'
+    tintColor: 'white',
+
   },
   backborder:{
-    // backgroundColor: 'grey',
-    // borderWidth: 1,
     width: 25,
-    marginLeft: 20,
+    marginLeft: 18,
     marginTop: 20,
-    // borderRadius: 20,    
   }
 })

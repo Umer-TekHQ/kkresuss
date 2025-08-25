@@ -65,7 +65,7 @@ const TradeStatusScreen = ({navigation, route}: any) => {
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Image
                 source={Images.cancel}
-                style={{marginTop: 15}}
+                style={{marginTop: 15, marginLeft: 10,}}
               />
               </TouchableOpacity>
         <Text style={styles.header}>Trade Status</Text>      
@@ -79,12 +79,10 @@ const TradeStatusScreen = ({navigation, route}: any) => {
           />
           <Text style={styles.assetLabel}>{displayToken1.abbreviation}</Text>
         </View>
-        <View>
-          <View></View>
-        <Image
-         source={Images.downarroww}
-         style={styles.arrow}
-        />
+        <View style={styles.arrowWrapper}>
+          <View style={styles.divider} />
+            <Image source={Images.backyellow} style={styles.arrowIcon} />
+          <View style={styles.divider} />
         </View>
         <View style={styles.assetContainer}>
           <Image 
@@ -168,7 +166,7 @@ const styles = StyleSheet.create({
     fontSize: 19,
     color: 'white',
     marginTop: 20,
-    marginLeft: wp('30%')
+    marginLeft: wp('22%')
   },
   swapCard: {
     backgroundColor: '#080C4C',
@@ -177,6 +175,7 @@ const styles = StyleSheet.create({
     borderColor: '#030A74',
     paddingTop: 20,
     alignItems: 'center',
+    marginHorizontal: 7,
   },
   assetContainer: {
     alignItems: 'center',
@@ -205,7 +204,7 @@ const styles = StyleSheet.create({
   receivedBox: {
     backgroundColor: '#030A74',
     padding: 16,
-    width: wp('100%'),
+    width: wp('96%'),
     marginTop: 20,
     justifyContent: 'space-between',
   },
@@ -237,10 +236,11 @@ const styles = StyleSheet.create({
   tradeCompleteBtn: {
     backgroundColor: '#CEB55A',
     paddingVertical: 6,
-    width: wp('100%'),
+    width: wp('96%'),
     borderBottomRightRadius: 25,
     borderBottomLeftRadius: 25,
     alignItems: 'center',
+    marginHorizontal: 7
   },
   tradeCompleteText: {
     fontWeight: '800',
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: wp('85%'),
-    height: hp('5%'),
+    height: hp('7%'),
     marginTop: 15,
     marginBottom: 10,
     borderWidth: 1,
@@ -261,5 +261,76 @@ const styles = StyleSheet.create({
   bottombtn:{
     color: 'white',
     fontSize: 15,
-  }
+  },arrowWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 5,
+    width: '100%',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: '#10178A',
+    flex: 1,
+  },
+tokenSection: {
+  height: 83,
+  width: '100%',
+  backgroundColor: '#030A74',
+  paddingHorizontal: 16,
+  paddingVertical: 12,
+  justifyContent: 'center',
+},
+tokenLabel: {
+  color: '#CEB55A',
+  fontSize: 15,
+  marginBottom: 4,
+},
+tokenRow: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+},
+tokenName: {
+  color: 'white',
+  fontSize: 19,
+ 
+},
+tokenValue: {
+  color: 'white',
+  fontSize: 19,
+ 
+},
+tokenDate: {
+  color: '#ADD2FD',
+  fontSize: 15,
+},
+tokenUsd: {
+  color: '#ADD2FD',
+  fontSize: 15,
+},
+
+  statusBar: {
+    width: '100%',
+    height:'auto',
+    backgroundColor: '#CEB55A',
+    paddingVertical: 10,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    position: 'absolute',
+    bottom: 0,
+  },
+  statusText: {
+    fontSize:15,
+    textAlign: 'center',
+    color: '#01032C',
+    fontWeight: 'bold',
+  },
+  arrowIcon: {
+  width: 24,
+  height: 24,
+  resizeMode: 'contain',
+  tintColor: '#CEB55A', 
+},
 });

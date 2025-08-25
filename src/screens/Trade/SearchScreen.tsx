@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
     marginRight: 8,
-    tintColor: '#2a55cdff',
+    tintColor: '#086DE1',
   },
   input: {
     flex: 1,
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingLeft: 20,
     color: '#8DABD5',
+    backgroundColor: '#101221',
     fontSize: 16,
   },
   sectionTitle: {

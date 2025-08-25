@@ -81,7 +81,10 @@ export const HomeScreen: React.FC = () => {
             <ActionButtons />
 
             <View style={styles.prossection}>
-              <Text style={styles.prostext}>What the Pros are Buying</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('ProsScreen')}>
+                <Text style={styles.prostext}>What the Pros are Buying</Text>
+              </TouchableOpacity>
+              
               <TouchableOpacity onPress={() => navigation.navigate('ProsScreen')}>
                 <Image
                   source={Images.pros}
@@ -99,26 +102,21 @@ export const HomeScreen: React.FC = () => {
             <FlatList
               data={[1, 2]}
               horizontal
+              showsHorizontalScrollIndicator={false}
               pagingEnabled
               keyExtractor={(item, index) => `market-${index}`}
               renderItem={() => (
-                <View style={{ width: wp('85%'), height: wp('45%') }}>
                   <MarketActivityCard />
-                </View>
               )}
-              showsHorizontalScrollIndicator={false}
               snapToAlignment="center"
-              ItemSeparatorComponent={() => <View style={{ width: wp('5.5%') }} />}
             />
 
             <IntroducingCards />
 
             <Text style={styles.prostext}>Projects to Try</Text>
-            <View style={{marginLeft: 5}}>
                 <Projects />
-            </View>
             
-            <View style={{marginBottom: 50, marginLeft: 5}}>
+            <View style={{marginBottom: 50}}>
             <ProjectsList />
             </View>
           </>

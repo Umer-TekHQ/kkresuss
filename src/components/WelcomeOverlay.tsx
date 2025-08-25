@@ -146,15 +146,14 @@ const styles = StyleSheet.create({
   },
   primaryText: {
     color: '#0A0E27',
-    fontWeight: 'bold',
-    marginLeft: wp('18%'),
+    marginLeft: wp('16%'),
     fontSize: 15,
   },
   secondaryButton: {
     flexDirection: 'row',
     borderRadius: 32,
     paddingVertical: 10,
-    paddingHorizontal: 11,
+    paddingLeft: 11,
     width: '100%',
     alignItems: 'center',
     marginBottom: 10,
@@ -164,15 +163,15 @@ const styles = StyleSheet.create({
   secondaryText: {
     color: '#fff',
     fontSize: 15,
-    marginLeft: wp('12%'),
+    marginLeft: wp('10%'),
   },
   secondaryText1: {
     color: '#fff',
-    marginLeft: wp('6%'),
+    marginLeft: wp('3%'),
   },
   laterText: {
     color: 'white',
-    marginTop: 20,
+    marginTop: 10,
     fontSize: 15,
   },
   icons: {

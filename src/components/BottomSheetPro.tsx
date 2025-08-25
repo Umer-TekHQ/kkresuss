@@ -10,7 +10,6 @@ import Animated, {
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Images } from '../assets/index';
 
 export interface BottomSheetProRef {
   openSheet: () => void;
@@ -95,9 +94,10 @@ const BottomSheetPro = forwardRef<BottomSheetProRef>(({ onBackPress }: any, ref)
   const progress = Math.max(0, Math.min(1, (translateY.value - minY.value) / range));
 
   return {
-    fontSize: interpolate(progress, [0, 1], [30, 22]),
+    fontSize: interpolate(progress, [0, 1], [30, 19]),
     transform: [
-      { translateY: interpolate(progress, [0, 1], [0, -5]) }
+      { translateY: interpolate(progress, [0, 1], [0, -5]) },
+      { translateX: interpolate(progress, [0, 1], [0, 35]) },
     ],
   };
 });
@@ -136,11 +136,11 @@ const backButtonAnimatedStyle = useAnimatedStyle(() => {
       <Animated.View style={[styles.container, rStyle]}>
         <View style={styles.line} />
         <Animated.View style={[styles.headerRow]}>
-          <Animated.View style={[backButtonAnimatedStyle]}>
+          {/* <Animated.View style={[backButtonAnimatedStyle]}>
             <TouchableOpacity onPress={onBackPress}>
               <Image source={Images.backarrow} style={styles.backIcon} />
             </TouchableOpacity>
-          </Animated.View>
+          </Animated.View> */}
 
           <Animated.Text style={[styles.headingPro, headingAnimatedStyle]}>
             See What the Pros are Buying
@@ -190,8 +190,9 @@ const styles = StyleSheet.create({
   },
   headingPro: {
     color: '#ffffff',
-    fontWeight: '600',
+    // fontWeight: '600',
     marginTop: 28,
+    marginLeft: 15
   },
   bottompara1: {
     color: '#D4EBFF',
