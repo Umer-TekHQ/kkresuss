@@ -27,6 +27,7 @@ import { AppNavigatorParamList } from '../../navigators/routeNames';
 import styles from '../../styles/homestyles';
 import IntroducingCards from '../../components/IntroducingCard';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import BottomSheetHome from '../../components/BottomSheetHome';
 
 export const HomeScreen: React.FC = () => {
   const translateY = useSharedValue(hp('100%'));
@@ -107,7 +108,7 @@ export const HomeScreen: React.FC = () => {
               )}
               showsHorizontalScrollIndicator={false}
               snapToAlignment="center"
-              ItemSeparatorComponent={() => <View style={{ width: wp('3.5%') }} />}
+              ItemSeparatorComponent={() => <View style={{ width: wp('5.5%') }} />}
             />
 
             <IntroducingCards />
@@ -129,7 +130,7 @@ export const HomeScreen: React.FC = () => {
       {showOverlay && <WelcomeOverlay onClose={() => setShowOverlay(false)} />}
 
       <View pointerEvents="box-none" style={styles.bottomSheetContainer}>
-        <BottomSheetUnified ref={bottomSheetRef} screen="home" translateY={translateY} />
+        <BottomSheetHome navigation={navigation} />
       </View>
     </View>
   );

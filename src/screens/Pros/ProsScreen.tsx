@@ -3,8 +3,7 @@ import { useSharedValue } from 'react-native-reanimated'
 import React from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Images } from '../../assets/index'
-import {BottomSheetUnified} from '../../components/BottomSheet'
-
+import BottomSheetPro  from '../../components/BottomSheetPro'
 
 export const ProsScreen = ({navigation}: any) => {
   const translateY = useSharedValue(0);
@@ -24,7 +23,7 @@ export const ProsScreen = ({navigation}: any) => {
               </View>
               </TouchableOpacity>
         </View>
-        <BottomSheetUnified screen="pro" translateY={translateY} />
+        <BottomSheetPro/>
         
       </GestureHandlerRootView>
   )
