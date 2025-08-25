@@ -136,7 +136,7 @@ const CardDeck = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image
             source={Images.backarrow}
-            style={[styles.icon, { width: ICON_SIZE, height: ICON_SIZE, marginTop: HEADER_MARGIN, marginLeft: HEADER_MARGIN }]}
+            style={[styles.icon, { width: ICON_SIZE, height: ICON_SIZE, marginTop: HEADER_MARGIN, marginLeft: 12 }]}
           />
         </TouchableOpacity>
         <TouchableOpacity>
@@ -178,8 +178,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   icon: {
-    width: 8,
-    height: 10,
   },
   editText: {
     color: '#fff',

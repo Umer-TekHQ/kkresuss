@@ -1,12 +1,4 @@
-import { BottomSheetScreen } from '../screens/BottomSheetScreen/BottomSheetScreen';
-import { ProsScreen } from '../screens/Pros/ProsScreen';
-import { ProfileScreen } from '../screens/Profile/ProfileScreen';
-import { ProfileBottom } from '../screens/Profile/ProfileBottomSheet';
-import CardRecieveScreen from '../screens/Profile/CardRecieveScreen';
 import { Token } from '../screens/Trade/types';
-import ReceiveTokenScreen from '../screens/Trade/ReceiveSearchScreen';
-import AssetsScreen from '../screens/Assets/AssetsScreen';
-import TradeStatusScreen from '../screens/Trade/TradeStatusScreen';
 
 export const routeNames = {
   splash: "Splash",
@@ -31,6 +23,7 @@ export const routeNames = {
   SearchScreen: "SearchScreen",
   ReceiveTokenScreen: "ReceiveTokenScreen",
   TodayReturns:"TodayReturns",
+  TradeScreen: "TradeScreen",
   Supported:"Supported",
   Spam:"Spam",
   Currency:"Currency",
@@ -61,7 +54,7 @@ export type AppNavigatorParamList = {
   Recovery:{email:string} | undefined
   Privacy:undefined
   Verification:undefined
-  TokenDetail:undefined
+  TokenDetail:undefined |  { contractAddress: string }
   ProfileBottom: undefined
     CardRecieveScreen: {
     card: {
@@ -73,14 +66,9 @@ export type AppNavigatorParamList = {
       value?: string;
     };
   };
-  SearchScreen: {
-    field: 'token1' | 'token2';
-    onSelectToken?: (token: Token) => void;
-  };
-    ReceiveTokenScreen: {
-    field: 'token1' | 'token2';
-    onSelectToken?: (token: Token) => void;
-  };
+  TradeScreen: undefined,
+  SearchScreen: { field: 'token1' | 'token2'; onSelectToken?: (token: Token) => void; excludeToken?: string };
+  ReceiveTokenScreen: { field: 'token1' | 'token2'; onSelectToken?: (token: Token) => void; excludeToken?: string };
   TodayReturns:undefined
   Supported:undefined
    Spam: { defaultTab?: 'Crypto' | 'NFTs' };

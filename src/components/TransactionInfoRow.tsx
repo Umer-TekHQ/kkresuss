@@ -1,15 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { Images } from '../assets';
 
+type Props = {
+  note?: string;
+};
 
-type Props={
-  note?:string
-}
-const TransactionInfoRow = ({note}:Props) => {
+const TransactionInfoRow = ({ note }: Props) => {
   const data = [
-    { label: 'Network', value: 'Base' },
-    { label: 'Sent To', value: '0xa3...5hg1' },
-    { label: 'Transaction ID', value: 'a32c...6dg4' },
+    { label: 'Network', value: 'Base', withBase: true },
+    { label: 'Sent To', value: '0xa3...5hg1', withCopy: true },
+    { label: 'Transaction ID', value: 'a32c...6dg4', withCopy: true },
     { label: 'Note to Self', value: note ?? '', isNote: true },
   ];
 
@@ -25,9 +26,27 @@ const TransactionInfoRow = ({note}:Props) => {
           ]}
         >
           <Text style={styles.label}>{item.label}</Text>
-          <Text style={[styles.value, item.isNote && styles.noteValue,item.isNote && { color: '#FFF' },]}>
-            {item.value}
-          </Text>
+
+          {item.isNote ? (
+            <Text style={[styles.value, styles.noteValue, { color: '#FFF' }]}>
+              {item.value}
+            </Text>
+          ) : (
+            <View style={styles.valueRow}>
+              {/* 👈 Agar Base row hai toh icon left mai */}
+              {item.withBase && (
+                <Image source={Images.basesmall} style={styles.baseIcon} />
+              )}
+              <Text style={styles.value}>{item.value}</Text>
+
+              {/* 👈 Agar Copy wale rows hain toh right mai copy icon */}
+              {item.withCopy && (
+                <TouchableOpacity>
+                  <Image source={Images.copy} style={styles.copyIcon} />
+                </TouchableOpacity>
+              )}
+            </View>
+          )}
         </View>
       ))}
     </View>
@@ -41,12 +60,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 20,
-    paddingVertical: 8, 
+    paddingVertical: 8,
     borderBottomWidth: 0.5,
     borderBottomColor: '#333',
   },
   lastRow: {
-    borderBottomWidth: 0, 
+    borderBottomWidth: 0,
     paddingBottom: 0,
   },
   noteRow: {
@@ -55,7 +74,7 @@ const styles = StyleSheet.create({
   },
   label: {
     color: '#ADD2FD',
-    fontSize: 15, 
+    fontSize: 15,
   },
   value: {
     color: '#ADD2FD',
@@ -64,5 +83,23 @@ const styles = StyleSheet.create({
   },
   noteValue: {
     marginTop: 4,
+  },
+  valueRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  baseIcon: {
+    width: 16,
+    height: 16,
+    resizeMode: 'contain',
+    marginRight: 4,
+  },
+  copyIcon: {
+    width: 16,
+    height: 16,
+    resizeMode: 'contain',
+    tintColor: '#ADD2FD',
+    marginLeft: 6,
   },
 });

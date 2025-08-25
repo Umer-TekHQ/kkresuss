@@ -31,7 +31,6 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
 
   return (
     <View style={[styles.marketActivityCard, { width: cardWidth }]}>
-      <View>
         <View style={styles.coinInfoHeader}>
             <Image 
               source={Images.coinlogo}
@@ -70,7 +69,6 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
           ]}>
           </Text>
         </View>
-      </View>
       <View style={styles.buyersSellersContainer}>
         <View style={[styles.buyersBar, { width: `${buyersPercentage}%` }]} />
         <View style={[styles.sellersBar, { width: `${sellersPercentage}%` }]} />

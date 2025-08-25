@@ -68,23 +68,21 @@ const TRANSLATE_Y_CONFIG = {
     max: -hp('100%'),
   },
     trade: {
-    initial: -hp('10%'),
+    initial: -hp('5%'),
     min: -hp('10%'),
-    max: -hp('74.07%'),
+    max: -hp('34.07%'),
   },
-todaysReturn: {
-  
-   initial: -hp('55.56%'),
-    min: -hp('55.56%'),
-    max: -hp('100%'),
-},
-AdvanceVerification:{
+  todaysReturn: {
+    
     initial: -hp('55.56%'),
-    min: -hp('55.56%'),
-    max: -hp('100%'),
-}
-
-
+      min: -hp('55.56%'),
+      max: -hp('100%'),
+  },
+  AdvanceVerification:{
+      initial: -hp('55.56%'),
+      min: -hp('55.56%'),
+      max: -hp('100%'),
+  }
 };
 
 const screenStyles = {
@@ -197,8 +195,8 @@ export interface BottomSheetUnifiedRef {
         };
       case 'trade':
         return {
-          initial: -hp('10%'),
-          min: -hp('10%'),
+          initial: -hp('5%'),
+          min: -hp('5%'),
           max: -hp('74.07%'),
         };
       case 'todaysReturn':
@@ -217,7 +215,7 @@ export interface BottomSheetUnifiedRef {
         return {
           initial: -hp('16.93%'),
           min: -hp('16.93%'),
-          max: -hp('70.67%'),
+          max: -hp('60.67%'),
         };
     }
   };
@@ -353,7 +351,7 @@ export interface BottomSheetUnifiedRef {
               <View style={[styles.head, { marginHorizontal: responsiveHomeHeadMargin }]}>
                 <Image source={Images.bottomhead} style={styles.headimg} />
                 <Text style={styles.heading}>My Security Score</Text>
-                <Text style={[styles.numbers, { marginLeft: responsiveHomeNumbersMargin }]}>1/5</Text>
+                <Text style={[styles.numbers, { marginLeft: responsiveHomeNumbersMargin }]}>2/5</Text>
                 <TouchableOpacity onPress={(e) => { e.stopPropagation(); closeSheet(); }}>
                   <Animated.Image
                     source={Images.up}
@@ -468,12 +466,12 @@ export interface BottomSheetUnifiedRef {
               <View style={styles.l12}>
                 <View style={styles.rowLeft}>
                   <Image source={Images.solanalogo} style={styles.solanalogo} />
-                  <Text style={styles.l1text}> Solana Network</Text>
+                  <Text style={styles.l1textS}> Solana Network</Text>
                 </View>
                 <Text style={styles.trailingText}>Crypto only</Text>
               </View>
               <Text style={styles.bottomtext}>
-                Do not sent assets over Ethereum mainnets or they will be lost.
+                Do not sent assets over Ethereum Mainnet or they will be lost.
               </Text>
               <TouchableOpacity
                 style={styles.LMBtn}
@@ -499,83 +497,73 @@ export interface BottomSheetUnifiedRef {
             </>
           )}
            {screen === 'trade' && (
-            <View style={styles.tradebottomsheet}>
-              <View style={styles.lineTB} />
-              <View style={styles.head}>
-                <Image source={Images.tradebottom} style={styles.headimg} />
-                <Text style={styles.headingTB}>Transaction Ready</Text>
-                <TouchableOpacity 
-                  style={styles.closeButton} 
-                  onPress={closeSheet}
-                >
-                  <Image source={Images.pros} style={styles.closeIcon} />
-                </TouchableOpacity>
-              </View>
-              {token1 && token2 && (
-                <>
-                  <View style={styles.inputfields}>
-                    <View style={styles.tokenInputContainer}>
-                      {token1 ? (
-                        <>
-                          <Text style={styles.tradeAmount}>{amount1}</Text>
-                          <View style={styles.tokenDisplay}>
-                            <Text style={styles.tokenSymbol}>
-                              {token1.abbreviation}
-                            </Text>
-                            <Image 
-                              source={token1.logo} 
-                              style={styles.tokenLogo} 
-                            />
-                            
-                          </View>
-                        </>
-                      ) : (
-                        <Text style={styles.placeholderText}>Select Token</Text>
-                      )}
-                    </View>
-                    
-                    <View style={styles.arrowContainer}>
-                      <Image source={Images.downarroww} style={styles.downarrow} />
-                    </View>
-                    
-                    <View style={styles.tokenInputContainer}>
-                      {token2 ? (
-                        <>
+              <View style={[styles.tradebottomsheet, { paddingTop: hp('1%') }]}>
+                <View style={[styles.lineTB, { width: wp('15%'), height: hp('0.5%'), marginTop: hp('1%') }]} />
+
+                <View style={[styles.head, { marginBottom: hp('1%') }]}>
+                  <Image source={Images.tradebottom} style={[styles.headimg, { width: wp('4%'), height: hp('2.5%'), marginLeft: wp('3%'), marginTop: hp('1%') }]} />
+                  <Text style={[styles.headingTB, { fontSize: wp('4.5%'), marginLeft: wp('4%') }]}>Transaction Ready</Text>
+                  <TouchableOpacity style={styles.closeButton} onPress={closeSheet}>
+                    <Image source={Images.pros} style={[styles.closeIcon, { width: wp('6%'), height: hp('6%') , paddingBottom: hp('5%') }]} />
+                  </TouchableOpacity>
+                </View>
+
+                {token1 && token2 && (
+                  <>
+                    <View style={styles.inputfields}>
+
+                      <View style={[styles.tokenInputContainer, { width: wp('90%'), height: hp('10%'), marginVertical: hp('1%') }]}>
+                        <Text style={[styles.labelText, { fontSize: wp('3.5%'), color: '#ADD2FD', marginBottom: hp('0.5%') }]}>
+                          TRADING
+                        </Text>
                         <View style={styles.tokenDisplay}>
-                          <Text style={styles.tradeAmount}>{amount2}</Text>
-                          <Text style={styles.tokenSymbol}>
-                              {token2.abbreviation}
-                            </Text>
-                            <Image 
-                              source={token2.logo} 
-                              style={styles.tokenLogo} 
-                            />
-                            
+                          <View>
+                            <Text style={[styles.tradeAmount, { fontSize: wp('5%') }]}>{amount1}</Text>
+                            <Text style={[styles.tokenSymbol, { fontSize: wp('4%') }]}>{token1.abbreviation}</Text>
                           </View>
-                        </>
-                      ) : (
-                        <Text style={styles.placeholderText}>Select Token</Text>
-                      )}
+                          <Image source={token1.logo} style={[styles.tokenLogo, { width: wp('10%'), height: wp('10%') }]} />
+                        </View>
+                      </View>
+
+                      <View style={styles.arrowContainer}>
+                        <Image source={Images.downarroww} style={[styles.downarrow, { width: wp('3%'), height: hp('2%') }]} />
+                      </View>
+
+                      <View style={[styles.tokenInputContainer, { width: wp('90%'), height: hp('10%'), marginVertical: hp('1%') }]}>
+                        <Text style={[styles.labelText, { fontSize: wp('3.5%'), color: '#ADD2FD', marginBottom: hp('0.5%') }]}>
+                          FOR
+                        </Text>
+                        <View style={styles.tokenDisplay}>
+                          <View>
+                            <Text style={[styles.tradeAmount, { fontSize: wp('5%') }]}>{amount2}</Text>
+                            <Text style={[styles.tokenSymbol, { fontSize: wp('4%'), }]}>{token2.abbreviation}</Text>
+                          </View>
+                          <Image source={token2.logo} style={[styles.tokenLogo, { width: wp('10%'), height: wp('10%') }]} />
+                        </View>
+                      </View>
+
                     </View>
-                  </View>
-                  
-                  <View style={styles.feescontainer}>
-                    <Text style={styles.fees}>Fees</Text>
-                    <Text style={styles.fees}>1.73144653 SNORT</Text>
-                  </View>
-                  <Text style={styles.bottomtext1}>Kresus covers your network fee</Text>
-                  <View>
-                    <SwipeButton
-                      placeholder='Swipe to Trade'
-                      onNavigate={() => {
-                        translateY.value = withSpring(0, { damping: 50 });
-                      }}
-                    />
-                  </View>
-                </>
-              )}
-            </View>
-          )}
+
+                    <View style={[styles.feescontainer, { marginHorizontal: wp('5%'), paddingVertical: hp('2%') }]}>
+                      <Text style={[styles.fees, { fontSize: wp('4.5' ) }]}>Fees</Text>
+                      <Text style={[styles.fees, { fontSize: wp('4.5%') }]}>1.73144653 SNORT</Text>
+                    </View>
+
+                    <Text style={[styles.bottomtext1, { fontSize: wp('4.5%'), marginTop: hp('1%') }]}>
+                      Kresus covers your network fee
+                    </Text>
+
+                    <View style={{ marginTop: hp('1.5%') }}>
+                      <SwipeButton
+                        placeholder='Swipe to Trade'
+                        onNavigate={() => { translateY.value = withSpring(0, { damping: 50 }); }}
+                      />
+                    </View>
+                  </>
+                )}
+              </View>
+            )}
+
 
           {screen === 'todaysReturn' && (
             <View>
@@ -650,25 +638,23 @@ const styles = StyleSheet.create({
   },
   arrowContainer: {
     alignItems: 'center',
-    marginVertical: 10,
-    height: 10,
-    width: 10,
+    marginVertical: 15,
   },
   fees:{
-    color: 'lightblue'
+    color: '#ADD2FD'
   },
   feescontainer:{
     flexDirection:'row',
-    marginTop: 10,
+    marginTop: 20,
     marginHorizontal: 22,
-    borderTopWidth: 0.5,
-    borderBottomWidth: 0.5,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
     borderColor: '#28569B',
     paddingVertical: 20,
     justifyContent: 'space-between'
   },
   bottomtext1:{
-    color: 'lightblue',
+    color: '#ADD2FD',
     marginTop: 15,
     textAlign: 'center'
   },
@@ -716,11 +702,19 @@ const styles = StyleSheet.create({
     marginLeft: 4,
     backgroundColor: '#0734A9',
     alignSelf: 'center',
-    // marginVertical: 15,
     marginTop:5,
     marginHorizontal: 8,
     borderRadius: 2,
   },
+  labelText: {
+  letterSpacing: 0.5,
+},
+
+tokenDisplay: {
+  flexDirection: 'row',
+  alignItems: 'center',
+},
+
   lineTB:{
     width: 55,
     height: 4,
@@ -767,8 +761,6 @@ const styles = StyleSheet.create({
   },
   head: {
     flexDirection: 'row',
-    // marginVertical: 12,
-    // marginHorizontal: 15,
     marginTop: 5,
     marginBottom: 7,
     textAlign: 'center',
@@ -818,12 +810,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginTop: 6,
     flex: 1,
-    marginLeft: wp('2%'),
+    marginLeft: wp('5%'),
   },
   headingTB:{
     color: '#2ED459',
     fontSize: 15,
-    // fontWeight: '600',
     marginTop: 6,
     marginLeft: 20,
   },
@@ -927,7 +918,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginLeft: 90,
     marginTop: 12,
-    tintColor: 'lightblue',
+    tintColor: '#086CE1',
   },
   backbtn1: {
     marginLeft: 143,
@@ -964,7 +955,6 @@ const styles = StyleSheet.create({
   },
   img1: {
     marginTop: 4,
-    // tintColor: 'darkblue',
   },
   l1:{
     flexDirection:'row',
@@ -998,6 +988,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: 10,
   },
+  l1textS:{
+    color: 'white',
+    fontSize: 18,
+    marginLeft: 16,
+  },
   trailingText:{
     color: 'lightblue',
     marginTop: 2,
@@ -1027,22 +1022,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '80%',
-    height: 65,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#28569B',
+    borderRadius: 20,
+    borderWidth: 1.5,
+    borderColor: '#4898F3',
     paddingHorizontal: 10,
     marginVertical: 10,
   },
   tradeAmount: {
-    color: '#97B8E1',
+    color: '#FFF',
     fontSize: 24,
-    flex: 1,
-  },
-  tokenDisplay: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    marginRight: 10,
   },
   tokenLogo: {
     width: 40,
@@ -1053,8 +1042,10 @@ const styles = StyleSheet.create({
   tokenSymbol: {
     color: '#fff',
     fontSize: 12,
-    fontWeight: '500',
     marginRight: 4,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    letterSpacing: 0.5,
   },
   placeholderText: {
     color: '#97B8E1',
@@ -1062,7 +1053,7 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     position: 'absolute',
-    right: 10,
+    right: 3,
     top: 0,
     padding: 5,
   },

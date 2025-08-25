@@ -94,12 +94,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#0a0a23',
     paddingVertical: 8,
     paddingHorizontal: 12,
-    borderRadius: 15,
+    borderRadius: 20,
     borderColor: '#4898F3',
     borderWidth: 1.5,
   },
   buttonText: {
     color: '#fff',
     fontWeight: '600',
+    fontSize: 13,
   },
 });

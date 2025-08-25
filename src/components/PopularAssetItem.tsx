@@ -37,6 +37,60 @@ const PopularAssetItem = ({ item }: { item: PopularAssetItemProps['item'] }) => 
   </View>
 );
 
+
+// interface PopularAssetItemProps {
+//   item: {
+//     token_name: string;
+//     token_symbol: string;
+//     token_logo: string;
+//     price_usd: string;
+//     price_24h_percent_change?: string;
+//   };
+// }
+
+// const PopularAssetItem = ({ item }: PopularAssetItemProps) => {
+//   const profit = item.price_24h_percent_change
+//     ? parseFloat(item.price_24h_percent_change).toFixed(2)
+//     : null;
+
+//   return (
+//     <View style={styles.item}>
+//       <View style={styles.leftSection}>
+//         <View style={styles.iconWrapper}>
+//           <Image source={{ uri: item.token_logo }} style={styles.icon} />
+//         </View>
+//         <View style={{ marginLeft: 10 }}>
+//           <Text style={styles.name}>{item.token_name}</Text>
+//           <Text style={styles.meta}>{item.token_symbol}</Text>
+//         </View>
+//       </View>
+
+//       {/* Right Section */}
+//       <View style={styles.rightSection}>
+//         <Text style={styles.amount}>${item.price_usd}</Text>
+//         {profit && (
+//           <View style={styles.profitRow}>
+//             <Image
+//               source={parseFloat(profit) >= 0 ? Images.greenup : Images.reddown}
+//               style={styles.profitIcon}
+//             />
+//             <Text
+//               style={[
+//                 styles.profit,
+//                 { color: parseFloat(profit) >= 0 ? '#30DB5B' : '#FF4D4F' },
+//               ]}
+//             >
+//               {profit}%
+//             </Text>
+//           </View>
+//         )}
+//       </View>
+//     </View>
+//   );
+// };
+
+
+
 export default PopularAssetItem;
 
 const styles = StyleSheet.create({

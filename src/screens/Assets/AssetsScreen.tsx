@@ -35,7 +35,7 @@ const [showSheet, setShowSheet] = useState(false);
     
       <ScrollView
         contentContainerStyle={{
-          paddingHorizontal: 12,
+          paddingHorizontal: 8,
           paddingTop: 20,
           paddingBottom: 40, 
         }}
@@ -108,6 +108,7 @@ const ITEM_WIDTH = (screenWidth - ITEM_MARGIN * (NUM_COLUMNS + 1)) / NUM_COLUMNS
   )}
         keyExtractor={(item) => item.id}
         numColumns={2}
+         columnWrapperStyle={{ justifyContent: 'space-around',}}
         scrollEnabled={false}
           />
 
@@ -149,7 +150,7 @@ const AssetsScreen = () => {
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    { key: 'crypto', title: 'Crypto' },
+    { key: 'crypto', title: 'Crypto'},
     { key: 'nfts', title: 'NFTs' },
     { key: 'earn', title: 'Earn' },
   ]);

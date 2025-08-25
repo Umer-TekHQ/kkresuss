@@ -9,9 +9,10 @@ import {
 } from 'react-native';
 import { Images } from '../../assets';
 import { Card } from '../../components/CompletionCard'; 
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { useAppSelector} from '../../store/hooks';
 import { tokens } from './tokens';
 import { Token } from './types';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 const TradeStatusScreen = ({navigation, route}: any) => {
   const tradeState = useAppSelector(state => state.trade);
@@ -64,10 +65,10 @@ const TradeStatusScreen = ({navigation, route}: any) => {
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Image
                 source={Images.cancel}
-                style={{marginTop: 20}}
+                style={{marginTop: 15}}
               />
               </TouchableOpacity>
-      <Text style={styles.header}>Trade Status</Text>
+        <Text style={styles.header}>Trade Status</Text>      
       </View>
 
       <View style={styles.swapCard}>
@@ -78,12 +79,13 @@ const TradeStatusScreen = ({navigation, route}: any) => {
           />
           <Text style={styles.assetLabel}>{displayToken1.abbreviation}</Text>
         </View>
-
+        <View>
+          <View></View>
         <Image
          source={Images.downarroww}
          style={styles.arrow}
         />
-
+        </View>
         <View style={styles.assetContainer}>
           <Image 
             source={displayToken2.logo} 
@@ -95,12 +97,14 @@ const TradeStatusScreen = ({navigation, route}: any) => {
       <View style={styles.receivedBox}>
         <View style={styles.right}>
         <Text style={styles.receivedTitle}>Received</Text>
+        <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
         <Text style={styles.receivedtoken}>{displayToken2.abbreviation}</Text>
-         <Text style={styles.receivedDate}>Thu, Apr 11, 2024</Text>
-         </View>
-         <View>
         <Text style={styles.receivedAmount}>{displayAmount2} {displayToken2.abbreviation}</Text>
-        <Text style={styles.receivedUSD}>$396.14</Text>
+        </View>
+         </View>
+         <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
+          <Text style={styles.receivedDate}>Thu, Apr 11, 2024</Text>
+          <Text style={styles.receivedUSD}>$396.14</Text>
         </View>
       </View>
 
@@ -108,7 +112,6 @@ const TradeStatusScreen = ({navigation, route}: any) => {
         <Text style={styles.tradeCompleteText}>✓ Trade Complete</Text>
       </View>
     </View>
-
       <Card 
         label="Traded" 
         value={`${displayAmount1} ${displayToken1.abbreviation}`} 
@@ -119,15 +122,22 @@ const TradeStatusScreen = ({navigation, route}: any) => {
         value={`${displayAmount2} ${displayToken2.abbreviation}`}  
         usd="$0.01 USD" 
       />
-      <Card label="Network Fees" value={`${displayAmount2} ${displayToken2.abbreviation}`}  usd="$0.01 USD" strike />
+      <Card 
+        label={
+        <View>
+          <Text style={{color: '#ADD2FD', fontSize: 15  }}>Network Fees</Text>
+          <Text style={{color: '#ADD2FD', fontSize: 15}}> (Waived )</Text>
+        </View>}
+        value={`${displayAmount2} ${displayToken2.abbreviation}`}  
+        usd="$0.01 USD" strike />
       <Card 
         label="Transaction ID" 
         value={
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={{ color: 'white' }}>a32c...6dg4</Text>
+            <Text style={{ color: '#ADD2FD' }}>a32c...6dg4</Text>
             <Image
               source={Images.copy}
-              style={{ width: 18, height: 18, marginLeft: 8 }}
+              style={{ width: 18, height: 18, marginLeft: 8, tintColor: '#ADD2FD' }}
             />
           </View>
         }
@@ -150,17 +160,15 @@ const styles = StyleSheet.create({
   },
   headline:{
     flexDirection: 'row',
+    marginBottom: hp('1%')
   },
   contentContainer: {
-    paddingHorizontal: 10,
-    paddingBottom: 40,
   },
   header: {
-    fontSize: 20,
+    fontSize: 19,
     color: 'white',
     marginTop: 20,
-    marginBottom: 16,
-    marginLeft: 85,
+    marginLeft: wp('30%')
   },
   swapCard: {
     backgroundColor: '#080C4C',
@@ -175,8 +183,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   tokenImage: {
-    width: 110,
-    height: 110,
+    width: 100,
+    height: 100,
     borderRadius: 55,
     borderWidth: 5,
     borderColor: '#030A74',
@@ -190,52 +198,46 @@ const styles = StyleSheet.create({
   },
   arrow: {
     tintColor: '#F2C94C',
-    width: 20,
-    height: 25,
-    marginVertical: 25,
+    width: 15,
+    height: 20,
+    marginVertical: 15,
   },
   receivedBox: {
     backgroundColor: '#030A74',
-    // borderRadius: 16,
     padding: 16,
-    width: 372,
+    width: wp('100%'),
     marginTop: 20,
-    flexDirection: 'row',
     justifyContent: 'space-between',
   },
   right:{
       },
   receivedTitle: {
     color: '#CEB55A',
-    fontSize: 16,
-    marginBottom: 6,
+    fontSize: 15,
+    lineHeight: 19,
   },
   receivedtoken:{
     color: '#fff',
-    fontSize: 20,
+    fontSize: 19,
   },
   receivedAmount: {
     color: '#fff',
-    fontSize: 20,
-    fontWeight: '600',
-    marginTop: 25,
+    fontSize: 19,
+
   },
   receivedDate: {
-    color: 'lightblue',
-    fontSize: 16,
-    marginTop: 4,
+    color: '#ADD2FD',
+    fontSize: 15,
   },
   receivedUSD: {
-    color: 'lightblue',
-    fontSize: 16,
-    fontWeight: '600',
-    marginTop: 4,
-    alignSelf: 'flex-end'
+    color: '#ADD2FD',
+    fontSize: 15,
+    
   },
   tradeCompleteBtn: {
     backgroundColor: '#CEB55A',
     paddingVertical: 6,
-    width: 372,
+    width: wp('100%'),
     borderBottomRightRadius: 25,
     borderBottomLeftRadius: 25,
     alignItems: 'center',
@@ -246,12 +248,14 @@ const styles = StyleSheet.create({
     color: '#0A0F3B',
   },
   bottombutton:{
-    alignContent: 'center',
-    paddingVertical: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: wp('85%'),
+    height: hp('5%'),
     marginTop: 15,
-    borderWidth: 1.5,
-    borderColor: '#6e75d0ff',
-    paddingHorizontal: 70,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#4898F3',
     borderRadius: 30,
   },
   bottombtn:{

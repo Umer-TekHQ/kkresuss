@@ -11,6 +11,8 @@ type Props = {
 const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
   const [subAmount, setSubAmount] = useState("1.146382610  ");
    const [isSwapped, setIsSwapped] = useState(false);
+   const CONVERSION_RATE = 0.00020401; 
+
   return (
     <View style={styles.amountInputWrapper}>
       <View style={styles.amountInputBox}>
@@ -35,6 +37,10 @@ const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
               return; 
             }
             setAmount(sanitized);
+
+
+              const num = parseFloat(sanitized || "0");
+  setSubAmount((num * CONVERSION_RATE).toFixed(8)); 
           }}
    
         />

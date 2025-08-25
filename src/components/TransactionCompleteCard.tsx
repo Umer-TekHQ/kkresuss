@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Image, ImageSourcePropType } from 'react-native';
 import React from 'react';
 import { useAppSelector } from '../store/hooks';
+import { Images } from '../assets';
 
 type Props = {
   name: string;
@@ -20,14 +21,16 @@ const TransactionCompleteCard: React.FC<Props> = ({ name, image }) => {
     <View style={styles.card}>
  
       <View style={styles.userSection}>
+        <View style={styles.avatarParent}>
         <Image source={image} style={styles.avatar} />
+        </View>
         <Text style={styles.userLabel}>{name}</Text>
       </View>
 
     
       <View style={styles.arrowWrapper}>
         <View style={styles.divider} />
-        <Text style={styles.arrow}>↓</Text>
+          <Image source={Images.backyellow} style={styles.arrowIcon} />
         <View style={styles.divider} />
       </View>
 
@@ -35,7 +38,9 @@ const TransactionCompleteCard: React.FC<Props> = ({ name, image }) => {
       <View style={styles.userSection}>
         <View style={styles.initialsCircle}>
           {logo ? (
+            <View style={styles.avatarParent}>
             <Image source={logo} style={styles.avatar} />
+            </View>
           ) : (
             <Text style={styles.initials}>
               {rname ? getInitials(rname) : 'NA'}
@@ -73,13 +78,14 @@ export default TransactionCompleteCard;
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#080C4C',
-    marginVertical: 4,
+   marginVertical: 4,
     marginHorizontal:15,
     borderRadius: 20,
     overflow: 'hidden',
     alignItems: 'center',
-    height: 468,
+    height: 438,
     justifyContent: 'flex-start',
+     paddingBottom: 60, 
   },
   userSection: {
     alignItems: 'center',
@@ -87,10 +93,21 @@ const styles = StyleSheet.create({
     marginTop:5,
   },
 avatar: {
+  // width: 100,
+  // height: 100,
+  // borderRadius: 50,
+  // resizeMode: 'contain',
+  // backgroundColor: '#000',
+  width:'100%',
+  height:'100%',
+//  borderRadius: 55,
+},
+avatarParent: {
   width: 100,
   height: 100,
   borderRadius: 50,
-  resizeMode: 'cover',
+  resizeMode: 'contain',
+  backgroundColor: '#000',
 },
 initialsCircle: {
   width: 100,
@@ -115,7 +132,7 @@ initialsCircle: {
   arrowWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10,
+    marginVertical: 5,
     width: '100%',
     justifyContent: 'center',
     gap: 8,
@@ -132,7 +149,7 @@ initialsCircle: {
     marginHorizontal: 8,
   },
 tokenSection: {
-  height: 93,
+  height: 83,
   width: '100%',
   backgroundColor: '#030A74',
   paddingHorizontal: 16,
@@ -170,7 +187,8 @@ tokenUsd: {
 
   statusBar: {
     width: '100%',
-    backgroundColor: '#F2C94C',
+    height:'auto',
+    backgroundColor: '#CEB55A',
     paddingVertical: 10,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
@@ -183,4 +201,10 @@ tokenUsd: {
     color: '#01032C',
     fontWeight: 'bold',
   },
+  arrowIcon: {
+  width: 24,
+  height: 24,
+  resizeMode: 'contain',
+  tintColor: '#CEB55A', 
+},
 });

@@ -27,12 +27,12 @@ export default function CardRecieveScreen() {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image 
             source={Images.backarrow}
-            style={[styles.backarrow, { width: screenWidth * 0.04, height: screenWidth * 0.04, marginTop: screenHeight * 0.04 }]}
+            style={[styles.backarrow, { width: screenWidth * 0.035, height: screenWidth * 0.035,  }]}
           />
         </TouchableOpacity>
-        <View style={{flex: 1, marginTop: screenHeight * 0.04, marginLeft: screenWidth * 0.23}}>
+        <View style={{flex: 1, marginLeft: screenWidth * 0.23}}>
         <Text style={styles.head1}>
-          Recieve on Base
+          Receive on Base
         </Text>
         </View>
       </View>
@@ -62,6 +62,8 @@ const styles = StyleSheet.create({
   container:{
     flex: 1,
     backgroundColor: '#000',
+    paddingTop: 20,
+
   },
   head1:{
     color: 'white',

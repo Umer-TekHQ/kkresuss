@@ -15,7 +15,7 @@ import { exploreSections } from '../../mock/exploreData';
 import { HeaderNav } from '../../components/HeaderNav';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
-const { height: screenHeight } = Dimensions.get('window');
+// const { height: screenHeight } = Dimensions.get('window');
 
 export const ExploreScreen: React.FC = ({ navigation }: any) => {
   const [loading, setLoading] = useState(true);
@@ -77,7 +77,7 @@ export const ExploreScreen: React.FC = ({ navigation }: any) => {
           Explore
         </Text>
 
-        <View style={{ backgroundColor: styles.container.backgroundColor, zIndex: 10 }}>
+        <View style={{ backgroundColor: styles.container.backgroundColor, zIndex: 10, marginBottom: 20, }}>
           <ExploreButtons onPressAction={handleButtonPress} />
         </View>
 

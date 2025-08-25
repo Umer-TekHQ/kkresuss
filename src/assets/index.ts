@@ -130,6 +130,7 @@ cash:require('./images/cash.png'),
 reddown:require('./images/reddown.png'),
 greenup:require('./images/greenup.png'),
 secure1: require('./images/secure1.png'),
+swipearrow: require('./images/swipearrow.png'),
 check:require('./images/check.png'),
 ape:require('./images/ape.png'),
 polygon:require('./images/polygon.png'),
@@ -142,5 +143,7 @@ tether:require('./images/tether.png'),
 bonk:require('./images/bonk.png'),
 render:require('./images/render.png'),
 raydium:require('./images/raydium.png'),
-arrowforward:require('./images/arrowforward.png')
+arrowforward:require('./images/arrowforward.png'),
+backyellow:require('./images/backyellow.png'),
+basesmall:require('./images/basesmall.png')
 }

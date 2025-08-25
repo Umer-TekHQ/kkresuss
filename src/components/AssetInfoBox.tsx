@@ -32,7 +32,7 @@ export default AssetInfoBox;
 const styles = StyleSheet.create({
   ethBox: {
     height: 70,
-    backgroundColor: '#10178A',
+    backgroundColor: '#080C4C',
     borderRadius: 20,
     padding: 16,
     marginBottom: 16,

@@ -67,13 +67,29 @@ const ReceiveTokenScreen = () => {
 
       <Text style={styles.sectionTitle}>What the Pros are Buying</Text>
       <View style={styles.tokenChipsRow}>
-        {popularTokens.map((token, index) => (
-          <View key={index} style={styles.tokenChip}>
-            <Image source={token.logo} style={styles.chipLogo} />
-            <Text style={styles.chipText}>{token.symbol}</Text>
-          </View>
-        ))}
-      </View>
+        {popularTokens.map((token, index) => {
+        const selectedToken: Token = {
+        id: token.symbol,         
+        name: token.symbol,        
+        abbreviation: token.symbol,
+        logo: token.logo,
+        amount: '0',               
+        price: '$0.00',            
+      };
+
+    return (
+      <TouchableOpacity
+        key={index}
+        style={styles.tokenChip}
+        onPress={() => handleSelect(selectedToken)}
+      >
+        <Image source={token.logo} style={styles.chipLogo} />
+        <Text style={styles.chipText}>{token.symbol}</Text>
+      </TouchableOpacity>
+    );
+  })}
+</View>
+
 
       <Text style={styles.sectionTitle}>Supported Tokens</Text>
 

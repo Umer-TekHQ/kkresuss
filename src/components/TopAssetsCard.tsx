@@ -157,13 +157,14 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 15,
     fontWeight: '600',
+    textAlign:'right'
   },
   amount: {
     color: '#7AB7FD',
     fontSize: 13,
     marginBottom: 2,
-    alignSelf: 'flex-start', 
-    left:25,   //increased as per qa reuirement 
+   // alignSelf: 'flex-start', 
+   // left:25,   //increased as per qa reuirement 
   
   },
   divider: {
