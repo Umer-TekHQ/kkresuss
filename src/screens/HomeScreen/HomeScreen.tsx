@@ -87,8 +87,8 @@ export const HomeScreen: React.FC = () => {
                   style={[
                     styles.prosicon,
                     {
-                      width: wp('11%'), 
-                      height: wp('11%'),
+                      width: wp('9%'), 
+                      height: wp('9%'),
                     },
                   ]}
                 />

@@ -272,7 +272,7 @@ const handleAmount2Change = (text: string) => {
           <Image source={Images.downarroww} style={styles.downarrow} />
         </View>
 
-        <Text style={styles.receiveLabel}>Receive</Text>
+        <Text style={styles.title2}>Receive</Text>
 
         {renderTokenField(
           token2, 
@@ -319,6 +319,7 @@ const styles = StyleSheet.create({
   container: { 
     flex: 1, 
     backgroundColor: '#01021D', 
+    // paddingHorizontal: wp('2%')
   },
   headerRow: { 
     flexDirection: 'row', 
@@ -329,11 +330,18 @@ const styles = StyleSheet.create({
   title: { 
     color: '#FFFFFF', 
     fontSize: 19,
-    marginLeft: 5
+    marginLeft: 12
+  },
+  title2:{
+    color: '#FFFFFF', 
+    fontSize: 19,
+    marginLeft: 12,
+    marginBottom: 5,
   },
   toggleRow: { 
     flexDirection: 'row', 
-    alignItems: 'center' 
+    alignItems: 'center',
+    marginRight: 12, 
   },
   enterUsdText: { 
     color: '#ADD2FD', 
@@ -418,11 +426,11 @@ const styles = StyleSheet.create({
     borderRadius: 35,
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
   continueText: {  
     fontSize: 22,
-    fontWeight: '500'
+    fontWeight: '500',
   },
   tokenDisplay: { 
     alignItems: 'center',
@@ -441,11 +449,12 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   footer: {
-    marginTop: hp('22%'),
+    marginTop: hp('20%'),
   },
   secondaryText:{
     color: '#ADD2FD',
     fontSize: 14,
     marginTop: -17,
+    marginLeft: 5
   }
 });
