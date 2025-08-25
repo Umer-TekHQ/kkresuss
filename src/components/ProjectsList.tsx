@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     paddingRight: 15,
     marginVertical: 8,
+    marginRight: 5,
   },
   logo: {
     width: 40,
@@ -65,9 +66,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     flexWrap: 'wrap',
     height: 40,
-    width: '85%',
+    width: '83%',
     fontSize: 14,
-    fontWeight: 'bold',
     marginTop: 8,
   },
   row: {

@@ -2,7 +2,6 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import React from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { BottomSheetUnified } from '../../components/BottomSheet'
 import { Images } from '../../assets/index';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import BottomSheetExplore from '../../components/BottomSheetExplore'
@@ -19,7 +18,7 @@ export const BottomSheetScreen = ({ navigation }: any) => {
         <View style={{zIndex: 9999}}>
         <TouchableOpacity onPress={() => navigation.goBack()} >
           <View style={styles.backborder}>
-            <Image source={Images.explorecross} style={styles.cross} />
+            <Image source={Images.whitecross} style={styles.cross} />
           </View>
         </TouchableOpacity>
         </View>
@@ -33,7 +32,7 @@ export const BottomSheetScreen = ({ navigation }: any) => {
         >
           <Text style={styles.bottomButtonText}>Launch </Text>
           <Image
-            source={Images.launchArrowUp}
+            source={Images.launcharrowup}
             style={styles.uparrow}
           />
         </TouchableOpacity>
@@ -54,13 +53,19 @@ const styles = StyleSheet.create({
   },
   cross: {
     tintColor: "white",
-    width: wp('8'),
-    height: hp('4%'),
+    width: wp('9'),
+    height: hp('5%'),
     },
   backborder: {
-    marginLeft: 20,
+    marginLeft: 15,
     marginTop: 20,
+    width: 30,
+    height: 30,
     backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 30,
+
   },
   bottomOverlay: {
     borderTopWidth: 0.5,
@@ -68,10 +73,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignItems: 'center',
     justifyContent: 'center',
-    bottom: hp("3%"),
     height: hp('10%'),
     left: 0,
     right: 0,
+    bottom: 0,
     zIndex: 999,
     backgroundColor: '#10132C'
   },

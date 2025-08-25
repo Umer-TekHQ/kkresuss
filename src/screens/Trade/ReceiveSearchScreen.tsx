@@ -131,12 +131,13 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingLeft: 20,
     alignItems: 'center',
+    backgroundColor: '#101221'
   },
   icon: {
     width: 18,
     height: 18,
     marginRight: 8,
-    tintColor: '#8DABD5',
+    tintColor: '#086DE1',
   },
   input: {
     flex: 1,

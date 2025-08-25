@@ -7,6 +7,7 @@ import { Images } from '../../assets'
 import ProfileCard from '../../components/ProfileCards'
 import { BottomSheetUnified } from '../../components/BottomSheet' 
 import { useSharedValue } from 'react-native-reanimated'
+import BottomSheetProfile from '../../components/BottomSheetProfile'
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -53,7 +54,8 @@ export default function CardRecieveScreen() {
           }}
         />
       </View>
-      <BottomSheetUnified screen="profile" translateY={translateY} />
+      {/* <BottomSheetUnified screen="profile" translateY={translateY} /> */}
+      <BottomSheetProfile navigation={navigation}/>
     </View>
   )
 }

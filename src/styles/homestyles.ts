@@ -28,7 +28,7 @@ export default StyleSheet.create({
   },
     marketActivityCard: {
     width: "100%",
-    // flex:1,
+    marginRight: 13,
     backgroundColor: '#0B219D', 
     borderRadius: 15,
     padding: 10,
@@ -426,7 +426,6 @@ cryptoChangeTime: {
 prostext:{
   color: '#7AB7FD',
   fontSize: 19,
-  marginLeft: 10,
 },
 prossection:{
   flexDirection: 'row',

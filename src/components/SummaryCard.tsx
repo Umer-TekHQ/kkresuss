@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     color: 'white',
     // marginBottom: hp('0.3%'),
     marginLeft: wp('4%'),
-    fontFamily: 'PlayfairDisplay-Bold', 
+    // fontFamily: 'PlayfairDisplay-Bold', 
 
   },
   cryptoChangeRow: {

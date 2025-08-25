@@ -28,8 +28,8 @@ export interface BottomSheetHomeRef {
 }
 
 const TRANSLATE_Y_CONFIG = {
-  initial: -hp('14.93%'),
-  min: -hp('14.93%'),
+  initial: -hp('16.93%'),
+  min: -hp('16.93%'),
   max: -hp('70.67%'),
 };
 
@@ -135,7 +135,7 @@ const BottomSheetHome = forwardRef<BottomSheetHomeRef, { navigation: any }>(({ n
   }, []);
 
   const responsiveHomeHeadMargin = Math.max(0.5, wp('0.5%'));
-  const responsiveHomeNumbersMargin = Math.max(30, wp('18%'));
+  const responsiveHomeNumbersMargin = Math.max(30, wp('13%'));
 
   return (
     <>
@@ -163,7 +163,7 @@ const BottomSheetHome = forwardRef<BottomSheetHomeRef, { navigation: any }>(({ n
               <Text style={[styles.numbers, { marginLeft: responsiveHomeNumbersMargin }]}>2/5</Text>
               <TouchableOpacity onPress={closeSheet}>
                 {isOpen.value ? (
-                  <Animated.Image source={Images.crossoverlay} style={styles.upImg} />
+                  <Animated.Image source={Images.whitecross} style={styles.upImg} />
                 ) : (
                   <Animated.Image source={Images.up} style={styles.upImg} />
                 )}
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
   numbers: {
-    marginLeft: 70,
+    marginLeft: 60,
     marginTop: 5,
     fontSize: 18,
     color: 'gold',
@@ -303,20 +303,20 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   proBdg: {
-    marginLeft: 50,
+    marginLeft: 45,
     marginTop: 10,
   },
   backBtn: {
     fontSize: 10,
-    marginLeft: 90,
+    marginLeft: 75,
     marginTop: 12,
     tintColor: '#086CE1',
   },
   backBtn1: {
-    marginLeft: 143,
+    marginLeft: 128,
   },
   backBtn2: {
-    marginLeft: 20,
+    marginLeft: 10,
   },
   button: {
     flexDirection: 'row',

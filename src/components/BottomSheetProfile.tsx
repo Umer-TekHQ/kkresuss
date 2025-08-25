@@ -20,7 +20,7 @@ export interface BottomSheetProfileRef {
 
 const TRANSLATE_Y_CONFIG = {
   initial: -hp('9%'),
-  min: -hp('10%'),
+  min: -hp('9%'),
   max: -hp('50%'),
 };
 
@@ -110,7 +110,12 @@ const BottomSheetProfile = forwardRef<BottomSheetProfileRef, { navigation: any }
       },
     ],
   }));
-  const arrowStyle = {};
+    const arrowStyle = useAnimatedStyle(() => {
+      const range = maxY.value - minY.value;
+      const progress = Math.max(0, Math.min(1, (translateY.value - minY.value) / range));
+      const rotateDeg = progress * 180; 
+      return { transform: [{ rotate: `${rotateDeg}deg` }] };
+    });
 
   useEffect(() => {
     const handler = () => {
@@ -174,7 +179,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#10132C',
     position: 'absolute',
     top: hp('100%'),
-    borderRadius: 15,
   },
   headProfileRow: {
     flexDirection: 'row',

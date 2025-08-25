@@ -7,6 +7,9 @@ import {
   Image,
   StyleSheet,
   Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -24,7 +27,6 @@ export const TradeScreen = () => {
   const dispatch = useAppDispatch();
   const { token1, token2, amount1, amount2, isUSD } = useAppSelector((state) => state.trade);
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
-
   const tradeSheetRef = useRef<BottomSheetTradeRef>(null);
 
   const [errors, setErrors] = useState({
@@ -49,9 +51,7 @@ export const TradeScreen = () => {
     XPR: 49536.1,
   };
 
-  const handleToggleUSD = () => {
-    dispatch(toggleUSD());
-  };
+  const handleToggleUSD = () => dispatch(toggleUSD());
 
   const validateFields = () => {
     const newErrors = {
@@ -66,13 +66,9 @@ export const TradeScreen = () => {
 
   const handleContinue = () => {
     if (validateFields()) {
-      tradeSheetRef.current?.openSheet();  
+      tradeSheetRef.current?.openSheet();
     } else {
-      Alert.alert(
-        'Incomplete Information',
-        'Please select both tokens and enter valid amounts to continue.',
-        [{ text: 'OK' }]
-      );
+      Alert.alert('Incomplete Information', 'Please select both tokens and enter valid amounts to continue.', [{ text: 'OK' }]);
     }
   };
 
@@ -90,8 +86,7 @@ export const TradeScreen = () => {
     if (isUSD) {
       const usdAmount = parseFloat(safeText) || 0;
       if (token1 && tokenRates[token1.abbreviation]) {
-        const tokenAmount = usdAmount / tokenRates[token1.abbreviation];
-        dispatch(setAmount1(formatToSix(tokenAmount)));
+        dispatch(setAmount1(formatToSix(usdAmount / tokenRates[token1.abbreviation])));
       }
       if (token1 && token2 && tokenRates[token1.abbreviation] && tokenRates[token2.abbreviation]) {
         const tokenAmount = usdAmount / tokenRates[token1.abbreviation];
@@ -109,15 +104,7 @@ export const TradeScreen = () => {
     }
   };
 
-  const handleAmount2Change = (text: string) => {
-    dispatch(setAmount2(text));
-    if (token1 && token2 && tokenRates[token1.abbreviation] && tokenRates[token2.abbreviation]) {
-      const amountNum = parseFloat(text) || 0;
-      const usdValue = amountNum * tokenRates[token2.abbreviation];
-      const converted = usdValue / tokenRates[token1.abbreviation];
-      dispatch(setAmount1(formatToSix(converted)));
-    }
-  };
+  const handleAmount2Change = (text: string) => {};
 
   const renderTokenField = (
     token: Token | null,
@@ -129,12 +116,10 @@ export const TradeScreen = () => {
     field: 'token1' | 'token2'
   ) => {
     const usdValue = token && amount ? parseFloat(amount) * (tokenRates[token.abbreviation] || 0) : 0;
-
     const displayMain =
       isUSD && field === 'token1'
         ? usdValue ? usdValue.toString() : ''
         : amount;
-
     const displaySecondary =
       isUSD && field === 'token1'
         ? `${amount || 0} ${token?.abbreviation || ''}`
@@ -143,7 +128,10 @@ export const TradeScreen = () => {
         : null;
 
     return (
-      <TouchableOpacity onPress={onPress} style={[styles.tokenField, hasError && styles.errorField]}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={[styles.tokenField, hasError && styles.errorField]}
+      >
         {token ? (
           <View style={styles.tokenInputContainer}>
             <TextInput
@@ -154,6 +142,7 @@ export const TradeScreen = () => {
               editable={editable}
               placeholder="0"
               placeholderTextColor="#97B8E1"
+              selectTextOnFocus={editable}
             />
             <View style={styles.tokenDisplay}>
               <Image source={token.logo} style={styles.tokenLogo} />
@@ -167,11 +156,7 @@ export const TradeScreen = () => {
             <Image source={Images.downarrow} style={styles.downfieldarrow} />
           </View>
         )}
-
-        {field === 'token1' && displaySecondary ? (
-          <Text style={styles.secondaryText}>{displaySecondary}</Text>
-        ) : null}
-
+        {field === 'token1' && displaySecondary ? <Text style={styles.secondaryText}>{displaySecondary}</Text> : null}
         {hasError && <Text style={styles.errorMessage}>This field is required</Text>}
       </TouchableOpacity>
     );
@@ -181,63 +166,72 @@ export const TradeScreen = () => {
     token1 && token2 && amount1 && amount2 && amount1 !== '0' && amount2 !== '0';
 
   return (
-    <View style={styles.container}>
-      <HeaderNav />
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0} 
+    >
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.container}>
+          <HeaderNav />
 
-      <View style={styles.headerRow}>
-        <Text style={styles.title}>Trade</Text>
-        <View style={styles.toggleRow}>
-          <Text style={styles.enterUsdText}>Enter USD</Text>
-          <TradeSwitch onValueChange={handleToggleUSD} value={isUSD} />
+          <View style={styles.headerRow}>
+            <Text style={styles.title}>Trade</Text>
+            <View style={styles.toggleRow}>
+              <Text style={styles.enterUsdText}>Enter USD</Text>
+              <TradeSwitch onValueChange={handleToggleUSD} value={isUSD} />
+            </View>
+          </View>
+
+          {renderTokenField(
+            token1,
+            amount1,
+            handleAmount1Change,
+            () => navigation.navigate('SearchScreen', { field: 'token1', excludeToken: token2?.abbreviation }),
+            true,
+            errors.token1 || errors.amount1,
+            'token1'
+          )}
+
+          <View style={styles.arrowContainer}>
+            <Image source={Images.downarroww} style={styles.downarrow} />
+          </View>
+
+          <Text style={styles.title2}>Receive</Text>
+
+          {renderTokenField(
+            token2,
+            amount2,
+            handleAmount2Change,
+            () => navigation.navigate('ReceiveTokenScreen', { field: 'token2', excludeToken: token1?.abbreviation }),
+            false,
+            errors.token2 || errors.amount2,
+            'token2'
+          )}
+
+          <View style={styles.footer}>
+            <Text style={styles.gasText}>30 gas-free transactions remaining</Text>
+            <TouchableOpacity
+              style={[styles.continueBtn, isContinueEnabled && { backgroundColor: '#FFFFFF' }]}
+              onPress={handleContinue}
+              disabled={!isContinueEnabled} 
+            >
+              <Text style={[styles.continueText, isContinueEnabled && { color: '#01021D' }]}>
+                Continue
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <BottomSheetTrade ref={tradeSheetRef} />
         </View>
-      </View>
-
-      {renderTokenField(
-        token1,
-        amount1,
-        handleAmount1Change,
-        () => navigation.navigate('SearchScreen', { field: 'token1', excludeToken: token2?.abbreviation }),
-        true,
-        errors.token1 || errors.amount1,
-        'token1'
-      )}
-
-      <View style={styles.arrowContainer}>
-        <Image source={Images.downarroww} style={styles.downarrow} />
-      </View>
-
-      <Text style={styles.title2}>Receive</Text>
-
-      {renderTokenField(
-        token2,
-        amount2,
-        handleAmount2Change,
-        () => navigation.navigate('ReceiveTokenScreen', { field: 'token2', excludeToken: token1?.abbreviation }),
-        true,
-        errors.token2 || errors.amount2,
-        'token2'
-      )}
-
-      <View style={styles.footer}>
-        <Text style={styles.gasText}>30 gas-free transactions remaining</Text>
-        <TouchableOpacity
-          style={[styles.continueBtn, isContinueEnabled && { backgroundColor: '#FFFFFF' }]}
-          onPress={handleContinue}
-        >
-          <Text style={[styles.continueText, isContinueEnabled && { color: '#01021D' }]}>
-            Continue
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      <BottomSheetTrade ref={tradeSheetRef} />
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#01021D' },
-  headerRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 30, marginBottom: 5 },
+  headerRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 30, marginBottom: 10 },
   title: { color: '#FFFFFF', fontSize: 19, marginLeft: 12 },
   title2: { color: '#FFFFFF', fontSize: 19, marginLeft: 12, marginBottom: 5 },
   toggleRow: { flexDirection: 'row', alignItems: 'center', marginRight: 12 },
@@ -257,7 +251,7 @@ const styles = StyleSheet.create({
   errorMessage: { color: '#FF4D4F', fontSize: 12, marginTop: 4 },
   tokenInputContainer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   amountInput: { color: '#97B8E1', fontSize: 30, flex: 1, marginTop: -7 },
-  disabledInput: { color: '#667', opacity: 0.7 },
+  disabledInput: { color: '#ADD2FD'},
   arrowContainer: { alignItems: 'center', marginVertical: 8 },
   downarrow: { width: wp('4%'), height: hp('2.7%'), marginLeft: 15, tintColor: '#086DE1' },
   downfieldarrow: { width: 13, height: 8, tintColor: '#4898F3' },
@@ -275,6 +269,6 @@ const styles = StyleSheet.create({
   tokenDisplay: { alignItems: 'center', marginLeft: 14 },
   tokenLogo: { width: 40, height: 40, borderRadius: 12, marginRight: 15 },
   tokenSymbol: { color: '#fff', fontSize: 15, fontWeight: '500', marginRight: 15 },
-  footer: { marginTop: hp('20%') },
+  footer: { marginTop: hp('15%') },
   secondaryText: { color: '#ADD2FD', fontSize: 14, marginTop: -17, marginLeft: 5 },
 });

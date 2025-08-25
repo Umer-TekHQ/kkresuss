@@ -144,7 +144,9 @@ const BottomSheetExplore = forwardRef<BottomSheetExploreRef>((props, ref) => {
 const styles = StyleSheet.create({
   container: {
     borderTopWidth: 0.5,
-    borderColor: 'blue',
+    borderRightWidth: 0.2,
+    borderLeftWidth: 0.2,
+    borderColor: '#10178A',
     height: hp('100%'),
     width: wp('100%'),
     backgroundColor: '#10132C',
@@ -166,7 +168,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginVertical: 8,
     marginBottom: 12,
-    marginLeft: 20
+    marginLeft: 15
   },
   toppara: {
     color: '#ffffff',

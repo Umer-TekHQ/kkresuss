@@ -21,12 +21,16 @@ export interface BottomSheetTradeRef {
 }
 
 const TRANSLATE_Y_CONFIG = {
-  initial: -hp('5%'),
-  min: -hp('10%'),
+  initial: -hp('3%'),
+  min: -hp('1%'),
   max: -hp('74.07%'),
 };
+interface BottomSheetTradeProps {
+  onClose?: () => void; 
+}
 
-const BottomSheetTrade = forwardRef<BottomSheetTradeRef>((props, ref) => {
+const BottomSheetTrade = forwardRef<BottomSheetTradeRef, BottomSheetTradeProps>((props, ref) => {
+  const { onClose } = props;
   const { token1, token2, amount1, amount2 } = useAppSelector(state => state.trade);
   const translateY = useSharedValue(TRANSLATE_Y_CONFIG.initial);
   const context = useSharedValue({ y: 0 });
@@ -44,14 +48,12 @@ const BottomSheetTrade = forwardRef<BottomSheetTradeRef>((props, ref) => {
     setBlockingPointerEvents(true);
   };
 
-  const closeSheet = () => {
-    translateY.value = withSpring(initialY.value, {
-      damping: 15,
-      stiffness: 80,
-      mass: 0.8,
-    });
-    setBlockingPointerEvents(false);
-  };
+const closeSheet = () => {
+  translateY.value = withSpring(initialY.value, { damping: 15, stiffness: 80, mass: 0.8 });
+  setBlockingPointerEvents(false);
+
+  if (onClose) runOnJS(onClose)(); 
+};
 
   useImperativeHandle(ref, () => ({ openSheet, closeSheet }));
 
@@ -204,7 +206,7 @@ const BottomSheetTrade = forwardRef<BottomSheetTradeRef>((props, ref) => {
                 <View style={styles.arrowContainer}>
                   <Image
                     source={Images.downarroww}
-                    style={[styles.downarrow, { width: wp('3%'), height: hp('2%') }]}
+                    style={[styles.downarrow, { width: wp('4%'), height: hp('3%') }]}
                   />
                 </View>
 
@@ -235,7 +237,7 @@ const BottomSheetTrade = forwardRef<BottomSheetTradeRef>((props, ref) => {
                       <Text
                         style={[
                           styles.tokenSymbol,
-                          { fontSize: wp('4%'), marginTop: hp('0.5%'), marginRight: wp('2%') },
+                          { fontSize: wp('4%'), marginTop: hp('0.5%'), marginRight: wp('2.5%') },
                         ]}
                       >
                         {token2.abbreviation}
@@ -367,16 +369,14 @@ const styles = StyleSheet.create({
   tokenSymbol: {
     color: '#fff',
     fontSize: 12,
-    marginRight: 4,
+    marginRight: 9,
     letterSpacing: 0.5,
   },
   arrowContainer: {
     alignItems: 'center',
-    marginVertical: 15,
+    marginVertical: 10,
   },
   downarrow: {
-    width: 12,
-    height: 18,
     marginLeft: 15,
   },
   feescontainer: {
