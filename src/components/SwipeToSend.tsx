@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef,useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,6 +10,7 @@ import {
   Image
 } from 'react-native';
 import { Images } from '../assets'; 
+import { useIsFocused } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 const SWIPE_WIDTH = width - 40;
@@ -23,6 +24,16 @@ interface SwipeToSendProps {
 const SwipeToSend: React.FC<SwipeToSendProps> = ({ placeholder = 'Swipe to Send', onNavigate }) => {
   const panX = useRef(new Animated.Value(0)).current;
   const bgColor = useRef(new Animated.Value(0)).current;
+    const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      panX.setValue(0);
+      bgColor.setValue(0);
+    }
+  }, [isFocused]);
+
+
 
   const panResponder = useRef(
     PanResponder.create({
@@ -84,6 +95,7 @@ const styles = StyleSheet.create({
     width: SWIPE_WIDTH,
     height: 59,
     borderRadius: 99,
+    bottom:8,
     justifyContent: 'center',
     overflow: 'hidden',
     position: 'relative',

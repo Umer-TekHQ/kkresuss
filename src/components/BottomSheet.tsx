@@ -467,7 +467,7 @@ export interface BottomSheetUnifiedRef {
                 <Text style={styles.trailingText}>Crypto only</Text>
               </View>
               <Text style={styles.bottomtext}>
-                Do not sent assets over Ethereum mainnets or they will be lost.
+                Do not sent assets over Ethereum Mainnet or they will be lost.
               </Text>
               <TouchableOpacity
                 style={styles.LMBtn}

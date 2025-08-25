@@ -183,8 +183,9 @@ const styles = StyleSheet.create({
   heading: {
     color: '#ffffff',
     fontWeight: '600',
-   // marginVertical: 10,
+  // marginVertical: 10,
    fontSize:30,
+  width: SCREEN_WIDTH * 0.7,
   },
   description: {
     color: '#ADD2FD',
