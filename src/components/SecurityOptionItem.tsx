@@ -40,7 +40,10 @@ index
       
       <TouchableOpacity style={styles.optionRow} onPress={handleRowPress} >
        
-        <Pressable onPress={onToggleTick} style={styles.leftCheck}>
+        <Pressable 
+        //onPress={onToggleTick}
+        
+         style={styles.leftCheck}>
           <View style={styles.checkCircle}>
             <Image
               source={Images.tick}

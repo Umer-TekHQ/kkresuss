@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: '#030A74',
     borderRadius: 14,
-    marginHorizontal: 20,
+    marginHorizontal: 16, //before was 20 
     marginBottom: 10,
   },
   iconWrapper: {

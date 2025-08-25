@@ -59,7 +59,7 @@ const PrivacyPolicyScreen = () => {
             “App”) and any other websites or apps that link to this Policy (jointly, the “Services”) and how we process
             your Personal Data. This Policy also explains your rights and choices about how we use your Personal Data, including how you can
             access or update certain information about you. Beyond the Privacy Policy, your use of our Services and
-            Website is also subject to our<Text style={{color:'#ADD2FD', fontWeight:'bold'}}> Terms and Conditions.</Text>
+            Website is also subject to our<TouchableOpacity><Text style={{color:'#ADD2FD', fontWeight:'bold', top:5}}> Terms and Conditions.</Text></TouchableOpacity>
           </Text>
         </View>
     </View>

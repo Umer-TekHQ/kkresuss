@@ -27,35 +27,6 @@ const PositionCard = ({ data }: { data: any }) =>{
 
     <View style={styles.divider} />
 
-  
-    {/* <View style={styles.metricRow}>
-      <View style={styles.metricBlock}>
-        <View style={styles.iconRow}>
-          <TouchableOpacity onPress={()=>navigation.navigate('TodayReturns')}>
-          <Text style={styles.metricLabel}>Today's Return</Text>
-          </TouchableOpacity>
-          <Image source={Images.identity} style={styles.iconSmall} />
-        </View>
-        <Text style={styles.metricRowText}>
-    <Text style={styles.whiteText}>{data.position.todayReturn} </Text>
-    <Text style={styles.greenText}>{data.position.todayReturnPercent}</Text>
-       </Text>
-      </View>
-
-      <View style={styles.metricBlock}> 
-        <View style={styles.iconRow}>
-          <TouchableOpacity>
-          <Text style={styles.metricLabel}>1-Year High</Text>
-          </TouchableOpacity>
-          <Image source={Images.identity} style={styles.iconSmall} />
-        </View>
-      <Text style={styles.metricRowText}>
-        <Text style={styles.whiteText}>{data.position.yearHigh} </Text>
-        <Text style={styles.redText}>{data.position.yearHighPercent}</Text>
-      </Text>
-      </View>
-    </View> */}
-
 <View style={styles.metricRow}>
 
   <View style={styles.metricBlock}>
@@ -63,7 +34,9 @@ const PositionCard = ({ data }: { data: any }) =>{
       <TouchableOpacity onPress={() => navigation.navigate('TodayReturns')}>
         <Text style={styles.metricLabel}>Today's Return</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('TodayReturns')}>
       <Image source={Images.identity} style={styles.iconSmall} />
+      </TouchableOpacity>
     </View>
 
     <View style={styles.valueRow}>
@@ -94,7 +67,9 @@ const PositionCard = ({ data }: { data: any }) =>{
       <TouchableOpacity>
         <Text style={styles.metricLabel}>1-Year High</Text>
       </TouchableOpacity>
+      <TouchableOpacity>
       <Image source={Images.identity} style={styles.iconSmall} />
+      </TouchableOpacity>
     </View>
 
     <View style={styles.valueRow}>
@@ -120,8 +95,6 @@ const PositionCard = ({ data }: { data: any }) =>{
   </View>
 </View>
 
-
-  
     <View style={styles.metricRow}>
       <View style={styles.metricBlock}>
         <TouchableOpacity>
@@ -135,7 +108,9 @@ const PositionCard = ({ data }: { data: any }) =>{
         <TouchableOpacity>
         <Text style={styles.metricLabel}>Holders</Text>
         </TouchableOpacity>
+        <TouchableOpacity>
          <Image source={Images.identity} style={styles.iconSmall} />
+        </TouchableOpacity>       
          </View>
         <Text style={styles.lightValue}>{data.position.holders}</Text>
       </View>
@@ -148,7 +123,9 @@ const PositionCard = ({ data }: { data: any }) =>{
           <TouchableOpacity>
           <Text style={styles.metricLabel}>Circulating Supply</Text>
           </TouchableOpacity>
+          <TouchableOpacity>
           <Image source={Images.identity} style={styles.iconSmall} />
+          </TouchableOpacity>
         </View>
         <Text style={styles.lightValue}>{data.position.circulatingSupply}</Text>
       </View>
@@ -158,7 +135,9 @@ const PositionCard = ({ data }: { data: any }) =>{
           <TouchableOpacity>
           <Text style={styles.metricLabel}>Maximum Supply</Text>
           </TouchableOpacity>
+          <TouchableOpacity>
           <Image source={Images.identity} style={styles.iconSmall} />
+          </TouchableOpacity>
         </View>
         <Text style={styles.lightValue}>{data.position.maxSupply}</Text>
       </View>

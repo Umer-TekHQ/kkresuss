@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
    // alignItems: 'center',
-    paddingHorizontal: 16,
+    paddingHorizontal: 11, //orignal was 16
     paddingVertical: 12,
   },
   leftSection: {

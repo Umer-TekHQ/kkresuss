@@ -54,10 +54,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 24,
-    position: 'absolute',
-    bottom:1,
+    position: 'absolute', 
+    bottom:-6, //orignal was 1
     alignSelf: 'center',
     zIndex: 20,
+    
   },
   label: {
     fontSize: 16,

@@ -23,25 +23,23 @@ const ChartSection = () => {
   const buyersPercent = 76;
   const sellersPercent = 24;
 
-  // Transform data for gifted-charts
+ 
   const chartData = graphDataMap[activeFilter].map((value) => ({ value }));
 
-const spacingValue = chartData.length < 10
-  ? (width - 32) / (chartData.length - 1) // kam data → adjust kare
-  : 20; // zyada data → fixed sp
+  const spacingValue = chartData.length < 10
+  ? (width - 32) / (chartData.length - 1) 
+  : 20; 
 
   return (
     <View style={styles.chartContainer}>
       
-
-      
       <LineChart
         data={chartData}
-        width={width}
+       width={width}
         height={140}
         curved
         areaChart
-        spacing={spacingValue}
+      //  spacing={spacingValue}
         thickness={2}
         color="#00FF99"
         startFillColor="#00FF99"
@@ -59,8 +57,8 @@ const spacingValue = chartData.length < 10
         yAxisThickness={0}
         yAxisLabelWidth={0}
         initialSpacing={0}
-       endSpacing={0}
-       adjustToWidth={false} 
+        endSpacing={0}
+        adjustToWidth
       //adjustToWidth={chartData.length < 10}
       />
 
@@ -152,7 +150,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     overflow: 'hidden',
     backgroundColor: '#222',
-    marginHorizontal: 16,
+   // marginHorizontal: 16,
     marginBottom: 12,
     gap: 2,
   },
@@ -165,7 +163,7 @@ const styles = StyleSheet.create({
   bottomRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 16,
+   // paddingHorizontal: 16,
     paddingBottom: 8,
   },
   rowItem: {

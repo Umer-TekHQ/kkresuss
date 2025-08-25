@@ -49,7 +49,7 @@ const [isEmailValid, setIsEmailValid] = useState(false)
       setKeyboardVisible(true)
 
       Animated.timing(inputTranslateY, {
-        toValue: height * 0.01, 
+        toValue: height * 0.03, //qa adjustment
         duration: 300,
         useNativeDriver: true,
       }).start()

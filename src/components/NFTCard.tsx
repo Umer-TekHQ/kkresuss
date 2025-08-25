@@ -19,12 +19,20 @@ const NFTCard = ({ image,style }: NFTCardProps) => {
 export default NFTCard;
 
 const styles = StyleSheet.create({
-  nftBox: {
-    // width: 170,
-     height: 170,
-     aspectRatio: 1,
-    marginBottom: 10,
-  //  marginRight: 10,
+  // nftBox: {
+  //   // width: 170,
+  //    height: 170,
+  //    aspectRatio: 1,
+  //   marginBottom: 10,
+  // //  marginRight: 10,
+  //   backgroundColor: '#111',
+  //   borderRadius: 10,
+  //   overflow: 'hidden',
+  // },
+   nftBox: {
+    flex: 1,         
+    aspectRatio: 1,     
+    margin: 4,            
     backgroundColor: '#111',
     borderRadius: 10,
     overflow: 'hidden',

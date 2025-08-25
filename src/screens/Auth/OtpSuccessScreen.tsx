@@ -1,11 +1,12 @@
-import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import React,{useEffect,useCallback,} from 'react'
+import { View, StyleSheet,BackHandler } from 'react-native'
 import Background from '../../components/Background'
 import FingerprintModal from '../../components/FingerprintModal'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { handleBiometricAuth } from '../../utils/biometricAuth'
+import { useFocusEffect } from '@react-navigation/native'
 
 
 export const OtpSuccessScreen = () => {
@@ -17,6 +18,24 @@ export const OtpSuccessScreen = () => {
       navigation.navigate('UserName')
     }
   }
+
+useFocusEffect(
+  useCallback(() => {
+    const backAction = () => {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Welcome' }],
+      })
+      return true
+    }
+
+    const handler = BackHandler.addEventListener('hardwareBackPress', backAction)
+
+    return () => handler.remove()
+  }, [navigation])
+)
+
+  
 
   return (
     <View style={{ flex: 1 }}>

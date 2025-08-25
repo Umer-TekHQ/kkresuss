@@ -170,7 +170,7 @@ greenUpIcon: {
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 6,
-   height:30,
+   height:40,
     justifyContent: 'center', 
   alignItems: 'center',  
   },

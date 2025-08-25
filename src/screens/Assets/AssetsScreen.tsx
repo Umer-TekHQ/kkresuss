@@ -94,21 +94,22 @@ const ITEM_WIDTH = (screenWidth - ITEM_MARGIN * (NUM_COLUMNS + 1)) / NUM_COLUMNS
 
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: '#01032C' }} contentContainerStyle={{ padding: 16 }}>
+    <ScrollView style={{ flex: 1, backgroundColor: '#01032C' }} contentContainerStyle={{ padding: 14 }}> 
+    {/*orignal padding 16  */}
       <Text style={styles.myNFTsText}>My NFTs</Text>
 
       <View style={styles.nftGrid}>
        <FlatList
         data={nftImages}
         renderItem={({ item }) =>(
-          <View  style={{ margin: ITEM_MARGIN }}>
+          // <View  style={{ margin: ITEM_MARGIN }}>
            <NFTCard image={item.image} style={{ width: ITEM_WIDTH }}
            />
-           </View>
+          //  </View>
   )}
         keyExtractor={(item) => item.id}
         numColumns={2}
-         columnWrapperStyle={{ justifyContent: 'space-around',}}
+        columnWrapperStyle={{ justifyContent: 'space-between' }}
         scrollEnabled={false}
           />
 
@@ -328,6 +329,7 @@ popularIcon: {
   fontWeight: '600',
   marginTop: 20,
   marginBottom: 5,
+  left:5,
 },
 
 nftGrid: {

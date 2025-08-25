@@ -58,14 +58,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#086DE1',
     borderRadius: 99,
-    paddingHorizontal: 12,
+    paddingHorizontal: 14, 
     paddingVertical: 8,
     marginBottom: 16,
   },
   searchIcon: {
     width: 18,
     height: 18,
-    marginRight: 8,
+    marginRight: 10, //orignal was 8 
     resizeMode: 'contain',
   },
   searchInput: {

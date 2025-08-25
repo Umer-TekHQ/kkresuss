@@ -9,7 +9,7 @@ type Props = {
 };
 
 const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
-  const [subAmount, setSubAmount] = useState("1.146382610  ");
+  const [subAmount, setSubAmount] = useState("0");
    const [isSwapped, setIsSwapped] = useState(false);
    const CONVERSION_RATE = 0.00020401; 
 
@@ -40,7 +40,7 @@ const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
 
 
               const num = parseFloat(sanitized || "0");
-  setSubAmount((num * CONVERSION_RATE).toFixed(8)); 
+         setSubAmount((num * CONVERSION_RATE).toFixed(8)); 
           }}
    
         />
@@ -52,6 +52,8 @@ const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
           setSubAmount(currentAmount);
           setIsSwapped((prev) => !prev); 
         }}
+        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} 
+    
         >
         <Image source={Images.swap} style={styles.swapIcon} />
         </TouchableOpacity>
@@ -105,7 +107,8 @@ const styles = StyleSheet.create({
     height: 18,
     marginLeft: 8,
     resizeMode: 'contain',
-    left: 75,
+    left: 60,
+    zIndex:5,
     tintColor:'#ADD2FD'
    // top: 5,
   },

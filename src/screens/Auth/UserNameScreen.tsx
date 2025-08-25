@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from 'react'
+import React, { useState ,useEffect,useCallback} from 'react'
 import {
   View,
   Text,
@@ -6,7 +6,8 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
-  Keyboard
+  Keyboard,
+  BackHandler
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
@@ -17,6 +18,9 @@ import { Images } from '../../assets'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { setUsername } from '../../store/slices/userSlice'
+import { useFocusEffect } from '@react-navigation/native'
+
+
 
 const { width, height } = Dimensions.get('window')
 
@@ -25,6 +29,21 @@ export const UserNameScreen = () => {
   const dispatch = useAppDispatch()
   const savedUsername = useAppSelector(state => state.user.username)
 
+useFocusEffect(
+  useCallback(() => {
+    const backAction = () => {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Welcome' }],
+      })
+      return true
+    }
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+
+    return () => backHandler.remove()
+  }, [navigation])
+)
 
   useEffect(() => {
   const showSub = Keyboard.addListener('keyboardDidShow', () => setKeyboardVisible(true))
@@ -165,7 +184,7 @@ const styles = StyleSheet.create({
     flex: 1, 
     justifyContent: 'flex-end',
     marginTop:10,
-   // paddingBottom: 20
+   // paddingTop: 40
   }
 })
 
