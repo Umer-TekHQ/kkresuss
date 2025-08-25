@@ -42,7 +42,7 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
   if (cardHeight > MAX_CARD_HEIGHT) cardHeight = MAX_CARD_HEIGHT;
   if (cardHeight < MIN_CARD_HEIGHT) cardHeight = MIN_CARD_HEIGHT;
 
-  const cardWidth = wp('85%'); 
+  const cardWidth = wp('87%'); 
 
   return (
     <View
@@ -171,11 +171,12 @@ const styles = StyleSheet.create({
     padding: wp('1%'),
   },
   cryptoTotalValue: {
-    fontSize: wp('7%'),
-    fontWeight: 'bold',
+    fontSize: wp('9%'),
     color: 'white',
-    marginBottom: hp('0.6%'),
+    // marginBottom: hp('0.3%'),
     marginLeft: wp('4%'),
+    fontFamily: 'PlayfairDisplay-Bold', 
+
   },
   cryptoChangeRow: {
     flexDirection: 'row',
@@ -201,7 +202,7 @@ const styles = StyleSheet.create({
     height: hp('3.5%'),
     color: '#ADD2FD',
     fontSize: wp('5.2%'),
-    marginBottom: hp('0.7%'),
+    // marginBottom: hp('0.7%'),
     marginLeft: wp('4%'),
     // marginTop: hp('4%'),
   },

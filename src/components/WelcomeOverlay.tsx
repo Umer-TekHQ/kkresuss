@@ -18,6 +18,7 @@ interface Props {
 }
 
 const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
+
   const containerWidth = width * 0.9;
   const containerHeight = width * 1.35;
   const bgtopWidth = width * 0.89;
@@ -78,14 +79,13 @@ const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
 export default WelcomeOverlay;
 
 const styles = StyleSheet.create({
-overlay: {
-  ...StyleSheet.absoluteFillObject,
-  backgroundColor: 'rgba(0, 0, 0, 0.7)', 
-  justifyContent: 'center',
-  alignItems: 'center',
-  zIndex: 999,
-},
-
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)', 
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 999,
+  },
   container: {
     borderRadius: 24,
     alignItems: 'center',
@@ -128,9 +128,9 @@ overlay: {
     textAlign: 'center',
     color: '#fff',
     fontSize: 30,
-    fontWeight: '600',
     marginBottom: 20,
     lineHeight: 36,
+    fontFamily: 'PlayfairDisplay-Bold', 
   },
   primaryButton: {
     flexDirection: 'row',
@@ -147,8 +147,7 @@ overlay: {
   primaryText: {
     color: '#0A0E27',
     fontWeight: 'bold',
-    // textAlign: 'center',
-    marginLeft: wp('20%'),
+    marginLeft: wp('18%'),
     fontSize: 15,
   },
   secondaryButton: {
@@ -177,13 +176,13 @@ overlay: {
     fontSize: 15,
   },
   icons: {
-    width: 34,
-    height: 24,
+    width: 36,
+    height: 26,
     marginRight: 10,
   },
   icons1:{
-    width: 24,
-    height: 24,
+    width: 26,
+    height: 26,
     marginRight: 10,
   }
 });

@@ -5,6 +5,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { BottomSheetUnified } from '../../components/BottomSheet'
 import { Images } from '../../assets/index';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import BottomSheetExplore from '../../components/BottomSheetExplore'
 
 
 
@@ -15,15 +16,16 @@ export const BottomSheetScreen = ({ navigation }: any) => {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
         <Image source={Images.trade1} style={styles.image} />
-
+        <View style={{zIndex: 9999}}>
         <TouchableOpacity onPress={() => navigation.goBack()} >
           <View style={styles.backborder}>
             <Image source={Images.explorecross} style={styles.cross} />
           </View>
         </TouchableOpacity>
         </View>
+        </View>
 
-      <BottomSheetUnified screen="explore" translateY={translateY} />
+      <BottomSheetExplore/>
 
       <View style={styles.bottomOverlay}>
         <TouchableOpacity
@@ -53,12 +55,12 @@ const styles = StyleSheet.create({
   cross: {
     tintColor: "white",
     width: wp('8'),
-    height: hp('4%')
+    height: hp('4%'),
     },
   backborder: {
     marginLeft: 20,
     marginTop: 20,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   bottomOverlay: {
     borderTopWidth: 0.5,

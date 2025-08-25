@@ -3,8 +3,7 @@ import { useSharedValue } from 'react-native-reanimated'
 import React from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Images } from '../../assets/index'
-import {BottomSheetUnified} from '../../components/BottomSheet'
-
+import BottomSheetProfileBottom from '../../components/BottomSheetProfileBottom'
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export const ProfileBottom = ({navigation}: any) => {
@@ -25,7 +24,7 @@ export const ProfileBottom = ({navigation}: any) => {
               </View>
               </TouchableOpacity>
         </View>
-        <BottomSheetUnified screen="profilebottom" translateY={translateY} />
+        <BottomSheetProfileBottom />
         
       </GestureHandlerRootView>
   )
