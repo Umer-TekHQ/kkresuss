@@ -23,7 +23,7 @@ const RecoveryAnd2FAScreen = () => {
       <View style={styles.subcontainer}>
  <View style={styles.dividertwo} />
       <View style={styles.section}>
-        <Text style={styles.label}>Email</Text>
+        <Text style={styles.label}>Email </Text>
         <Text style={styles.emailText}>{email}</Text>
         <Text style={styles.verified}>✔ Email address verified</Text>
       </View>
