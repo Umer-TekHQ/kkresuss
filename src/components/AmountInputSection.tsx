@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import {
   View,
   Text,
@@ -22,9 +22,12 @@ const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
   const CONVERSION_RATE = 0.00020401;
 
   const animatedFontSize = useRef(new Animated.Value(60)).current;
-  const animatedMarginLeft = useRef(new Animated.Value(0)).current; 
+  const animatedMarginLeft = useRef(new Animated.Value(0)).current;
+  
+  // Use a ref to maintain input focus
+  const inputRef = useRef<TextInput>(null);
 
-  const handleChange = (val: string) => {
+  const handleChange = useCallback((val: string) => {
     const sanitized = val.replace(/[^0-9.]/g, '');
     const parts = sanitized.split('.');
     if (parts.length > 2) return;
@@ -48,7 +51,22 @@ const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
       duration: 200,
       useNativeDriver: false,
     }).start();
-  };
+  }, [setAmount, CONVERSION_RATE, animatedFontSize, animatedMarginLeft]);
+
+  const handleSwap = useCallback(() => {
+    const currentAmount = amount;
+    const currentSub = subAmount;
+    setAmount(currentSub);
+    setSubAmount(currentAmount);
+    setIsSwapped(prev => !prev);
+    
+    // Keep focus after swap
+    setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 100);
+  }, [amount, subAmount, setAmount, setSubAmount]);
 
   const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
@@ -69,12 +87,13 @@ const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
           </Animated.Text>
 
           <AnimatedTextInput
+            ref={inputRef}
             style={[
               styles.amountInputField,
               {
                 color: isInsufficient ? '#FF5A5F' : '#FFFFFF',
                 fontSize: animatedFontSize,
-                marginLeft: -animatedMarginLeft, 
+                marginLeft: -animatedMarginLeft,
               },
             ]}
             keyboardType="decimal-pad"
@@ -84,14 +103,7 @@ const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
         </View>
 
         <TouchableOpacity
-          onPress={() => {
-            const currentAmount = amount;
-            const currentSub = subAmount;
-            setAmount(currentSub);
-            setSubAmount(currentAmount);
-            setIsSwapped(prev => !prev);
-          }}
-          // hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          onPress={handleSwap}
         >
          <Image source={Images.swap} style={styles.swapIcon} /> 
         </TouchableOpacity>
@@ -119,7 +131,7 @@ const styles = StyleSheet.create({
   amountInputBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end', 
+    justifyContent: 'flex-end',
     borderRadius: 10,
     paddingHorizontal: 12,
     marginLeft: 55,
@@ -132,7 +144,6 @@ const styles = StyleSheet.create({
   },
   amountInputField: {
     fontWeight: 'bold',
-    // textAlign: 'right', 
     width: 140,
   },
   swapIcon: {
@@ -140,8 +151,6 @@ const styles = StyleSheet.create({
     height: 22,
     marginLeft: 12,
     resizeMode: 'contain',
-    // left: 60,
-    zIndex: 5,
     tintColor: '#ADD2FD',
   },
   subAmount: {

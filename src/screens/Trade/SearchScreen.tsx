@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
     color: '#8DABD5',
     fontSize: 20,
     marginRight: 10,
-    backgroundColor: '#12132C',
   },
   searchbarr: {
     flexDirection: 'row',
@@ -125,6 +124,7 @@ const styles = StyleSheet.create({
     color: '#ADD2FD',
     fontSize: 15,
     fontWeight: '600',
+    paddingHorizontal: 10,
   },
   tokenItem: {
     paddingTop: 20,
@@ -133,9 +133,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
-    paddingRight: 10,
+    paddingHorizontal: 10,
   },
-  logo: {
+  logo: { 
     width: 42,
     height: 42,
     marginRight: 12,

@@ -1,10 +1,20 @@
 import React, { useRef, useMemo, useState, forwardRef, useImperativeHandle, useCallback } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import BottomSheet, { BottomSheetView, BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 import LinearGradient from 'react-native-linear-gradient';
-import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing, runOnJS, useAnimatedReaction } from 'react-native-reanimated';
+import Animated, { 
+  useSharedValue, 
+  useAnimatedStyle, 
+  withTiming, 
+  Easing, 
+  interpolate,
+  useAnimatedProps,
+  useDerivedValue
+} from 'react-native-reanimated';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Images } from '../assets';
+
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const securityItems = [
   { label: 'Advanced Verification', screen: 'Recovery' },
@@ -21,70 +31,98 @@ export interface BottomSheetHomeRef {
 
 const BottomSheetHome = forwardRef<BottomSheetHomeRef, { navigation: any }>(({ navigation }, ref) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const rotation = useSharedValue(0);
+  const animatedPosition = useSharedValue(0);
   const [isOpen, setIsOpen] = useState(false);
+  const rotation = useSharedValue(0);
 
-  const snapPoints = useMemo(() => [hp('15.5%'), hp('70.67%')], []);
+  // Responsive snap points based on screen height - only two positions
+  const snapPoints = useMemo(() => [hp('15.5%'), hp('70%')], []);
 
   useImperativeHandle(ref, () => ({
-    openSheet: () => bottomSheetRef.current?.snapToIndex(1),
-    closeSheet: () => bottomSheetRef.current?.snapToIndex(0),
+    openSheet: () => {
+      bottomSheetRef.current?.snapToIndex(1);
+    },
+    closeSheet: () => {
+      bottomSheetRef.current?.snapToIndex(0);
+    },
   }));
 
-  const arrowAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [{ rotate: `${rotation.value}deg` }],
-  }));
+  // Improved arrow animation based on sheet position
+  const arrowAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ rotate: `${rotation.value}deg` }],
+    };
+  });
 
-const handleSheetChange = useCallback(
-  (index: number) => {
-    if (index === 1) { 
+  // Handle sheet position changes
+  const handleSheetChange = useCallback((index: number) => {
+    if (index === 1) {
       rotation.value = withTiming(180, { duration: 300, easing: Easing.out(Easing.ease) });
       setIsOpen(true);
-    } else { 
+    } else if (index === 0) {
       rotation.value = withTiming(0, { duration: 300, easing: Easing.out(Easing.ease) });
       setIsOpen(false);
     }
-  },
-  [rotation]
-);
+  }, [rotation]);
 
+  // Handle animation completion
+  const handleAnimate = useCallback((fromIndex: number, toIndex: number) => {
+    // Ensure we're at one of the two defined positions
+    if (toIndex !== 0 && toIndex !== 1) {
+      if (toIndex > 0.5) {
+        bottomSheetRef.current?.snapToIndex(1);
+      } else {
+        bottomSheetRef.current?.snapToIndex(0);
+      }
+    }
+  }, []);
 
   const renderBackdrop = (props: BottomSheetBackdropProps) => (
     <BottomSheetBackdrop
       {...props}
-      disappearsOnIndex={0}
-      appearsOnIndex={1}
-      pressBehavior="collapse"
+      disappearsOnIndex={-1}
+      appearsOnIndex={0}
+      pressBehavior="close"
       opacity={0.5}
     />
   );
 
+  // Responsive values
   const responsiveHomeHeadMargin = Math.max(0.5, wp('0.5%'));
   const responsiveHomeNumbersMargin = Math.max(30, wp('32%'));
 
   return (
     <View style={styles.absoluteContainer}>
-        <BottomSheet
-          ref={bottomSheetRef}
-          index={0}
-          snapPoints={snapPoints}
-          enablePanDownToClose={false}
-          backdropComponent={renderBackdrop}
-          backgroundStyle={styles.background}
-          handleComponent={null}
-          onChange={handleSheetChange} 
-        >
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        enablePanDownToClose={false}
+        backdropComponent={renderBackdrop}
+        backgroundStyle={styles.background}
+        handleComponent={null}
+        onChange={handleSheetChange}
+        animatedPosition={animatedPosition}
+        animateOnMount={true}
+        enableOverDrag={false}
+        enableDynamicSizing={false}
+      >
         <BottomSheetView style={styles.contentContainer}>
           <View style={[styles.head, { marginHorizontal: responsiveHomeHeadMargin }]}>
             <Image source={Images.headimage} style={styles.headImg} />
             <Text style={styles.heading}>My Security Score</Text>
             <Text style={[styles.numbers, { marginLeft: responsiveHomeNumbersMargin }]}>2/5</Text>
-            <TouchableOpacity>
-              {isOpen ? (
-                <Animated.Image source={Images.whitecross} style={styles.upImg} />
-              ) : (
-                <Animated.Image source={Images.up} style={[styles.upImg, arrowAnimatedStyle]} />
-              )}
+            <TouchableOpacity onPress={() => {
+              if (isOpen) {
+                bottomSheetRef.current?.snapToIndex(0);
+              } else {
+                bottomSheetRef.current?.snapToIndex(1);
+              }
+            }}>
+              <Animated.Image 
+                source={Images.up} 
+                style={[styles.upImg, arrowAnimatedStyle]} 
+              />
             </TouchableOpacity>
           </View>
 
@@ -137,30 +175,146 @@ const handleSheetChange = useCallback(
 });
 
 const styles = StyleSheet.create({
-  absoluteContainer: { position: 'absolute', bottom: 0, left: 0, right: 0, height: hp('100%') },
-  background: { backgroundColor: '#030A74', borderTopLeftRadius: 15, borderTopRightRadius: 15 },
-  contentContainer: { flex: 1 },
-  head: { flexDirection: 'row', marginBottom: 7, textAlign: 'center', alignItems: 'center', marginTop: 5 },
-  headImg: { marginLeft: 15, width: 16, height: 20 },
-  heading: { color: '#ffffff', fontSize: 14, fontWeight: '600', marginLeft: 15 },
-  numbers: { marginLeft: 79, fontSize: 13, color: 'gold' },
-  upImg: { marginLeft: wp('5%'), marginTop: 5, width: 22, height: 30 },
-  Liner: { flexDirection: 'row', marginHorizontal: 10, marginTop: 10 },
-  line1: { width: 120, height: 4, alignSelf: 'center', backgroundColor: 'gold', borderRadius: 2, marginHorizontal: 4 },
-  line: { width: 55, height: 4, marginLeft: 4, backgroundColor: '#10132C', alignSelf: 'center', marginHorizontal: 8, borderRadius: 2 },
-  Lists: { marginTop: 10 },
-  list: { marginHorizontal: 12, marginBottom: 15 },
-  L1: { flexDirection: 'row', alignItems: 'center' },
-  img1: { marginTop: 4 },
-  T1: { marginTop: 5, marginLeft: 10, fontSize: 18, color: '#D4EBFF', flex: 1 },
-  proBdg: { marginLeft: wp('13%'), marginTop: 7, width: 45, height: 25, borderRadius: 5 },
-  backBtn: { fontSize: 10, marginLeft: wp('25%'), marginTop: 12, tintColor: '#086CE1', marginRight: 10 },
-  backBtn1: { marginLeft: wp('38%'), marginRight: 10 },
-  backBtn2: { marginLeft: wp('4%'), marginRight: 10 },
-  button: { flexDirection: 'row', alignSelf: 'center', borderWidth: 1, borderColor: 'lightblue', width: 175, borderRadius: 25, marginVertical: 10, marginBottom: 20 },
-  btnSty: { flexDirection: 'row', marginLeft: 10, alignItems: 'center' },
-  secure: { marginTop: 8, width: 19, height: 24 },
-  btnText: { textAlign: 'center', padding: 10, color: 'white' },
+  absoluteContainer: { 
+    position: 'absolute', 
+    bottom: 0, 
+    left: 0, 
+    right: 0, 
+    height: hp('100%'),
+    zIndex: 10,
+  },
+  background: { 
+    backgroundColor: '#030A74', 
+    borderTopLeftRadius: wp('5%'), 
+    borderTopRightRadius: wp('5%'),
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -3 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 10,
+  },
+  contentContainer: { 
+    flex: 1, 
+    paddingBottom: hp('2%'),
+  },
+  head: { 
+    flexDirection: 'row', 
+    marginBottom: hp('1%'), 
+    textAlign: 'center', 
+    alignItems: 'center', 
+    marginTop: hp('1%'),
+    paddingHorizontal: wp('2%'),
+  },
+  headImg: { 
+    width: wp('4%'), 
+    height: hp('2.5%'),
+    resizeMode: 'contain',
+  },
+  heading: { 
+    color: '#ffffff', 
+    fontSize: wp('3.5%'), 
+    fontWeight: '600', 
+    marginLeft: wp('3%'),
+    flex: 1,
+  },
+  numbers: { 
+    fontSize: wp('3.2%'), 
+    color: 'gold',
+    marginRight: wp('2%'),
+  },
+  upImg: { 
+    width: wp('6%'), 
+    height: hp('3.5%'),
+    resizeMode: 'contain',
+  },
+  Liner: { 
+    flexDirection: 'row', 
+    marginHorizontal: wp('3%'), 
+    marginTop: hp('1%'),
+    alignItems: 'center',
+  },
+  line1: { 
+    width: wp('30%'), 
+    height: hp('0.5%'), 
+    backgroundColor: 'gold', 
+    borderRadius: wp('0.5%'), 
+    marginRight: wp('2%'),
+  },
+  line: { 
+    width: wp('12%'), 
+    height: hp('0.5%'), 
+    backgroundColor: '#10132C', 
+    borderRadius: wp('0.5%'), 
+    marginRight: wp('2%'),
+  },
+  Lists: { 
+    marginTop: hp('2%'),
+    paddingHorizontal: wp('3%'),
+  },
+  list: { 
+    marginBottom: hp('1.5%'),
+  },
+  L1: { 
+    flexDirection: 'row', 
+    alignItems: 'center',
+  },
+  img1: { 
+    width: wp('5%'), 
+    height: hp('2.5%'),
+    resizeMode: 'contain',
+  },
+  T1: { 
+    marginLeft: wp('2.5%'), 
+    fontSize: wp('4%'), 
+    color: '#D4EBFF', 
+    flex: 1,
+  },
+  proBdg: { 
+    width: wp('11%'), 
+    height: hp('3%'), 
+    borderRadius: wp('1%'),
+    resizeMode: 'contain',
+    marginLeft: wp('2%'),
+  },
+  backBtn: { 
+    width: wp('3%'), 
+    height: hp('2%'),
+    resizeMode: 'contain',
+    tintColor: '#086CE1',
+    marginLeft: wp('2%'),
+  },
+  backBtn1: {
+    marginLeft: wp('10%'),
+  },
+  backBtn2: {
+    marginLeft: wp('2%'),
+  },
+  button: { 
+    alignSelf: 'center', 
+    borderWidth: 1, 
+    borderColor: 'lightblue', 
+    width: wp('45%'), 
+    borderRadius: wp('6%'), 
+    marginTop: hp('2%'),
+    marginBottom: hp('2%'),
+  },
+  btnSty: { 
+    flexDirection: 'row', 
+    padding: wp('2.5%'),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  secure: { 
+    width: wp('4.5%'), 
+    height: hp('2.8%'),
+    resizeMode: 'contain',
+    marginRight: wp('2%'),
+  },
+  btnText: { 
+    textAlign: 'center', 
+    color: 'white',
+    fontSize: wp('3.5%'),
+  },
 });
 
 export default BottomSheetHome;
