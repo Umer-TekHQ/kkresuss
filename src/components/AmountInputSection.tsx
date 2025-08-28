@@ -91,9 +91,9 @@ const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
             setSubAmount(currentAmount);
             setIsSwapped(prev => !prev);
           }}
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          // hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
-          <Image source={Images.swap} style={styles.swapIcon} />
+         <Image source={Images.swap} style={styles.swapIcon} /> 
         </TouchableOpacity>
       </View>
 
@@ -136,11 +136,11 @@ const styles = StyleSheet.create({
     width: 140,
   },
   swapIcon: {
-    width: 18,
-    height: 18,
-    marginLeft: 8,
+    width: 22,
+    height: 22,
+    marginLeft: 12,
     resizeMode: 'contain',
-    left: 60,
+    // left: 60,
     zIndex: 5,
     tintColor: '#ADD2FD',
   },
