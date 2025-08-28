@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   backarrow:{
-    marginLeft: 12,
+    marginLeft: 20,
   },
   card:{
     display: 'flex',

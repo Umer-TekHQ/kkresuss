@@ -76,8 +76,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   icon1: {
-    width: 31,
-    height: 31,
+    width: 40,
+    height: 40,
+    marginTop: 5,
+    marginLeft: 5,
     resizeMode: 'contain',
     tintColor: 'white',
   },

@@ -111,6 +111,7 @@ const ReceiveTokenScreen = () => {
           </TouchableOpacity>
         )}
       />
+
     </View>
   );
 };

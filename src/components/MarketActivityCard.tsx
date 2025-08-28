@@ -26,8 +26,8 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
   buyersPercentage = 40,
   sellersPercentage = 60,
 }) => {
-  const cardWidth = screenWidth * 0.87;
-  const gap = cardWidth * 0.05;
+  const cardWidth = screenWidth * 0.88;
+  const gap = cardWidth * 0.13;
 
   return (
     <View style={[styles.marketActivityCard, { width: cardWidth }]}>
@@ -44,7 +44,7 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
               </View>
               <View style={styles.priceRow}>
                 <Text style={styles.coinPrice}>{coinPrice}</Text>
-                <Text style={styles.priceChangeText}> {priceChange}</Text>
+                <Text style={styles.priceChangeText}> <Image source={Images.greenarrowup} style={{width: 10, height: 10}}/>  {priceChange}</Text>
               </View>
               <View style={styles.mktcap}>
                 <Text style={styles.marketCapLabel}>Mkt Cap</Text>

@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Image, ImageSourcePropType } from 'react-native
 import React from 'react';
 import { useAppSelector } from '../store/hooks';
 import { Images } from '../assets';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 type Props = {
   name: string;
@@ -78,14 +79,15 @@ export default TransactionCompleteCard;
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#080C4C',
-   marginVertical: 4,
-    marginHorizontal:15,
     borderRadius: 20,
-    overflow: 'hidden',
+    borderTopWidth: 2,
+    borderRightWidth: 0.5,
+    borderLeftWidth: 0.5,
+    borderColor: '#030A74',
+
+    paddingTop: 20,
     alignItems: 'center',
-    height: 438,
-    justifyContent: 'flex-start',
-     paddingBottom: 60, 
+    marginHorizontal: 7,
   },
   userSection: {
     alignItems: 'center',
@@ -93,14 +95,14 @@ const styles = StyleSheet.create({
     marginTop:5,
   },
 avatar: {
-  // width: 100,
-  // height: 100,
-  // borderRadius: 50,
-  // resizeMode: 'contain',
-  // backgroundColor: '#000',
-  width:'100%',
-  height:'100%',
-//  borderRadius: 55,
+    width: 100,
+    height: 100,
+    borderRadius: 55,
+    borderWidth: 5,
+    borderColor: '#030A74',
+    marginBottom: 8,
+    paddingVertical: 20,
+    resizeMode: 'contain'
 },
 avatarParent: {
   width: 100,
@@ -132,7 +134,8 @@ initialsCircle: {
   arrowWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 5,
+    marginVertical: 10,
+    marginBottom: 15,
     width: '100%',
     justifyContent: 'center',
     gap: 8,
@@ -149,12 +152,11 @@ initialsCircle: {
     marginHorizontal: 8,
   },
 tokenSection: {
-  height: 83,
-  width: '100%',
-  backgroundColor: '#030A74',
-  paddingHorizontal: 16,
-  paddingVertical: 12,
-  justifyContent: 'center',
+    backgroundColor: '#030A74',
+    padding: 16,
+    width: wp('96%'),
+    marginTop: 20,
+    justifyContent: 'space-between',
 },
 tokenLabel: {
   color: '#CEB55A',
@@ -186,20 +188,20 @@ tokenUsd: {
 },
 
   statusBar: {
-    width: '100%',
-    height:'auto',
     backgroundColor: '#CEB55A',
     paddingVertical: 10,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    position: 'absolute',
-    bottom: 0,
+    width: wp('96%'),
+    borderBottomRightRadius: 25,
+    borderBottomLeftRadius: 25,
+    alignItems: 'center',
+    marginHorizontal: 7
   },
   statusText: {
     fontSize:15,
     textAlign: 'center',
     color: '#01032C',
-    fontWeight: 'bold',
+    fontWeight: '800',
+    letterSpacing: 0.5,
   },
   arrowIcon: {
   width: 24,

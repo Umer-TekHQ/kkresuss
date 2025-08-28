@@ -1,191 +1,152 @@
-import React, { useImperativeHandle, useEffect, useState, forwardRef } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withSpring,
-  withTiming,
-  useDerivedValue,
-  runOnJS,
-  useAnimatedReaction
-} from 'react-native-reanimated';
-import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import React, { useRef, useMemo, useCallback } from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import BottomSheet, { BottomSheetView, BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Images } from '../assets';
+import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing } from 'react-native-reanimated';
+
 
 export interface BottomSheetProfileRef {
   openSheet: () => void;
   closeSheet: () => void;
 }
 
-const TRANSLATE_Y_CONFIG = {
-  initial: -hp('9%'),
-  min: -hp('9%'),
-  max: -hp('50%'),
-};
+const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation: any }>(
+  ({ navigation }, ref) => {
+    const bottomSheetRef = useRef<BottomSheet>(null);
 
-const BottomSheetProfile = forwardRef<BottomSheetProfileRef, { navigation: any }>(({
-  navigation
-}, ref) => {
-  const translateY = useSharedValue(TRANSLATE_Y_CONFIG.initial);
-  const context = useSharedValue({ y: 0 });
-  const initialY = useSharedValue(TRANSLATE_Y_CONFIG.initial);
-  const minY = useSharedValue(TRANSLATE_Y_CONFIG.min);
-  const maxY = useSharedValue(TRANSLATE_Y_CONFIG.max);
-  const [blockingPointerEvents, setBlockingPointerEvents] = useState(false);
+    const snapPoints = useMemo(() => [hp('8%'), hp('50%')], []);
 
-  const openSheet = () => {
-    translateY.value = withSpring(maxY.value, {
-      damping: 15,
-      stiffness: 80,
-      mass: 0.8,
-    });
-    setBlockingPointerEvents(true);
-  };
-  const closeSheet = () => {
-    translateY.value = withSpring(initialY.value, {
-      damping: 15,
-      stiffness: 80,
-      mass: 0.8,
-    });
-    setBlockingPointerEvents(false);
-  };
-  useImperativeHandle(ref, () => ({ openSheet, closeSheet }));
+    const openSheet = useCallback(() => {
+      bottomSheetRef.current?.snapToIndex(1);
+    }, []);
 
-  useAnimatedReaction(
-    () => {
-      const range = maxY.value - minY.value;
-      const progress = Math.max(0, Math.min(1, (translateY.value - minY.value) / range));
-      return progress;
-    },
-    (progress) => {
-      runOnJS(setBlockingPointerEvents)(progress > 0.95);
-    }
-  );
+    const closeSheet = useCallback(() => {
+      bottomSheetRef.current?.snapToIndex(0);
+    }, []);
 
-  const gesture = Gesture.Pan()
-    .onStart(() => {
-      context.value = { y: translateY.value };
-    })
-    .onUpdate((event) => {
-      translateY.value = Math.max(
-        Math.min(event.translationY + context.value.y, minY.value),
-        maxY.value
-      );
-    })
-    .onEnd((event) => {
-      const midPoint = (minY.value + maxY.value) / 2;
-      const shouldOpenFully = event.velocityY < -500 ||
-        (event.velocityY > -200 && translateY.value < midPoint);
-      if (shouldOpenFully) {
-        translateY.value = withSpring(maxY.value, {
-          damping: 15,
-          stiffness: 80,
-          mass: 0.8,
-          velocity: event.velocityY
-        });
-      } else {
-        translateY.value = withSpring(minY.value, {
-          damping: 15,
-          stiffness: 80,
-          mass: 0.8,
-          velocity: event.velocityY
-        });
-      }
+    React.useImperativeHandle(ref, () => ({
+      openSheet,
+      closeSheet,
+    }));
+
+    const rotation = useSharedValue(0);
+
+    const animatedStyle = useAnimatedStyle(() => {
+      return {
+        transform: [{ rotate: `${rotation.value}deg` }],
+      };
     });
 
-  const rStyle = useAnimatedStyle(() => ({
-    transform: [{ translateY: translateY.value }],
-  }));
-  const isAtMax = useDerivedValue(() => translateY.value === maxY.value);
-  const logoAnimatedStyle = useAnimatedStyle(() => ({
-    opacity: withTiming(isAtMax.value ? 0 : 1),
-  }));
-  const LOGO_WIDTH = 45;
-  const LOGO_MARGIN = 8;
-  const headingAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [
-      {
-        translateX: withSpring(isAtMax.value ? -(LOGO_WIDTH + LOGO_MARGIN) : 0),
+    const handleSheetChange = useCallback(
+      (index: number) => {
+        if (index === 1) {
+          rotation.value = withTiming(180, { duration: 150, easing: Easing.linear });
+        } else {
+          rotation.value = withTiming(0, { duration: 150, easing: Easing.linear });
+        }
       },
-    ],
-  }));
-    const arrowStyle = useAnimatedStyle(() => {
-      const range = maxY.value - minY.value;
-      const progress = Math.max(0, Math.min(1, (translateY.value - minY.value) / range));
-      const rotateDeg = progress * 180; 
-      return { transform: [{ rotate: `${rotateDeg}deg` }] };
-    });
+      [rotation]
+    );
 
-  useEffect(() => {
-    const handler = () => {
-      initialY.value = TRANSLATE_Y_CONFIG.initial;
-      minY.value = TRANSLATE_Y_CONFIG.min;
-      maxY.value = TRANSLATE_Y_CONFIG.max;
-    };
-    const sub = Dimensions.addEventListener('change', handler);
-    return () => {
-      if (sub && typeof sub.remove === 'function') sub.remove();
-    };
-  }, []);
+    const renderBackdrop = useCallback(
+      (props: BottomSheetBackdropProps) => (
+        <BottomSheetBackdrop
+          {...props}
+          appearsOnIndex={1}
+          disappearsOnIndex={0}
+          pressBehavior="collapse"
+          opacity={0.5}
+        />
+      ),
+      []
+    );
 
-  return (
-    <GestureDetector gesture={gesture}>
-      <Animated.View style={[styles.container, rStyle]}>
-        <View style={styles.headProfileRow}>
-          <Animated.Image
-            source={Images.profileheadlogo}
-            style={[styles.headimgP, logoAnimatedStyle]}
-          />
-          <Animated.Text style={[styles.headingP, headingAnimatedStyle]}>
-            Supported Networks
-          </Animated.Text>
-          <Animated.Image source={Images.up} style={[styles.upimgP, arrowStyle]} />
-        </View>
-        <View style={styles.l1}>
-          <View style={styles.rowLeft}>
-            <Image source={Images.base} />
-            <Text style={styles.l1text}> Base Network</Text>
+    return (
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        enablePanDownToClose={false}
+        backdropComponent={renderBackdrop}
+        backgroundStyle={styles.background}
+        handleComponent={null}
+        onChange={handleSheetChange}  
+      >
+        <BottomSheetView style={styles.contentContainer}>
+          <View style={styles.headProfileRow}>
+            <Image source={Images.profileheadlogo} style={styles.headimgP} />
+            <Text style={styles.headingP}>Supported Networks</Text>
+
+            <Animated.Image
+              source={Images.up}
+              style={[styles.upimgP, animatedStyle]}
+            />
           </View>
-          <Text style={styles.trailingText}>Crypto and NFTs</Text>
-        </View>
-        <View style={styles.l12}>
-          <View style={styles.rowLeft}>
-            <Image source={Images.solanalogo} style={styles.solanalogo} />
-            <Text style={styles.l1textS}> Solana Network</Text>
+
+          <View style={styles.expandableContent}>
+            <View style={styles.l1}>
+              <View style={styles.rowLeft}>
+                <Image source={Images.base} />
+                <Text style={styles.l1text}> Base Network</Text>
+              </View>
+              <Text style={styles.trailingText}>Crypto and NFTs</Text>
+            </View>
+
+            <View style={styles.l12}>
+              <View style={styles.rowLeft}>
+                <Image source={Images.solanalogo} style={styles.solanalogo} />
+                <Text style={styles.l1textS}> Solana Network</Text>
+              </View>
+              <Text style={styles.trailingText}>Crypto only</Text>
+            </View>
+
+            <Text style={styles.bottomtext}>
+              Do not send assets over Ethereum mainnets or they will be lost.
+            </Text>
+
+            <TouchableOpacity
+              style={styles.LMBtn}
+              onPress={() => {
+                navigation.navigate('ProfileBottom');
+                closeSheet();
+              }}
+            >
+              <Text style={{ color: 'white' }}>Learn More</Text>
+            </TouchableOpacity>
           </View>
-          <Text style={styles.trailingText}>Crypto only</Text>
-        </View>
-        <Text style={styles.bottomtext}>
-          Do not sent assets over Ethereum mainnets or they will be lost.
-        </Text>
-        <TouchableOpacity
-          style={styles.LMBtn}
-          onPress={() => {
-            navigation.navigate('ProfileBottom');
-          }}
-        >
-          <Text style={{ color: 'white' }}>Learn More</Text>
-        </TouchableOpacity>
-      </Animated.View>
-    </GestureDetector>
-  );
-});
+        </BottomSheetView>
+      </BottomSheet>
+    );
+  }
+);
+
 
 const styles = StyleSheet.create({
-  container: {
-    height: hp('100%'),
-    width: wp('100%'),
-    backgroundColor: '#10132C',
+  absoluteContainer: {
     position: 'absolute',
-    top: hp('100%'),
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: hp('100%'), 
+    zIndex: 1000,
+  },
+  background: {
+    backgroundColor: '#10132C',
+  },
+  contentContainer: {
+    flex: 1,
+    paddingTop: hp('1%'),
+  },
+  expandableContent: {
+    flex: 1,
+    paddingBottom: hp('2%'),
   },
   headProfileRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: wp('4%'),
-    marginTop: 5,
     marginBottom: 7,
   },
   headimgP: {

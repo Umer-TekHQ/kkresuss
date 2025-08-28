@@ -18,7 +18,7 @@ import { Token } from './types';
 import { HeaderNav } from '../../components/HeaderNav';
 import { Images } from '../../assets';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setAmount1, setAmount2, toggleUSD } from '../../store/slices/tradeSlice';
+import { setAmount1, setAmount2, toggleUSD, setToken1, setToken2 } from '../../store/slices/tradeSlice';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import TradeSwitch from '../../components/TradeSwitch';
 import BottomSheetTrade, { BottomSheetTradeRef } from '../../components/BottomSheetTrade';
@@ -51,7 +51,52 @@ export const TradeScreen = () => {
     XPR: 49536.1,
   };
 
-  const handleToggleUSD = () => dispatch(toggleUSD());
+  const sanitizeInput = (text: string) => {
+    const cleaned = text.replace(/[^0-9.]/g, '');
+    const parts = cleaned.split('.');
+    if (parts.length > 2) return parts[0] + '.' + parts[1];
+    return cleaned;
+  };
+
+  const formatToSix = (num: number) => parseFloat(num.toFixed(6)).toString();
+
+  const handleToggleUSD = () => {
+    if (!amount1 || amount1 === '0') return;
+    dispatch(toggleUSD());
+  };
+
+  const handleAmount1Change = (text: string) => {
+    const safeText = sanitizeInput(text);
+    if (!token1 || !token2) {
+      dispatch(setAmount1(safeText));
+      return;
+    }
+
+    const amountNum = parseFloat(safeText) || 0;
+
+    if (isUSD) {
+      const tokenAmount = amountNum / tokenRates[token1.abbreviation];
+      const converted = (tokenAmount * tokenRates[token1.abbreviation]) / tokenRates[token2.abbreviation];
+      dispatch(setAmount1(formatToSix(tokenAmount)));
+      dispatch(setAmount2(formatToSix(converted)));
+    } else {
+      const usdValue = amountNum * tokenRates[token1.abbreviation];
+      const converted = usdValue / tokenRates[token2.abbreviation];
+      dispatch(setAmount1(safeText));
+      dispatch(setAmount2(formatToSix(converted)));
+    }
+  };
+
+  const handleAmount2Change = (text: string) => {
+    const safeText = sanitizeInput(text);
+    if (!token1 || !token2) return;
+
+    const amountNum = parseFloat(safeText) || 0;
+    const usdValue = amountNum * tokenRates[token2.abbreviation];
+    const converted = usdValue / tokenRates[token1.abbreviation];
+    dispatch(setAmount2(safeText));
+    dispatch(setAmount1(formatToSix(converted)));
+  };
 
   const validateFields = () => {
     const newErrors = {
@@ -65,46 +110,18 @@ export const TradeScreen = () => {
   };
 
   const handleContinue = () => {
-    if (validateFields()) {
-      tradeSheetRef.current?.openSheet();
-    } else {
+    if (!validateFields()) {
       Alert.alert('Incomplete Information', 'Please select both tokens and enter valid amounts to continue.', [{ text: 'OK' }]);
+      return;
     }
-  };
 
-  const formatToSix = (num: number) => parseFloat(num.toFixed(6)).toString();
-
-  const sanitizeInput = (text: string) => {
-    const cleaned = text.replace(/[^0-9.]/g, '');
-    const parts = cleaned.split('.');
-    if (parts.length > 2) return parts[0] + '.' + parts[1];
-    return cleaned;
-  };
-
-  const handleAmount1Change = (text: string) => {
-    const safeText = sanitizeInput(text);
-    if (isUSD) {
-      const usdAmount = parseFloat(safeText) || 0;
-      if (token1 && tokenRates[token1.abbreviation]) {
-        dispatch(setAmount1(formatToSix(usdAmount / tokenRates[token1.abbreviation])));
-      }
-      if (token1 && token2 && tokenRates[token1.abbreviation] && tokenRates[token2.abbreviation]) {
-        const tokenAmount = usdAmount / tokenRates[token1.abbreviation];
-        const converted = tokenAmount * tokenRates[token1.abbreviation] / tokenRates[token2.abbreviation];
-        dispatch(setAmount2(formatToSix(converted)));
-      }
-    } else {
-      dispatch(setAmount1(safeText));
-      if (token1 && token2 && tokenRates[token1.abbreviation] && tokenRates[token2.abbreviation]) {
-        const amountNum = parseFloat(safeText) || 0;
-        const usdValue = amountNum * tokenRates[token1.abbreviation];
-        const converted = usdValue / tokenRates[token2.abbreviation];
-        dispatch(setAmount2(formatToSix(converted)));
-      }
+    if (token1?.abbreviation === token2?.abbreviation) {
+      Alert.alert('Invalid Selection', 'Trade and Receive tokens cannot be the same.', [{ text: 'OK' }]);
+      return;
     }
-  };
 
-  const handleAmount2Change = (text: string) => {};
+    tradeSheetRef.current?.openSheet();
+  };
 
   const renderTokenField = (
     token: Token | null,
@@ -179,7 +196,10 @@ export const TradeScreen = () => {
             <Text style={styles.title}>Trade</Text>
             <View style={styles.toggleRow}>
               <Text style={styles.enterUsdText}>Enter USD</Text>
-              <TradeSwitch onValueChange={handleToggleUSD} value={isUSD} />
+              <TradeSwitch 
+                onValueChange={handleToggleUSD} 
+                value={!!amount1 && amount1 !== '0' && isUSD} 
+              />
             </View>
           </View>
 
@@ -203,11 +223,21 @@ export const TradeScreen = () => {
             token2,
             amount2,
             handleAmount2Change,
-            () => navigation.navigate('ReceiveTokenScreen', { field: 'token2', excludeToken: token1?.abbreviation }),
+            () => navigation.navigate('ReceiveTokenScreen', { 
+              field: 'token2', 
+              excludeToken: token1?.abbreviation, 
+              onSelectToken: (selectedToken: Token) => {
+                if (selectedToken.abbreviation === token1?.abbreviation) {
+                  return;
+                }
+                dispatch(setToken2(selectedToken));
+              },
+            }),
             false,
             errors.token2 || errors.amount2,
             'token2'
           )}
+
 
           <View style={styles.footer}>
             <Text style={styles.gasText}>30 gas-free transactions remaining</Text>
@@ -259,7 +289,7 @@ const styles = StyleSheet.create({
   gasText: { color: '#ADD2FD', fontSize: 14, textAlign: 'center', marginBottom: 30 },
   continueBtn: {
     backgroundColor: '#0734A9',
-    height: 65,
+    paddingVertical: 16,
     borderRadius: 35,
     justifyContent: 'center',
     alignItems: 'center',

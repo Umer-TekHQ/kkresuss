@@ -45,9 +45,8 @@ const ICON_SIZE = BUTTON_SIZE * 0.4;
 const styles = StyleSheet.create({
   actionButtonsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     marginVertical: screenWidth * 0.04,
-    paddingHorizontal: screenWidth * 0.04,
+    justifyContent: 'space-around',
   },
   actionButton: {
     alignItems: 'center',
@@ -55,6 +54,7 @@ const styles = StyleSheet.create({
     width: BUTTON_SIZE,
     height: BUTTON_SIZE,
     elevation: 2,
+    // paddingHorizontal: screenWidth * 0.02,
   },
   actionButtonIcon: {
     width: ICON_SIZE,

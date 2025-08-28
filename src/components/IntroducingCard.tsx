@@ -6,22 +6,20 @@ import {
   StyleSheet,
   Dimensions,
   Image,
-  Animated,
   ViewToken,
 } from 'react-native';
 import { Images } from '../assets';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const CARD_WIDTH = screenWidth * 0.88;
-const CARD_HEIGHT = screenWidth * 0.26; 
-const SPACING = screenWidth * 0.007;
+const CARD_WIDTH = screenWidth * 0.88; 
+const CARD_HEIGHT = screenWidth * 0.26;
+const SPACING = 35; 
 
 const data = [1, 2, 3];
 
 export default function IntroducingCards() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const scrollX = useRef(new Animated.Value(0)).current;
 
   const onViewableItemsChanged = useRef(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
@@ -34,14 +32,14 @@ export default function IntroducingCards() {
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
 
   const renderItem = () => (
-    <View style={styles.card}>
+    <View style={[styles.card, { marginRight: SPACING }]}>
       <View style={styles.content}>
         <View style={styles.iconcontainer}>
-        <Image
-          source={Images.vaulticon}
-          style={styles.icon}
-          resizeMode="contain"
-        />
+          <Image
+            source={Images.vaulticon}
+            style={styles.icon}
+            resizeMode="contain"
+          />
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.title}>Introducing Kresus Pro</Text>
@@ -68,15 +66,12 @@ export default function IntroducingCards() {
         showsHorizontalScrollIndicator={false}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
-        pagingEnabled
-        snapToInterval={CARD_WIDTH + SPACING}
-        snapToAlignment="center"
+        snapToInterval={CARD_WIDTH + SPACING} 
         decelerationRate="fast"
-        // contentContainerStyle={{ paddingHorizontal: SPACING }}
-        // onScroll={Animated.event(
-        //   [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-        //   { useNativeDriver: false }
-        // )}
+        snapToAlignment="center"
+        contentContainerStyle={{
+          paddingHorizontal: (screenWidth - CARD_WIDTH) / 2.5, 
+        }}
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewConfigRef}
       />
@@ -89,7 +84,7 @@ export default function IntroducingCards() {
               styles.dot,
               { backgroundColor: i === currentIndex ? '#7AB7FD' : '#1B45B0' },
             ]}
-          />              
+          />
         ))}
       </View>
     </View>
@@ -101,14 +96,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 20,
     alignItems: 'center',
-    // marginRight: 15,
-    },
+  },
   card: {
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
     backgroundColor: '#080C4C',
     borderRadius: 20,
-    marginRight: 10,
     borderWidth: 1.5,
     borderColor: '#080C4C',
   },
@@ -120,7 +113,6 @@ const styles = StyleSheet.create({
     height: screenWidth * 0.25,
     justifyContent: 'center',
     alignItems: 'center',
-    // marginLeft: 10,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     marginRight: 10,
@@ -139,10 +131,8 @@ const styles = StyleSheet.create({
     tintColor: '#086DE1',
   },
   textContainer: {
-    // backgroundColor: '#080C4C',
     flex: 1,
     height: '100%',
-    width: '100%',
     justifyContent: 'center',
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
@@ -152,7 +142,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '600',
     fontSize: 16,
-    // marginBottom: 6,
     marginLeft: 5,
   },
   subtitleRow: {

@@ -33,7 +33,6 @@ const TransactionInfoRow = ({ note }: Props) => {
             </Text>
           ) : (
             <View style={styles.valueRow}>
-              {/* 👈 Agar Base row hai toh icon left mai */}
               {item.withBase && (
                 <Image source={Images.basesmall} style={styles.baseIcon} />
               )}
@@ -60,9 +59,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 20,
-    paddingVertical: 8,
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#333',
+    paddingVertical: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#10178A',
   },
   lastRow: {
     borderBottomWidth: 0,
@@ -74,11 +73,11 @@ const styles = StyleSheet.create({
   },
   label: {
     color: '#ADD2FD',
-    fontSize: 15,
+    fontSize: 17,
   },
   value: {
     color: '#ADD2FD',
-    fontSize: 15,
+    fontSize: 17,
     fontWeight: '500',
   },
   noteValue: {
@@ -90,14 +89,14 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   baseIcon: {
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     resizeMode: 'contain',
     marginRight: 4,
   },
   copyIcon: {
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     resizeMode: 'contain',
     tintColor: '#ADD2FD',
     marginLeft: 6,

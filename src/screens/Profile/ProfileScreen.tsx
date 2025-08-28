@@ -11,9 +11,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import ProfileCard from '../../components/ProfileCards';
 import { Images } from '../../assets';
-import { BottomSheetUnified } from '../../components/BottomSheet';
 import { useSharedValue } from 'react-native-reanimated';
-import { BottomSheetColors } from '../../theme/theme';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppNavigatorParamList } from '../../navigators/routeNames';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -24,7 +22,6 @@ import Animated, {
   withSpring,
   useSharedValue as useReanimatedSharedValue,
   runOnJS,
-  useAnimatedGestureHandler,
 } from 'react-native-reanimated';
 import { HandlerStateChangeEvent, PanGestureHandler, GestureHandlerRootView, PanGestureHandlerEventPayload, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler';
 import BottomSheetProfile from '../../components/BottomSheetProfile';
@@ -99,7 +96,7 @@ const CardDeck = () => {
                 zIndex: isTop ? 2 : 1,
                 transform: [
                   { translateY: withSpring(isTop ? 0 : -75) },
-                  { scale: withSpring(isTop ? 0.96 : 0.97) },
+                  { scale: withSpring(isTop ? 0.97 : 0.97) },
                 ],
                 opacity: withSpring(isTop ? 1 : 1),
               };
@@ -122,7 +119,6 @@ const CardDeck = () => {
   );
 };
 
-
   const AVATAR_SIZE = screenWidth * 0.19;
   const ICON_SIZE = screenWidth * 0.035;
   const NAME_FONT = screenWidth * 0.048;
@@ -131,13 +127,22 @@ const CardDeck = () => {
   const HEADER_MARGIN = screenWidth * 0.025;
   const CARDS_MARGIN_TOP = screenHeight * 0.19;
 
-  return (
+return (
+  <View style={{ flex: 1, backgroundColor: '#000' }}>
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image
             source={Images.backarrow}
-            style={[styles.icon, { width: ICON_SIZE, height: ICON_SIZE, marginTop: HEADER_MARGIN, marginLeft: 12 }]}
+            style={[
+              styles.icon,
+              {
+                width: ICON_SIZE,
+                height: ICON_SIZE,
+                marginTop: HEADER_MARGIN,
+                marginLeft: 20,
+              },
+            ]}
           />
         </TouchableOpacity>
         <TouchableOpacity>
@@ -149,7 +154,10 @@ const CardDeck = () => {
         <TouchableOpacity onPress={handleChangeProfilePicture}>
           <Image
             source={profilePicture || Images.profileicon}
-            style={[styles.avatar, { width: AVATAR_SIZE, height: AVATAR_SIZE, borderRadius: AVATAR_SIZE / 2 }]}
+            style={[
+              styles.avatar,
+              { width: AVATAR_SIZE, height: AVATAR_SIZE, borderRadius: AVATAR_SIZE / 2 },
+            ]}
           />
         </TouchableOpacity>
         <Text style={[styles.name, { fontSize: NAME_FONT }]}>{displayName}</Text>
@@ -159,20 +167,23 @@ const CardDeck = () => {
         </TouchableOpacity>
       </View>
 
-      <View style={{ marginTop: CARDS_MARGIN_TOP,}}>
+      <View style={{ marginTop: CARDS_MARGIN_TOP }}>
         <CardDeck />
       </View>
-
-      {/* <BottomSheetUnified screen="profile" translateY={translateY} /> */}
-      <BottomSheetProfile navigation={navigation}/>
     </ScrollView>
-  );
+
+    {/* Bottom sheet must be OUTSIDE ScrollView */}
+    <BottomSheetProfile navigation={navigation} />
+  </View>
+);
+
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
+    position: 'relative',
     paddingTop: 20,
   },
   header: {
@@ -183,7 +194,7 @@ const styles = StyleSheet.create({
   },
   editText: {
     color: '#fff',
-    marginRight: 10,
+    marginRight: 15,
     marginTop: 6,
   },
   profileSection: {

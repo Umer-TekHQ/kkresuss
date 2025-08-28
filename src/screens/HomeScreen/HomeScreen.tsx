@@ -28,6 +28,7 @@ import styles from '../../styles/homestyles';
 import IntroducingCards from '../../components/IntroducingCard';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import BottomSheetHome from '../../components/BottomSheetHome';
+import { Dimensions } from 'react-native';
 
 export const HomeScreen: React.FC = () => {
   const translateY = useSharedValue(hp('100%'));
@@ -38,6 +39,10 @@ export const HomeScreen: React.FC = () => {
   const bottomSheetRef = useRef<BottomSheetUnifiedRef>(null);
 
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
+
+  const { width: screenWidth } = Dimensions.get("window");
+  const CARD_WIDTH = screenWidth * 0.85; 
+  const SPACING = 15;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -66,19 +71,28 @@ export const HomeScreen: React.FC = () => {
       <ScrollView contentContainerStyle={styles.content}>
         {showContent ? (
           <>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <FlatList
               data={[1, 2]}
               horizontal
               showsHorizontalScrollIndicator={false}
-              pagingEnabled
               keyExtractor={(item, index) => `summary-${index}`}
               renderItem={() => (
                 <SummaryCard activeFilter={activeFilter} onFilterChange={setActiveFilter} />
               )}
+              snapToInterval={Dimensions.get('window').width / 1} 
               snapToAlignment="center"
+              decelerationRate="fast" 
+                contentContainerStyle={{
+                paddingHorizontal: (screenWidth - CARD_WIDTH) / 4, 
+              }}
             />
+          </View>
 
-            <ActionButtons />
+            <View style={{marginHorizontal: wp('2%')}}>
+              <ActionButtons />
+            </View>
+            
 
             <View style={styles.prossection}>
               <TouchableOpacity onPress={() => navigation.navigate('ProsScreen')}>
@@ -99,24 +113,30 @@ export const HomeScreen: React.FC = () => {
               </TouchableOpacity>
             </View>
 
-            <FlatList
-              data={[1, 2]}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              pagingEnabled
-              keyExtractor={(item, index) => `market-${index}`}
-              renderItem={() => (
-                  <MarketActivityCard />
-              )}
-              snapToAlignment="center"
-            />
+              <FlatList
+                data={[1, 2]}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={(item, index) => `market-${index}`}
+                renderItem={() => <MarketActivityCard />}
+                snapToInterval={Dimensions.get('window').width / 1}   
+                snapToAlignment="center"
+                decelerationRate="fast"
+                 contentContainerStyle={{
+                paddingHorizontal: (screenWidth - CARD_WIDTH) / 4, 
+              }}
+              />
+
 
             <IntroducingCards />
 
-            <Text style={styles.prostext}>Projects to Try</Text>
-                <Projects />
+            <Text style={styles.projectstext}>Projects to Try</Text>
+            <View style={{marginLeft: 15}}>
+              <Projects />
+            </View>
+                
             
-            <View style={{marginBottom: 50}}>
+            <View style={{marginBottom: 110, marginRight: 8,}}>
             <ProjectsList />
             </View>
           </>

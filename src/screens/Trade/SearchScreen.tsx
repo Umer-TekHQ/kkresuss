@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, FlatList, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { tokens } from '../Trade/tokens';
 import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
 import { AppNavigatorParamList } from '../../navigators/routeNames';
@@ -27,55 +27,62 @@ const SearchScreen = () => {
     } else {
       dispatch(setToken2(token));
     }
-    
+
     if (route.params.onSelectToken) {
       route.params.onSelectToken(token);
     }
-    
+
     navigation.goBack();
   };
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.searchbarr}>
-        <Image source={Images.searchicon} style={styles.icon}/>
-      <TextInput
-        placeholder="Search name or address"
-        placeholderTextColor="#8DABD5"
-        style={styles.input}
-        value={searchText}
-        onChangeText={setSearchText}
-      />
-    </View>
-      <Text style={styles.sectionTitle}>My Holdings</Text>
+  const renderToken = (item: Token) => (
+    <TouchableOpacity key={item.id} onPress={() => handleSelect(item)} style={styles.tokenItem}>
+      <Image source={item.logo} style={styles.logo} />
+      <View style={styles.textContainer}>
+        <Text style={styles.tokenName}>{item.name}</Text>
+        <Text style={styles.tokenAbbr}>{item.abbreviation}</Text>
+      </View>
+      <View style={styles.amountContainer}>
+        <Text style={styles.amount}>{item.amount}</Text>
+        <Text style={styles.price}>{item.price}</Text>
+      </View>
+    </TouchableOpacity>
+  );
 
-      <FlatList
-        data={filteredTokens}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.list}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => handleSelect(item)}
-            style={styles.tokenItem}
-          >
-            <Image source={item.logo} style={styles.logo} />
-            <View style={styles.textContainer}>
-              <Text style={styles.tokenName}>{item.name}</Text>
-              <Text style={styles.tokenAbbr}>{item.abbreviation}</Text>
-            </View>
-            <View style={styles.amountContainer}>
-              <Text style={styles.amount}>{item.amount}</Text>
-              <Text style={styles.price}>{item.price}</Text>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
-    </View>
+  return (
+    <ScrollView style={{ flex: 1, backgroundColor: '#01032C' }} contentContainerStyle={{ paddingBottom: 20, }}>
+      <View style={styles.searchbarr}>
+        <Image source={Images.searchicon} style={styles.icon} />
+        <TextInput
+          placeholder="Search name or address"
+          placeholderTextColor="#8DABD5"
+          style={styles.input}
+          value={searchText}
+          onChangeText={setSearchText}
+        />
+      </View>
+
+      {searchText.length > 0 && filteredTokens.length === 0 ? (
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyTitle}>No Supported Tokens Found</Text>
+          <Text style={styles.emptySubtitle}>
+            Please double-check your search and try again.
+          </Text>
+        </View>
+      ) : (
+        <>
+          <Text style={styles.sectionTitle}>My Holdings</Text>
+          {filteredTokens.map(renderToken)}
+
+          <Text style={styles.sectionTitle}>Supported Tokens</Text>
+          {filteredTokens.map(renderToken)}
+        </>
+      )}
+    </ScrollView>
   );
 };
 
 export default SearchScreen;
-
 
 const styles = StyleSheet.create({
   container: {
@@ -84,25 +91,29 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 20,
   },
-    icon: {
+  icon: {
     marginTop: 15,
     width: 18,
     height: 18,
-    marginRight: 8,
+    marginRight: 6,
     tintColor: '#086DE1',
   },
   input: {
     flex: 1,
     color: '#8DABD5',
     fontSize: 20,
+    marginRight: 10,
+    backgroundColor: '#12132C',
   },
-  searchbarr:{
+  searchbarr: {
     flexDirection: 'row',
+    marginTop: 15,
     justifyContent: 'flex-start',
     borderRadius: 40,
     borderColor: '#0734A9',
     borderWidth: 1.5,
-    paddingVertical: 10,
+    paddingVertical: 15,
+    marginHorizontal: 16,
     paddingLeft: 20,
     color: '#8DABD5',
     backgroundColor: '#101221',
@@ -110,16 +121,14 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     marginTop: 20,
+    marginBottom: 10,
     color: '#ADD2FD',
     fontSize: 15,
     fontWeight: '600',
   },
-  list: {
-    paddingVertical: 16,
-  },
   tokenItem: {
     paddingTop: 20,
-    borderTopWidth:1,
+    borderTopWidth: 1,
     borderColor: '#030A74',
     flexDirection: 'row',
     alignItems: 'center',
@@ -138,7 +147,6 @@ const styles = StyleSheet.create({
   tokenName: {
     color: '#fff',
     fontSize: 20,
-    // fontWeight: '600',
   },
   tokenAbbr: {
     color: '#ADD2FD',
@@ -150,10 +158,23 @@ const styles = StyleSheet.create({
   amount: {
     color: '#fff',
     fontSize: 20,
-    // fontWeight: '600',
   },
   price: {
     color: '#ADD2FD',
     fontSize: 13,
+  },
+  emptyContainer: {
+    marginTop: 50,
+    paddingHorizontal: 20,
+  },
+  emptyTitle: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 6,
+  },
+  emptySubtitle: {
+    color: '#ADD2FD',
+    fontSize: 14,
   },
 });

@@ -37,13 +37,15 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   coinLogo: {
-    width: screenWidth * 0.24,
-    height: screenWidth * 0.17,
-    borderRadius: (screenWidth * 0.15) / 2,
+    width: screenWidth * 0.16,
+    height: screenWidth * 0.16,
+    marginTop:5,
+    marginRight: 10,
+    borderRadius: 12
   },
   coinName: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 16,
     marginTop: 5,
   },
   tradeButton: {
@@ -52,18 +54,18 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     marginTop: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
     borderRadius: 20,
   },
   tradeIcon: {
-    width: 13,
-    height: 18,
+    width: 11,
+    height: 16,
     marginRight: 6,
     tintColor: 'black'
   },
   tradeButtonText: {
-    fontSize: 15,
+    fontSize: 13,
     color: '#05194B',
     fontWeight: '600',
   },
@@ -75,7 +77,7 @@ export default StyleSheet.create({
   },
   coinPrice: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
     // fontWeight: 'bold',
   },
   mktcap:{
@@ -90,11 +92,11 @@ export default StyleSheet.create({
     marginTop: 4,
   },
   marketCapLabel: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#ADD2FD',
   },
   marketCapValue: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#ADD2FD',
     marginLeft: 5,
   },
@@ -425,11 +427,20 @@ cryptoChangeTime: {
 },
 prostext:{
   color: '#7AB7FD',
-  fontSize: 19,
+  fontSize: 16,
+  marginTop: 4,
+  marginLeft: 15,
+  marginBottom: 15,
+},
+projectstext:{
+  color: '#7AB7FD',
+  fontSize: 16,
+  marginTop: 4,
+  marginLeft: 15,
+  marginBottom: 10,
 },
 prossection:{
   flexDirection: 'row',
-  justifyContent: 'space-between'
 },
   bottomSheetContainer: {
     ...StyleSheet.absoluteFillObject,
@@ -439,7 +450,7 @@ prossection:{
   },
 prosicon:{
   paddingBottom: 15,
-  marginRight: screenWidth * 0.05,
+  marginLeft: 10
 },
   cryptoSummaryCard: {
   backgroundColor: '#101038',
@@ -530,12 +541,10 @@ cryptoChangeNegative: {
   },
 
   container: {
-    flex: 1,
-    backgroundColor: '#01021D',
+    // flex: 1,
+    backgroundColor: '#01022C',
   },
   content: {
-    paddingLeft: 20,
-    // paddingHorizontal: wp('4%'),
   },
     header: {
     flexDirection: 'row',

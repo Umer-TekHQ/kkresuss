@@ -146,5 +146,8 @@ raydium:require('./images/raydium.png'),
 arrowforward:require('./images/arrowforward.png'),
 backyellow:require('./images/backyellow.png'),
 basesmall:require('./images/basesmall.png'),
-launcharrowup: require('./images/launcharrowup.png')
+launcharrowup: require('./images/launcharrowup.png'),
+headimage: require('./images/headimg.png'),
+probadge1: require('./images/probadge1.png'),
+greenarrowup: require('./images/greenarrowup.png'),
 }

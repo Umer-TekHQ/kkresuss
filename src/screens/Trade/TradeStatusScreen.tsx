@@ -154,7 +154,7 @@ export default TradeStatusScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#02042C',
+    backgroundColor: '#10121D',
   },
   headline:{
     flexDirection: 'row',
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
   },
   tradeCompleteBtn: {
     backgroundColor: '#CEB55A',
-    paddingVertical: 6,
+    paddingVertical: 10,
     width: wp('96%'),
     borderBottomRightRadius: 25,
     borderBottomLeftRadius: 25,
@@ -243,9 +243,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 7
   },
   tradeCompleteText: {
-    fontWeight: '800',
+    fontWeight: '700',
     fontSize:18,
     color: '#0A0F3B',
+    fontFamily: 'Nunito Sans',
   },
   bottombutton:{
     alignItems: 'center',

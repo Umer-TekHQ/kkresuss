@@ -40,7 +40,6 @@ const TransactionStatus = () => {
         <View style={styles.footer}>
           <TouchableOpacity
             style={styles.viewAllButton}
-            onPress={() => navigation.navigate('QR')}
           >
             <Text style={styles.viewAllText}>View Details on BaseScan ↗</Text>
           </TouchableOpacity>

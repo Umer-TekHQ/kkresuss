@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { LineChart } from 'react-native-gifted-charts';
-import LinearGradient from 'react-native-linear-gradient';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import LinearGradient from 'react-native-linear-gradient';
+
 
 type SummaryCardProps = {
   currency?: string;
@@ -42,7 +43,7 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
   if (cardHeight > MAX_CARD_HEIGHT) cardHeight = MAX_CARD_HEIGHT;
   if (cardHeight < MIN_CARD_HEIGHT) cardHeight = MIN_CARD_HEIGHT;
 
-  const cardWidth = wp('87%'); 
+  const cardWidth = wp('88%'); 
 
   return (
     <View
@@ -100,27 +101,32 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
           adjustToWidth
         />
       </View>
-      <View style={styles.timeFilterContainer}>
-        {['1D', '1W', '1M', '1Y', 'ALL'].map(filter => (
-          <TouchableOpacity
-            key={filter}
-            style={[
-              styles.timeFilterButton,
-              activeFilter === filter && styles.activeTimeFilterButton,
-            ]}
-            onPress={() => onFilterChange(filter)}
-          >
-            <Text
+      <LinearGradient 
+          colors={['#070B46', '#080d53ff']} 
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0, y: 1 }}
+          style={styles.timeFilterContainer} 
+        >
+          {['1D', '1W', '1M', '1Y', 'ALL'].map(filter => (
+            <TouchableOpacity
+              key={filter}
               style={[
-                styles.timeFilterText,
-                activeFilter === filter && styles.activeTimeFilterText,
+                styles.timeFilterButton,
+                activeFilter === filter && styles.activeTimeFilterButton,
               ]}
+              onPress={() => onFilterChange(filter)}
             >
-              {filter}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+              <Text
+                style={[
+                  styles.timeFilterText,
+                  activeFilter === filter && styles.activeTimeFilterText,
+                ]}
+              >
+                {filter}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </LinearGradient>
     </View>
   );
 };
@@ -207,3 +213,4 @@ const styles = StyleSheet.create({
     // marginTop: hp('4%'),
   },
 });
+

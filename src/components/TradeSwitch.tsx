@@ -4,6 +4,7 @@ import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
 interface CustomSwitchProps {
   value: boolean;
   onValueChange: (val: boolean) => void;
+  disabled?: boolean;
 }
 
 const TradeSwitch = ({ value, onValueChange }: CustomSwitchProps) => {

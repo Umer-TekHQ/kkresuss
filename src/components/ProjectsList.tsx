@@ -51,6 +51,8 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     marginVertical: 8,
     marginRight: 5,
+    width: '95%',
+    marginLeft: 15,
   },
   logo: {
     width: 40,
