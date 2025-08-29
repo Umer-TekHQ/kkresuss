@@ -1,14 +1,23 @@
 import React, { useRef, useMemo, useCallback, useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import BottomSheet, { BottomSheetView, BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Images } from '../assets';
-import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing } from 'react-native-reanimated';
+import Animated, { 
+  useSharedValue, 
+  useAnimatedStyle, 
+  withTiming, 
+  Easing,
+  interpolate,
+  Extrapolate 
+} from 'react-native-reanimated';
 
 export interface BottomSheetProfileRef {
   openSheet: () => void;
   closeSheet: () => void;
 }
+
+const { width } = Dimensions.get('window');
 
 const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation: any }>(
   ({ navigation }, ref) => {
@@ -31,20 +40,49 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
     }));
 
     const rotation = useSharedValue(0);
+    const sheetPosition = useSharedValue(0); 
 
-    const animatedStyle = useAnimatedStyle(() => ({
+    const arrowAnimatedStyle = useAnimatedStyle(() => ({
       transform: [{ rotate: `${rotation.value}deg` }],
     }));
+
+    const logoAnimatedStyle = useAnimatedStyle(() => {
+      const opacity = interpolate(
+        sheetPosition.value,
+        [0, 0.5],
+        [1, 0],
+        Extrapolate.CLAMP
+      );
+      
+      return {
+        opacity: withTiming(opacity, { duration: 150 }),
+      };
+    });
+
+    const textAnimatedStyle = useAnimatedStyle(() => {
+      const translateX = interpolate(
+        sheetPosition.value,
+        [0, 1],
+        [0, -50], 
+        Extrapolate.CLAMP
+      );
+      
+      return {
+        transform: [{ translateX: withTiming(translateX, { duration: 150 }) }],
+      };
+    });
 
     const handleSheetChange = useCallback(
       (index: number) => {
         rotation.value = withTiming(index === 1 ? 180 : 0, {
-          duration: 300,
+          duration: 150,
           easing: Easing.out(Easing.ease),
         });
+        
+        sheetPosition.value = index;
         setIsOpen(index === 1);
       },
-      [rotation]
+      [rotation, sheetPosition]
     );
 
     const toggleSheet = useCallback(() => {
@@ -82,13 +120,18 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
         <BottomSheetView style={styles.contentContainer}>
           <TouchableOpacity activeOpacity={0.7} onPress={toggleSheet}>
             <View style={styles.headProfileRow}>
-              <Image source={Images.profileheadlogo} style={styles.headimgP} />
-              <Text style={styles.headingP}>Supported Networks</Text>
+              <Animated.View style={logoAnimatedStyle}>
+                <Image source={Images.profileheadlogo} style={styles.headimgP} />
+              </Animated.View>
+              
+              <Animated.Text style={[styles.headingP, textAnimatedStyle]}>
+                Supported Networks
+              </Animated.Text>
 
               <View style={{ width: 28, height: 25, justifyContent: 'center', alignItems: 'center' }}>
                 <Animated.Image
                   source={Images.up}
-                  style={[{ width: 28, height: 25, tintColor: '#4898F3' }, animatedStyle]}
+                  style={[{ width: 28, height: 25, tintColor: '#4898F3' }, arrowAnimatedStyle]}
                 />
               </View>
             </View>
@@ -235,4 +278,3 @@ const styles = StyleSheet.create({
 });
 
 export default BottomSheetProfile;
-
