@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#01021D',
-    paddingHorizontal: 12,
+    paddingHorizontal: 6,
   },
   suggestedRow: {
     flexDirection: 'row',

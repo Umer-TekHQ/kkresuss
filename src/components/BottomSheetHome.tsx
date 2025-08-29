@@ -6,15 +6,10 @@ import Animated, {
   useSharedValue, 
   useAnimatedStyle, 
   withTiming, 
-  Easing, 
-  interpolate,
-  useAnimatedProps,
-  useDerivedValue
+  Easing
 } from 'react-native-reanimated';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Images } from '../assets';
-
-const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const securityItems = [
   { label: 'Advanced Verification', screen: 'Recovery' },
@@ -31,12 +26,9 @@ export interface BottomSheetHomeRef {
 
 const BottomSheetHome = forwardRef<BottomSheetHomeRef, { navigation: any }>(({ navigation }, ref) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const animatedPosition = useSharedValue(0);
   const [isOpen, setIsOpen] = useState(false);
-  const rotation = useSharedValue(0);
 
-  // Responsive snap points based on screen height - only two positions
-  const snapPoints = useMemo(() => [hp('15.5%'), hp('70%')], []);
+  const snapPoints = useMemo(() => [hp('16.5%'), hp('70%')], []);
 
   useImperativeHandle(ref, () => ({
     openSheet: () => {
@@ -47,47 +39,34 @@ const BottomSheetHome = forwardRef<BottomSheetHomeRef, { navigation: any }>(({ n
     },
   }));
 
-  // Improved arrow animation based on sheet position
-  const arrowAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ rotate: `${rotation.value}deg` }],
-    };
-  });
 
-  // Handle sheet position changes
   const handleSheetChange = useCallback((index: number) => {
     if (index === 1) {
-      rotation.value = withTiming(180, { duration: 300, easing: Easing.out(Easing.ease) });
       setIsOpen(true);
     } else if (index === 0) {
-      rotation.value = withTiming(0, { duration: 300, easing: Easing.out(Easing.ease) });
       setIsOpen(false);
-    }
-  }, [rotation]);
-
-  // Handle animation completion
-  const handleAnimate = useCallback((fromIndex: number, toIndex: number) => {
-    // Ensure we're at one of the two defined positions
-    if (toIndex !== 0 && toIndex !== 1) {
-      if (toIndex > 0.5) {
-        bottomSheetRef.current?.snapToIndex(1);
-      } else {
-        bottomSheetRef.current?.snapToIndex(0);
-      }
     }
   }, []);
 
-  const renderBackdrop = (props: BottomSheetBackdropProps) => (
+
+  const toggleSheet = useCallback(() => {
+    if (isOpen) {
+      bottomSheetRef.current?.snapToIndex(0);
+    } else {
+      bottomSheetRef.current?.snapToIndex(1);
+    }
+  }, [isOpen]);
+
+  const renderBackdrop = useCallback((props: BottomSheetBackdropProps) => (
     <BottomSheetBackdrop
       {...props}
-      disappearsOnIndex={-1}
-      appearsOnIndex={0}
-      pressBehavior="close"
-      opacity={0.5}
+      disappearsOnIndex={0}
+      appearsOnIndex={1}
+      pressBehavior="none"  
+      opacity={0.5} 
     />
-  );
+  ), []);
 
-  // Responsive values
   const responsiveHomeHeadMargin = Math.max(0.5, wp('0.5%'));
   const responsiveHomeNumbersMargin = Math.max(30, wp('32%'));
 
@@ -97,34 +76,29 @@ const BottomSheetHome = forwardRef<BottomSheetHomeRef, { navigation: any }>(({ n
         ref={bottomSheetRef}
         index={0}
         snapPoints={snapPoints}
-        enablePanDownToClose={false}
+        enablePanDownToClose={false}  
         backdropComponent={renderBackdrop}
         backgroundStyle={styles.background}
         handleComponent={null}
         onChange={handleSheetChange}
-        animatedPosition={animatedPosition}
         animateOnMount={true}
         enableOverDrag={false}
         enableDynamicSizing={false}
       >
+
         <BottomSheetView style={styles.contentContainer}>
-          <View style={[styles.head, { marginHorizontal: responsiveHomeHeadMargin }]}>
-            <Image source={Images.headimage} style={styles.headImg} />
-            <Text style={styles.heading}>My Security Score</Text>
-            <Text style={[styles.numbers, { marginLeft: responsiveHomeNumbersMargin }]}>2/5</Text>
-            <TouchableOpacity onPress={() => {
-              if (isOpen) {
-                bottomSheetRef.current?.snapToIndex(0);
-              } else {
-                bottomSheetRef.current?.snapToIndex(1);
-              }
-            }}>
+          <TouchableOpacity onPress={toggleSheet} activeOpacity={0.7}>
+            <View style={[styles.head, { marginHorizontal: responsiveHomeHeadMargin }]}>
+              <Image source={Images.headimage} style={styles.headImg} />
+              <Text style={styles.heading}>My Security Score</Text>
+              <Text style={[styles.numbers, { marginLeft: responsiveHomeNumbersMargin }]}>2/5</Text>
               <Animated.Image 
-                source={Images.up} 
-                style={[styles.upImg, arrowAnimatedStyle]} 
+                source={isOpen ? Images.whitecross : Images.up} 
+                style={styles.upImg} 
               />
-            </TouchableOpacity>
-          </View>
+            </View>
+          </TouchableOpacity>
+
 
           <View style={styles.Liner}>
             <LinearGradient
@@ -181,7 +155,7 @@ const styles = StyleSheet.create({
     left: 0, 
     right: 0, 
     height: hp('100%'),
-    zIndex: 10,
+    // zIndex: 10,
   },
   background: { 
     backgroundColor: '#030A74', 
@@ -202,46 +176,48 @@ const styles = StyleSheet.create({
     marginBottom: hp('1%'), 
     textAlign: 'center', 
     alignItems: 'center', 
-    marginTop: hp('1%'),
-    paddingHorizontal: wp('2%'),
+    marginTop: hp('1.8%'),
+    paddingHorizontal: wp('4%'),
   },
   headImg: { 
-    width: wp('4%'), 
-    height: hp('2.5%'),
+    width: wp('4.5%'), 
+    height: hp('3%'),
     resizeMode: 'contain',
   },
   heading: { 
     color: '#ffffff', 
-    fontSize: wp('3.5%'), 
+    fontSize: wp('3.8%'), 
     fontWeight: '600', 
     marginLeft: wp('3%'),
     flex: 1,
   },
   numbers: { 
-    fontSize: wp('3.2%'), 
+    fontSize: wp('3.5%'), 
     color: 'gold',
     marginRight: wp('2%'),
   },
   upImg: { 
-    width: wp('6%'), 
-    height: hp('3.5%'),
+    width: wp('6.5%'), 
+    height: hp('4%'),
     resizeMode: 'contain',
+    // marginTop: hp('0.2%'),
+    // marginRight: wp('1%'),
   },
   Liner: { 
     flexDirection: 'row', 
-    marginHorizontal: wp('3%'), 
+    marginHorizontal: wp('4%'), 
     marginTop: hp('1%'),
     alignItems: 'center',
   },
   line1: { 
-    width: wp('30%'), 
+    width: wp('40%'), 
     height: hp('0.5%'), 
     backgroundColor: 'gold', 
     borderRadius: wp('0.5%'), 
     marginRight: wp('2%'),
   },
   line: { 
-    width: wp('12%'), 
+    width: wp('15%'), 
     height: hp('0.5%'), 
     backgroundColor: '#10132C', 
     borderRadius: wp('0.5%'), 
@@ -249,28 +225,28 @@ const styles = StyleSheet.create({
   },
   Lists: { 
     marginTop: hp('2%'),
-    paddingHorizontal: wp('3%'),
+    paddingHorizontal: wp('4%'),
   },
   list: { 
-    marginBottom: hp('1.5%'),
+    marginBottom: hp('2.5%'),
   },
   L1: { 
     flexDirection: 'row', 
     alignItems: 'center',
   },
-  img1: { 
-    width: wp('5%'), 
-    height: hp('2.5%'),
+  img1: {
+    width: wp('7%'), 
+    height: hp('4.5%'),
     resizeMode: 'contain',
   },
   T1: { 
     marginLeft: wp('2.5%'), 
-    fontSize: wp('4%'), 
+    fontSize: wp('5%'), 
     color: '#D4EBFF', 
     flex: 1,
   },
   proBdg: { 
-    width: wp('11%'), 
+    width: wp('15%'), 
     height: hp('3%'), 
     borderRadius: wp('1%'),
     resizeMode: 'contain',
@@ -282,6 +258,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     tintColor: '#086CE1',
     marginLeft: wp('2%'),
+    marginRight:wp('2%')
   },
   backBtn1: {
     marginLeft: wp('10%'),
@@ -293,14 +270,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center', 
     borderWidth: 1, 
     borderColor: 'lightblue', 
-    width: wp('45%'), 
+    width: wp('50%'), 
     borderRadius: wp('6%'), 
     marginTop: hp('2%'),
     marginBottom: hp('2%'),
   },
   btnSty: { 
     flexDirection: 'row', 
-    padding: wp('2.5%'),
+    paddingVertical: wp('3%'),
+    paddingHorizontal:wp('5%'),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -313,7 +291,7 @@ const styles = StyleSheet.create({
   btnText: { 
     textAlign: 'center', 
     color: 'white',
-    fontSize: wp('3.5%'),
+    fontSize: wp('4%'),
   },
 });
 

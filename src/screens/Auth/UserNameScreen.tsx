@@ -19,6 +19,9 @@ import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { setUsername } from '../../store/slices/userSlice'
 import { useFocusEffect } from '@react-navigation/native'
+import { StackActions } from '@react-navigation/native';
+
+
 
 
 
@@ -87,10 +90,11 @@ const [keyboardVisible, setKeyboardVisible] = useState(false)
 
   const handleContinue = () => {
     if (isCharValid && isLengthValid && !isLengthTooLong) {
-      dispatch(setUsername(username))
-      navigation.navigate('BottomNavigator')
+      dispatch(setUsername(username));
+      navigation.dispatch(StackActions.replace('MainStack'));
     }
-  }
+  };
+
 
   return (
     <View style={{ flex: 1 }}>

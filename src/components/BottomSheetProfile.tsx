@@ -1,10 +1,9 @@
-import React, { useRef, useMemo, useCallback } from 'react';
+import React, { useRef, useMemo, useCallback, useState } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import BottomSheet, { BottomSheetView, BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Images } from '../assets';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing } from 'react-native-reanimated';
-
 
 export interface BottomSheetProfileRef {
   openSheet: () => void;
@@ -14,6 +13,7 @@ export interface BottomSheetProfileRef {
 const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation: any }>(
   ({ navigation }, ref) => {
     const bottomSheetRef = useRef<BottomSheet>(null);
+    const [isOpen, setIsOpen] = useState(false);
 
     const snapPoints = useMemo(() => [hp('8%'), hp('50%')], []);
 
@@ -32,22 +32,28 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
 
     const rotation = useSharedValue(0);
 
-    const animatedStyle = useAnimatedStyle(() => {
-      return {
-        transform: [{ rotate: `${rotation.value}deg` }],
-      };
-    });
+    const animatedStyle = useAnimatedStyle(() => ({
+      transform: [{ rotate: `${rotation.value}deg` }],
+    }));
 
     const handleSheetChange = useCallback(
       (index: number) => {
-        if (index === 1) {
-          rotation.value = withTiming(180, { duration: 150, easing: Easing.linear });
-        } else {
-          rotation.value = withTiming(0, { duration: 150, easing: Easing.linear });
-        }
+        rotation.value = withTiming(index === 1 ? 180 : 0, {
+          duration: 300,
+          easing: Easing.out(Easing.ease),
+        });
+        setIsOpen(index === 1);
       },
       [rotation]
     );
+
+    const toggleSheet = useCallback(() => {
+      if (isOpen) {
+        bottomSheetRef.current?.snapToIndex(0);
+      } else {
+        bottomSheetRef.current?.snapToIndex(1);
+      }
+    }, [isOpen]);
 
     const renderBackdrop = useCallback(
       (props: BottomSheetBackdropProps) => (
@@ -71,18 +77,22 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
         backdropComponent={renderBackdrop}
         backgroundStyle={styles.background}
         handleComponent={null}
-        onChange={handleSheetChange}  
+        onChange={handleSheetChange}
       >
         <BottomSheetView style={styles.contentContainer}>
-          <View style={styles.headProfileRow}>
-            <Image source={Images.profileheadlogo} style={styles.headimgP} />
-            <Text style={styles.headingP}>Supported Networks</Text>
+          <TouchableOpacity activeOpacity={0.7} onPress={toggleSheet}>
+            <View style={styles.headProfileRow}>
+              <Image source={Images.profileheadlogo} style={styles.headimgP} />
+              <Text style={styles.headingP}>Supported Networks</Text>
 
-            <Animated.Image
-              source={Images.up}
-              style={[styles.upimgP, animatedStyle]}
-            />
-          </View>
+              <View style={{ width: 28, height: 25, justifyContent: 'center', alignItems: 'center' }}>
+                <Animated.Image
+                  source={Images.up}
+                  style={[{ width: 28, height: 25, tintColor: '#4898F3' }, animatedStyle]}
+                />
+              </View>
+            </View>
+          </TouchableOpacity>
 
           <View style={styles.expandableContent}>
             <View style={styles.l1}>
@@ -121,16 +131,7 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
   }
 );
 
-
 const styles = StyleSheet.create({
-  absoluteContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: hp('100%'), 
-    zIndex: 1000,
-  },
   background: {
     backgroundColor: '#10132C',
   },
@@ -234,3 +235,4 @@ const styles = StyleSheet.create({
 });
 
 export default BottomSheetProfile;
+
