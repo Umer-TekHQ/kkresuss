@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, FlatList, Image, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { tokens } from './tokens';
 import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
 import { AppNavigatorParamList } from '../../navigators/routeNames';
 import { Token } from './types';
-import { Images } from '../../assets';
 import { useAppDispatch } from '../../store/hooks';
 import { setToken1, setToken2 } from '../../store/slices/tradeSlice';
-import { symbol } from 'd3';
+import SearchBox from '../../components/SearchBox';
 
 type ReceiveTokenScreenRouteProp = RouteProp<AppNavigatorParamList, 'SearchScreen'>;
 
@@ -21,8 +20,8 @@ const popularTokens = [
   { symbol: 'USDT', logo: require('../../assets/images/token4.png') },
   { symbol: 'XRP', logo: require('../../assets/images/token2.png') },
   { symbol: 'ADA', logo: require('../../assets/images/token3.png') },
-  { symbol: 'NORMIE', logo: require('../../assets/images/token6.png')},
-  { symbol: 'SNORT', logo: require('../../assets/images/token8.png')}
+  { symbol: 'NORMIE', logo: require('../../assets/images/token6.png') },
+  { symbol: 'SNORT', logo: require('../../assets/images/token8.png') }
 ];
 
 const ReceiveTokenScreen = () => {
@@ -31,6 +30,8 @@ const ReceiveTokenScreen = () => {
   const dispatch = useAppDispatch();
   const { field } = route.params;
   const [searchText, setSearchText] = useState('');
+
+  const handleClear = () => setSearchText('');
 
   const filteredTokens = tokens.filter(
     (token) =>
@@ -44,106 +45,95 @@ const ReceiveTokenScreen = () => {
     } else {
       dispatch(setToken2(token));
     }
-    
+
     if (route.params.onSelectToken) {
       route.params.onSelectToken(token);
     }
-    
+
     navigation.goBack();
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.searchBar}>
-        <Image source={Images.searchicon} style={styles.icon} />
-        <TextInput
-          placeholder="Search name or address"
-          placeholderTextColor="#8DABD5"
-          style={styles.input}
-          value={searchText}
-          onChangeText={setSearchText}
-        />
-      </View>
-
-      <Text style={styles.sectionTitle}>What the Pros are Buying</Text>
-      <View style={styles.tokenChipsRow}>
-        {popularTokens.map((token, index) => {
-        const selectedToken: Token = {
-        id: token.symbol,         
-        name: token.symbol,        
-        abbreviation: token.symbol,
-        logo: token.logo,
-        amount: '0',               
-        price: '$0.00',            
-      };
-
-    return (
-      <TouchableOpacity
-        key={index}
-        style={styles.tokenChip}
-        onPress={() => handleSelect(selectedToken)}
-      >
-        <Image source={token.logo} style={styles.chipLogo} />
-        <Text style={styles.chipText}>{token.symbol}</Text>
-      </TouchableOpacity>
-    );
-  })}
-</View>
-
-
-      <Text style={styles.sectionTitle}>Supported Tokens</Text>
-
-      <FlatList
-        data={filteredTokens}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.list}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handleSelect(item)} style={styles.tokenItem}>
-            <Image source={item.logo} style={styles.logo} />
-            <View style={styles.textContainer}>
-              <Text style={styles.tokenName}>{item.name}</Text>
-              <Text style={styles.tokenAbbr}>{item.abbreviation}</Text>
-            </View>
-            <View style={styles.amountContainer}>
-              <Text style={styles.amount}>{item.amount}</Text>
-              <Text style={styles.price}>{item.price}</Text>
-            </View>
-          </TouchableOpacity>
-        )}
+      <SearchBox
+        placeholder="Search Name or Address"
+        value={searchText}
+        onChangeText={setSearchText}
+        onClear={handleClear}
       />
 
+      {/* Empty State */}
+      {searchText.length > 0 && filteredTokens.length === 0 ? (
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyTitle}>No Supported Tokens Found</Text>
+          <Text style={styles.emptySubtitle}>
+            Please double-check your search and try again.
+          </Text>
+        </View>
+      ) : (
+        <>
+          <Text style={styles.sectionTitle}>What the Pros are Buying</Text>
+          <View style={styles.tokenChipsRow}>
+            {popularTokens.map((token, index) => {
+              const selectedToken: Token = {
+                id: token.symbol,
+                name: token.symbol,
+                abbreviation: token.symbol,
+                logo: token.logo,
+                amount: '0',
+                price: '$0.00',
+              };
+
+              return (
+                <TouchableOpacity
+                  key={index}
+                  style={styles.tokenChip}
+                  onPress={() => handleSelect(selectedToken)}
+                >
+                  <Image source={token.logo} style={styles.chipLogo} />
+                  <Text style={styles.chipText}>{token.symbol}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+
+          <Text style={styles.sectionTitle}>Supported Tokens</Text>
+
+          <FlatList
+            data={filteredTokens}
+            keyExtractor={(item) => item.id}
+            contentContainerStyle={styles.list}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => handleSelect(item)}
+                style={styles.tokenItem}
+              >
+                <Image source={item.logo} style={styles.logo} />
+                <View style={styles.textContainer}>
+                  <Text style={styles.tokenName}>{item.name}</Text>
+                  <Text style={styles.tokenAbbr}>{item.abbreviation}</Text>
+                </View>
+                <View style={styles.amountContainer}>
+                  <Text style={styles.amount}>{item.amount}</Text>
+                  <Text style={styles.price}>{item.price}</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+        </>
+      )}
     </View>
   );
 };
 
 export default ReceiveTokenScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#01032C',
     paddingHorizontal: 16,
     paddingTop: 20,
-  },
-  searchBar: {
-    flexDirection: 'row',
-    borderRadius: 40,
-    borderColor: '#041B6A',
-    borderWidth: 1.5,
-    paddingVertical: 12,
-    paddingLeft: 20,
-    alignItems: 'center',
-    backgroundColor: '#101221'
-  },
-  icon: {
-    width: 18,
-    height: 18,
-    marginRight: 8,
-    tintColor: '#086DE1',
-  },
-  input: {
-    flex: 1,
-    color: '#8DABD5',
-    fontSize: 20,
   },
   sectionTitle: {
     marginTop: 20,
@@ -159,7 +149,6 @@ const styles = StyleSheet.create({
   tokenChip: {
     flexDirection: 'row',
     alignItems: 'center',
-    // backgroundColor: '#041B6A',
     borderColor: '#8DABD5',
     borderWidth: 1,
     borderRadius: 24,
@@ -167,7 +156,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     marginRight: 15,
     marginBottom: 10,
-    
   },
   chipLogo: {
     width: 24,
@@ -218,5 +206,19 @@ const styles = StyleSheet.create({
   price: {
     color: '#8DABD5',
     fontSize: 13,
+  },
+  emptyContainer: {
+    marginTop: 30,
+    paddingHorizontal: 20,
+  },
+  emptyTitle: {
+    color: '#fff',
+    fontSize: 19,
+    fontWeight: '600',
+    marginBottom: 6,
+  },
+  emptySubtitle: {
+    color: '#8DABD5',
+    fontSize: 15,
   },
 });

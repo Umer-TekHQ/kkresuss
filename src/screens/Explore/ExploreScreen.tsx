@@ -8,7 +8,7 @@ import {
   Dimensions
 } from 'react-native';
 import styles from '../../styles/homestyles';
-import { SkeletonLoader } from '../../components/SkeletonLoader';
+import ExploreSkeletonLoader from '../../components/ExploreSkeletonLoader';
 import { ExploreButtons } from '../../components/ExploreButtons';
 import { ExploreCard } from '../../components/ExploreCards';
 import { exploreSections } from '../../mock/exploreData';
@@ -79,9 +79,8 @@ export const ExploreScreen: React.FC = ({ navigation }: any) => {
         <View style={{ backgroundColor: styles.container.backgroundColor, zIndex: 10, marginBottom: 20, }}>
           <ExploreButtons onPressAction={handleButtonPress} />
         </View>
-
         {loading ? (
-          <SkeletonLoader variant="explore-card" />
+          <ExploreSkeletonLoader />
         ) : (
           <View style={{ marginTop: 20 }}>
             {exploreSections.map((section, sectionIndex) => (

@@ -4,9 +4,9 @@ import { tokens } from '../Trade/tokens';
 import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
 import { AppNavigatorParamList } from '../../navigators/routeNames';
 import { Token } from '../Trade/types';
-import { Images } from '../../assets';
 import { useAppDispatch } from '../../store/hooks';
 import { setToken1, setToken2 } from '../../store/slices/tradeSlice';
+import SearchBox from '../../components/SearchBox';
 
 const SearchScreen = () => {
   const route = useRoute<RouteProp<AppNavigatorParamList, 'SearchScreen'>>();
@@ -14,6 +14,8 @@ const SearchScreen = () => {
   const dispatch = useAppDispatch();
   const [searchText, setSearchText] = useState('');
   const { field } = route.params;
+  const handleClear = () => setSearchText('');
+
 
   const filteredTokens = tokens.filter(
     (token) =>
@@ -51,15 +53,13 @@ const SearchScreen = () => {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: '#01032C' }} contentContainerStyle={{ paddingBottom: 20, }}>
-      <View style={styles.searchbarr}>
-        <Image source={Images.searchicon} style={styles.icon} />
-        <TextInput
-          placeholder="Search name or address"
-          placeholderTextColor="#8DABD5"
-          style={styles.input}
-          value={searchText}
-          onChangeText={setSearchText}
-        />
+      <View style={{ marginTop: 20, paddingHorizontal: 16}}>
+      <SearchBox
+            placeholder="Search Name or Address"
+            value={searchText}
+            onChangeText={setSearchText}
+            onClear={handleClear}
+      />
       </View>
 
       {searchText.length > 0 && filteredTokens.length === 0 ? (
@@ -164,17 +164,17 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   emptyContainer: {
-    marginTop: 50,
+    marginTop: 30,
     paddingHorizontal: 20,
   },
   emptyTitle: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 19,
     fontWeight: '600',
     marginBottom: 6,
   },
   emptySubtitle: {
     color: '#ADD2FD',
-    fontSize: 14,
+    fontSize: 15,
   },
 });

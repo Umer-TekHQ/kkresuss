@@ -8,10 +8,10 @@ import {
   ScrollView,
   FlatList,
   StatusBar,
+  Dimensions,
 } from 'react-native';
 
 import { ActionButtons } from '../../components/ActionButtons';
-import { SkeletonLoader } from '../../components/SkeletonLoader';
 import { SummaryCard } from '../../components/SummaryCard';
 import { MarketActivityCard } from '../../components/MarketActivityCard';
 import { Projects } from '../../components/Projects';
@@ -28,13 +28,11 @@ import styles from '../../styles/homestyles';
 import IntroducingCards from '../../components/IntroducingCard';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import BottomSheetHome from '../../components/BottomSheetHome';
-import { Dimensions } from 'react-native';
+import FullSkeletonLoader from '../../components/FullSkeletonLoader';
 
 export const HomeScreen: React.FC = () => {
   const translateY = useSharedValue(hp('100%'));
   const [loading, setLoading] = useState(true);
-  const [activeFilter, setActiveFilter] = useState('1D');
-  const [showContent, setShowContent] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
   const bottomSheetRef = useRef<BottomSheetUnifiedRef>(null);
 
@@ -42,12 +40,10 @@ export const HomeScreen: React.FC = () => {
 
   const { width: screenWidth } = Dimensions.get("window");
   const CARD_WIDTH = screenWidth * 0.85; 
-  const SPACING = 15;
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-      setShowContent(true);
       setShowOverlay(true);
     }, 2500);
 
@@ -68,32 +64,33 @@ export const HomeScreen: React.FC = () => {
       <StatusBar barStyle="light-content" />
       <HeaderNav />
 
-      <ScrollView contentContainerStyle={styles.content}>
-        {showContent ? (
+      {loading ? (
+        <FullSkeletonLoader />
+      ) : (
+        <ScrollView contentContainerStyle={styles.content}>
           <>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <FlatList
-              data={[1, 2]}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={(item, index) => `summary-${index}`}
-              renderItem={() => (
-                <SummaryCard activeFilter={activeFilter} onFilterChange={setActiveFilter} />
-              )}
-              snapToInterval={Dimensions.get('window').width / 1} 
-              snapToAlignment="center"
-              decelerationRate="fast" 
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <FlatList
+                data={[1, 2]}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={(item, index) => `summary-${index}`}
+                renderItem={() => (
+                  <SummaryCard />
+                )}
+                snapToInterval={Dimensions.get('window').width / 1} 
+                snapToAlignment="center"
+                decelerationRate="fast" 
                 contentContainerStyle={{
-                paddingHorizontal: (screenWidth - CARD_WIDTH) / 4, 
-              }}
-            />
-          </View>
+                  paddingHorizontal: (screenWidth - CARD_WIDTH) / 4, 
+                }}
+              />
+            </View>
 
             <View style={{marginHorizontal: wp('2%')}}>
               <ActionButtons />
             </View>
             
-
             <View style={styles.prossection}>
               <TouchableOpacity onPress={() => navigation.navigate('ProsScreen')}>
                 <Text style={styles.prostext}>What the Pros are Buying</Text>
@@ -113,20 +110,19 @@ export const HomeScreen: React.FC = () => {
               </TouchableOpacity>
             </View>
 
-              <FlatList
-                data={[1, 2]}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={(item, index) => `market-${index}`}
-                renderItem={() => <MarketActivityCard />}
-                snapToInterval={Dimensions.get('window').width / 1}   
-                snapToAlignment="center"
-                decelerationRate="fast"
-                 contentContainerStyle={{
+            <FlatList
+              data={[1, 2]}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item, index) => `market-${index}`}
+              renderItem={() => <MarketActivityCard />}
+              snapToInterval={Dimensions.get('window').width / 1}   
+              snapToAlignment="center"
+              decelerationRate="fast"
+              contentContainerStyle={{
                 paddingHorizontal: (screenWidth - CARD_WIDTH) / 4, 
               }}
-              />
-
+            />
 
             <IntroducingCards />
 
@@ -135,21 +131,21 @@ export const HomeScreen: React.FC = () => {
               <Projects />
             </View>
                 
-            
             <View style={{marginBottom: 110, marginRight: 8,}}>
-            <ProjectsList />
+              <ProjectsList />
             </View>
           </>
-        ) : (
-          <SkeletonLoader variant="home" />
-        )}
-      </ScrollView>
+        </ScrollView>
+      )}
 
       {showOverlay && <WelcomeOverlay onClose={() => setShowOverlay(false)} />}
 
-      <View pointerEvents="box-none" style={styles.bottomSheetContainer}>
-        <BottomSheetHome navigation={navigation} />
-      </View>
+        {!loading && (
+          <View pointerEvents="box-none" style={styles.bottomSheetContainer}>
+            <BottomSheetHome navigation={navigation} />
+          </View>
+        )}
+
     </View>
   );
 };

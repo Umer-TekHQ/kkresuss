@@ -159,8 +159,8 @@ const styles = StyleSheet.create({
   },
   background: { 
     backgroundColor: '#030A74', 
-    borderTopLeftRadius: wp('5%'), 
-    borderTopRightRadius: wp('5%'),
+    borderTopLeftRadius: wp('4.5%'), 
+    borderTopRightRadius: wp('4.5%'),
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -3 },
     shadowOpacity: 0.3,
