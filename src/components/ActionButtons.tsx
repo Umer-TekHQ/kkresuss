@@ -40,7 +40,7 @@ export const ActionButtons: React.FC = () => {
 };
 
 const BUTTON_SIZE = screenWidth * 0.18;
-const ICON_SIZE = BUTTON_SIZE * 0.4;
+const ICON_SIZE = BUTTON_SIZE * 0.5;
 
 const styles = StyleSheet.create({
   actionButtonsContainer: {
@@ -54,12 +54,10 @@ const styles = StyleSheet.create({
     width: BUTTON_SIZE,
     height: BUTTON_SIZE,
     elevation: 2,
-    // paddingHorizontal: screenWidth * 0.02,
   },
   actionButtonIcon: {
     width: ICON_SIZE,
     height: ICON_SIZE,
-    marginBottom: 6,
   },
   actionButtonText: {
     fontSize: screenWidth * 0.035,

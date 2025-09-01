@@ -65,7 +65,7 @@ const TradeStatusScreen = ({navigation, route}: any) => {
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Image
                 source={Images.cancel}
-                style={{marginTop: 15, marginLeft: 10,}}
+                style={{marginTop: 20, marginLeft: 10, width: 30, height: 30, }}
               />
               </TouchableOpacity>
         <Text style={styles.header}>Trade Status</Text>      

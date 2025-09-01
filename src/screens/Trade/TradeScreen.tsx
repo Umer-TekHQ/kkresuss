@@ -183,15 +183,9 @@ export const TradeScreen = () => {
     token1 && token2 && amount1 && amount2 && amount1 !== '0' && amount2 !== '0';
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0} 
-    >
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
           <HeaderNav />
-
           <View style={styles.headerRow}>
             <Text style={styles.title}>Trade</Text>
             <View style={styles.toggleRow}>
@@ -255,15 +249,14 @@ export const TradeScreen = () => {
           <BottomSheetTrade ref={tradeSheetRef} />
         </View>
       </ScrollView>
-    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#01021D' },
-  headerRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 30, marginBottom: 10 },
+  headerRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 30, marginBottom: 8 },
   title: { color: '#FFFFFF', fontSize: 19, marginLeft: 12 },
-  title2: { color: '#FFFFFF', fontSize: 19, marginLeft: 12, marginBottom: 5 },
+  title2: { color: '#FFFFFF', fontSize: 19, marginLeft: 12, marginBottom: 8 },
   toggleRow: { flexDirection: 'row', alignItems: 'center', marginRight: 12 },
   enterUsdText: { color: '#ADD2FD', marginRight: 8, fontSize: 13 },
   tokenField: {

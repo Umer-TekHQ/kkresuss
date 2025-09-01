@@ -140,7 +140,7 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
           <View style={styles.expandableContent}>
             <View style={styles.l1}>
               <View style={styles.rowLeft}>
-                <Image source={Images.base} />
+                <Image source={Images.base} style={styles.baselogo} />
                 <Text style={styles.l1text}> Base Network</Text>
               </View>
               <Text style={styles.trailingText}>Crypto and NFTs</Text>
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
   l1textS: {
     color: 'white',
     fontSize: 18,
-    marginLeft: 16,
+    marginLeft: 10,
   },
   trailingText: {
     color: 'lightblue',
@@ -257,8 +257,12 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   solanalogo: {
-    width: 20,
-    height: 20,
+    width: 25,
+    height: 25,
+  },
+  baselogo: {
+    width: 25,
+    height: 25,
   },
   bottomtext: {
     color: 'lightblue',

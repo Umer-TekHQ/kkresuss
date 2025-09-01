@@ -102,12 +102,12 @@ const rHeadingStyle = useAnimatedStyle(() => {
   const marginLeft = interpolate(
     translateY.value,
     [minY.value, maxY.value],
-    [0, 60],
+    [15, 90],
     Extrapolate.CLAMP
   );
 
   return {
-    fontSize: interpolate(progress, [0, 1], [30, 19]),
+    fontSize: interpolate(progress, [0, 1], [26, 18]),
     marginLeft,
   };
 });
@@ -153,18 +153,18 @@ const rHeadingStyle = useAnimatedStyle(() => {
     <GestureDetector gesture={gesture}>
       <Animated.View style={[styles.container, rStyle]}>
         
-        <Animated.View style={[styles.lineProfile, rLineStyle]} />
+        {/* <Animated.View style={[styles.lineProfile, rLineStyle]} /> */}
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Animated.View style={[rBackButtonStyle]}>
+          {/* <Animated.View style={[rBackButtonStyle]}>
             <TouchableOpacity onPress={closeSheet} style={styles.backButton}>
               <Text style={{ color: 'white', fontSize: 16 }}>
                 <Image
-                  source={Images.backarrow}
+                  source={Images.backbutton}
                   style={styles.backButton}
                 />
               </Text>
             </TouchableOpacity>
-          </Animated.View>
+          </Animated.View> */}
 
           <Animated.Text style={[styles.headingPro, rHeadingStyle]}>
             Supported Networks
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   },
   headingPro: {
     color: '#ffffff',
-    fontSize: 30,
+    fontSize: 26,
     marginBottom: 12,
     marginHorizontal: 15,
     marginTop: 20,

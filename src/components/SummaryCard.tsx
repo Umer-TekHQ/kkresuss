@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { LineChart } from 'react-native-gifted-charts';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import LinearGradient from 'react-native-linear-gradient';
+import { Images } from '../assets';
 
 
 type SummaryCardProps = {
@@ -61,6 +62,7 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
         <Text style={styles.currencyhead}>{currency}</Text>
         <Text style={styles.cryptoTotalValue}>{totalValue}</Text>
         <View style={styles.cryptoChangeRow}>
+            <Image source={Images.greenarrowup} style={{width:10, height:10, marginLeft: wp('4%'),marginRight: 5,}}/>
           <Text
             style={[
               styles.cryptoChangeText,
@@ -191,7 +193,6 @@ const styles = StyleSheet.create({
   cryptoChangeText: {
     fontSize: wp('3.2%'),
     fontWeight: '700',
-    marginLeft: wp('4%'),
   },
   cryptoChangeTime: {
     color: 'lightblue',

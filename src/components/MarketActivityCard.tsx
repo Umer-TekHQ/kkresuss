@@ -75,12 +75,12 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
       </View>
       <View style={styles.BSpercent}>
         <View style={{ flexDirection: 'row', gap: 5 }}>
-          <Image source={Images.buyerlogo} resizeMode="contain" />
+          <Image source={Images.buyerlogo} resizeMode="contain" style={styles.bslogo} />
           <Text style={styles.buyersText}>{buyersPercentage}% Buyers</Text>
         </View>
         <View style={{ flexDirection: 'row', gap: 5 }}>
           <Text style={styles.sellersText}>Sellers {sellersPercentage}%</Text>
-          <Image source={Images.sellerlogo} resizeMode="contain" />
+          <Image source={Images.sellerlogo} resizeMode="contain" style={styles.bslogo2} />
         </View>
       </View>
     </View>

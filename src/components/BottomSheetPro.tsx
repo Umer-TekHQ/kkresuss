@@ -166,12 +166,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: hp('100%'),
     borderRadius: 15,
+    borderTopWidth: 1,
+    borderRightWidth: 0.5,
+    borderLeftWidth: 0.5,
+    borderColor: '#030A74'
   },
   line: {
     position: 'absolute',
     width: 55,
     height: 4,
-    backgroundColor: '#232d89ff',
+    backgroundColor: '#030A74',
     alignSelf: 'center',
     borderRadius: 4,
     marginTop: 10,
@@ -195,7 +199,7 @@ const styles = StyleSheet.create({
     marginLeft: 15
   },
   bottompara1: {
-    color: '#D4EBFF',
+    color: '#B4C8E0',
     marginHorizontal: 15,
     marginTop: 25,
     fontSize: 19,

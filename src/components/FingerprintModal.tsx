@@ -83,9 +83,9 @@ const styles = StyleSheet.create({
   faceIdText: {
     color: '#FFFFFF',
     fontSize: 30,
-    fontWeight: '600',
-   //paddingTop:2, //actual was 10
    marginBottom:2,
+   fontFamily: 'PlayfairDisplay-Bold', 
+
   },
   subText: {
     marginTop:-25, //-45 tha

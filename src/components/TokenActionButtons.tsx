@@ -21,7 +21,6 @@ export const TokenActionButtons: React.FC = () => {
     if (name === 'Send') {
       navigation.navigate('Currency');
     }
-    // You can add navigation for other buttons here if needed
   };
 
   return (

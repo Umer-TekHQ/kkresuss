@@ -1,13 +1,5 @@
-import React, { useState, useRef, useCallback } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  Animated,
-} from 'react-native';
+import React ,{useState}from 'react';
+import { View, Text, TextInput, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Images } from '../assets';
 
 type Props = {
@@ -17,106 +9,61 @@ type Props = {
 };
 
 const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
-  const [subAmount, setSubAmount] = useState('0');
-  const [isSwapped, setIsSwapped] = useState(false);
-  const CONVERSION_RATE = 0.00020401;
-
-  const animatedFontSize = useRef(new Animated.Value(60)).current;
-  const animatedMarginLeft = useRef(new Animated.Value(0)).current;
-  
-  // Use a ref to maintain input focus
-  const inputRef = useRef<TextInput>(null);
-
-  const handleChange = useCallback((val: string) => {
-    const sanitized = val.replace(/[^0-9.]/g, '');
-    const parts = sanitized.split('.');
-    if (parts.length > 2) return;
-
-    setAmount(sanitized);
-
-    const num = parseFloat(sanitized || '0');
-    setSubAmount((num * CONVERSION_RATE).toFixed(8));
-
-    const newFontSize = sanitized.length > 4 ? 40 : 60;
-    const shiftLeft = sanitized.length > 4 ? (sanitized.length - 4) * 10 : 0;
-
-    Animated.timing(animatedFontSize, {
-      toValue: newFontSize,
-      duration: 200,
-      useNativeDriver: false,
-    }).start();
-
-    Animated.timing(animatedMarginLeft, {
-      toValue: shiftLeft,
-      duration: 200,
-      useNativeDriver: false,
-    }).start();
-  }, [setAmount, CONVERSION_RATE, animatedFontSize, animatedMarginLeft]);
-
-  const handleSwap = useCallback(() => {
-    const currentAmount = amount;
-    const currentSub = subAmount;
-    setAmount(currentSub);
-    setSubAmount(currentAmount);
-    setIsSwapped(prev => !prev);
-    
-    // Keep focus after swap
-    setTimeout(() => {
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
-    }, 100);
-  }, [amount, subAmount, setAmount, setSubAmount]);
-
-  const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
+  const [subAmount, setSubAmount] = useState("0");
+   const [isSwapped, setIsSwapped] = useState(false);
+   const CONVERSION_RATE = 0.00020401; 
 
   return (
     <View style={styles.amountInputWrapper}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <View style={styles.amountInputBox}>
-          <Animated.Text
-            style={[
-              styles.dollarSign,
-              {
-                color: isInsufficient ? '#FF5A5F' : '#FFFFFF',
-                fontSize: animatedFontSize,
-              },
-            ]}
-          >
-            $
-          </Animated.Text>
+      <View style={styles.amountInputBox}>
+        <Text style={[styles.dollarSign, { color: isInsufficient ? '#FF5A5F' : '#FFFFFF',
+           fontSize: isSwapped ? 40 : 60, 
+         }]}>$</Text>
+        <TextInput
+          style={[styles.amountInputField, { color: isInsufficient ? '#FF5A5F' : '#FFFFFF' ,
+                fontSize: isSwapped ? 40 : 60, 
+          }]}
+          keyboardType="decimal-pad"
+          value={amount}
+         // onChangeText={setAmount} 
+         //multiple decimal points not allowed now
+           onChangeText={(val) => {
+            const sanitized = val.replace(/[^0-9.]/g, ''); 
+            const parts = sanitized.split('.');
 
-          <AnimatedTextInput
-            ref={inputRef}
-            style={[
-              styles.amountInputField,
-              {
-                color: isInsufficient ? '#FF5A5F' : '#FFFFFF',
-                fontSize: animatedFontSize,
-                marginLeft: -animatedMarginLeft,
-              },
-            ]}
-            keyboardType="decimal-pad"
-            value={amount}
-            onChangeText={handleChange}
-          />
-        </View>
+            if (parts.length > 2) {
+              return; 
+            }
+            setAmount(sanitized);
 
+
+              const num = parseFloat(sanitized || "0");
+         setSubAmount((num * CONVERSION_RATE).toFixed(8)); 
+          }}
+   
+        />
         <TouchableOpacity
-          onPress={handleSwap}
+          onPress={() => {
+          const currentAmount = amount;
+          const currentSub = subAmount;
+          setAmount(currentSub);
+          setSubAmount(currentAmount);
+          setIsSwapped((prev) => !prev); 
+        }}
+        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} 
+    
         >
-         <Image source={Images.swap} style={styles.swapIcon} /> 
+        <Image source={Images.swap} style={styles.swapIcon} />
         </TouchableOpacity>
       </View>
-
-      {!isSwapped ? (
-        <Text style={styles.subAmount}>
+       {!isSwapped ? (
+      <Text style={styles.subAmount}
+      >{subAmount}<Text>rETH</Text></Text>
+       ):(
+      <Text style={styles.subAmount}>
           {subAmount}
-          <Text> rETH</Text>
-        </Text>
-      ) : (
-        <Text style={styles.subAmount}>{subAmount}</Text>
-      )}
+      </Text>
+       )}
     </View>
   );
 };
@@ -131,32 +78,43 @@ const styles = StyleSheet.create({
   amountInputBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     borderRadius: 10,
     paddingHorizontal: 12,
-    marginLeft: 55,
+   // paddingVertical: 8,
+    //marginVertical: 12,
     alignSelf: 'center',
     position: 'relative',
+   
   },
   dollarSign: {
+    //fontSize: 60,
     fontWeight: 'bold',
     textAlign: 'center',
+   
   },
   amountInputField: {
+   // fontSize: 60,
     fontWeight: 'bold',
+    textAlign: 'left',
     width: 140,
+    
   },
   swapIcon: {
-    width: 22,
-    height: 22,
-    marginLeft: 12,
+    width: 18,
+    height: 18,
+    marginLeft: 8,
     resizeMode: 'contain',
-    tintColor: '#ADD2FD',
+    left: 60,
+    zIndex:5,
+    tintColor:'#ADD2FD'
+   // top: 5,
   },
   subAmount: {
     fontSize: 14,
     color: '#FF5A5F',
-    bottom: 10,
-    marginBottom: 20,
+    //right: 10,
+    bottom:10, // as per qa
+   marginBottom:20,
   },
 });

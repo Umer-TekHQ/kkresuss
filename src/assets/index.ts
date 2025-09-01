@@ -150,4 +150,6 @@ launcharrowup: require('./images/launcharrowup.png'),
 headimage: require('./images/headimg.png'),
 probadge1: require('./images/probadge1.png'),
 greenarrowup: require('./images/greenarrowup.png'),
+backbutton: require('./images/backbutton.png'),
+baselogo: require('./images/baselogo.png'),
 }

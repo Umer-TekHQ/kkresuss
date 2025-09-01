@@ -15,10 +15,10 @@ export const ProfileBottom = ({navigation}: any) => {
               source={Images.prosimage}
               style={styles.image}
               />
-              <TouchableOpacity onPress={() => navigation.goBack()}>
+              <TouchableOpacity onPress={() => navigation.goBack()} style={{zIndex:999}}>
               <View style={styles.backborder}>
               <Image
-                source={Images.backarrow}
+                source={Images.backbutton}
                 style={styles.cross}
               />
               </View>
@@ -43,11 +43,8 @@ const styles = StyleSheet.create({
     marginLeft: screenWidth * 0.33,
   },
   cross:{
-    marginLeft: screenWidth * 0.013,
-    fontSize: 20,
-    marginTop: screenHeight * 0.006,
-    fontWeight: '400',
-    tintColor: 'white'
+    width: screenWidth * 0.08,
+    height: screenWidth * 0.08,
   },
   backborder:{
     width: screenWidth * 0.07,

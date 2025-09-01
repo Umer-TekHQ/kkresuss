@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions, FlatList, TouchableOpacity,ScrollView,Image, Animated,  } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import CryptoChart from '../../components/CryptoChart';
-import { ActionButtons } from '../../components/ActionButtons';
 import { Images } from '../../assets';
 import { HeaderNav } from '../../components/HeaderNav';
 import { useNavigation } from '@react-navigation/native'
@@ -12,7 +11,6 @@ import TopAssetsCard from '../../components/TopAssetsCard';
 import AllAssetsList from '../../components/AllAssetsList';
 import CoinbaseCard from '../../components/CoinbaseCard';
 import SecondaryButton from '../../components/SecondaryButton';
-import BottomSheetBase from '../../components/BottomSheetBase';
 import NFTCard from '../../components/NFTCard';
 import TransactionCard from '../../components/TransactionCard';
 import nftImages from '../../mock/NftImages';
@@ -20,11 +18,8 @@ import {transactionData} from '../../mock/nftRecentData'
 import TransactionButton from '../../components/TransactionButton';
 import { TokenActionButtons } from '../../components/TokenActionButtons';
 import BottomSheetNetwork from '../../components/BottomSheetNetwork';
-import { useAppDispatch } from '../../store/hooks';
-import { setToken1, setToken2 } from '../../store/slices/tradeSlice';
 
 const initialLayout = { width: Dimensions.get('window').width };
-
 
 const CryptoTab = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();

@@ -72,7 +72,7 @@ const TopAssetsCard = ({ showChange = true ,onAssetPress }:TopAssetsCardProps) =
                 {showChange ? (
                   <View style={styles.changeContainer}>
                     <Image
-                      source={item.isPositive ? Images.greenup : Images.reddown}
+                      source={item.isPositive ? Images.greenarrowup : Images.reddown}
                       style={styles.changeIcon}
                     />
                     <Text

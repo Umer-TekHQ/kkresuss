@@ -22,11 +22,11 @@ export default StyleSheet.create({
 
   },
   heading: {
-    
     fontSize: 36,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     color: '#fff',
      lineHeight: 34,
+    fontFamily: 'PlayfairDisplay-Bold', 
   },
   subheading: {
     fontSize: 19,
@@ -34,7 +34,7 @@ export default StyleSheet.create({
     marginTop: 8,
     flexWrap:"wrap",
     textAlign:"center",
-    maxWidth: '85%',
+    maxWidth: '85%'
 
   },
   caption: {

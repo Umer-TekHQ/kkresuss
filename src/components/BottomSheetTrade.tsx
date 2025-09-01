@@ -143,7 +143,7 @@ const closeSheet = () => {
               source={Images.tradebottom}
               style={[
                 styles.headimg,
-                { width: wp('4%'), height: hp('2.5%'), marginLeft: wp('3%'), marginTop: hp('1%') },
+                { width: wp('4%'), height: hp('2.5%'), marginLeft: wp('5%'), marginTop: hp('1%') },
               ]}
             />
             <Text style={[styles.headingTB, { fontSize: wp('4.5%'), marginLeft: wp('4%') }]}>

@@ -10,8 +10,7 @@ import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { useAppDispatch } from '../../store/hooks'
 import { setSelectedAsset } from '../../store/slices/selectedAssetSlice'
 import { useSharedValue } from 'react-native-reanimated';
-import { BottomSheetUnified } from '../../components/BottomSheet';
-
+import BottomSheetProfile from '../../components/BottomSheetProfile';
 
 
 
@@ -47,7 +46,7 @@ const SelectCurrency = () => {
 
       </View>
 
-       <BottomSheetUnified screen="profile" translateY={translateY} />
+       <BottomSheetProfile navigation={navigation} />
     </View>
   );
 };

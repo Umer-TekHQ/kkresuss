@@ -29,7 +29,7 @@ const PopularAssetItem = ({ item }: { item: PopularAssetItemProps['item'] }) => 
       <Text style={styles.amount}>{item.amountUSD}</Text>
       {item.profit && 
       <View style={styles.profitRow}>
-          <Image source={Images.greenup} style={styles.profitIcon} />
+          <Image source={Images.greenarrowup} style={styles.profitIcon} />
       <Text style={styles.profit}>{item.profit}</Text>
       </View>
       }

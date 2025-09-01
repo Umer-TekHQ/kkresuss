@@ -11,7 +11,6 @@ const FullSkeletonLoader = () => {
     <View style={styles.fullHeight}>
 
 
-        {/* Horizontal Card Skeleton */}
         <View style={styles.summarycard}>
         <View style={styles.cardContainer}>
           <View style={styles.cardLineShort} />
@@ -20,7 +19,6 @@ const FullSkeletonLoader = () => {
           <View style={styles.cardLineSmall} />
         </View>
 
-        {/* Small Square Buttons */}
         <View style={styles.squareRow}>
           {[...Array(5)].map((_, index) => (
             <View key={index} style={styles.square} />
@@ -28,7 +26,6 @@ const FullSkeletonLoader = () => {
         </View>
         </View>
 
-        {/* Circular Icons */}
         <View style={styles.circleRow}>
           {[...Array(4)].map((_, index) => (
             <View key={index} style={styles.circleWrapper}>
@@ -38,13 +35,11 @@ const FullSkeletonLoader = () => {
           ))}
         </View>
 
-        {/* Long Bar */}
         <View style={styles.longBarRow}>
           <View style={styles.longBar} />
           <View style={styles.dot} />
         </View>
 
-        {/* Profile Card */}
         <View style={styles.profileCard}>
           <View style={styles.avatar} />
           <View>
@@ -56,14 +51,12 @@ const FullSkeletonLoader = () => {
           <View style={styles.profileButton} />
         </View>
 
-        {/* Footer/Projects Row */}
         <View style={styles.footerRow}>
           <View style={styles.footerCircle} />
           <View style={styles.footerButton} />
           <View style={styles.footerButtonSmall} />
         </View>
 
-        {/* Bottom Cards */}
         <View style={styles.bottomCard}>
           <View style={styles.bottomLine} />
           <View style={styles.bottomLine} />

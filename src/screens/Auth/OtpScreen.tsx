@@ -171,11 +171,14 @@ const styles = StyleSheet.create({
   },
   heading: {
     marginTop: height * 0.2, 
+    letterSpacing: 1,
     fontSize: 30,
     fontWeight: '600',
     color: '#FFFFFF',
     textAlign: 'center',
     height: 38,
+    fontFamily: 'PlayfairDisplay-Bold', 
+
   },
   subHeading: {
     marginTop: height * 0.006,

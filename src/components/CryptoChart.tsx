@@ -34,7 +34,7 @@ const CryptoChart = () => {
 
   <View style={styles.subInfo}>
     <Image
-      source={Images.greenup}
+      source={Images.greenarrowup}
       style={styles.greenUpIcon}
     />
     <Text style={styles.greenText}>$440.22 (1.92%) </Text>

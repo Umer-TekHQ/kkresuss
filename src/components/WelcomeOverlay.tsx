@@ -20,7 +20,7 @@ interface Props {
 const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
 
   const containerWidth = width * 0.9;
-  const containerHeight = width * 1.35;
+  const containerHeight = width * 1.38;
   const bgtopWidth = width * 0.89;
   const bgtopHeight = width * 0.7;
   const bgbottomWidth = width * 0.9;
@@ -53,7 +53,7 @@ const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
         
         <View style={[styles.bgbottom, { width: bgbottomWidth, height: bgbottomHeight }]}>
           <TouchableOpacity style={styles.primaryButton}>
-            <Image source={Images.primary} style={styles.icons1} />
+            <Image source={Images.primary} style={styles.icons21} />
             <Text style={styles.primaryText}>Buy Crypto</Text>
           </TouchableOpacity>
 
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     lineHeight: 36,
     fontFamily: 'PlayfairDisplay-Bold', 
+    letterSpacing: 1,
   },
   primaryButton: {
     flexDirection: 'row',
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
   },
   primaryText: {
     color: '#0A0E27',
-    marginLeft: wp('16%'),
+    marginLeft: wp('13.5%'),
     fontSize: 15,
   },
   secondaryButton: {
@@ -163,16 +164,17 @@ const styles = StyleSheet.create({
   secondaryText: {
     color: '#fff',
     fontSize: 15,
-    marginLeft: wp('10%'),
+    marginLeft: wp('7%'),
   },
   secondaryText1: {
     color: '#fff',
-    marginLeft: wp('3%'),
+    marginLeft: wp('1%'),
   },
   laterText: {
     color: 'white',
     marginTop: 10,
     fontSize: 15,
+    textAlign: 'center',
   },
   icons: {
     width: 36,
@@ -183,5 +185,10 @@ const styles = StyleSheet.create({
     width: 26,
     height: 26,
     marginRight: 10,
-  }
+  },
+  icons21:{
+    width: 22,
+    height: 22,
+    marginRight: 10,
+  },
 });

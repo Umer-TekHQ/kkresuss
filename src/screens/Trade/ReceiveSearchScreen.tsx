@@ -7,6 +7,7 @@ import { Token } from './types';
 import { useAppDispatch } from '../../store/hooks';
 import { setToken1, setToken2 } from '../../store/slices/tradeSlice';
 import SearchBox from '../../components/SearchBox';
+import { ScrollView } from 'react-native-gesture-handler';
 
 type ReceiveTokenScreenRouteProp = RouteProp<AppNavigatorParamList, 'SearchScreen'>;
 
@@ -62,7 +63,6 @@ const ReceiveTokenScreen = () => {
         onClear={handleClear}
       />
 
-      {/* Empty State */}
       {searchText.length > 0 && filteredTokens.length === 0 ? (
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyTitle}>No Supported Tokens Found</Text>
@@ -72,6 +72,7 @@ const ReceiveTokenScreen = () => {
         </View>
       ) : (
         <>
+        <ScrollView>
           <Text style={styles.sectionTitle}>What the Pros are Buying</Text>
           <View style={styles.tokenChipsRow}>
             {popularTokens.map((token, index) => {
@@ -103,6 +104,7 @@ const ReceiveTokenScreen = () => {
             data={filteredTokens}
             keyExtractor={(item) => item.id}
             contentContainerStyle={styles.list}
+            scrollEnabled={false}
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => handleSelect(item)}
@@ -120,6 +122,8 @@ const ReceiveTokenScreen = () => {
               </TouchableOpacity>
             )}
           />
+          </ScrollView>
+
         </>
       )}
     </View>
@@ -190,26 +194,25 @@ const styles = StyleSheet.create({
   },
   tokenName: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 16,
   },
   tokenAbbr: {
     color: '#8DABD5',
-    fontSize: 14,
+    fontSize: 12,
   },
   amountContainer: {
     alignItems: 'flex-end',
   },
   amount: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 16,
   },
   price: {
     color: '#8DABD5',
-    fontSize: 13,
+    fontSize: 12,
   },
   emptyContainer: {
     marginTop: 30,
-    paddingHorizontal: 20,
   },
   emptyTitle: {
     color: '#fff',

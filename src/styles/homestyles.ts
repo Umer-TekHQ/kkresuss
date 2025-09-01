@@ -139,6 +139,14 @@ export default StyleSheet.create({
     color: '#fff',
     fontSize: 14,
   },
+  bslogo:{
+    width: 16,
+    height: 16,
+  },
+    bslogo2:{
+    width: 18,
+    height: 18,
+  },
   sellersText: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -282,7 +290,7 @@ inactiveFooterText: {
 footer: {
   backgroundColor: '#01021d',
   borderTopWidth: 0.5,
-  borderTopColor: '#01021d',
+  borderTopColor: '#10178A',
 },
 skeletonSummaryCard: {
   backgroundColor: '#101038',
@@ -437,7 +445,7 @@ projectstext:{
   fontSize: 16,
   marginTop: 4,
   marginLeft: 15,
-  marginBottom: 10,
+  marginBottom: 5,
 },
 prossection:{
   flexDirection: 'row',
@@ -562,15 +570,14 @@ cryptoChangeNegative: {
   profileIcon: {
     width: screenWidth * 0.09,
     height: screenWidth * 0.09,
-    borderRadius: screenWidth * 0.04,
+    borderRadius: screenWidth * 0.045,
     borderWidth: 2,
     borderColor: '#b58904',
   },
   profileName: {
-    fontSize: 18,
+    fontSize: 15,
     color: 'white',
-    marginLeft: 15,
-    // fontWeight: '500',
+    marginLeft: 10,
   },
   headerIcons: {
     flexDirection: 'row',
@@ -578,13 +585,13 @@ cryptoChangeNegative: {
   },
   headerIcon: {
     resizeMode: 'contain',
-    width: 24,
-    height: 24,
+    width: 38,
+    height: 38,
     tintColor: 'white',
   },
   secureIcon:{
-    width: 42,
-    height: 42
+    width: 38,
+    height: 38
   },
   footerItem: {
     alignItems: 'center',

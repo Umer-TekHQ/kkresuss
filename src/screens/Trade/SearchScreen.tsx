@@ -40,6 +40,7 @@ const SearchScreen = () => {
   const renderToken = (item: Token) => (
     <TouchableOpacity key={item.id} onPress={() => handleSelect(item)} style={styles.tokenItem}>
       <Image source={item.logo} style={styles.logo} />
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
       <View style={styles.textContainer}>
         <Text style={styles.tokenName}>{item.name}</Text>
         <Text style={styles.tokenAbbr}>{item.abbreviation}</Text>
@@ -47,6 +48,7 @@ const SearchScreen = () => {
       <View style={styles.amountContainer}>
         <Text style={styles.amount}>{item.amount}</Text>
         <Text style={styles.price}>{item.price}</Text>
+      </View>
       </View>
     </TouchableOpacity>
   );
@@ -124,7 +126,7 @@ const styles = StyleSheet.create({
     color: '#ADD2FD',
     fontSize: 15,
     fontWeight: '600',
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
   },
   tokenItem: {
     paddingTop: 20,
@@ -133,7 +135,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
   },
   logo: { 
     width: 42,
@@ -146,22 +148,22 @@ const styles = StyleSheet.create({
   },
   tokenName: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 16,
   },
   tokenAbbr: {
     color: '#ADD2FD',
-    fontSize: 14,
+    fontSize: 12,
   },
   amountContainer: {
     alignItems: 'flex-end',
   },
   amount: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 16,
   },
   price: {
     color: '#ADD2FD',
-    fontSize: 13,
+    fontSize: 12,
   },
   emptyContainer: {
     marginTop: 30,

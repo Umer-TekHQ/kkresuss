@@ -179,11 +179,14 @@ const styles = StyleSheet.create({
   },
   heading: {
     marginTop: 10,
+    letterSpacing: 1,
     fontSize: 30,
-    fontWeight: '600',
+    // fontWeight: '600',
     color: '#FFFFFF',
     marginBottom: 20,
     textAlign: 'center',
+    fontFamily: 'PlayfairDisplay-Bold', 
+
   },buttonPosition:{
     flex: 1, 
     justifyContent: 'flex-end',

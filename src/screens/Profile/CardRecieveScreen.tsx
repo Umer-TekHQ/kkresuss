@@ -27,8 +27,8 @@ export default function CardRecieveScreen() {
       <View style={{flexDirection: 'row', alignItems: 'center',}}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image 
-            source={Images.backarrow}
-            style={[styles.backarrow, { width: screenWidth * 0.035, height: screenWidth * 0.035,  }]}
+            source={Images.backbutton}
+            style={[styles.backarrow, { width: screenWidth * 0.08, height: screenWidth * 0.08,  }]}
           />
         </TouchableOpacity>
         <View style={{flex: 1, marginLeft: screenWidth * 0.23}}>
@@ -54,7 +54,6 @@ export default function CardRecieveScreen() {
           }}
         />
       </View>
-      {/* <BottomSheetUnified screen="profile" translateY={translateY} /> */}
       <BottomSheetProfile navigation={navigation}/>
     </View>
   )
@@ -70,10 +69,10 @@ const styles = StyleSheet.create({
   head1:{
     color: 'white',
     alignItems: 'center',
-    fontSize: 22,
+    fontSize: 18,
   },
   backarrow:{
-    marginLeft: 20,
+    marginLeft: 15,
   },
   card:{
     display: 'flex',

@@ -120,7 +120,7 @@ const CardDeck = () => {
 };
 
   const AVATAR_SIZE = screenWidth * 0.19;
-  const ICON_SIZE = screenWidth * 0.035;
+  const ICON_SIZE = screenWidth * 0.08;
   const NAME_FONT = screenWidth * 0.048;
   const USERNAME_FONT = screenWidth * 0.04;
   const UPGRADE_FONT = screenWidth * 0.037;
@@ -133,14 +133,12 @@ return (
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image
-            source={Images.backarrow}
+            source={Images.backbutton}
             style={[
               styles.icon,
               {
                 width: ICON_SIZE,
                 height: ICON_SIZE,
-                marginTop: HEADER_MARGIN,
-                marginLeft: 20,
               },
             ]}
           />
@@ -172,7 +170,6 @@ return (
       </View>
     </ScrollView>
 
-    {/* Bottom sheet must be OUTSIDE ScrollView */}
     <BottomSheetProfile navigation={navigation} />
   </View>
 );
@@ -189,13 +186,13 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginHorizontal: 15,
   },
   icon: {
   },
   editText: {
     color: '#fff',
-    marginRight: 15,
-    marginTop: 6,
+    marginTop: 5,
   },
   profileSection: {
     alignItems: 'center',
