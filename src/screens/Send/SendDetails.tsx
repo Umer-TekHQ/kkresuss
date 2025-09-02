@@ -127,13 +127,13 @@ const styles = StyleSheet.create({
   },
   backIconSmall: {
     tintColor:'white',
-    width: 34,
-    height: 34,
+    width: 35,
+    height: 35,
   },
   headerContent: {
     alignItems: 'center',
     marginBottom: 24,
-    //marginTop:-20,
+    marginTop:-17,
   },
   availableLabel: {
     color: '#ADD2FD',

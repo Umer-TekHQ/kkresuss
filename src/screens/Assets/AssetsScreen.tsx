@@ -48,7 +48,7 @@ const [showSheet, setShowSheet] = useState(false);
           <Text style={styles.sectionTitle}>Popular</Text>
             <TouchableOpacity onPress={() => setShowSheet(true)}>
             <View style={styles.popularIcons}>
-            <Image source={Images.base} style={styles.popularIcon} />
+            <Image source={Images.bothsolanabase} style={styles.popularIcon} />
             <Image source={Images.down} style={[styles.popularIcon, { marginLeft: 4 }]} />
             </View>
             </TouchableOpacity>
@@ -177,7 +177,7 @@ const AssetsScreen = () => {
           inputRange,
           outputRange: inputRange.map((i) => {
             let tabWidth = getTabWidth ? getTabWidth(i) : initialLayout.width / navigationState.routes.length;
-            let textWidth = navigationState.routes[i].title.length * 9; // Approx width per char
+            let textWidth = navigationState.routes[i].title.length * 9;
             return (tabWidth - textWidth) / 2 + i * tabWidth ;
           }),
         });
@@ -309,8 +309,8 @@ popularIcons: {
 },
 
 popularIcon: {
-  width: 27,
-  height: 27,
+  width: 35,
+  height: 25,
   resizeMode: 'contain',
 },
   divider: {

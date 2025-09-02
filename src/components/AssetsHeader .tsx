@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   sideContainer: {
-    width: 70, //real is 50 
+    width: 70, 
     alignItems: 'flex-start',
    
   },
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '600',
     textAlign: 'center',
+    marginTop: 4,
   },
   icon: {
     width: 33,

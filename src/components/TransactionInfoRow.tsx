@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Images } from '../assets';
+import Clipboard from '@react-native-clipboard/clipboard';
+import Toast from 'react-native-toast-message';
 
 type Props = {
   note?: string;
@@ -13,6 +15,18 @@ const TransactionInfoRow = ({ note }: Props) => {
     { label: 'Transaction ID', value: 'a32c...6dg4', withCopy: true },
     { label: 'Note to Self', value: note ?? '', isNote: true },
   ];
+
+  const handleCopy = (value: string, label: string) => {
+    Clipboard.setString(value);
+    Toast.show({
+      type: 'success',
+      text1: 'Copied',
+      text2: `${label} copied to clipboard!`,
+      position: 'bottom',
+      visibilityTime: 1500,
+      autoHide: true,
+    });
+  };
 
   return (
     <View>
@@ -38,9 +52,10 @@ const TransactionInfoRow = ({ note }: Props) => {
               )}
               <Text style={styles.value}>{item.value}</Text>
 
-              {/* 👈 Agar Copy wale rows hain toh right mai copy icon */}
               {item.withCopy && (
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => handleCopy(item.value, item.label)}
+                >
                   <Image source={Images.copy} style={styles.copyIcon} />
                 </TouchableOpacity>
               )}

@@ -20,7 +20,7 @@ const AssetInfoBox = ({ logo, name, short, price, availableAmount }: Props) => {
         </View>
         <View style={styles.priceBlock}>
           <Text style={styles.price}>${price.toLocaleString()}</Text>
-          <Text style={styles.ethBalance}>Available: {availableAmount.toFixed(5)} {short}</Text>
+          <Text style={styles.ethBalance}>{availableAmount.toFixed(5)} {short}</Text>
         </View>
       </View>
     </View>

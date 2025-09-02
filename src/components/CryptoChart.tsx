@@ -2,15 +2,23 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Dimensions, StyleSheet, Image } from 'react-native';
 import { Images } from '../assets'; 
 import { LineChart } from 'react-native-gifted-charts';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const { width } = Dimensions.get('window');
+  const MAX_CARD_HEIGHT = hp('44%');  
+  const MIN_CARD_HEIGHT = hp('28%'); 
+  let cardHeight = hp('33%'); 
+  if (cardHeight > MAX_CARD_HEIGHT) cardHeight = MAX_CARD_HEIGHT;
+  if (cardHeight < MIN_CARD_HEIGHT) cardHeight = MIN_CARD_HEIGHT;
+
+  const cardWidth = wp('88%'); 
 
 const graphDataMap: Record<string, number[]> = {
-  '1D': [12, 70, 48, 55, 52, 63, 70, 42, 58, 28, 66, 64, 28, 73, 28, 22, 32, 38, 43, 52, 42, 33],
-  '1W': [18, 24, 29, 31, 33, 35, 36],
-  '1M': [15, 22, 27, 33, 38, 42, 47],
-  '1Y': [10, 20, 25, 35, 40, 50, 55],
-  'ALL': [5, 15, 20, 30, 40, 45, 50,10,40,20],
+  '1D': [10,20,20,30,20,10, 65, 70, 48, 56, 60, 72, 40, 55, 30, 68, 66, 70, 75, 15, 20, 30, 40, 45, 50, 40, 30],
+  '1W': [12, 70, 48, 55, 52, 63, 70, 42, 58, 28, 66, 64, 28, 73, 28, 22, 32, 38, 43, 52, 42, 33],
+  '1M': [14, 42, 92, 67, 55, 65, 74, 39, 53, 31, 70, 67, 62, 78, 37, 21, 29, 42, 47, 54, 38, 29],
+  '1Y': [11, 68, 66, 70, 54, 62, 71, 41, 56, 33, 69, 65, 39, 76, 16, 24, 28, 36, 44, 49, 37, 34],
+  'ALL':[13, 83, 49, 26, 57, 61, 73, 38, 54, 29, 67, 63, 61, 74, 59, 23, 31, 39, 46, 51, 41, 32],
 };
 
 const CryptoChart = () => {
@@ -43,36 +51,34 @@ const CryptoChart = () => {
 </View>
 
 
-      <View style={{ marginTop: 10 }}>
-        <LineChart
-          data={chartData}
-          width={width}
-          height={130}
-          curved
-          areaChart
-          spacing={width / (chartData.length -1)} 
-          thickness={2}
-          color="#00FF99"
-          startFillColor="#00FF99"
-          endFillColor="#00FF99"
-          startOpacity={0.35}
-          endOpacity={0.01}
-          hideDataPoints
-          hideRules
-          hideYAxisText
-          backgroundColor="transparent"
-          isAnimated
-          animateOnDataChange
-          animationDuration={400}
-          xAxisThickness={0}
-          yAxisThickness={0}
-          yAxisLabelWidth={0}
-          initialSpacing={0}
-          endSpacing={0}
-          adjustToWidth={false}
-        />
-      </View>
-
+      <View style={{ marginTop: hp('1.3%'), height: cardHeight * 0.23, width: '100%' }}>
+              <LineChart
+                data={chartData}
+                width={cardWidth * 0.9}
+                height={cardHeight * 0.20}
+                curved
+                areaChart
+                spacing={12}
+                thickness={2}
+                color="#00FF99"
+                startFillColor="#00FF99"
+                endFillColor="#00FF99"
+                startOpacity={0.35}
+                endOpacity={0.01}
+                hideDataPoints
+                hideRules
+                hideYAxisText
+                backgroundColor="transparent"
+                isAnimated={true}
+                animateOnDataChange
+                animationDuration={400}
+                xAxisThickness={0}
+                yAxisThickness={0}
+                yAxisLabelWidth={0}
+                initialSpacing={0}
+                adjustToWidth
+              />
+            </View>
      
       <View style={styles.timeFilterContainer}>
         {['1D', '1W', '1M', '1Y', 'ALL'].map((filter) => (

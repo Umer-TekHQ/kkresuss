@@ -17,6 +17,7 @@ import { AppNavigatorParamList } from '../../navigators/routeNames';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setProfilePicture } from '../../store/slices/userSlice';
 import { RootState } from '../../store';
+import Clipboard from '@react-native-clipboard/clipboard';
 import Animated, {
   useAnimatedStyle,
   withSpring,

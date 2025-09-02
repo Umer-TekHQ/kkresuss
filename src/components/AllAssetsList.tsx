@@ -1,13 +1,11 @@
 
 import React,{useEffect, useState} from 'react';
-import { View, StyleSheet ,TouchableOpacity,Text,ActivityIndicator } from 'react-native';
+import { View, StyleSheet ,TouchableOpacity,Text } from 'react-native';
 import PopularAssetItem from './PopularAssetItem';
 import { allAssets } from '../mock/assetData';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppNavigatorParamList } from '../navigators/routeNames';
-import { fetchAssetsService } from '../services/assetsService';
-
 
 type AllAssetsListProps = {
   showAll?: boolean;

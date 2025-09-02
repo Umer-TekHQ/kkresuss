@@ -93,7 +93,7 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
           hideRules
           hideYAxisText
           backgroundColor="transparent"
-          isAnimated
+          isAnimated={true}
           animateOnDataChange
           animationDuration={400}
           xAxisThickness={0}

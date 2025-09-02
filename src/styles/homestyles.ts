@@ -241,11 +241,12 @@ skeletonExploreCard: {
     height: screenWidth * 0.13,
     marginBottom: 20,
     borderRadius: screenWidth * 0.02,
+    marginTop: 10,
   },
   title: {
     color: 'white',
     fontSize: 16,
-    width: screenWidth * 0.4,
+    width: screenWidth * 0.3,
   },
   subtitle: {
     color: '#ADD2FD',

@@ -13,6 +13,8 @@ import { useAppSelector} from '../../store/hooks';
 import { tokens } from './tokens';
 import { Token } from './types';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import Toast from 'react-native-toast-message';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 const TradeStatusScreen = ({navigation, route}: any) => {
   const tradeState = useAppSelector(state => state.trade);
@@ -133,10 +135,25 @@ const TradeStatusScreen = ({navigation, route}: any) => {
         value={
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Text style={{ color: '#ADD2FD' }}>a32c...6dg4</Text>
-            <Image
-              source={Images.copy}
-              style={{ width: 18, height: 18, marginLeft: 8, tintColor: '#ADD2FD' }}
-            />
+
+            <TouchableOpacity
+              onPress={() => {
+                Clipboard.setString('a32c...6dg4'); 
+                Toast.show({
+                  type: 'success',
+                  text1: 'Copied',
+                  text2: 'Transaction ID copied!',
+                  position: 'bottom',
+                  visibilityTime: 1500,
+                  autoHide: true,
+                });
+              }}
+            >
+              <Image
+                source={Images.copy}
+                style={{ width: 18, height: 18, marginLeft: 8, tintColor: '#ADD2FD' }}
+              />
+            </TouchableOpacity>
           </View>
         }
       />

@@ -73,12 +73,12 @@ const BottomSheetNetwork = ({ visible, onClose }: Props) => {
           <View style={styles.optionBox}>
             <View style={styles.optionRow}>
               <Text style={styles.option}>Both Networks</Text>
-              <Image source={Images.bothsolanabase} />
+              <Image source={Images.profileheadlogo} style={{width: 35, height: 25}} />
             </View>
 
             <View style={styles.optionRow}>
               <Text style={styles.option}>Solana</Text>
-              <Image source={Images.solana} style={styles.optionIcon} />
+              <Image source={Images.solanalogo} style={styles.optionIcon} />
             </View>
 
             <View style={styles.optionRow}>
@@ -146,8 +146,8 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
   },
   optionIcon: {
-    width: 24,
-    height: 24,
+    width: 35,
+    height: 25,
     resizeMode: 'contain',
   },
   optionIcon1: {
