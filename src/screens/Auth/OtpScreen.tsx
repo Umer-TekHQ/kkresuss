@@ -1,144 +1,123 @@
-import React, { useState,useEffect } from 'react'
-import {View,Text,StyleSheet,TouchableOpacity,Image,Dimensions,KeyboardAvoidingView,Platform,ScrollView,ToastAndroid, Keyboard} from 'react-native'
-import Background from '../../components/Background'
-import OTPInputBox from '../../components/OTPInputBox'
-import CheckboxRow from '../../components/CheckboxRow'
-import SecondaryButton from '../../components/SecondaryButton'
-import { Images } from '../../assets'
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
-import { AppNavigatorParamList } from '../../navigators/routeNames'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { useAppSelector } from '../../store/hooks'
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, KeyboardAvoidingView, Platform, Keyboard } from 'react-native';
+import Background from '../../components/Background';
+import OTPInputBox from '../../components/OTPInputBox';
+import CheckboxRow from '../../components/CheckboxRow';
+import SecondaryButton from '../../components/SecondaryButton';
+import { Images } from '../../assets';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AppNavigatorParamList } from '../../navigators/routeNames';
+import { useAppSelector } from '../../store/hooks';
+import { authApi } from '../../api/authApi';
+import { walletApi } from '../../api/walletApi';
+import Toast from 'react-native-toast-message';
 
-const { width, height } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window');
 
 export const OtpScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
- //const route = useRoute<RouteProp<AppNavigatorParamList, 'Otp'>>()
- //const token = route?.params?.token
+  const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
 
+  const [keyboardVisible, setKeyboardVisible] = useState(true);
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+  const [otpStarted, setOtpStarted] = useState(false);
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [keepUpdated, setKeepUpdated] = useState(false);
 
- //for keuyboard open useefeect and this us state used
-const [keyboardVisible, setKeyboardVisible] = useState(true);
-const [keyboardHeight, setKeyboardHeight] = useState(0);
-  const email = useAppSelector(state => state.user.email)
+  const email = useAppSelector(state => state.user.email);
 
-  const [acceptTerms, setAcceptTerms] = useState(false)
-  const [keepUpdated, setKeepUpdated] = useState(false)
-  const [otpStarted, setOtpStarted] = useState(false)
-
-    useEffect(() => {
-    const showSub = Keyboard.addListener('keyboardDidShow', (e) =>{
+  useEffect(() => {
+    const showSub = Keyboard.addListener('keyboardDidShow', (e) => {
       setKeyboardHeight(e.endCoordinates.height);
-      setKeyboardVisible(true)});
-
-    const hideSub = Keyboard.addListener('keyboardDidHide', () =>{
-     setKeyboardHeight(0);
-    setKeyboardVisible(false);
+      setKeyboardVisible(true);
+    });
+    const hideSub = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardHeight(0);
+      setKeyboardVisible(false);
     });
 
     return () => {
       showSub.remove();
       hideSub.remove();
     };
-  }, [])
+  }, []);
+
+const handleOtpComplete = async (otp: string) => {
+  try {
+    await authApi.verifyOtp(otp);
+    // Create wallet immediately after successful OTP
+    try {
+      await walletApi.createWallet();
+    } catch (e) {
+      // If wallet already exists or 404 variations, ignore since Profile will fetch
+    }
+    navigation.navigate('OtpSuccess');
+  } catch (err: any) {
+    Toast.show({ type: 'error', text1: err.message || 'Something went wrong' });
+  }
+};
+
 
   return (
     <View style={{ flex: 1 }}>
-      <Background showContent hideBottomImages={keyboardVisible} showLogo={false} > 
-         <KeyboardAvoidingView
+      <Background showContent hideBottomImages={keyboardVisible} showLogo={false}>
+        <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           style={{ flex: 1 }}
         >
-
           <View style={styles.wrapper}>
-          
             <View style={styles.topIcons}>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => navigation.goBack()}
-            >
-              <Image source={Images.backscreen} style={styles.backIcon} />
-            </TouchableOpacity>
+              <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.goBack()}>
+                <Image source={Images.backscreen} style={styles.backIcon} />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Image source={Images.comment} style={styles.commentIcon} />
+              </TouchableOpacity>
+            </View>
 
-            <TouchableOpacity>
-              <Image source={Images.comment} style={styles.commentIcon} />
-            </TouchableOpacity>
-          </View>
-
-           
             <Image source={Images.logo} style={styles.logo} resizeMode="contain" />
-         
 
-        
             <Text style={styles.heading}>Check Your Email</Text>
-
             {otpStarted && <Text style={styles.subHeading}>and spam too</Text>}
 
-          
-            <OTPInputBox onStartTyping={() => setOtpStarted(true)} 
-               onComplete={() => navigation.navigate('OtpSuccess')}
-                //               onComplete={async (code: string) => {
-                //   try {
-                //     const result = await userCodeVerify(code, token);
+            <OTPInputBox
+              onStartTyping={() => setOtpStarted(true)}
+              onComplete={handleOtpComplete}
+            />
 
-                //     // ✅ Check API response
-                //     if (!result?.success) {
-                //       ToastAndroid.show(result?.message || 'Wrong OTP', ToastAndroid.SHORT);
-                //       return;
-                //     }
-                //     console.log('OTP verified:', result);
-                //     navigation.navigate('OtpSuccess');
-                //   } catch (error: any) {
-                //     const msg = typeof error === 'string' ? error : 'Something went wrong';
-                //     ToastAndroid.show(msg, ToastAndroid.SHORT);
-                //   }
-                // }}
-              />
+            <View style={{ marginBottom: keyboardHeight ? keyboardHeight + 80 : 0 }}>
+              <View style={styles.infoWrapper}>
+                <Text style={styles.infoText}>Security code sent to</Text>
+                <Text style={styles.emailText}>{email}</Text>
+              </View>
 
-           <View style={{ marginBottom: keyboardHeight ? keyboardHeight + 80 : 0 }}>
-        
-            <View style={styles.infoWrapper}>
-              <Text style={styles.infoText}>Security code sent to</Text>
-              <Text style={styles.emailText}>{email}</Text>
+              <View style={styles.resendWrapper}>
+                <SecondaryButton label="Resend Code" onPress={() => {}} />
+              </View>
             </View>
 
-           
-            <View style={styles.resendWrapper}>
-              <SecondaryButton label="Resend Code" onPress={() => {}} />
-            </View>
-            </View>
-       
             <View style={styles.divider} />
 
-          
             <View style={styles.checkContainer}>
-           
-          <CheckboxRow
-            isChecked={acceptTerms}
-             onToggle={() => setAcceptTerms(!acceptTerms)} 
-
-
-            hasLink={true}
-            prefixText="Accept the"
-            linkText="terms & conditions"
-          />
-
+              <CheckboxRow
+                isChecked={acceptTerms}
+                onToggle={() => setAcceptTerms(!acceptTerms)}
+                hasLink={true}
+                prefixText="Accept the"
+                linkText="terms & conditions"
+              />
               <CheckboxRow
                 isChecked={keepUpdated}
                 onToggle={() => setKeepUpdated(!keepUpdated)}
-                 prefixText="Keep me up to date with marketing emails"
+                prefixText="Keep me up to date with marketing emails"
               />
             </View>
           </View>
-
-          
-        </KeyboardAvoidingView> 
-  
+        </KeyboardAvoidingView>
       </Background>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -147,97 +126,26 @@ const styles = StyleSheet.create({
     paddingBottom: height * 0.03,
     justifyContent: 'flex-start',
   },
-  leftIcon: {
+  topIcons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     position: 'absolute',
     top: 70,
     left: 0,
-    width: 40,
-    height: 40,
+    right: 0,
+    paddingHorizontal: 15,
     zIndex: 10,
   },
-  logo: {
-    position: 'absolute',
-    top: 45,
-    alignSelf: 'center',
-    width: width * 0.3,
-    height: height * 0.12,
-  },
-  commentIcon: {
-
-   // top: 70,
-   // right: 0,
-    width: 35,
-    height: 35,
-  },
-  heading: {
-    marginTop: height * 0.2, 
-    letterSpacing: 1,
-    fontSize: 30,
-    fontWeight: '600',
-    color: '#FFFFFF',
-    textAlign: 'center',
-    height: 38,
-    fontFamily: 'PlayfairDisplay-Bold', 
-
-  },
-  subHeading: {
-    marginTop: height * 0.006,
-    fontSize: 15,
-    lineHeight: 19,
-    color: '#ADD2FD',
-    textAlign: 'center',
-  },
-  infoWrapper: {
-    marginTop: height * 0.10,
-  },
-  infoText: {
-    fontSize: 14,
-    color: '#ADD2FD',
-    textAlign: 'center',
-  },
-  emailText: {
-    fontSize: 14,
-    color: '#ADD2FD',
-    textAlign: 'center',
-    marginTop: height * 0.01,
-  },
-  resendWrapper: {
-    marginTop: height * 0.028,
-  },
-  divider: {
-    width: '100%',
-    height: 1,
-    backgroundColor: '#ADD2FD33',
-    marginTop: height * 0.035,
-    marginBottom: height * 0.025,
-  },
-  checkContainer: {
-    width: '100%',
-    gap: 12,
-    paddingLeft: 2,
-  },scrollContent: {
-  flexGrow: 1,
-  justifyContent: 'flex-start',
-},
-topIcons: {
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  position: 'absolute',
-  top: 70,
-  left: 0,
-  right: 0,
-  paddingHorizontal: 15,
-  zIndex: 10,
-},
-backIcon: {
-  width: 35,
-  height: 35,
-},
-
-
-
-})
-
-
-
+  backIcon: { width: 35, height: 35 },
+  commentIcon: { width: 35, height: 35 },
+  logo: { position: 'absolute', top: 45, alignSelf: 'center', width: width * 0.3, height: height * 0.12 },
+  heading: { marginTop: height * 0.2, letterSpacing: 1, fontSize: 30, fontWeight: '600', color: '#FFFFFF', textAlign: 'center', height: 38 },
+  subHeading: { marginTop: height * 0.006, fontSize: 15, lineHeight: 19, color: '#ADD2FD', textAlign: 'center' },
+  infoWrapper: { marginTop: height * 0.10 },
+  infoText: { fontSize: 14, color: '#ADD2FD', textAlign: 'center' },
+  emailText: { fontSize: 14, color: '#ADD2FD', textAlign: 'center', marginTop: height * 0.01 },
+  resendWrapper: { marginTop: height * 0.028 },
+  divider: { width: '100%', height: 1, backgroundColor: '#ADD2FD33', marginTop: height * 0.035, marginBottom: height * 0.025 },
+  checkContainer: { width: '100%', gap: 12, paddingLeft: 2 },
+});

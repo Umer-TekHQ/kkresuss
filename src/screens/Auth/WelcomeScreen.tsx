@@ -10,7 +10,9 @@ import AppButton from '../../components/AppButton'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { setEmail } from '../../store/slices/userSlice'
+import { setEmail, setOtpToken } from '../../store/slices/userSlice'
+import { authApi } from '../../api/authApi';
+import Toast from 'react-native-toast-message';
 
 
 const { height } = Dimensions.get('window')
@@ -37,7 +39,6 @@ const [isEmailValid, setIsEmailValid] = useState(false)
   const inputTranslateY = useRef(new Animated.Value(0)).current
   const [emailText, setEmailText] = useState(userEmail || '')
 
-  // ✅ Auto-validate whenever emailText changes (also runs on first render)
   useEffect(() => {
     setIsEmailValid(isValidEmail(emailText))
   }, [emailText])
@@ -49,7 +50,7 @@ const [isEmailValid, setIsEmailValid] = useState(false)
       setKeyboardVisible(true)
 
       Animated.timing(inputTranslateY, {
-        toValue: height * 0.03, //qa adjustment
+        toValue: height * 0.03, 
         duration: 300,
         useNativeDriver: true,
       }).start()
@@ -91,25 +92,31 @@ const [isEmailValid, setIsEmailValid] = useState(false)
 
   }
 
-  const handleContinue = () => {
-    dispatch(setEmail(emailText))
-    navigation.navigate('Otp')
-  }
+  const handleContinue = async () => {
+    try {
+      const response = await authApi.verifyEmail(emailText); // calls userVerify
 
-//server off rightnow
+      if (response.token) {
+        dispatch(setEmail(emailText));
 
-// const handleContinue = async () => { 
-//   try {
-//     const result = await userVerify(emailText)
-//     console.log('Verification success:', result)
-//     dispatch(setEmail(emailText))
-//     navigation.navigate('Otp', { token: result.token })
-//   } 
-//   catch (error: any) {
-//   const msg = error?.response?.data?.message || 'User not found';
-//   ToastAndroid.show(msg, ToastAndroid.SHORT);
-// }
-//}
+        // Save token in Redux
+        dispatch(setOtpToken(response.token));
+
+        // Token is already saved in MMKV by authApi
+        navigation.navigate('Otp');
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: 'Email not found',
+        });
+      }
+    } catch (error: any) {
+      Toast.show({
+        type: 'error',
+        text1: error.response?.data?.message || 'Something went wrong',
+      });
+    }
+  };
 
   return (
     <View style={{ flex: 1 }}>

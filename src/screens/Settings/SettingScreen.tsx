@@ -50,15 +50,8 @@ const { width, height } = Dimensions.get('window')
             width="68%"
           />
         </View>
-      </Background>
-
-     
-      
+      </Background> 
       <SettingBottomSheet onClose={() => setIsSheetOpen(false)} />
-
-     
-
-
     </View>
   )
 }

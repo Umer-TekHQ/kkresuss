@@ -1,3 +1,4 @@
+import baseReceiveScreen from '../screens/Profile/baseReceiveScreen';
 import { Token } from '../screens/Trade/types';
 
 export const routeNames = {
@@ -33,7 +34,8 @@ export const routeNames = {
   Review:"Review",
   TransactionStatus:"TransactionStatus",
   AssetsScreen: "AssetsScreen",
-  TradeStatusScreen: "TradeStatusScreen"
+  TradeStatusScreen: "TradeStatusScreen",
+  baseReceiveScreen: "baseReceiveScreen",
 } as const
 
 export type AppNavigatorParamList = {
@@ -57,6 +59,16 @@ export type AppNavigatorParamList = {
   TokenDetail:undefined |  { contractAddress: string }
   ProfileBottom: undefined
     CardRecieveScreen: {
+    card: {
+      icon: any;
+      title: string;
+      address: string;
+      background: any;
+      backgroundColor?: string;
+      value?: string;
+    };
+  };
+  baseReceiveScreen: {
     card: {
       icon: any;
       title: string;

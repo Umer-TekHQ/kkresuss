@@ -7,13 +7,14 @@ import { Images } from '../assets/index';
 interface Props {
   icon: any;
   title: string;
-  address: string;
+  address: string; 
   background: any;
+  copyValue?: string; 
 }
 
-const ProfileCard: React.FC<Props> = ({ icon, title, address, background }) => {
+const ProfileCard: React.FC<Props> = ({ icon, title, address, background, copyValue }) => {
   const handleCopy = () => {
-    Clipboard.setString(address);
+    Clipboard.setString(copyValue || address);
 
     Toast.show({
       type: 'success',

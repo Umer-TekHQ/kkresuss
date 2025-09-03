@@ -17,7 +17,6 @@ import { AppNavigatorParamList } from '../../navigators/routeNames';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setProfilePicture } from '../../store/slices/userSlice';
 import { RootState } from '../../store';
-import Clipboard from '@react-native-clipboard/clipboard';
 import Animated, {
   useAnimatedStyle,
   withSpring,
@@ -26,8 +25,13 @@ import Animated, {
 } from 'react-native-reanimated';
 import { HandlerStateChangeEvent, PanGestureHandler, GestureHandlerRootView, PanGestureHandlerEventPayload, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler';
 import BottomSheetProfile from '../../components/BottomSheetProfile';
+import { walletApi } from '../../api/walletApi';
+import { storage } from '../../api/axiosInstance';
+import Toast from 'react-native-toast-message';
+import { useEffect, useState } from 'react';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+
 
 export const ProfileScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
@@ -44,23 +48,73 @@ export const ProfileScreen = () => {
     dispatch(setProfilePicture(newPicture));
   };
 
-  const initialCards = [
-    {
-      icon: Images.solanalogo,
-      title: 'Solana Wallet Address',
-      address: 'dDCQNn...c7c8',
-      background: Images.solanabg,
-    },
-    {
-      icon: Images.basecardlogo,
-      title: 'Base Wallet Address',
-      address: 'dDCQNn...c7c8',
-      background: Images.basebg, 
-      backgroundColor: '#020105ff', 
-    },
-  ];
+    const [wallets, setWallets] = useState<any[]>([]);
 
-  const reorderedCards = useReanimatedSharedValue(initialCards);
+  useEffect(() => {
+    const fetchWallets = async () => {
+      try {
+        const token = storage.getString('token');
+        if (!token) {
+          Toast.show({ type: 'error', text1: 'Session expired. Please log in again.' });
+          return;
+        }
+
+        const walletResponse = await walletApi.getUserWallets();
+        const raw = Array.isArray(walletResponse?.WalletsData)
+          ? walletResponse.WalletsData
+          : Array.isArray(walletResponse)
+          ? walletResponse
+          : Array.isArray(walletResponse?.wallets)
+          ? walletResponse.wallets
+          : [];
+
+        const first = raw[0] || {};
+        const formatAddress = (addr?: string) => {
+          if (!addr || addr.length <= 10) return addr || '';
+          return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
+        };
+
+        const cards = [] as any[];
+        if (first.solana) {
+          cards.push({
+            icon: Images.solanalogo,
+            title: 'Solana Wallet Address',
+            address: formatAddress(first.solana),
+            copyValue: first.solana,
+            background: Images.solanabg,
+          });
+        }
+        if (first.base) {
+          cards.push({
+            icon: Images.basecardlogo,
+            title: 'Base Wallet Address',
+            address: formatAddress(first.base),
+            copyValue: first.base,
+            background: Images.basebg,
+          });
+        }
+        if (first.world) {
+          cards.push({
+            icon: Images.basecardlogo,
+            title: 'World Wallet Address',
+            address: formatAddress(first.world),
+            copyValue: first.world,
+            background: Images.basebg,
+          });
+        }
+
+        setWallets(cards);
+      } catch (error) {
+        console.log('Wallet API Error', error);
+        const message = (error as any)?.message || 'Unable to load wallets';
+        Toast.show({ type: 'error', text1: message });
+      }
+    };
+    fetchWallets();
+  }, []);
+
+  const reorderedCards = useReanimatedSharedValue(wallets);
+
 
   const swapCards = () => {
     reorderedCards.value = [...reorderedCards.value].reverse();
@@ -74,9 +128,31 @@ const CardDeck = () => {
     topCardIndex.value = topCardIndex.value === 0 ? 1 : 0;
   };
 
-  const handleCardPress = (card: typeof initialCards[0]) => {
-    navigation.navigate('CardRecieveScreen', { card });
+  const handleCardPress = (card: typeof wallets[0]) => {
+    if (card.title.includes('Base')) {
+      navigation.navigate('baseReceiveScreen', { card });
+    } else if (card.title.includes('Solana')) {
+      navigation.navigate('CardRecieveScreen', { card });
+    } else {
+      Toast.show({ type: 'info', text1: 'Screen not available for this wallet' });
+    }
   };
+
+
+
+  if (wallets.length === 0) {
+    return null;
+  }
+
+  if (wallets.length === 1) {
+    return (
+      <View style={{ height: screenHeight * 0.3, justifyContent: 'center', alignItems: 'center' }}>
+        <TouchableOpacity activeOpacity={0.9} onPress={() => handleCardPress(wallets[0])}>
+          <ProfileCard {...wallets[0]} />
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
   return (
     <GestureHandlerRootView>
@@ -107,9 +183,9 @@ const CardDeck = () => {
               <Animated.View key={i} style={animatedStyle}>
                 <TouchableOpacity
                   activeOpacity={0.9}
-                  onPress={() => handleCardPress(initialCards[i])}
+                  onPress={() => handleCardPress(wallets[i])}
                 >
-                  <ProfileCard {...initialCards[i]} />
+                  <ProfileCard {...wallets[i]} />
                 </TouchableOpacity>
               </Animated.View>
             );

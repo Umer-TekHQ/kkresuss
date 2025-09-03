@@ -11,15 +11,15 @@ import BottomSheetProfile from '../../components/BottomSheetProfile'
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
-export default function CardRecieveScreen() {
+export default function baseReceiveScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
   const translateY = useSharedValue(0);
   const cards = [
       {
-        icon: Images.solanalogo,
-        title: 'Solana Wallet Address',
+        icon: Images.basecardlogo,
+        title: 'Base Wallet Address',
         address: 'dDCQNn...c7c8',
-        background: Images.solanabg,
+        background: Images.basebg,
       },
     ];
   return (
@@ -33,7 +33,7 @@ export default function CardRecieveScreen() {
         </TouchableOpacity>
         <View style={{flex: 1, marginLeft: screenWidth * 0.23}}>
         <Text style={styles.head1}>
-          Receive on Solana
+          Receive on Base
         </Text>
         </View>
       </View>

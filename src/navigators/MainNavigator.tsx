@@ -1,28 +1,3 @@
-// import React from 'react';
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import { routeNames } from './routeNames';
-// import { defaultScreenOptions } from './screenOptions';
-// import { BottomNavigator } from './BottomNavigator';
-// import { ProfileScreen } from '../screens/Profile/ProfileScreen';
-// import SettingScreen from '../screens/Settings/SettingScreen';
-// import SecurityScreen from '../screens/Settings/SecurityScreen';
-// // ... import your other screens
-
-// const MainStack = createNativeStackNavigator();
-
-// export const MainNavigator = () => {
-//   return (
-//     <MainStack.Navigator screenOptions={defaultScreenOptions}>
-//       <MainStack.Screen name={routeNames.BottomNavigator} component={BottomNavigator} />
-//       <MainStack.Screen name={routeNames.ProfileScreen} component={ProfileScreen} />
-//       <MainStack.Screen name={routeNames.Settings} component={SettingScreen} />
-//       <MainStack.Screen name={routeNames.Security} component={SecurityScreen} />
-//       {/* add all other screens here */}
-//     </MainStack.Navigator>
-//   );
-// };
-
-
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { BottomNavigator } from './BottomNavigator';
@@ -50,15 +25,15 @@ import TradeStatusScreen from '../screens/Trade/TradeStatusScreen';
 import { BottomSheetScreen } from '../screens';
 import { ProfileBottom } from '../screens/Profile/ProfileBottomSheet';
 import ReceiveTokenScreen from '../screens/Trade/ReceiveSearchScreen';
+import baseReceiveScreen from '../screens/Profile/baseReceiveScreen';
 
 const MainStack = createNativeStackNavigator();
 
 export const MainNavigator = () => (
   <MainStack.Navigator screenOptions={{ headerShown: false }}>
-    <MainStack.Screen name="BottomNavigator" component={BottomNavigator} />
-    <MainStack.Screen name="ProfileScreen" component={ProfileScreen} />
-    {/* <MainStack.Screen name="Settings" component={SettingScreen} /> */}
-   <MainStack.Screen name="bottomscreen" component={BottomSheetScreen} />
+       <MainStack.Screen name="BottomNavigator" component={BottomNavigator} />
+       <MainStack.Screen name="ProfileScreen" component={ProfileScreen} />
+       <MainStack.Screen name="bottomscreen" component={BottomSheetScreen} />
        <MainStack.Screen name="ProsScreen" component={ProsScreen} />
        <MainStack.Screen name="Settings" component={SettingScreen} />
        <MainStack.Screen name="Security" component={SecurityScreen}/> 
@@ -68,6 +43,7 @@ export const MainNavigator = () => (
        <MainStack.Screen name="TokenAsset" component={AssetDetailScreen} />
        <MainStack.Screen name="ProfileBottom" component={ProfileBottom} />
        <MainStack.Screen name="CardRecieveScreen" component={CardRecieveScreen}/>
+       <MainStack.Screen name="baseReceiveScreen" component={baseReceiveScreen}/>
        <MainStack.Screen name="SearchScreen" component={SearchScreen}/>
        <MainStack.Screen name="ReceiveTokenScreen" component={ReceiveTokenScreen}/>
        <MainStack.Screen name="TodayReturns" component={TodaysReturnScreen} />

@@ -117,14 +117,12 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-   // marginBottom: 24,
   },
   icon: {
     width: 17,
     height: 24,
     marginRight: 16,
     marginTop: 0,
-    // resizeMode:'contain',
   },
   itemTitle: {
     color: 'white',
@@ -144,9 +142,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   delete: {
-   // color: '#F24444',
- //   textAlign: 'center',
- color:'white',
+    color:'white',
     fontSize: 12,
     fontWeight: '500',
     paddingVertical: 16,
@@ -162,3 +158,6 @@ line: {
   backgroundColor:'#BOB4A'
 }
 })
+
+
+

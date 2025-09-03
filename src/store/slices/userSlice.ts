@@ -5,12 +5,14 @@ interface UserState {
   email: string;
   username: string;
   profilePicture: any; 
+  otpToken: string | null;
 }
 
 const initialState: UserState = {
   email: '',
   username: '',
   profilePicture: Images.profileicon, 
+  otpToken: null,
 };
 
 const userSlice = createSlice({
@@ -19,6 +21,9 @@ const userSlice = createSlice({
   reducers: {
     setEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload;
+    },
+    setOtpToken: (state, action: PayloadAction<string>) => {
+      state.otpToken = action.payload;
     },
     setUsername: (state, action: PayloadAction<string>) => {
       state.username = action.payload;
@@ -29,6 +34,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { setEmail, setUsername, setProfilePicture } = userSlice.actions;
+export const { setEmail, setUsername, setProfilePicture,  setOtpToken } = userSlice.actions;
 
 export default userSlice.reducer; 
