@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image,TouchableOpacity } from 'react-native';
 import { Images } from '../assets';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 type TopAssetsCardProps = {
   showChange?: boolean;
@@ -15,7 +16,6 @@ type Asset = {
   logo: any;
   isPositive: boolean;
 };
-
 
 const assets:Asset [] = [
   {
@@ -58,41 +58,31 @@ const TopAssetsCard = ({ showChange = true ,onAssetPress }:TopAssetsCardProps) =
           >
           <View style={styles.row}>
             <Image source={item.logo} style={styles.logo} />
-            <View style={styles.assetInfo}>
+          <View style={styles.assetInfo}>
+            <View style={styles.assetNameRow}>
               <Text style={styles.assetName}>{item.name}</Text>
-              <Text style={styles.assetSymbol}>{item.short}</Text>
+              {showChange && (
+                <View style={styles.changeContainer}>
+                  <Image
+                    source={item.isPositive ? Images.greenarrowup : Images.reddown}
+                    style={styles.changeIcon}
+                  />
+                  <Text
+                    style={[
+                      styles.changeText,
+                      { color: item.isPositive ? '#5AD78E' : '#FF5A5F' },
+                    ]}
+                  >
+                    {item.change}
+                  </Text>
+                </View>
+              )}
             </View>
-            {/* {showChange ? (
-            <Text style={[styles.change, { color: item.isPositive ? '#5AD78E' : '#FF5A5F' }]}>
-              {item.change}
-            </Text>
-             ) : (
-               <View style={styles.change} />
-             )} */}
-                {showChange ? (
-                  <View style={styles.changeContainer}>
-                    <Image
-                      source={item.isPositive ? Images.greenarrowup : Images.reddown}
-                      style={styles.changeIcon}
-                    />
-                    <Text
-                      style={[
-                        styles.changeText,
-                        { color: item.isPositive ? '#5AD78E' : '#FF5A5F' },
-                      ]}
-                    >
-                      {item.change}
-                    </Text>
-                  </View>
-                ) : (
-                  <View style={styles.changeContainer} />
-                )}
-
-
+            <Text style={styles.assetSymbol}>{item.short}</Text>
+          </View>
             <View style={styles.priceBlock}>
                   <Text style={styles.price}>{item.price}</Text>
               <Text style={styles.amount}>{item.amount}</Text>
-          
             </View>
          </View>
          </TouchableOpacity>
@@ -102,12 +92,11 @@ const TopAssetsCard = ({ showChange = true ,onAssetPress }:TopAssetsCardProps) =
     </View>
   );
 };
-
 export default TopAssetsCard;
 
 const styles = StyleSheet.create({
   card: {
-    width: 345,
+    width: wp('85%'),
     backgroundColor: '#080C4C',
     borderRadius: 20,
     borderTopWidth: 1,
@@ -127,7 +116,6 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   assetInfo: {
-
     width: 100, 
   },
   assetName: {
@@ -163,9 +151,6 @@ const styles = StyleSheet.create({
     color: '#7AB7FD',
     fontSize: 13,
     marginBottom: 2,
-   // alignSelf: 'flex-start', 
-   // left:25,   //increased as per qa reuirement 
-  
   },
   divider: {
     height: 1,
@@ -174,26 +159,23 @@ const styles = StyleSheet.create({
     width: 287,
     marginVertical: 4,
   },
- changeContainer: {
+  assetNameRow: {
   flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'flex-start',
-  width: 60,
-  marginRight: 10,
-  bottom:7,
-  right:32
+},
+changeContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginLeft: 8, 
 },
 changeIcon: {
   width: 11,
   height: 11,
   resizeMode: 'contain',
-  marginRight: 12,
-  left:9
+  marginRight: 2,
 },
 changeText: {
-  fontSize: 13,
+  fontSize: 12,
   fontWeight: '600',
 },
-
-
 });

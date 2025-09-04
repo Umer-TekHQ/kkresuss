@@ -22,9 +22,6 @@ import { useFocusEffect } from '@react-navigation/native'
 import { StackActions } from '@react-navigation/native';
 
 
-
-
-
 const { width, height } = Dimensions.get('window')
 
 export const UserNameScreen = () => {
@@ -181,7 +178,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     letterSpacing: 1,
     fontSize: 30,
-    // fontWeight: '600',
     color: '#FFFFFF',
     marginBottom: 20,
     textAlign: 'center',
@@ -191,7 +187,6 @@ const styles = StyleSheet.create({
     flex: 1, 
     justifyContent: 'flex-end',
     marginTop:10,
-   // paddingTop: 40
   }
 })
 

@@ -92,7 +92,7 @@ const handlePress = (item: Recipient) => {
   return (
     <View style={styles.container}>
       <AssetsHeader title="Select Recipient" />
-
+      <View style={{marginHorizontal: 10}}>
       <SearchBox
         placeholder="Enter Name or Wallet Address"
         value={searchText}
@@ -100,6 +100,7 @@ const handlePress = (item: Recipient) => {
         onQrPress={handleQrPress}
         onClear={handleClear}
       />
+      </View>
 
       <View style={styles.suggestedRow}>
         <Text style={styles.suggestedText}>Suggested</Text>
@@ -112,7 +113,7 @@ const handlePress = (item: Recipient) => {
       </View>
 
       <View style={styles.divider} />
-
+      <View></View>
      {loading ? (
     <FlatList
     data={Array.from({ length: 5 })}
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#01021D',
-    paddingHorizontal: 6,
+    paddingHorizontal: 10,
   },
   suggestedRow: {
     flexDirection: 'row',
@@ -186,7 +187,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#2E2F40',
     borderRadius: 25,
     marginRight: 12,
-  resizeMode:'contain'
+    resizeMode:'contain'
   },
   textContent: {
     justifyContent: 'space-between',
@@ -201,15 +202,15 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   semtImage: {
- width: '100%',
-  height: '100%',
-},
-noUserText: {
-  color: '#4898F3',
-  fontSize: 15,
-  textAlign: 'center',
-  marginTop: 20,
-},
+    width: '100%',
+    height: '100%',
+  },
+  noUserText: {
+    color: '#4898F3',
+    fontSize: 15,
+    textAlign: 'center',
+    marginTop: 20,
+  },
 
 
 

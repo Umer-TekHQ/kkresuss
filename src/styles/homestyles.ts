@@ -450,6 +450,7 @@ projectstext:{
 },
 prossection:{
   flexDirection: 'row',
+  justifyContent: 'space-between',
 },
   bottomSheetContainer: {
     ...StyleSheet.absoluteFillObject,
@@ -459,7 +460,7 @@ prossection:{
   },
 prosicon:{
   paddingBottom: 15,
-  marginLeft: 10
+  marginRight: wp('6%'),
 },
   cryptoSummaryCard: {
   backgroundColor: '#101038',

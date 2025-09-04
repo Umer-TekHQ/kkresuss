@@ -72,7 +72,6 @@ const [showSheet, setShowSheet] = useState(false);
 
      
       <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
-        {/* <BottomSheetBase /> */}
         <BottomSheetNetwork visible={showSheet} onClose={() => setShowSheet(false)} />
       </View>
     </View>
@@ -90,17 +89,14 @@ const ITEM_WIDTH = (screenWidth - ITEM_MARGIN * (NUM_COLUMNS + 1)) / NUM_COLUMNS
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: '#01032C' }} contentContainerStyle={{ padding: 14 }}> 
-    {/*orignal padding 16  */}
       <Text style={styles.myNFTsText}>My NFTs</Text>
 
       <View style={styles.nftGrid}>
        <FlatList
         data={nftImages}
         renderItem={({ item }) =>(
-          // <View  style={{ margin: ITEM_MARGIN }}>
            <NFTCard image={item.image} style={{ width: ITEM_WIDTH }}
            />
-          //  </View>
   )}
         keyExtractor={(item) => item.id}
         numColumns={2}
@@ -199,19 +195,17 @@ const AssetsScreen = () => {
         backgroundColor: index === 1 ? '#01032C' : '#01021D',
          borderBottomWidth: 2,
         borderBottomColor: '#030A74',
-        height:45, //as per qa changes
+        height:45, 
       }}
      
       activeColor="white"
       inactiveColor="#7AB7FD"
       
+      
 
     />
   )}
 />
-
-
-
     </View>
   );
 };
@@ -257,7 +251,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
-   // marginBottom: 10,
   },
  
   placeholder: {
@@ -349,5 +342,3 @@ bottomSpace:{
   },
 
 });
-
-

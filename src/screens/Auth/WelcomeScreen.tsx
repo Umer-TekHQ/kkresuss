@@ -16,35 +16,80 @@ import Toast from 'react-native-toast-message';
 
 
 const { height } = Dimensions.get('window')
-
-
 const isValidEmail = (email: string): boolean => {
   const regex = /^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/
   return regex.test(email)
 }
 
-
-
 const WelcomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
   const [keyboardVisible, setKeyboardVisible] = useState(false)
-const [isEmailValid, setIsEmailValid] = useState(false)
-
-  
+  const [isEmailValid, setIsEmailValid] = useState(false)
   const dispatch = useAppDispatch()
   const userEmail = useAppSelector(state => state.user.email)
-
   const logoScale = useRef(new Animated.Value(1)).current
   const logoTranslateY = useRef(new Animated.Value(0)).current
   const inputTranslateY = useRef(new Animated.Value(0)).current
   const [emailText, setEmailText] = useState(userEmail || '')
+  const headingOpacity = useRef(new Animated.Value(1)).current;
+  const headingTranslateY = useRef(new Animated.Value(0)).current;
+
+
+  useEffect(() => {
+  const showSub = Keyboard.addListener('keyboardDidShow', () => {
+    setKeyboardVisible(true);
+
+    Animated.parallel([
+      Animated.timing(inputTranslateY, {
+        toValue: height * 0.03,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(headingOpacity, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(headingTranslateY, {
+        toValue: -20,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  });
+
+  const hideSub = Keyboard.addListener('keyboardDidHide', () => {
+    setKeyboardVisible(false);
+
+    Animated.parallel([
+      Animated.timing(inputTranslateY, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(headingOpacity, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(headingTranslateY, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  });
+
+  return () => {
+    showSub.remove();
+    hideSub.remove();
+  };
+  }, []);
 
   useEffect(() => {
     setIsEmailValid(isValidEmail(emailText))
   }, [emailText])
 
-
-  
   useEffect(() => {
     const showSub = Keyboard.addListener('keyboardDidShow', () => {
       setKeyboardVisible(true)
@@ -66,7 +111,6 @@ const [isEmailValid, setIsEmailValid] = useState(false)
       }).start()
     })
 
-  
     Animated.parallel([
       Animated.timing(logoScale, {
         toValue: 0.6,
@@ -89,20 +133,17 @@ const [isEmailValid, setIsEmailValid] = useState(false)
   const handleEmailChange = (text: string) => {
     setEmailText(text)
    setIsEmailValid(isValidEmail(text))
-
   }
 
   const handleContinue = async () => {
     try {
-      const response = await authApi.verifyEmail(emailText); // calls userVerify
+      const response = await authApi.verifyEmail(emailText); 
 
       if (response.token) {
         dispatch(setEmail(emailText));
 
-        // Save token in Redux
         dispatch(setOtpToken(response.token));
 
-        // Token is already saved in MMKV by authApi
         navigation.navigate('Otp');
       } else {
         Toast.show({
@@ -136,7 +177,6 @@ const [isEmailValid, setIsEmailValid] = useState(false)
           resizeMode="contain"
         />
 
-      
         <Animated.View
           style={[
             WelcomeStyles.content,
@@ -145,6 +185,7 @@ const [isEmailValid, setIsEmailValid] = useState(false)
         >
           {!keyboardVisible && (
             <>
+            
               <Text style={WelcomeStyles.heading}>Your Base</Text>
               <Text style={WelcomeStyles.heading}>Control Center.</Text>
               <Text style={WelcomeStyles.subheading}>
@@ -165,7 +206,6 @@ const [isEmailValid, setIsEmailValid] = useState(false)
         </View>
         </Animated.View>
 
-       
         {keyboardVisible && (
           <TouchableOpacity
             onPress={Keyboard.dismiss}
