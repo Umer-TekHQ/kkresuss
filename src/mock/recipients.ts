@@ -13,7 +13,7 @@ export const recipients = [
     name: 'Bob Smith',
     email: '',
     code: '0xa6…C4b2',
-    logo:Images.bret
+    logo:Images.token3
   },
   {
     id: '3',

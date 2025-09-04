@@ -14,7 +14,7 @@ const { width } = Dimensions.get('window');
   const cardWidth = wp('88%'); 
 
 const graphDataMap: Record<string, number[]> = {
-  '1D': [10,20,20,30,20,10, 65, 70, 48, 56, 60, 72, 40, 55, 30, 68, 66, 70, 75, 15, 20, 30, 40, 45, 50, 40, 30,32, 38, 43, 52],
+  '1D': [1,50,20,30,20,10, 65, 70, 48, 56, 60, 72, 40, 55, 30, 68, 66, 70, 75, 15, 20, 30, 40, 45, 50, 40, 30,32, 38, 43, 52],
   '1W': [12, 70, 48, 55, 52, 63, 70, 42, 58, 72, 40, 55, 30, 68, 66, 70, 75, 15, 20, 30, 40, 45, 50, 40, 30,32, 38, 43, 52, 42, 33],
   '1M': [14, 42, 92, 67, 55, 65, 74, 39, 53, 31, 70, 67, 62, 78, 37, 21, 29, 42, 47, 54, 38, 29, 45, 50, 40, 30,32, 38, 43, 52, 42],
   '1Y': [11, 68, 66, 70, 54, 62, 71, 41, 56, 33, 69, 65, 39, 76, 16, 24, 28, 36, 44, 49, 37, 34, 45, 50, 40, 30,32, 38, 43, 52, 42],
@@ -51,7 +51,7 @@ const CryptoChart = () => {
 </View>
 
 
-      <View style={{ marginTop: hp('1.3%'), height: cardHeight * 0.23, width: '100%' }}>
+      <View style={{ marginTop: hp('5.5%'), marginBottom: hp('5%'), height: cardHeight * 0.23, width: '100%' }}>
               <LineChart
                 data={chartData}
                 width={cardWidth * 1}
@@ -63,7 +63,7 @@ const CryptoChart = () => {
                 color="#00FF99"
                 startFillColor="#00FF99"
                 endFillColor="#00FF99"
-                startOpacity={0.35}
+                startOpacity={0.65}
                 endOpacity={0.01}
                 hideDataPoints
                 hideRules

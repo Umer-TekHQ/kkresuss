@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Images } from '../assets/index';
 import OverlayBackground from './OverlayBackgroung';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const { width, height } = Dimensions.get('window');
 
@@ -120,14 +121,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   logo: {
-    height: 90,
-    marginBottom: 10,
-    marginTop: 30,
+    height: hp('12%'),
   },
   title: {
     textAlign: 'center',
     color: '#fff',
-    fontSize: 30,
+    fontSize: 25,
     marginBottom: 20,
     lineHeight: 36,
     fontFamily: 'PlayfairDisplay-Bold', 
@@ -136,7 +135,7 @@ const styles = StyleSheet.create({
   laterText: {
     color: 'white',
     marginTop: 10,
-    fontSize: 15,
+    fontSize: 13,
     textAlign: 'center',
   },
   icons: {
@@ -145,13 +144,13 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   icons1: {
-    width: 26,
-    height: 26,
+    width: 28,
+    height: 28,
     marginRight: 10,
   },
   icons21: {
-    width: 22,
-    height: 22,
+    width: 25,
+    height: 25,
     marginRight: 10,
   },
   primaryButton: {
@@ -159,8 +158,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     alignItems: 'center',
     borderRadius: 32,
-    paddingVertical: 10,
-    paddingHorizontal: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 8,
     width: '100%',
     marginBottom: 10,
     marginTop: 15,
@@ -168,14 +167,14 @@ const styles = StyleSheet.create({
   },
   primaryText: {
     color: '#0A0E27',
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: '500',
   },
   secondaryButton: {
     flexDirection: 'row',
     borderRadius: 32,
-    paddingVertical: 10,
-    paddingHorizontal: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 8,
     width: '100%',
     alignItems: 'center',
     marginBottom: 10,
@@ -185,12 +184,12 @@ const styles = StyleSheet.create({
   },
   secondaryText: {
     color: '#fff',
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: '500',
   },
   secondaryText1: {
     color: '#fff',
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: '500',
   },
   centeredText: {

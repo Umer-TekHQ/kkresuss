@@ -64,7 +64,7 @@ return (
       <View style={styles.headerContent}>
         <ProfileInfo />
         
-       <AmountInputSection
+      <AmountInputSection
        amount={amount}
       setAmount={(val) => dispatch(setAmount(val))}
        isInsufficient={isInsufficient}

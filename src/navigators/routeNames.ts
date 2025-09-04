@@ -1,3 +1,4 @@
+import AssetDetailScreen from '@Screen/TokenDetails/AssetDetailScreen';
 import baseReceiveScreen from '../screens/Profile/baseReceiveScreen';
 import { Token } from '../screens/Trade/types';
 
@@ -36,6 +37,7 @@ export const routeNames = {
   AssetsScreen: "AssetsScreen",
   TradeStatusScreen: "TradeStatusScreen",
   baseReceiveScreen: "baseReceiveScreen",
+  AssetDetailScreen: 'assetDetail'
 } as const
 
 export type AppNavigatorParamList = {

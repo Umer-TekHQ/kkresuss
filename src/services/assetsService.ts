@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BASE_URL = "https://4c802f7c401c.ngrok-free.app";
+const BASE_URL = "http://13.213.72.15:5000";
 
 export const fetchAssetsService = async () => {
   try {

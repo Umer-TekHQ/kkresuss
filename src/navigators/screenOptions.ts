@@ -2,10 +2,10 @@ import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 
 export const defaultScreenOptions: NativeStackNavigationOptions = {
   headerShown: false,
-  animation: 'slide_from_right',
-  animationTypeForReplace: 'push',
+  animation: 'slide_from_right', 
+  animationTypeForReplace: 'pop',
   gestureEnabled: true,
   contentStyle: {
-    backgroundColor: '#000000', 
+    backgroundColor: '#000000',
   },
 };

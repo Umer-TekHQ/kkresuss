@@ -24,8 +24,6 @@ const handlePress = () => {
       onPress()
     }
   }
-
-
   return (
     <TouchableOpacity
       onPress={handlePress}
@@ -47,7 +45,6 @@ export default AppButton
 
 const styles = StyleSheet.create({
   button: {
-
     height: 55,
     backgroundColor: '#FFFFFF',
     borderRadius: 99,
@@ -55,10 +52,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 24,
     position: 'absolute', 
-    bottom:-6, //orignal was 1
+    bottom:-6, 
     alignSelf: 'center',
     zIndex: 20,
-    
   },
   label: {
     fontSize: 16,

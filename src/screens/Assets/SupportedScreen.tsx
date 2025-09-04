@@ -27,17 +27,15 @@ const SupportedScreen = () => {
   const [showSheet, setShowSheet] = useState(false);
 
   return (
-    // before qa scrollview was the parent container 
     <View style={styles.container}> 
     <ScrollView 
-    //style={styles.container}
     contentContainerStyle={{ flexGrow: 1 }}
     >
       <AssetsHeader title="Supported" showRightIcons={true} 
         onRightPress={() => setShowSheet(true)}
       />
 
-        <View style={{marginTop:5}}>
+        <View style={{marginTop:5, marginHorizontal: 6}}>
          <SearchBox value={searchText} onChangeText={setSearchText} placeholder="Search"  onClear={() => setSearchText('')}  />
       </View>
 
@@ -57,7 +55,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
    // padding: 16,
-    backgroundColor: '#000',
+    backgroundColor: '#01021D',
     paddingHorizontal:16,
   },
   assetsList: {

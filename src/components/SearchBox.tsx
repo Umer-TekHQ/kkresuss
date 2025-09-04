@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    fontSize: 18,
+    fontSize: 15,
     color: '#ADD2FD',
   },
   rightIcon: {

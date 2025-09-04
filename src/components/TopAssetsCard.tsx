@@ -96,7 +96,7 @@ export default TopAssetsCard;
 
 const styles = StyleSheet.create({
   card: {
-    width: wp('85%'),
+    width: wp('90%'),
     backgroundColor: '#080C4C',
     borderRadius: 20,
     borderTopWidth: 1,

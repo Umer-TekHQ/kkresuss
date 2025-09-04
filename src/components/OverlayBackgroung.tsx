@@ -101,11 +101,11 @@ const styles = StyleSheet.create({
   },
   waves: {
     width: '100%',
-    height: 60,
+    height: 50,
   },
   land1: {
     position: 'absolute',
-    bottom: 10,
+    bottom: 0,
     left: 0,
     height: 155,
     width: 180,
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   },
   land2: {
     position: 'absolute',
-    bottom: 10,
+    bottom: 0,
     right: 0,
     height: 150,
     width: 280,

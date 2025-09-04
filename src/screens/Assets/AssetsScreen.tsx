@@ -293,7 +293,7 @@ popularHeader: {
   alignItems: 'flex-end',
   marginTop: 20,
   marginBottom: 10,
-  marginLeft:4,
+  marginLeft:12,
 },
 
 popularIcons: {

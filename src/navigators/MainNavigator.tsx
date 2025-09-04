@@ -40,7 +40,7 @@ export const MainNavigator = () => (
        <MainStack.Screen name="Recovery" component={RecoveryAnd2FAScreen}/>
        <MainStack.Screen name="Privacy" component={PrivacyPolicyScreen} />
        <MainStack.Screen name="Verification" component={AdvancedVerificationInfoScreen} />
-       <MainStack.Screen name="TokenAsset" component={AssetDetailScreen} />
+       <MainStack.Screen name="TokenDetail" component={AssetDetailScreen} />
        <MainStack.Screen name="ProfileBottom" component={ProfileBottom} />
        <MainStack.Screen name="CardRecieveScreen" component={CardRecieveScreen}/>
        <MainStack.Screen name="baseReceiveScreen" component={baseReceiveScreen}/>

@@ -22,6 +22,8 @@ import { useFocusEffect } from '@react-navigation/native'
 import { StackActions } from '@react-navigation/native';
 
 
+
+
 const { width, height } = Dimensions.get('window')
 
 export const UserNameScreen = () => {
@@ -92,7 +94,6 @@ const [keyboardVisible, setKeyboardVisible] = useState(false)
     }
   };
 
-
   return (
     <View style={{ flex: 1 }}>
       <Background showContent hideBottomImages={keyboardVisible} showLogo={false}>
@@ -103,13 +104,13 @@ const [keyboardVisible, setKeyboardVisible] = useState(false)
             activeOpacity={0.7}
             onPress={() => navigation.goBack()}
           >
-            <Image source={Images.backscreen} style={{ width: 30, height: 30 }} />
+            <Image source={Images.backscreen} style={{ width: 30, height: 30, marginLeft: 5 }} />
           </TouchableOpacity>
 
           <Image source={Images.logo} style={styles.logo} />
        
           <TouchableOpacity style={styles.commentIcon} activeOpacity={0.7}>
-          <Image source={Images.comment} style={{ width: 35, height: 35 }} />
+          <Image source={Images.comment} style={{ width: 40, height: 40, }} />
            </TouchableOpacity>
 
 
@@ -160,33 +161,33 @@ const styles = StyleSheet.create({
     height: 35,
     zIndex: 10,
   },
-  logo: {
+    logo: {
     position: 'absolute',
-    top: 45,
+    top: 60,
     alignSelf: 'center',
-    width: width * 0.3,
-    height: height * 0.12,
+    width: width * 0.25,
+    height: height * 0.09,
   },
   commentIcon: {
     position: 'absolute',
     top: 70,
-    right: 10,
+    right: 18,
     width: 35,
     height: 35,
+
   },
   heading: {
     marginTop: 10,
-    letterSpacing: 1,
     fontSize: 30,
+    fontWeight: '600',
     color: '#FFFFFF',
-    marginBottom: 20,
+    marginBottom: 15,
     textAlign: 'center',
-    fontFamily: 'PlayfairDisplay-Bold', 
-
-  },buttonPosition:{
+    fontFamily: 'PlayfairDisplay-Bold',
+  },
+  buttonPosition:{
     flex: 1, 
     justifyContent: 'flex-end',
     marginTop:10,
   }
 })
-

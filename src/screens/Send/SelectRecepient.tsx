@@ -113,7 +113,7 @@ const handlePress = (item: Recipient) => {
       </View>
 
       <View style={styles.divider} />
-      <View></View>
+      <View style={{paddingHorizontal: 15}}>
      {loading ? (
     <FlatList
     data={Array.from({ length: 5 })}
@@ -133,6 +133,7 @@ const handlePress = (item: Recipient) => {
 
   />
 )}
+</View>
 
     </View>
   );
@@ -150,6 +151,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingHorizontal: 15,
   },
   suggestedText: {
     color: '#FFFFFF',
@@ -174,6 +176,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#10178A',
     marginBottom: 10,
     marginTop: 8,
+    marginHorizontal: 15
   },
   itemContainer: {
     flexDirection: 'row',
