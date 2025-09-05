@@ -70,7 +70,8 @@ export const ExploreScreen: React.FC = ({ navigation }: any) => {
             lineHeight: 50,
             color: '#fff',
             marginHorizontal: wp('4%'),
-            marginVertical: wp('4%')
+            marginVertical: wp('4%'),
+            fontFamily: 'PlayfairDisplay-Bold'
           }}
         >
           Explore

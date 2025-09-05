@@ -47,7 +47,7 @@ const RecoveryAnd2FAScreen = () => {
         <Text style={styles.sectionTitle}>Advanced Verification</Text>
      </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Verification')}>
-        <Image source={Images.identity} style={styles.identityIcon} />
+        <Image source={Images.pros} style={styles.identityIcon} />
       </TouchableOpacity>
 </View>
 
@@ -141,8 +141,8 @@ const styles = StyleSheet.create({
   marginTop:40,
 },
 identityIcon: {
-  width: 20,
-  height: 20,
+  width: 30,
+  height: 30,
  resizeMode:'cover',
   tintColor: '#ADD2FD',
 },dividertwo:{

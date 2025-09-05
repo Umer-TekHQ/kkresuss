@@ -1,8 +1,6 @@
 import React, { useRef,useEffect } from 'react';
 import {
   StyleSheet,
-  Text,
-  View,
   Dimensions,
   Animated,
   PanResponder,
@@ -57,9 +55,16 @@ const SwipeToSend: React.FC<SwipeToSendProps> = ({ placeholder = 'Swipe to Send'
     })
   ).current;
 
+const textOpacity = panX.interpolate({
+  inputRange: [0, SWIPE_LIMIT * 0.5, SWIPE_LIMIT], 
+  outputRange: [1, 0.3, 0], 
+  extrapolate: 'clamp',
+});
+
+
   const interpolatedBg = bgColor.interpolate({
     inputRange: [0, 1],
-    outputRange: ['#01032C', '#FF8C00'],
+    outputRange: ['#01032C', '#01032C'],
   });
 
   return (
@@ -76,7 +81,10 @@ const SwipeToSend: React.FC<SwipeToSendProps> = ({ placeholder = 'Swipe to Send'
           <Image source={Images.arrowforward} style={styles.arrowIcon} resizeMode="contain" />
         </Animated.View>
 
-        <Text style={styles.swipeText}>{placeholder}</Text>
+        <Animated.Text style={[styles.swipeText, { opacity: textOpacity }]}>
+          {placeholder}
+        </Animated.Text>
+
       </Animated.View>
     </ImageBackground>
   );

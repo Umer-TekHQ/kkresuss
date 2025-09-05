@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     textAlign: 'center',
     lineHeight: 38,
+    fontFamily: 'PlayfairDisplay-Bold'
   },
   subText: {
     fontSize: 19,

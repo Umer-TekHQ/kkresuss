@@ -57,21 +57,11 @@ index
         <Text style={styles.optionTitle}>{item.title}</Text>
 
       
-        {item.pro && <Image source={Images.pro} style={styles.proBadge} />}
+        {item.pro && <Image source={Images.probadge1} style={styles.proBadge} />}
 
         
         {item.toggle ? (
-  // <Switch   (QA requirements changes )
-  //   value={biometricsEnabled}
-  //   onValueChange={setBiometricsEnabled}
-  //   thumbColor="#FFFFFF"
-  //   trackColor={{ true: '#3D6AFF', false: '#030A74' }}
-  //    style={{
-  //   transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }],
-  //   marginRight: 4,
-    
-  // }}
-  // />
+
    <CustomSwitch
     value={biometricsEnabled}
     onValueChange={setBiometricsEnabled}

@@ -23,7 +23,7 @@ const AssetsHeader: React.FC<HeaderProps> = ({ title, showRightIcons = false ,le
     <View style={styles.headerContainer}>
     
       <View style={styles.sideContainer}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => navigation.navigate('BottomNavigator')}>
           <Image source={leftIcon || Images.backscreen} style={styles.icon1} />
         </TouchableOpacity>
       </View>

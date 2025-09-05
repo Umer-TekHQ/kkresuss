@@ -49,6 +49,13 @@ const SwipeButton: React.FC<SwipeButton> = ({ placeholder = 'Swipe to Send', onN
     }
   };
 
+  const textOpacity = panX.interpolate({
+  inputRange: [0, SWIPE_LIMIT * 0.5, SWIPE_LIMIT],
+  outputRange: [1, 0.3, 0],
+  extrapolate: 'clamp',
+});
+
+
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => !isCompleted,
@@ -87,7 +94,7 @@ const SwipeButton: React.FC<SwipeButton> = ({ placeholder = 'Swipe to Send', onN
 
   const interpolatedBg = bgColor.interpolate({
     inputRange: [0, 1, 2],
-    outputRange: ['#08032C', '#1d658dff', '#2ED459'], 
+    outputRange: ['#08032C', '#08032C', '#08032C'], 
   });
 
   return(
@@ -107,9 +114,10 @@ const SwipeButton: React.FC<SwipeButton> = ({ placeholder = 'Swipe to Send', onN
             resizeMode="contain"
           />
         </Animated.View>
-        <Text style={styles.swipeText}>
+        <Animated.Text style={[styles.swipeText, { opacity: textOpacity }]}>
           {isCompleted ? "Trade Completed!" : placeholder}
-        </Text>
+        </Animated.Text>
+
       </Animated.View>
     </ImageBackground>
   );
@@ -120,7 +128,7 @@ export default SwipeButton;
 const styles = StyleSheet.create({
   background: {
     width: '100%',
-    height: 126,
+    height: 120,
     alignItems: 'center',
     bottom: 0
   },
@@ -129,13 +137,13 @@ const styles = StyleSheet.create({
     height: hp('8%'),
     borderRadius: 99,
     justifyContent: 'center',
-    marginTop: hp('1.2%'),
+    marginTop: hp('2%'),
     overflow: 'hidden',
     position: 'relative',
   },
   whiteCircle: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     borderRadius: 99,
     backgroundColor: '#fff',
     position: 'absolute',

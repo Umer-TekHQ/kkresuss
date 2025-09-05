@@ -136,18 +136,11 @@ const backButtonAnimatedStyle = useAnimatedStyle(() => {
       <Animated.View style={[styles.container, rStyle]}>
         <View style={styles.line} />
         <Animated.View style={[styles.headerRow]}>
-          {/* <Animated.View style={[backButtonAnimatedStyle]}>
-            <TouchableOpacity onPress={onBackPress}>
-              <Image source={Images.backarrow} style={styles.backIcon} />
-            </TouchableOpacity>
-          </Animated.View> */}
-
           <Animated.Text style={[styles.headingPro, headingAnimatedStyle]}>
             See What the Pros are Buying
           </Animated.Text>
           <View style={{ width: 20 }} />
         </Animated.View>
-
         <Text style={styles.bottompara1}>
           Sourced from on-chain data, 'Top Buys' reveals which coins historically profitable
           traders are buying right now, to help you find potentially winning trades ahead of

@@ -23,7 +23,7 @@ export interface BottomSheetTradeRef {
 const TRANSLATE_Y_CONFIG = {
   initial: -hp('3%'),
   min: -hp('1%'),
-  max: -hp('74.07%'),
+  max: -hp('75.07%'),
 };
 interface BottomSheetTradeProps {
   onClose?: () => void; 
@@ -166,7 +166,7 @@ const closeSheet = () => {
                 <View
                   style={[
                     styles.tokenInputContainer,
-                    { width: wp('90%'), height: hp('10%'), marginVertical: hp('1%') },
+                    { width: wp('90%'), height: hp('8%'), marginVertical: hp('1%') },
                   ]}
                 >
                   <Text
@@ -190,7 +190,7 @@ const closeSheet = () => {
                       <Text
                         style={[
                           styles.tokenSymbol,
-                          { fontSize: wp('4%'), marginTop: hp('0.5%') },
+                          { fontSize: wp('4%') },
                         ]}
                       >
                         {token1.abbreviation}
@@ -213,7 +213,7 @@ const closeSheet = () => {
                 <View
                   style={[
                     styles.tokenInputContainer,
-                    { width: wp('90%'), height: hp('10%'), marginVertical: hp('1%') },
+                    { width: wp('90%'), height: hp('8%'), marginVertical: hp('1%') },
                   ]}
                 >
                   <Text
@@ -237,7 +237,7 @@ const closeSheet = () => {
                       <Text
                         style={[
                           styles.tokenSymbol,
-                          { fontSize: wp('4%'), marginTop: hp('0.5%'), marginRight: wp('2.5%') },
+                          { fontSize: wp('4%'), marginTop: hp('0.2%'), marginRight: wp('2.5%') },
                         ]}
                       >
                         {token2.abbreviation}
@@ -254,23 +254,23 @@ const closeSheet = () => {
               <View
                 style={[
                   styles.feescontainer,
-                  { marginHorizontal: wp('5%'), paddingVertical: hp('2%') },
+                  { marginHorizontal: wp('5%'), paddingVertical: hp('1%') },
                 ]}
               >
-                <Text style={[styles.fees, { fontSize: wp('4.5') }]}>Fees</Text>
-                <Text style={[styles.fees, { fontSize: wp('4.5%') }]}>1.73144653 SNORT</Text>
+                <Text style={[styles.fees, { fontSize: wp('3.5') }]}>Fees</Text>
+                <Text style={[styles.fees, { fontSize: wp('3.5%') }]}>1.73144653 SNORT</Text>
               </View>
 
               <Text
                 style={[
                   styles.bottomtext1,
-                  { fontSize: wp('4.5%'), marginTop: hp('1%') },
+                  { fontSize: wp('3.5%'), marginTop: hp('3%'), marginBottom: hp('4.5%') },
                 ]}
               >
                 Kresus covers your network fee
               </Text>
 
-              <View style={{ marginTop: hp('1.5%') }}>
+              <View style={{ marginTop: hp('2.5%') }}>
                 <SwipeButton
                   placeholder="Swipe to Trade"
                   onNavigate={() => {
@@ -289,7 +289,7 @@ const closeSheet = () => {
 const styles = StyleSheet.create({
   tradebottomsheet: {
     borderRadius: 35,
-    borderTopWidth: 2,
+    borderTopWidth: 1,
     borderRightWidth: 2,
     borderLeftWidth: 2,
     borderTopColor: '#10178A',
@@ -383,8 +383,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 20,
     marginHorizontal: 22,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
+    borderTopWidth: 0.5,
+    borderBottomWidth: 0.5,
     borderColor: '#28569B',
     paddingVertical: 20,
     justifyContent: 'space-between',

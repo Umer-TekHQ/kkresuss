@@ -13,7 +13,7 @@ const SpamAssetItem = ({ item }: any) => {
 
           <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 6 }}>
             <Image
-              source={item.isNegative ? Images.reddown : Images.greenup}
+              source={item.isNegative ? Images.reddown : Images.greenarrowup}
               style={styles.changeIcon}
             />
             <Text
