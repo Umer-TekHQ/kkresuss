@@ -26,7 +26,7 @@ const CryptoTab = () => {
 const [showSheet, setShowSheet] = useState(false);
 
   return (
-    <View style={{ flex: 1 ,}}>
+    <View style={{ flex: 1 ,}}>  
     
       <ScrollView
         contentContainerStyle={{

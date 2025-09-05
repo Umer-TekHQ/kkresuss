@@ -1,26 +1,13 @@
-
 import React, { useState,useRef  } from 'react';
 import {
   View,
-  Text,
   StyleSheet,
-  TextInput,
-  Image,
   ScrollView,
-  TouchableOpacity,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { Images } from '../../assets';
 import AllAssetsList from '../../components/AllAssetsList';
 import AssetsHeader from '../../components/AssetsHeader ';
 import SearchBox from '../../components/SearchBox';
 import BottomSheetNetwork from '../../components/BottomSheetNetwork';
-
-
-interface HeaderProps {
-  title: string;
-  showRightIcons?: boolean;
-}
 
 const SupportedScreen = () => {
   const [searchText, setSearchText] = useState('');
@@ -54,7 +41,6 @@ export default SupportedScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-   // padding: 16,
     backgroundColor: '#01021D',
     paddingHorizontal:16,
   },

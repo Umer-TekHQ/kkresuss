@@ -12,7 +12,16 @@ const PositionCard = ({ data }: { data: any }) =>{
   <View style={styles.card}>
 
     <View style={styles.headerRow}>
-      <Text style={styles.title}>Your Position</Text>
+      <View style={styles.titleContainer}>
+        {data.image && (
+          <Image 
+            source={{ uri: data.image }} 
+            style={styles.tokenImage} 
+            defaultSource={Images.titanium}
+          />
+        )}
+        <Text style={styles.title}>Your Position</Text>
+      </View>
       <Image source={Images.titanium} style={styles.iconRight} /> 
    
     </View>
@@ -164,6 +173,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  tokenImage: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    marginRight: 8,
+  },
   title: {
     color: '#FFFFFF',
     fontSize: 16,
@@ -282,5 +301,3 @@ valueRow: {
 
 
 });
-
-

@@ -25,7 +25,7 @@ import TradeStatusScreen from '../screens/Trade/TradeStatusScreen';
 import { BottomSheetScreen } from '../screens';
 import { ProfileBottom } from '../screens/Profile/ProfileBottomSheet';
 import ReceiveTokenScreen from '../screens/Trade/ReceiveSearchScreen';
-import baseReceiveScreen from '../screens/Profile/baseReceiveScreen';
+import BaseReceiveScreen from '../screens/Profile/baseReceiveScreen';
 
 const MainStack = createNativeStackNavigator();
 
@@ -43,7 +43,7 @@ export const MainNavigator = () => (
        <MainStack.Screen name="TokenDetail" component={AssetDetailScreen} />
        <MainStack.Screen name="ProfileBottom" component={ProfileBottom} />
        <MainStack.Screen name="CardRecieveScreen" component={CardRecieveScreen}/>
-       <MainStack.Screen name="baseReceiveScreen" component={baseReceiveScreen}/>
+       <MainStack.Screen name="baseReceiveScreen" component={BaseReceiveScreen}/>
        <MainStack.Screen name="SearchScreen" component={SearchScreen}/>
        <MainStack.Screen name="ReceiveTokenScreen" component={ReceiveTokenScreen}/>
        <MainStack.Screen name="TodayReturns" component={TodaysReturnScreen} />

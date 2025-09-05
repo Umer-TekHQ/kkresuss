@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { View, Text, TextInput, Image, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import { Images } from '../assets';
 
 type Props = {
@@ -11,25 +11,53 @@ type Props = {
 const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
   const [subAmount, setSubAmount] = useState("0");
   const [isSwapped, setIsSwapped] = useState(false);
-  const CONVERSION_RATE = 0.00020401;
+  const [inputWidth, setInputWidth] = useState(0);
+  const dollarSignPosition = useRef(new Animated.Value(0)).current;
+  const inputRef = useRef<TextInput>(null);
+  const CONVERSION_RATE = 0.0;
+
+  const handleInputLayout = (event: any) => {
+    const { width } = event.nativeEvent.layout;
+    setInputWidth(width);
+  };
+
+  useEffect(() => {
+    if (inputWidth > 0) {
+      const charWidth = 30; 
+      const textWidth = amount.length * charWidth;
+      
+      const initialPosition = inputWidth / 2 - 15; 
+      const newPosition = Math.max(10, initialPosition - textWidth / 2);
+      
+      Animated.timing(dollarSignPosition, {
+        toValue: newPosition,
+        duration: 100,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [amount, inputWidth, dollarSignPosition]);
 
   return (
     <View style={styles.amountInputWrapper}>
       <View style={styles.amountInputBox}>
         {!isSwapped ? (
-          <>
-            <Text
+          <View style={styles.inputContainer} onLayout={handleInputLayout}>
+            <Animated.Text
               style={[
                 styles.currencyLabel,
-                { color: isInsufficient ? '#FF5A5F' : '#FFFFFF', fontSize: 60 },
+                { 
+                  color: isInsufficient ? '#FF5A5F' : '#FFFFFF', 
+                  transform: [{ translateX: dollarSignPosition }]
+                },
               ]}
             >
               $
-            </Text>
+            </Animated.Text>
             <TextInput
+              ref={inputRef}
               style={[
                 styles.amountInputField,
-                { color: isInsufficient ? '#FF5A5F' : '#FFFFFF', fontSize: 60 },
+                { color: isInsufficient ? '#FF5A5F' : '#FFFFFF' },
               ]}
               keyboardType="decimal-pad"
               value={amount}
@@ -44,13 +72,15 @@ const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
                 const num = parseFloat(sanitized || '0');
                 setSubAmount((num * CONVERSION_RATE).toFixed(8));
               }}
+              // placeholder="0"
+              // placeholderTextColor={isInsufficient ? '#FF5A5F' : '#FFFFFF80'}
             />
-          </>
+          </View>
         ) : (
           <TextInput
             style={[
               styles.amountInputField,
-              { color: isInsufficient ? '#FF5A5F' : '#FFFFFF', fontSize: 40 },
+              { color: isInsufficient ? '#FF5A5F' : '#FFFFFF', fontSize: 40, },
             ]}
             keyboardType="decimal-pad"
             value={subAmount}
@@ -88,6 +118,7 @@ const styles = StyleSheet.create({
   amountInputWrapper: {
     width: '100%',
     alignItems: 'center',
+    marginVertical: 20,
   },
   amountInputBox: {
     flexDirection: 'row',
@@ -97,15 +128,30 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     alignSelf: 'center',
     position: 'relative',
+    height: 80,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'relative',
+    width: 200,
+    height: 80,
+    justifyContent: 'center',
   },
   currencyLabel: {
     fontWeight: 'bold',
-    textAlign: 'center',
+    fontSize: 60,
+    position: 'absolute',
+    left: 5,
+    zIndex: 2,
+    marginBottom: 20,
   },
   amountInputField: {
     fontWeight: 'bold',
-    textAlign: 'left',
-    width: 140,
+    textAlign: 'center',
+    width: 200,
+    fontSize: 60,
+    paddingLeft: 60, 
   },
   swapIcon: {
     width: 18,
@@ -118,8 +164,7 @@ const styles = StyleSheet.create({
   },
   subAmount: {
     fontSize: 16,
-    color: '#FF5A5F',
-    bottom: 10,
+    color: '#ffffffff',
     marginBottom: 20,
   },
 });

@@ -6,10 +6,26 @@ export const transformTokenDetailsResponse = (apiResponse: any) => {
     return apiResponse;
   }
 
+  // Format numbers for display
+  const formatNumber = (num: number | string) => {
+    const numValue = typeof num === 'string' ? parseFloat(num) : num;
+    if (isNaN(numValue)) return '0';
+    
+    if (numValue >= 1e9) {
+      return (numValue / 1e9).toFixed(2) + 'B';
+    } else if (numValue >= 1e6) {
+      return (numValue / 1e6).toFixed(2) + 'M';
+    } else if (numValue >= 1e3) {
+      return (numValue / 1e3).toFixed(2) + 'K';
+    } else {
+      return numValue.toFixed(2);
+    }
+  };
+
   // Transform the API response to match the expected structure
   const transformedData = {
-    name: apiResponse?.token_name || apiResponse?.name || 'Unknown Token',
-    symbol: apiResponse?.token_symbol || apiResponse?.symbol || 'UNKNOWN',
+    name: apiResponse?.name || apiResponse?.token_name || 'Unknown Token',
+    symbol: apiResponse?.symbol || apiResponse?.token_symbol || 'UNKNOWN',
     price: apiResponse?.price_usd || apiResponse?.price || '0',
     priceChange: apiResponse?.price_24h_percent_change 
       ? `${apiResponse.price_24h_percent_change}%` 
@@ -17,6 +33,8 @@ export const transformTokenDetailsResponse = (apiResponse: any) => {
     time: new Date().toLocaleTimeString(),
     buyersPercent: 76, // Default values since API doesn't provide these
     sellersPercent: 24,
+    // Token image from API
+    image: apiResponse?.image || apiResponse?.token_logo || null,
     position: {
       value: apiResponse?.price_usd || '0',
       todayReturn: '0', // API doesn't provide this
@@ -24,9 +42,9 @@ export const transformTokenDetailsResponse = (apiResponse: any) => {
       yearHigh: '0', // API doesn't provide this
       yearHighPercent: '0',
       quantityOwned: '0', // API doesn't provide this
-      holders: '0', // API doesn't provide this
-      circulatingSupply: apiResponse?.market_cap_usd || '0',
-      maxSupply: '',
+      holders: formatNumber(apiResponse?.Holders || apiResponse?.holders || 0),
+      circulatingSupply: formatNumber(apiResponse?.circulating_supply || apiResponse?.circulatingSupply || 0),
+      maxSupply: formatNumber(apiResponse?.maxSupply || apiResponse?.total_supply || 0),
     },
     // Create mock transactions since API doesn't provide transaction history
     transactions: [
@@ -35,7 +53,7 @@ export const transformTokenDetailsResponse = (apiResponse: any) => {
         title: 'Token Transfer',
         type: 'Received',
         amountUSD: `+$${apiResponse?.price_usd || '0'}`,
-        amountETH: `+1.0 ${apiResponse?.token_symbol || 'TOKEN'}`,
+        amountETH: `+1.0 ${apiResponse?.symbol || apiResponse?.token_symbol || 'TOKEN'}`,
         time: '1h ago',
       },
       {
@@ -43,7 +61,7 @@ export const transformTokenDetailsResponse = (apiResponse: any) => {
         title: 'Token Purchase',
         type: 'Sent',
         amountUSD: `-$${apiResponse?.price_usd || '0'}`,
-        amountETH: `-0.5 ${apiResponse?.token_symbol || 'TOKEN'}`,
+        amountETH: `-0.5 ${apiResponse?.symbol || apiResponse?.token_symbol || 'TOKEN'}`,
         time: '2h ago',
       },
     ],

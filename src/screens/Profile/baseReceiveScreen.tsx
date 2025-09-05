@@ -11,7 +11,7 @@ import BottomSheetProfile from '../../components/BottomSheetProfile'
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
-export default function baseReceiveScreen() {
+export default function BaseReceiveScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
   const translateY = useSharedValue(0);
   const cards = [

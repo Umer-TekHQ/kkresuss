@@ -1,8 +1,3 @@
-// {
-//   "extends": "@react-native/typescript-config/tsconfig.json"
-// }
-
-
 {
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
@@ -11,7 +6,9 @@
       "@Component/*": ["components/*"],
       "@Screen/*": ["screens/*"],
       "@Asset/*": ["assets/*"],
-      "@Utils/*": ["utils/*"]
+      "@Utils/*": ["utils/*"],
+      "@Mock/*": ["mock/*"],
+      "@Navigator/*": ["navigators/*"]
     }
   }
 }

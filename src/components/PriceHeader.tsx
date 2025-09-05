@@ -12,7 +12,16 @@ const PriceHeader = ({ data, onBack }: { data: any, onBack?: () => void }) => (
       <TouchableOpacity onPress={onBack} style={styles.backButton}>
         <Image source={Images.backscreen} style={styles.backIcon} />
       </TouchableOpacity>
-      <Text style={styles.title}>{data.name}</Text>
+      <View style={styles.titleContainer}>
+        {data.image && (
+          <Image 
+            source={{ uri: data.image }} 
+            style={styles.tokenImage} 
+            defaultSource={Images.token4} // Fallback image
+          />
+        )}
+        <Text style={styles.title}>{data.name}</Text>
+      </View>
     </View>
 
    
@@ -53,6 +62,17 @@ const styles = StyleSheet.create({
   backButton: {
     position: 'absolute',
     left: 0,
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tokenImage: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    marginRight: 8,
   },
   title: {
     color: 'white',
