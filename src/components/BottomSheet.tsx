@@ -1,4 +1,7 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React, { useEffect } from 'react';
+import { forwardRef, useImperativeHandle } from 'react';
 import {
   View,
   Text,
@@ -7,9 +10,8 @@ import {
   TouchableOpacity,
   Dimensions
 } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { forwardRef, useImperativeHandle } from 'react';
+import LinearGradient from 'react-native-linear-gradient';
 import Animated,
 {
   useSharedValue,
@@ -21,13 +23,13 @@ import Animated,
   useAnimatedReaction,
   runOnJS
 } from 'react-native-reanimated';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 import { Images } from '../assets';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import SwipeButton from './SwipeButton';
 import { AppNavigatorParamList } from '../navigators/routeNames'
 import { useAppSelector } from '../store/hooks';
-import SwipeButton from './SwipeButton';
-import LinearGradient from 'react-native-linear-gradient';
+
 
 
 interface Props {
@@ -329,7 +331,7 @@ export interface BottomSheetUnifiedRef {
         ]}
       />
       {blockingPointerEvents && (
-        <View style={[StyleSheet.absoluteFillObject]} pointerEvents="auto" />
+        <View style={StyleSheet.absoluteFillObject} pointerEvents="auto" />
       )}
       <GestureDetector gesture={gesture}>
         <Animated.View style={[
@@ -343,7 +345,7 @@ export interface BottomSheetUnifiedRef {
             <TouchableOpacity activeOpacity={1} onPress={openSheet}>
               <View style={styles.linehome} />
               <View style={[styles.head, { marginHorizontal: responsiveHomeHeadMargin }]}>
-                <Image source={Images.bottomhead} style={styles.headimg} />
+                <Image source={Images.bottomHead} style={styles.headimg} />
                 <Text style={styles.heading}>My Security Score</Text>
                 <Text style={[styles.numbers, { marginLeft: responsiveHomeNumbersMargin }]}>2/5</Text>
                 <TouchableOpacity onPress={(e) => { e.stopPropagation(); closeSheet(); }}>
@@ -377,7 +379,7 @@ export interface BottomSheetUnifiedRef {
                         />
                         <Text style={styles.T1}>{item.label}</Text>
                         {i === 2 && (
-                          <Image source={Images.probadge} style={styles.probdg} />
+                          <Image source={Images.proBadge} style={styles.probdg} />
                         )}
                         {i < 3 && (
                           <Image
@@ -431,9 +433,7 @@ export interface BottomSheetUnifiedRef {
                 sell or trade their crypto holdings. The UniSwap platform is governed by UNI holders
                 in proportion to how much UNI they own.
               </Text>
-              <View>
-              
-              </View>
+              <View />
               </View>
             </>
           )}
@@ -442,7 +442,7 @@ export interface BottomSheetUnifiedRef {
             <View>
               <View style={styles.headProfileRow}>
                 <Animated.Image
-                  source={Images.profileheadlogo}
+                  source={Images.profileHeadLogo}
                   style={[styles.headimgP, logoAnimatedStyle]}
                 />
 
@@ -461,7 +461,7 @@ export interface BottomSheetUnifiedRef {
               </View>
               <View style={styles.l12}>
                 <View style={styles.rowLeft}>
-                  <Image source={Images.solanalogo} style={styles.solanalogo} />
+                  <Image source={Images.solanaLogo} style={styles.solanalogo} />
                   <Text style={styles.l1textS}> Solana Network</Text>
                 </View>
                 <Text style={styles.trailingText}>Crypto only</Text>
@@ -497,7 +497,7 @@ export interface BottomSheetUnifiedRef {
                 <View style={[styles.lineTB, { width: wp('15%'), height: hp('0.5%'), marginTop: hp('1%') }]} />
 
                 <View style={[styles.head, { marginBottom: hp('1.5%') }]}>
-                  <Image source={Images.tradebottom} style={[styles.headimg, { width: wp('4%'), height: hp('2.5%'), marginLeft: wp('3%'), marginTop: hp('1%') }]} />
+                  <Image source={Images.tradeBottom} style={[styles.headimg, { width: wp('4%'), height: hp('2.5%'), marginLeft: wp('3%'), marginTop: hp('1%') }]} />
                   <Text style={[styles.headingTB, { fontSize: wp('4.5%'), marginLeft: wp('4%') }]}>Transaction Ready</Text>
                   <TouchableOpacity style={styles.closeButton} onPress={closeSheet}>
                     <Image source={Images.pros} style={[styles.closeIcon, { width: wp('6%'), height: hp('5%'), marginRight: wp('3%')}]} />
@@ -529,7 +529,7 @@ export interface BottomSheetUnifiedRef {
                       </View>
 
                       <View style={styles.arrowContainer}>
-                        <Image source={Images.downarroww} style={[styles.downarrow, { width: wp('3%'), height: hp('2%') }]} />
+                        <Image source={Images.downArroww} style={[styles.downarrow, { width: wp('3%'), height: hp('2%') }]} />
                       </View>
 
                       <View style={[styles.tokenInputContainer, { width: wp('90%'), height: hp('10%'), marginVertical: hp('1%') }]}>

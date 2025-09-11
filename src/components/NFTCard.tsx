@@ -1,34 +1,20 @@
-
 import React from 'react';
 import { View, Image, StyleSheet ,ViewStyle} from 'react-native';
-
 
 interface NFTCardProps {
   image: any;
   style?: ViewStyle;
 }
-
-const NFTCard = ({ image,style }: NFTCardProps) => {
+const NFTCard = ({ image }: NFTCardProps) => {
   return (
     <View style={styles.nftBox}>
       <Image source={image} style={styles.nftImage} />
     </View>
   );
-};
-
+}
 export default NFTCard;
 
 const styles = StyleSheet.create({
-  // nftBox: {
-  //   // width: 170,
-  //    height: 170,
-  //    aspectRatio: 1,
-  //   marginBottom: 10,
-  // //  marginRight: 10,
-  //   backgroundColor: '#111',
-  //   borderRadius: 10,
-  //   overflow: 'hidden',
-  // },
    nftBox: {
     flex: 1,         
     aspectRatio: 1,     

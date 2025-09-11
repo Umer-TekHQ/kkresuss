@@ -1,12 +1,13 @@
-import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image, Text } from 'react-native';
-import { HomeScreen } from '../screens/HomeScreen/HomeScreen';
-import { ExploreScreen } from '../screens/Explore/ExploreScreen';
-import { TradeScreen } from '../screens/Trade/TradeScreen';
-import AssetsScreen from '../screens/Assets/AssetsScreen';
+import React from 'react';
+import { Image, Text, StyleSheet } from 'react-native';
+
 import { Images } from '../assets';
-import styles from '../styles/homestyles';
+import AssetsScreen from '../screens/Assets/AssetsScreen';
+import { ExploreScreen } from '../screens/Explore/ExploreScreen';
+import { HomeScreen } from '../screens/HomeScreen/HomeScreen';
+import { TradeScreen } from '../screens/Trade/TradeScreen';
+// import styles from '../styles/homestyles';
 
 const Tab = createBottomTabNavigator();
 
@@ -60,3 +61,29 @@ export const BottomNavigator = () => {
     </Tab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+
+activeFooterIcon: {
+  width: 24,
+  height: 24,
+  tintColor: '#ffffff', 
+},
+inactiveFooterIcon: {
+  width: 24,
+  height: 24,
+  tintColor: '#7AB7FD',
+},
+activeFooterText: {
+  color: '#ffffff',
+  fontWeight: '600',
+},
+inactiveFooterText: {
+  color: '#7AB7FD',
+},
+footer: {
+  backgroundColor: '#01021d',
+  borderTopWidth: 0.5,
+  borderTopColor: '#10178A',
+},
+})

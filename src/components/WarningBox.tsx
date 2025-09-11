@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+
 import { Images } from '../assets';
 
 const WarningBox = () => {
@@ -17,7 +18,6 @@ const WarningBox = () => {
     </View>
   );
 };
-
 export default WarningBox;
 
 const styles = StyleSheet.create({

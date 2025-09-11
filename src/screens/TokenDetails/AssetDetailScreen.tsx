@@ -1,154 +1,27 @@
-// import React, { useState, useEffect } from 'react';
-// import { View, StyleSheet, FlatList,Text, } from 'react-native';
-// import { mockAssetData } from '../../mock/mockData';
-// import PriceHeader from '../../components/PriceHeader'
-// import ChartSection from '../../components/ChartSection'
-// import PositionCard from '../../components/PositionCard'
-// import TransactionListItem from '../../components/TransactionListItem'
-// import { useNavigation } from '@react-navigation/native';
-// import AssetDetailSkeleton from '../../components/AssetDetailSkeleton';
-// import { TokenActionButtons } from '../../components/TokenActionButtons';
-// import { ContactAddress } from '../../components/ContactAddress';
-// import { useRoute } from '@react-navigation/native';
-// import { getTokenDetails } from '../../services/tokenApi';
-
-// // const AssetDetailScreen = () => {
-// //   const navigation = useNavigation();
-// //   const [loading, setLoading] = useState(true);
-// //   const [assetData, setAssetData] = useState<any>(null);
-
-// //   useEffect(() => {
-// //     setTimeout(() => {
-// //       setAssetData(mockAssetData);
-// //       setLoading(false);
-// //     }, 2000);
-// //   }, []);
-
-// //   if (loading) {
-// //     return<AssetDetailSkeleton data={mockAssetData} onBack={() => navigation.goBack()} />
-// //   }
-
-// //   return (
-// //     <FlatList
-// //       style={styles.container}
-// //       data={assetData.transactions}
-// //       keyExtractor={(item) => item.id.toString()}
-// //       renderItem={({ item }) => <TransactionListItem item={item} />}
-// //       ItemSeparatorComponent={() => <View style={styles.separator} />}
-// //       ListHeaderComponent={
-// //         <View>
-// //           <PriceHeader data={assetData} onBack={() => navigation.goBack()} />
-// //           <ChartSection />
-// //           <TokenActionButtons />
-// //           <PositionCard data={assetData} />
-// //           <ContactAddress />
-// //           <Text style={styles.title}>Recent Transactions</Text>
-// //           <View style={styles.divider} />
-// //         </View>
-// //       }
-// //     />
-// //   );
-// // };
-
-
-// const AssetDetailScreen = () => {
-//   const navigation = useNavigation();
-//   const route = useRoute();
-//   const { contractAddress } = route.params as { contractAddress: string }; // 👈 param receive yahan
-
-//   const [loading, setLoading] = useState(true);
-//   const [assetData, setAssetData] = useState<any>(null);
-
-//   useEffect(() => {
-//     const fetchDetails = async () => {
-//       try {
-//         const data = await getTokenDetails(contractAddress); // 👈 yahan call
-//         setAssetData(data);
-//       } catch (error) {
-//         console.log("Error fetching token details:", error);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchDetails();
-//   }, [contractAddress]);
-
-//   if (loading) {
-//     return <AssetDetailSkeleton data={mockAssetData} onBack={() => navigation.goBack()} />;
-//   }
-
-//   return (
-//     <FlatList
-//       style={styles.container}
-//       data={assetData.transactions}
-//       keyExtractor={(item) => item.id.toString()}
-//       renderItem={({ item }) => <TransactionListItem item={item} />}
-//       ItemSeparatorComponent={() => <View style={styles.separator} />}
-//       ListHeaderComponent={
-//         <View>
-//           <PriceHeader data={assetData} onBack={() => navigation.goBack()} />
-//           <ChartSection />
-//           <TokenActionButtons />
-//           <PositionCard data={assetData} />
-//           <ContactAddress />
-//           <Text style={styles.title}>Recent Transactions</Text>
-//           <View style={styles.divider} />
-//         </View>
-//       }
-//     />
-//   );
-// };
-
-// export default AssetDetailScreen;
-
-// const styles = StyleSheet.create({
-//   container: { flex: 1, backgroundColor: '#010D2A' },
-//   title: {
-//     color: 'white',
-//     fontSize: 16,
-//     fontWeight: '600',
-//     marginTop: 16,
-//     marginHorizontal: 16,
-//     marginBottom: 12,
-//   },
-//   separator: {
-//     height: 1,
-//     backgroundColor: '#222',
-//     marginHorizontal: 16,
-//   },
-//   divider:{
-//     height:1,
-//     marginHorizontal:16,
-//     backgroundColor:'#0734A9'
-//   }
-// });
-
+import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList, Text, TouchableOpacity } from 'react-native';
-import { mockAssetData } from '../../mock/mockData';
-import PriceHeader from '../../components/PriceHeader';
-import ChartSection from '../../components/ChartSection';
-import PositionCard from '../../components/PositionCard';
-import TransactionListItem from '../../components/TransactionListItem';
+
 import AssetDetailSkeleton from '../../components/AssetDetailSkeleton';
-import { TokenActionButtons } from '../../components/TokenActionButtons';
+import ChartSection from '../../components/ChartSection';
 import { ContactAddress } from '../../components/ContactAddress';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import PositionCard from '../../components/PositionCard';
+import PriceHeader from '../../components/PriceHeader';
+import { TokenActionButtons } from '../../components/TokenActionButtons';
+import TransactionListItem from '../../components/TransactionListItem';
+import { mockAssetData } from '../../mock/mockData';
 import { getTokenDetails } from '../../services/tokenApi';
 
 const AssetDetailScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { contractAddress } = route.params as { contractAddress: string };
-
+  const { contractAddress, name } = route.params as { contractAddress: string; name?: string };
   const [loading, setLoading] = useState(true);
   const [assetData, setAssetData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchDetails = async () => {
-      // Validate contract address
       if (!contractAddress) {
         console.error('No contract address provided');
         setError('No contract address provided');
@@ -159,16 +32,11 @@ const AssetDetailScreen = () => {
       try {
         console.log('Fetching token details for:', contractAddress);
         console.log('API URL:', `http://13.213.72.15:5000/tokenDetail/${contractAddress}`);
-        
         const data = await getTokenDetails(contractAddress);
         console.log('Raw API Response:', JSON.stringify(data, null, 2));
-
-        // Validate API response structure
         if (!data) {
           throw new Error('Empty response from API');
         }
-
-        // Fallback if API response is missing keys
         const safeData = {
           transactions: data.transactions || [],
           position: data.position || {},
@@ -176,6 +44,7 @@ const AssetDetailScreen = () => {
           symbol: data.symbol || 'UNK',
           price: data.price || 0,
           priceChange: data.priceChange || 0,
+          contract_address: contractAddress, // Add contract_address to assetData
           ...data,
         };
 
@@ -202,9 +71,9 @@ const AssetDetailScreen = () => {
     fetchDetails();
   }, [contractAddress]);
 
-  if (loading) {
-    return <AssetDetailSkeleton data={mockAssetData} onBack={() => navigation.goBack()} />;
-  }
+if (loading) {
+  return <AssetDetailSkeleton data={{ name: assetData?.name || name || 'Loading...' }} onBack={() => navigation.goBack()} />;
+}
 
   if (error && !assetData) {
     return (
@@ -229,6 +98,7 @@ const AssetDetailScreen = () => {
                     symbol: data.symbol || 'UNK',
                     price: data.price || 0,
                     priceChange: data.priceChange || 0,
+                    contract_address: contractAddress, // Add contract_address to assetData
                     ...data,
                   };
                   setAssetData(safeData);
@@ -261,8 +131,8 @@ const AssetDetailScreen = () => {
           <PriceHeader data={assetData} onBack={() => navigation.goBack()} />
           <ChartSection />
           <TokenActionButtons />
-          {assetData.position && <PositionCard data={assetData} />}
-          <ContactAddress />
+          <PositionCard data={assetData} />
+          <ContactAddress contractAddress={assetData?.contract_address} />
           <Text style={styles.title}>Recent Transactions</Text>
           <View style={styles.divider} />
         </View>

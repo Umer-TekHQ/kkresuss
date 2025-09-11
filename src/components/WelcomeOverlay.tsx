@@ -1,15 +1,12 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
+import OverlayBackground from './OverlayBackground';
 import { Images } from '../assets/index';
-import OverlayBackground from './OverlayBackgroung';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
+import { Colors } from '../theme/colors';
+
 
 const { width, height } = Dimensions.get('window');
 
@@ -20,26 +17,25 @@ interface Props {
 const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
   const containerWidth = width * 0.9;
   const containerHeight = width * 1.38;
-  const bgtopWidth = width * 0.89;
-  const bgtopHeight = width * 0.7;
-  const bgbottomWidth = width * 0.9;
-  const bgbottomHeight = width * 0.68;
-
+  const bgTopWidth = width * 0.89;
+  const bgTopHeight = width * 0.7;
+  const bgBottomWidth = width * 0.9;
+  const bgBottomHeight = width * 0.68;
   return (
     <View style={styles.overlay}>
       <View style={[styles.container, { width: containerWidth, height: containerHeight }]}>
-        <View style={[styles.bgtop, { width: bgtopWidth, height: bgtopHeight }]}>
+        <View style={[styles.backGroundTop, { width: bgTopWidth, height: bgTopHeight }]}>
           <OverlayBackground
             showContent
             hideBottomImages={false}
             showLogo={false}
             containerHeight={height * 0.36}
-            containerWidth={bgtopWidth}
+            containerWidth={bgTopWidth}
             borderTopLeftRadius={20}
             borderTopRightRadius={20}
           >
             <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-              <Image source={Images.crossoverlay} />
+              <Image source={Images.crossOverlay} />
             </TouchableOpacity>
 
             <Image source={Images.logo} style={styles.logo} resizeMode="contain" />
@@ -49,9 +45,7 @@ const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
             </Text>
           </OverlayBackground>
         </View>
-        
-        <View style={[styles.bgbottom, { width: bgbottomWidth, height: bgbottomHeight }]}>
-          
+        <View style={[styles.backGroundBottom, { width: bgBottomWidth, height: bgBottomHeight }]}>
           <TouchableOpacity style={styles.primaryButton}>
             <Image source={Images.primary} style={styles.icons21} />
             <Text style={[styles.primaryText, styles.centeredText]}>Buy Crypto</Text>
@@ -66,7 +60,7 @@ const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
             <Image source={Images.primary2} style={styles.icons1} />
             <Text style={[styles.secondaryText, styles.centeredText]}>Connect Coinbase</Text>
           </TouchableOpacity>
-
+          
           <TouchableOpacity onPress={onClose}>
             <Text style={styles.laterText}>Maybe Later</Text>
           </TouchableOpacity>
@@ -75,7 +69,6 @@ const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
     </View>
   );
 };
-
 export default WelcomeOverlay;
 
 const styles = StyleSheet.create({
@@ -94,7 +87,7 @@ const styles = StyleSheet.create({
     borderColor: "#080C4C",
     backgroundColor: "#01032C"
   },
-  bgbottom: {
+  backGroundBottom: {
     backgroundColor:"#10132C",
     alignItems: 'center',
     borderBottomRightRadius: 20,
@@ -107,7 +100,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     justifyContent: 'center',
   },
-  bgtop: {
+  backGroundTop: {
     backgroundColor: "#131c91ff",
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
@@ -179,7 +172,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: '#4898F3',
+    borderColor: Colors.blue,
     position: 'relative',
   },
   secondaryText: {

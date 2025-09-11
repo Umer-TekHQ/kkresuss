@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, KeyboardAvoidingView, Platform, Keyboard } from 'react-native';
-import Background from '../../components/Background';
-import OTPInputBox from '../../components/OTPInputBox';
-import CheckboxRow from '../../components/CheckboxRow';
-import SecondaryButton from '../../components/SecondaryButton';
-import { Images } from '../../assets';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AppNavigatorParamList } from '../../navigators/routeNames';
-import { useAppSelector } from '../../store/hooks';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, KeyboardAvoidingView, Platform, Keyboard } from 'react-native';
+import Toast from 'react-native-toast-message';
+
 import { authApi } from '../../api/authApi';
 import { walletApi } from '../../api/walletApi';
-import Toast from 'react-native-toast-message';
+import { Images } from '../../assets';
+import Background from '../../components/Background';
+import CheckboxRow from '../../components/CheckboxRow';
+import OTPInputBox from '../../components/OTPInputBox';
+import SecondaryButton from '../../components/SecondaryButton';
+import { AppNavigatorParamList } from '../../navigators/routeNames';
+import { useAppSelector } from '../../store/hooks';
+
 
 const { width, height } = Dimensions.get('window');
 
@@ -45,19 +47,15 @@ export const OtpScreen = () => {
 const handleOtpComplete = async (otp: string) => {
   try {
     await authApi.verifyOtp(otp);
-    // Create wallet immediately after successful OTP
     try {
       await walletApi.createWallet();
     } catch (e) {
-      // If wallet already exists or 404 variations, ignore since Profile will fetch
     }
     navigation.navigate('OtpSuccess');
   } catch (err: any) {
     Toast.show({ type: 'error', text1: err.message || 'Something went wrong' });
   }
 };
-
-
   return (
     <View style={{ flex: 1 }}>
       <Background showContent hideBottomImages={keyboardVisible} showLogo={false}>
@@ -68,7 +66,7 @@ const handleOtpComplete = async (otp: string) => {
           <View style={styles.wrapper}>
             <View style={styles.topIcons}>
               <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.goBack()}>
-                <Image source={Images.backscreen} style={styles.backIcon} />
+                <Image source={Images.backScreen} style={styles.backIcon} />
               </TouchableOpacity>
               <TouchableOpacity>
                 <Image source={Images.comment} style={styles.commentIcon} />

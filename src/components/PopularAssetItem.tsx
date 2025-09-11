@@ -1,41 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+
 import { Images } from '../assets';
-
-// interface PopularAssetItemProps {
-//   item: {
-//     title: string;
-//     amountUSD: string;
-//     amountETH: string;
-//     profit?: string; 
-//     logo: any;
-//   };
-// }
-
-// const PopularAssetItem = ({ item }: { item: PopularAssetItemProps['item'] }) => (
-//   <View style={styles.item}>
-//     <View style={styles.leftSection}>
-//      <View style={styles.iconWrapper}>
-//       <Image source={item.logo} style={styles.icon} />
-//       </View>
-//       <View style={{ marginLeft: 10 }}>
-//         <Text style={styles.name}>{item.title}</Text>
-//         <Text style={styles.meta}>{item.amountETH}</Text>
-//       </View>
-//     </View>
-
-//     <View style={styles.rightSection}>
-//       <Text style={styles.amount}>{item.amountUSD}</Text>
-//       {item.profit && 
-//       <View style={styles.profitRow}>
-//           <Image source={Images.greenarrowup} style={styles.profitIcon} />
-//       <Text style={styles.profit}>{item.profit}</Text>
-//       </View>
-//       }
-//     </View>
-//   </View>
-// );
-
 
 interface PopularAssetItemProps {
   item: {
@@ -46,12 +12,10 @@ interface PopularAssetItemProps {
     price_24h_percent_change?: string;
   };
 }
-
 const PopularAssetItem = ({ item }: PopularAssetItemProps) => {
   const profit = item.price_24h_percent_change
     ? parseFloat(item.price_24h_percent_change).toFixed(2)
     : null;
-
   return (
     <View style={styles.item}>
       <View style={styles.leftSection}>
@@ -63,13 +27,12 @@ const PopularAssetItem = ({ item }: PopularAssetItemProps) => {
           <Text style={styles.meta}>{item.token_symbol}</Text>
         </View>
       </View>
-
       <View style={styles.rightSection}>
         <Text style={styles.amount}>${item.price_usd}</Text>
         {profit && (
           <View style={styles.profitRow}>
             <Image
-              source={parseFloat(profit) >= 0 ? Images.greenarrowup : Images.reddown}
+              source={parseFloat(profit) >= 0 ? Images.greenArrowUp : Images.redDown}
               style={styles.profitIcon}
             />
             <Text
@@ -93,8 +56,7 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-   // alignItems: 'center',
-    paddingHorizontal: 11, //orignal was 16
+    paddingHorizontal: 11, 
     paddingVertical: 12,
   },
   leftSection: {

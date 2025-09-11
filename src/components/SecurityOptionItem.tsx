@@ -1,90 +1,92 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, Switch, TouchableOpacity, Pressable } from 'react-native'
-import { Images } from '../assets'
-import { AppNavigatorParamList } from '../navigators/routeNames'
-import CustomSwitch from './CustomSwitch'
+import { View, Text, StyleSheet, Image, TouchableOpacity, Pressable } from 'react-native'
 
+import { Images } from '../assets'
+import CustomSwitch from './CustomSwitch'
+import { AppNavigatorParamList } from '../navigators/routeNames'
 
 interface Props {
   item: any
   isActive: boolean
-  onToggleTick: () => void
   biometricsEnabled: boolean
   setBiometricsEnabled: (val: boolean) => void
-  onNavigate?: (route: keyof AppNavigatorParamList) => void 
-   totalItems: number
-     index: number
+  onNavigate?: (route: keyof AppNavigatorParamList) => void
+  totalItems: number
+  index: number
+}
+
+const CheckCircle = ({ isActive }: { isActive: boolean }) => (
+  <View style={styles.checkCircle}>
+    <Image
+      source={Images.tick}
+      style={[styles.tickImage, isActive && { tintColor: '#CEB55A' }]}
+    />
+  </View>
+)
+
+const RightAction = ({
+  item,
+  biometricsEnabled,
+  setBiometricsEnabled,
+  onNavigate,
+}: {
+  item: any
+  biometricsEnabled: boolean
+  setBiometricsEnabled: (val: boolean) => void
+  onNavigate?: (route: keyof AppNavigatorParamList) => void
+}) => {
+  if (item.toggle) {
+    return (
+      <CustomSwitch value={biometricsEnabled} onValueChange={setBiometricsEnabled} />
+    )
+  }
+  return (
+    <TouchableOpacity onPress={() => item.route && onNavigate?.(item.route)}>
+      <Image source={Images.forward} style={styles.forwardIcon} />
+    </TouchableOpacity>
+  )
 }
 
 const SecurityOptionItem = ({
   item,
   isActive,
-  onToggleTick,
   biometricsEnabled,
   setBiometricsEnabled,
   onNavigate,
-totalItems,
-index
-
+  totalItems,
+  index,
 }: Props) => {
-
- const handleRowPress = () => {
+  const handleRowPress = () => {
     if (item.route) {
       onNavigate?.(item.route)
     }
   }
 
-
   return (
     <View>
-      
-      <TouchableOpacity style={styles.optionRow} onPress={handleRowPress} >
-       
-        <Pressable 
-        //onPress={onToggleTick}
-        
-         style={styles.leftCheck}>
-          <View style={styles.checkCircle}>
-            <Image
-              source={Images.tick}
-              style={[styles.tickImage, isActive && { tintColor: '#CEB55A' }]}
-            />
-          </View>
+      <TouchableOpacity style={styles.optionRow} onPress={handleRowPress}>
+        <Pressable style={styles.leftCheck}>
+          <CheckCircle isActive={isActive} />
         </Pressable>
-        
 
-     
         <Text style={styles.optionTitle}>{item.title}</Text>
-
-      
-        {item.pro && <Image source={Images.probadge1} style={styles.proBadge} />}
-
-        
-        {item.toggle ? (
-
-   <CustomSwitch
-    value={biometricsEnabled}
-    onValueChange={setBiometricsEnabled}
-  />
-) : item.route ? (
-  <TouchableOpacity onPress={() => onNavigate?.(item.route)}>
-    <Image source={Images.forward} style={styles.forwardIcon} />
-  </TouchableOpacity>
-) :
- (<TouchableOpacity> 
-  <Image source={Images.forward} style={styles.forwardIcon} />
- </TouchableOpacity>
-
-)}
-
+        {item.pro && <Image source={Images.proBadge1} style={styles.proBadge} />}
+        <RightAction
+          item={item}
+          biometricsEnabled={biometricsEnabled}
+          setBiometricsEnabled={setBiometricsEnabled}
+          onNavigate={onNavigate}
+        />
       </TouchableOpacity>
 
-  
-  {index !== totalItems - 1 &&(
-  <View style={[styles.divider,
-  { marginLeft: styles.checkCircle.width + styles.leftCheck.marginRight }
-]} />
-)}
+      {index !== totalItems - 1 && (
+        <View
+          style={[
+            styles.divider,
+            { marginLeft: styles.checkCircle.width + styles.leftCheck.marginRight },
+          ]}
+        />
+      )}
     </View>
   )
 }
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
     resizeMode: 'contain',
-    tintColor: '#10178A', // Default blue tick
+    tintColor: '#10178A',
   },
   optionTitle: {
     flex: 1,
@@ -126,8 +128,7 @@ const styles = StyleSheet.create({
     width: 14,
     height: 14,
     resizeMode: 'contain',
-   tintColor:'#0734A9',
-  
+    tintColor: '#0734A9',
   },
   proBadge: {
     width: 40,
@@ -140,11 +141,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#030A74',
     marginTop: 10,
     marginBottom: 5,
-    
-   //  marginLeft: 34,
   },
 })
-
-
-
-

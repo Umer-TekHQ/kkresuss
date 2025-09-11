@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+
 import { DATA } from '../mock/projects';
+
+import { Colors } from '../theme/colors';
 
 type DataProject = typeof DATA[0];
 
@@ -97,7 +100,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 20,
-    borderColor: '#4898F3',
+    borderColor: Colors.blue,
     borderWidth: 1.5,
   },
   buttonText: {

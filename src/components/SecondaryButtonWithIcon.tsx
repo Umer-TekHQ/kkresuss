@@ -6,7 +6,10 @@ import {
   Image,
   GestureResponderEvent,
 } from 'react-native'
+
 import { Images } from '../assets'
+
+import { Colors } from '../theme/colors'
 
 interface Props {
   label: string
@@ -36,7 +39,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 100,
     borderWidth: 1,
-    borderColor: '#4898F3',
+    borderColor: Colors.blue,
     alignSelf: 'center',
   },
   icon: {
@@ -47,7 +50,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 15,
     fontWeight:'bold',
-    color: '#FFFFFF',
+    color: Colors.white,
     textAlign: 'center',
   },
 })

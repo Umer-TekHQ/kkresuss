@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+
 import { Images } from '../assets';
 import SecondaryButtonWithIcon from './SecondaryButtonWithIcon'
 
@@ -10,14 +11,14 @@ const PriceHeader = ({ data, onBack }: { data: any, onBack?: () => void }) => (
   
     <View style={styles.topBar}>
       <TouchableOpacity onPress={onBack} style={styles.backButton}>
-        <Image source={Images.backscreen} style={styles.backIcon} />
+        <Image source={Images.backScreen} style={styles.backIcon} />
       </TouchableOpacity>
       <View style={styles.titleContainer}>
         {data.image && (
           <Image 
             source={{ uri: data.image }} 
             style={styles.tokenImage} 
-            defaultSource={Images.token4} // Fallback image
+            defaultSource={Images.token4} 
           />
         )}
         <Text style={styles.title}>{data.name}</Text>
@@ -25,14 +26,13 @@ const PriceHeader = ({ data, onBack }: { data: any, onBack?: () => void }) => (
     </View>
 
    
-    {/* <SecondaryButton label='Get insured'/> */}
     <SecondaryButtonWithIcon label=" Get Insured" onPress={() => {}} />
 
     
     <View style={styles.priceBox}>
       <Text style={styles.price}>${data.price}</Text>
  <View style={styles.subContainer}>
-<Image source={Images.greenup} style={styles.changeIcon} />
+<Image source={Images.greenUp} style={styles.changeIcon} />
       <Text style={styles.sub}>
         {data.priceChange}
       <Text  style={styles.sub2}> @ {data.time}</Text>
@@ -45,7 +45,6 @@ const PriceHeader = ({ data, onBack }: { data: any, onBack?: () => void }) => (
 export default PriceHeader;
 const styles = StyleSheet.create({
   container: {
-    // padding: 16,
      alignItems: 'center' ,
      paddingVertical:16,
      paddingHorizontal:16,

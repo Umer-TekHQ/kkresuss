@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-const RecepientSkeleton = () => {
+const RecipientSkeleton = () => {
   return (
     <View style={styles.itemContainer}>
       <View style={styles.imagePlaceholder} />
@@ -12,8 +12,7 @@ const RecepientSkeleton = () => {
     </View>
   );
 };
-
-export default RecepientSkeleton;
+export default RecipientSkeleton;
 
 const styles = StyleSheet.create({
   itemContainer: {

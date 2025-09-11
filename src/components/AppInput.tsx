@@ -8,7 +8,10 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native'
+
 import { Images } from '../assets'
+
+import { Colors } from '../theme/colors'
 
 const { width } = Dimensions.get('window')
 
@@ -78,14 +81,14 @@ const styles = StyleSheet.create({
     input: {
     width: '100%',
     height: 65,
-    borderRadius: 12,//qa change
+    borderRadius: 12,
     paddingHorizontal: 16,
-    backgroundColor: '#0B1171',
-    color: '#FFFFFF',
+    backgroundColor: Colors.fieldBackground,
+    color: Colors.white,
     fontSize: 19,
     paddingRight: 40,
     textAlignVertical: 'center', 
-    borderColor:'#0734A9',
+    borderColor: Colors.fieldBorder,
     borderWidth:1,
   },
 
@@ -94,7 +97,7 @@ const styles = StyleSheet.create({
     top: 6,
     left: 16,
     fontSize: 13,
-    color: '#ADD2FD',
+    color: Colors.lightblue,
   },
   clearButton: {
     position: 'absolute',
@@ -106,8 +109,8 @@ const styles = StyleSheet.create({
     height: 18,
   },
   elevatedInput: {
-  backgroundColor: '#080C50',
-  borderColor: '#4898F3',
+  backgroundColor: Colors.kresusblue,
+  borderColor: Colors.blue,
 },  inputWithText: {
     paddingTop: 17, 
   },

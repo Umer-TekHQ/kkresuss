@@ -40,10 +40,6 @@ const OTPInputBox = ({ onStartTyping, onComplete }: Props) => {
     setOtp(newOtp);
     inputRef.current?.focus();
   };
-
-
- 
-
   return (
     <View style={styles.wrapper}>
       <View style={styles.boxRow}>
@@ -57,7 +53,6 @@ const OTPInputBox = ({ onStartTyping, onComplete }: Props) => {
             </TouchableWithoutFeedback>
           ))}
       </View>
-
       <TextInput
         caretHidden={true}
         ref={inputRef}
@@ -69,8 +64,6 @@ const OTPInputBox = ({ onStartTyping, onComplete }: Props) => {
         style={styles.hiddenInput}
       />
     </View>
-  
-
   );
 };
 
@@ -108,7 +101,7 @@ const styles = StyleSheet.create({
   hiddenInput: {
     position: 'absolute',
     opacity: 0.05,
-    height: 60,// according to qa it is increase from 20 
+    height: 60,
     width: width * 0.9,
     textAlign: 'center',
     paddingTop: 15,
@@ -116,8 +109,8 @@ const styles = StyleSheet.create({
   },
   bottomTouchArea: {
   position: 'absolute',
-  top: BOX_SIZE * 1.4, // boxes ke neeche
-  height: 40, // jitna neeche click capture karna hai
+  top: BOX_SIZE * 1.4, 
+  height: 40,
   width: width * 0.9,
   backgroundColor: 'transparent',
 },

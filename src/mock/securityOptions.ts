@@ -10,7 +10,6 @@ export interface SecurityOption {
 export const securityOptions: SecurityOption[] = [
   {
     title: 'Email',
-   // route: 'Home', 
   },
   {
     title: 'Recovery Phone',
@@ -23,10 +22,9 @@ export const securityOptions: SecurityOption[] = [
   {
     title: 'Insurance Coverage',
     pro: true,
-   // route: 'InsuranceScreen',
   },
   {
     title: 'Device Biometrics',
-    toggle: true, // no route since it's toggle-only
+    toggle: true, 
   },
 ]

@@ -5,15 +5,15 @@ import {
   TouchableOpacity,
   ScrollView,
   StatusBar,
-  Dimensions
+  StyleSheet
 } from 'react-native';
-import styles from '../../styles/homestyles';
-import ExploreSkeletonLoader from '../../components/ExploreSkeletonLoader';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+
 import { ExploreButtons } from '../../components/ExploreButtons';
 import { ExploreCard } from '../../components/ExploreCards';
-import { exploreSections } from '../../mock/exploreData';
+import ExploreSkeletonLoader from '../../components/ExploreSkeletonLoader';
 import { HeaderNav } from '../../components/HeaderNav';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { exploreSections } from '../../mock/exploreData';
 
 
 export const ExploreScreen: React.FC = ({ navigation }: any) => {
@@ -96,7 +96,7 @@ export const ExploreScreen: React.FC = ({ navigation }: any) => {
                       key={cardIndex}
                       onPress={() =>
                         item.title === 'Uniswap'
-                          ? navigation.navigate('bottomscreen')
+                          ? navigation.navigate('bottomScreen')
                           : null
                       }
                     >
@@ -116,3 +116,25 @@ export const ExploreScreen: React.FC = ({ navigation }: any) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#01022C',
+  },
+  sectionTitle: {
+  color: '#fff',
+  fontSize: 22,
+  fontWeight: '400',
+  marginBottom: 12,
+  marginHorizontal: wp('4%')
+},
+
+cardRow: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  flexWrap: 'wrap',
+  marginBottom: 20,
+  marginHorizontal: 5,
+},
+
+})

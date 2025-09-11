@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+
 import { Images } from '../assets';
 
 const SpamAssetItem = ({ item }: any) => {
@@ -13,7 +14,7 @@ const SpamAssetItem = ({ item }: any) => {
 
           <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 6 }}>
             <Image
-              source={item.isNegative ? Images.reddown : Images.greenarrowup}
+              source={item.isNegative ? Images.redDown : Images.greenArrowUp}
               style={styles.changeIcon}
             />
             <Text

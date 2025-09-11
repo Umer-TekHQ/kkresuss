@@ -1,48 +1,45 @@
-import React from 'react'
-import { View, Text, StyleSheet, Image, Dimensions, ScrollView,TouchableOpacity} from 'react-native'
-import { Images } from '../../assets' 
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { AppNavigatorParamList } from '../../navigators/routeNames'
-import { BottomSheetUnified } from '../../components/BottomSheet'
+import React from 'react'
+import { View, StyleSheet, Image, TouchableOpacity} from 'react-native'
+import { Colors } from '../../theme/colors'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useSharedValue } from 'react-native-reanimated'
 
+import { Images } from '../../assets' 
+import { BottomSheetUnified } from '../../components/BottomSheet'
+import { AppNavigatorParamList } from '../../navigators/routeNames'
 
-const { width, height } = Dimensions.get('window')
 
-const AdvancedVerificationInfoScreen = () => {
-    const translateY = useSharedValue(0);
-    const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
-  return (
- 
+  const AdvancedVerificationInfoScreen = () => {
+      const translateY = useSharedValue(0);
+      const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
+    return (
           <GestureHandlerRootView>
             <View style={styles.container}>
                   <Image
-                  source={Images.vaulticon}
+                  source={Images.vaultIcon}
                   style={styles.image}
                   />
                   <TouchableOpacity onPress={() => navigation.goBack()}>
-                  <View style={styles.backborder}>
+                  <View style={styles.backBorder}>
                   <Image
-                    source={Images.backarrow}
+                    source={Images.backArrow}
                     style={styles.cross}
                   />
                   </View>
                   </TouchableOpacity>
             </View>
             <BottomSheetUnified screen="AdvanceVerification" translateY={translateY} />
-            
           </GestureHandlerRootView>
-  )
-}
-
+    )
+  }
 export default AdvancedVerificationInfoScreen
 
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor: '#080C4C'
+    backgroundColor: Colors.kresusBlue
   },
   image:{
     width: '60%',
@@ -57,9 +54,9 @@ const styles = StyleSheet.create({
     width: 12,
     height: 16,
     fontWeight: '400',
-    tintColor: 'white'
+    tintColor: Colors.white
   },
-  backborder:{
+  backBorder:{
     width: 25,
     marginLeft: 20,
     marginTop: 20,

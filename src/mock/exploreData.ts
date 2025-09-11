@@ -37,7 +37,7 @@ export const exploreSections: ExploreSectionType[] = [
       },
       {
         title: 'StableGrow',
-        description: 'Earn interest on stablecoins',
+        description: 'Earn interest on stableCoins',
         image: Images.earn2,
       },
     ],

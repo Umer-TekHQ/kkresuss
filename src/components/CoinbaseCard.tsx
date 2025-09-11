@@ -1,7 +1,9 @@
-
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
+
 import { Images } from '../assets';
+
+import { Colors } from '../theme/colors';
 
 const CoinbaseCard = () => {
   return (
@@ -9,7 +11,7 @@ const CoinbaseCard = () => {
       
      
       <View style={styles.leftBox}>
-        <Image source={Images.coinbase} style={styles.coinImage} />
+        <Image source={Images.coinBase} style={styles.coinImage} />
       </View>
 
      
@@ -34,7 +36,7 @@ const styles = StyleSheet.create({
     height: 94,
     borderRadius: 15,
     borderWidth: 1,
-    borderColor: '#0734A9',
+    borderColor: Colors.fieldBorder,
     backgroundColor: 'transparent',
     flexDirection: 'row',
     alignItems: 'center',
@@ -48,14 +50,14 @@ const styles = StyleSheet.create({
     height: '100%',
     borderTopLeftRadius: 13,
     borderBottomLeftRadius: 13,
-    backgroundColor: '#01032C',
+    backgroundColor: Colors.background,
     justifyContent: 'center',
     alignItems: 'center',
   },
   rightBox: {
     flex: 1,
     height: '100%',
-    backgroundColor: '#0734A9',
+    backgroundColor: Colors.fieldBorder,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 10,
@@ -69,12 +71,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    color: '#FFFFFF',
+    color: Colors.white,
     fontSize: 20,
     fontWeight: '600',
   },
   subtitle: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 13,
     marginTop: 2,
     flexWrap: 'wrap',
@@ -91,6 +93,6 @@ const styles = StyleSheet.create({
     marginLeft: 10,
  
     zIndex:4,
-     tintColor: '#086DE1',
+     tintColor: Colors.back,
   },
 });

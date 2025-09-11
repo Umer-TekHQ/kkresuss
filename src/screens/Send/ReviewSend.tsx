@@ -1,16 +1,14 @@
-import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
-import React from 'react';
-import { Images } from '../../assets';
-import AssetsHeader from '../../components/AssetsHeader ';
-import ProfileInfo from '../../components/ProfileInfo';
-import AssetsTransferDetails from '../../components/AssetTransferDetails';
-import SwipeToSend from '../../components/SwipeToSend';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import React from 'react';
+import { StyleSheet, View} from 'react-native';
+
+import AssetsHeader from '../../components/AssetsHeader ';
+import AssetsTransferDetails from '../../components/AssetTransferDetails';
+import ProfileInfo from '../../components/ProfileInfo';
+import SwipeToSend from '../../components/SwipeToSend';
 import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { useAppSelector } from '../../store/hooks'
-
-const { width } = Dimensions.get('window');
 
 const ReviewSend = () => {
    const { selectedAsset } = useAppSelector(state => state.selectedAsset)

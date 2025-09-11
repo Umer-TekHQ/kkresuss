@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { Token } from '../../screens/Trade/types';
 
 interface TradeState {

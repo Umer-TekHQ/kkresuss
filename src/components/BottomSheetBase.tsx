@@ -1,18 +1,20 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions,Image } from 'react-native';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withSpring,
-} from 'react-native-reanimated';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import {
   GestureDetector,
   Gesture,
   GestureHandlerRootView,
 } from 'react-native-gesture-handler';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from 'react-native-reanimated';
+
 import {Images} from '../assets';
 
-const { height } = Dimensions.get('window');
+import { Colors } from '../theme/colors';
+
 const MAX_TRANSLATE_Y = -180;
 
 const BottomSheetBase = () => {
@@ -46,7 +48,7 @@ const BottomSheetBase = () => {
           <View style={styles.optionBox}>
   <View style={styles.optionRow}>
     <Text style={styles.option}>Both Network</Text>
-    <Image source={Images.bothsolanabase} style={styles.optionIcon} />
+    <Image source={Images.bothSolanaBase} style={styles.optionIcon} />
   </View>
 
   
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
     bottom: -180,
     height: 240,
     width: '100%',
-    backgroundColor:'#01032C',
+    backgroundColor: Colors.background,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingHorizontal: 20,
@@ -89,12 +91,12 @@ const styles = StyleSheet.create({
     width: 40,
     height: 4,
     borderRadius: 2,
-    backgroundColor: '#444',
+    backgroundColor: Colors.disabled,
     alignSelf: 'center',
     marginBottom: 10,
   },
   sheetTitle: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     textAlign: 'center',
     fontSize: 15,
     
@@ -105,14 +107,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   option: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 16,
     paddingVertical: 12,
     textAlign: 'center',
   },
   divider: {
     height: 1,
-    backgroundColor: '#1E2D56',
+    backgroundColor: Colors.background2,
   },
   optionRow: {
   flexDirection: 'row',

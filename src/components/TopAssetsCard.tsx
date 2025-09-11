@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image,TouchableOpacity } from 'react-native';
-import { Images } from '../assets';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+
+import { Images } from '../assets';
 
 type TopAssetsCardProps = {
   showChange?: boolean;
@@ -24,7 +25,7 @@ const assets:Asset [] = [
     change: '1.92%',
     price: '$2,047.62',
     amount: '8.03',
-    logo: Images.etherium,
+    logo: Images.ethereum,
     isPositive: true,
   },
   {
@@ -33,7 +34,7 @@ const assets:Asset [] = [
     change: '2.10%',
     price: '$15,751.87',
     amount: '0.02845532',
-    logo: Images.bitcoin,
+    logo: Images.bitCoin,
     isPositive: false,
   },
   {
@@ -64,7 +65,7 @@ const TopAssetsCard = ({ showChange = true ,onAssetPress }:TopAssetsCardProps) =
               {showChange && (
                 <View style={styles.changeContainer}>
                   <Image
-                    source={item.isPositive ? Images.greenarrowup : Images.reddown}
+                    source={item.isPositive ? Images.greenArrowUp : Images.redDown}
                     style={styles.changeIcon}
                   />
                   <Text

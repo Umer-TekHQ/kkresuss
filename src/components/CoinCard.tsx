@@ -1,5 +1,7 @@
 import { View, Text, Image, StyleSheet, ImageSourcePropType } from 'react-native';
 
+import { Colors } from '../theme/colors';
+
 interface CoinCardProps {
   name: string;
   price: string;
@@ -29,7 +31,7 @@ export default CoinCard;
 const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
-    backgroundColor: '#1C1C24',
+    backgroundColor: Colors.background,
     padding: 12,
     borderRadius: 10,
     marginBottom: 12,
@@ -41,11 +43,11 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   name: {
-    color: 'white',
+    color: Colors.white,
     fontWeight: 'bold',
   },
   price: {
-    color: 'white',
+    color: Colors.white,
   },
   change: {
     fontSize: 12,

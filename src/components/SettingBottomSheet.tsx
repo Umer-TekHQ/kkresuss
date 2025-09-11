@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React from 'react'
 import {
   View,
@@ -7,25 +9,19 @@ import {
   FlatList,
   Image,
 } from 'react-native'
+
 import { Images } from '../assets' 
 import { settingsData } from '../mock/settingsData'
-import { useNavigation } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { AppNavigatorParamList } from '../navigators/routeNames'
 
-
 const SettingBottomSheet = ({ onClose }: { onClose: () => void, }) => {
-
 const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
-
 const handleItemPress = (route?: keyof AppNavigatorParamList) => {
   if (route) {
     onClose()
     navigation.navigate(route as any )
   }
 }
-
-
   const renderItem = ({ item,index }: any) =>{
       const isLastItem = index === settingsData.length - 1
     return (
@@ -41,7 +37,6 @@ const handleItemPress = (route?: keyof AppNavigatorParamList) => {
         />
       )}
 
-    {/* <View style={styles.item}> */}
     <TouchableOpacity
         style={styles.item}
         onPress={() => handleItemPress(item.route)}
@@ -57,7 +52,6 @@ const handleItemPress = (route?: keyof AppNavigatorParamList) => {
       <Image source={Images.forward} style={styles.arrow} />
       </TouchableOpacity>
       </TouchableOpacity>
-    {/* </View> */}
      {!isLastItem && (
         <View
           style={{
@@ -71,13 +65,10 @@ const handleItemPress = (route?: keyof AppNavigatorParamList) => {
       )}
   </View>
   )}
-
   return (
-   
     <View style={styles.container}>
       <View style={styles.line} />
       <Text style={styles.sheetTitle}>Settings</Text>
-
       <FlatList
         data={settingsData}
         renderItem={renderItem}
@@ -85,16 +76,12 @@ const handleItemPress = (route?: keyof AppNavigatorParamList) => {
         contentContainerStyle={{ paddingBottom: 30 }}
         showsVerticalScrollIndicator={false}
       />
-
       <TouchableOpacity onPress={()=> navigation.navigate('Welcome')} >
           <Text style={styles.delete}>Delete Account</Text>
       </TouchableOpacity>
-
     </View>
-   
   )
 }
-
 export default SettingBottomSheet
 
 const styles = StyleSheet.create({
@@ -158,6 +145,3 @@ line: {
   backgroundColor:'#BOB4A'
 }
 })
-
-
-

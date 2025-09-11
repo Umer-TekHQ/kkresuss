@@ -1,24 +1,23 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View, } from 'react-native'
-import { useSharedValue } from 'react-native-reanimated'
 import React from 'react'
+import { Image, StyleSheet, TouchableOpacity, View, } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+
 import { Images } from '../../assets/index'
 import BottomSheetPro  from '../../components/BottomSheetPro'
 
 export const ProsScreen = ({navigation}: any) => {
-  const translateY = useSharedValue(0);
   return (
       <GestureHandlerRootView>
         <View style={styles.container}>
               <Image
-              source={Images.prosimage}
+              source={Images.prosImage}
               style={styles.image}
               />
               <View style={{zIndex: 9999}}>
               <TouchableOpacity onPress={() => navigation.goBack()}>
-              <View style={styles.backborder}>
+              <View style={styles.backBorder}>
               <Image
-                source={Images.backarrow}
+                source={Images.backArrow}
                 style={styles.cross}
               />
               </View>
@@ -45,7 +44,6 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   cross:{
-    // marginLeft: 5,
     marginTop: 10,
     width: 10,
     height: 14,
@@ -53,7 +51,7 @@ const styles = StyleSheet.create({
     tintColor: 'white',
 
   },
-  backborder:{
+  backBorder:{
     width: 25,
     marginLeft: 18,
     marginTop: 20,

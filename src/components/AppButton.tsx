@@ -4,11 +4,11 @@ import {
   Text,
   StyleSheet,
   Dimensions,
-   ViewStyle,
-   StyleProp
 } from 'react-native'
 
 import type { DimensionValue } from 'react-native'
+
+import { Colors } from '../theme/colors'
 const { width: screenWidth } = Dimensions.get('window')
 
 interface AppButtonProps {
@@ -28,12 +28,12 @@ const handlePress = () => {
     <TouchableOpacity
       onPress={handlePress}
        disabled={disabled} 
-      style={[styles.button, { width: width || screenWidth * 0.9 }, disabled && { backgroundColor: '#cccccc' }, ]} 
+      style={[styles.button, { width: width || screenWidth * 0.9 }, disabled && { backgroundColor: Colors.disabled }, ]} 
       activeOpacity={0.8}
     >
       <Text style={styles.label}
         numberOfLines={1}
-       ellipsizeMode="tail"
+        ellipsizeMode="tail"
          adjustsFontSizeToFit
       > 
         {label}</Text>
@@ -46,7 +46,7 @@ export default AppButton
 const styles = StyleSheet.create({
   button: {
     height: 55,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Colors.white,
     borderRadius: 99,
     justifyContent: 'center',
     alignItems: 'center',
@@ -59,6 +59,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#01032C',
+    color: Colors.background,
   },
 })

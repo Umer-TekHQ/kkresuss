@@ -2,6 +2,8 @@ import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
+import { Colors } from '../theme/colors';
+
 const { width } = Dimensions.get('window');
 const cardWidth = (width - 48) / 2;
 
@@ -79,15 +81,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    // paddingBottom: 24,
   },
   cardContainer: {
     width: cardWidth,
     marginBottom: 34,
     borderWidth: 1.5,
-    borderColor: '#1A1A66',
+    borderColor: Colors.fieldBackground,
     borderRadius: 18,
-    // marginBottom: 24,
   },
   cardImage: {
     width: '100%',

@@ -1,23 +1,24 @@
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions, FlatList, TouchableOpacity,ScrollView,Image, Animated,  } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import CryptoChart from '../../components/CryptoChart';
+
 import { Images } from '../../assets';
-import { HeaderNav } from '../../components/HeaderNav';
-import { useNavigation } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { AppNavigatorParamList } from '../../navigators/routeNames'
-import TopAssetsCard from '../../components/TopAssetsCard';
 import AllAssetsList from '../../components/AllAssetsList';
+import BottomSheetNetwork from '../../components/BottomSheetNetwork';
 import CoinbaseCard from '../../components/CoinbaseCard';
-import SecondaryButton from '../../components/SecondaryButton';
+import CryptoChart from '../../components/CryptoChart';
+import { HeaderNav } from '../../components/HeaderNav';
 import NFTCard from '../../components/NFTCard';
+import SecondaryButton from '../../components/SecondaryButton';
+import { TokenActionButtons } from '../../components/TokenActionButtons';
+import TopAssetsCard from '../../components/TopAssetsCard';
+import TransactionButton from '../../components/TransactionButton';
 import TransactionCard from '../../components/TransactionCard';
 import nftImages from '../../mock/NftImages';
 import {transactionData} from '../../mock/nftRecentData'
-import TransactionButton from '../../components/TransactionButton';
-import { TokenActionButtons } from '../../components/TokenActionButtons';
-import BottomSheetNetwork from '../../components/BottomSheetNetwork';
+import { AppNavigatorParamList } from '../../navigators/routeNames'
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -48,7 +49,7 @@ const [showSheet, setShowSheet] = useState(false);
           <Text style={styles.sectionTitle}>Popular</Text>
             <TouchableOpacity onPress={() => setShowSheet(true)}>
             <View style={styles.popularIcons}>
-            <Image source={Images.bothsolanabase} style={styles.popularIcon} />
+            <Image source={Images.bothSolanaBase} style={styles.popularIcon} />
             <Image source={Images.down} style={[styles.popularIcon, { marginLeft: 4 }]} />
             </View>
             </TouchableOpacity>
@@ -172,8 +173,8 @@ const AssetsScreen = () => {
         const translateX = position.interpolate({
           inputRange,
           outputRange: inputRange.map((i) => {
-            let tabWidth = getTabWidth ? getTabWidth(i) : initialLayout.width / navigationState.routes.length;
-            let textWidth = navigationState.routes[i].title.length * 9;
+            const tabWidth = getTabWidth ? getTabWidth(i) : initialLayout.width / navigationState.routes.length;
+            const textWidth = navigationState.routes[i].title.length * 9;
             return (tabWidth - textWidth) / 2 + i * tabWidth ;
           }),
         });

@@ -88,20 +88,23 @@ module.exports = {
     'import/no-absolute-path': 'error',
     'import/no-named-as-default-member': 'error',
     'import/order': [
-      'warn',
-      {
-        groups: [
-          'builtin',
-          'external',
-          'internal',
-          'parent',
-          'sibling',
-          'index',
-        ],
-        'newlines-between': 'always',
-      },
+  'warn',
+  {
+    groups: [
+      'builtin',   
+      'external',  
+      'internal',  
+      ['parent', 'sibling', 'index'],
+      'object',    
+      'type'       
     ],
-
+    'newlines-between': 'always',
+    alphabetize: {
+      order: 'asc',           
+      caseInsensitive: true,  
+    },
+  },
+],
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-empty-object-type': 'off',
     '@typescript-eslint/no-unused-vars': [

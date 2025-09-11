@@ -1,14 +1,15 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
-import { Images } from '../assets'
 import LinearGradient from 'react-native-linear-gradient'
+
+import { Images } from '../assets'
 
 const MySecurityScore = ({ score }: { score: number }) => {
   return (
     <View style={styles.container}>
       
    <View style={styles.iconWrapper}>
-        <Image source={Images.secureicon} style={styles.icon} />
+        <Image source={Images.secureIcon} style={styles.icon} />
         <View style={styles.titleRow}>
         <Text style={styles.title}>My Security Score</Text>
         <Text style={styles.scoreText}>{score}/5</Text>
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: '#030A74',
     borderRadius: 14,
-    marginHorizontal: 16, //before was 20 
+    marginHorizontal: 16, 
     marginBottom: 10,
   },
   iconWrapper: {
@@ -79,7 +80,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     display: 'flex',
     justifyContent: 'flex-end',
-    // marginTop: -4, 
   },
   progressBarWrapper: {
     marginTop: 8,

@@ -9,7 +9,10 @@ import {
   Modal,
   FlatList,
 } from 'react-native'
+
 import { Images } from '../assets'
+
+import { Colors } from '../theme/colors'
 
 interface Props {
   label: string
@@ -19,9 +22,7 @@ interface Props {
   onCodeChange: (val: string) => void
   showWarning?: boolean
 }
-
 const countryCodes = ['+1', '+91', '+92']
-
 const LabeledPhoneInput = ({
   label,
   phone,
@@ -31,7 +32,6 @@ const LabeledPhoneInput = ({
   showWarning,
 }: Props) => {
   const [modalVisible, setModalVisible] = useState(false)
-
   return (
     <View style={{ marginBottom: 10 }}>
       <Text style={styles.label}>{label}</Text>
@@ -41,7 +41,7 @@ const LabeledPhoneInput = ({
           onPress={() => setModalVisible(true)}
         >
           <Text style={styles.codeText}>{code}</Text>
-          <Image source={Images.downarrow} style={styles.downIcon} />
+          <Image source={Images.downArrow} style={styles.downIcon} />
         </TouchableOpacity>
 
 <View style={styles.separator} />
@@ -98,7 +98,7 @@ export default LabeledPhoneInput
 const styles = StyleSheet.create({
   label: {
     fontSize: 15,
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     marginBottom: 8,
     height: 22,
   },
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#0734A9',
+    borderColor: Colors.fieldBorder,
     borderRadius: 12,
     paddingHorizontal: 10,
     height: 65,
@@ -115,10 +115,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginRight: 10,
-   // paddingRight: 10,
   },
   codeText: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 19,
     marginRight: 10,
   },
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
     resizeMode:'contain',
-    tintColor: '#086DE1',
+    tintColor: Colors.back,
   },
   phoneInput: {
     flex: 1,
@@ -135,17 +134,17 @@ const styles = StyleSheet.create({
  
   },
   warningText: {
-    color: '#FF6565',
+    color: Colors.red,
     fontSize: 13,
     marginTop: 6,
   },
   overlay: {
     flex: 1,
     justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: Colors.dim,
   },
   modal: {
-    backgroundColor: '#0E1B36',
+    backgroundColor: Colors.background,
     padding: 20,
     borderTopLeftRadius: 14,
     borderTopRightRadius: 14,
@@ -154,13 +153,13 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
   },
   optionText: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 16,
   },
   separator: {
   width: 1,
   height: '100%', 
-  backgroundColor: '#0734A9',
+  backgroundColor: Colors.fieldBorder,
   marginHorizontal: 8,
 },
 

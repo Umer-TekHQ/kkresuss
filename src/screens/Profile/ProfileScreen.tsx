@@ -1,4 +1,7 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
+import { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -8,34 +11,33 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import ProfileCard from '../../components/ProfileCards';
-import { Images } from '../../assets';
-import { useSharedValue } from 'react-native-reanimated';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AppNavigatorParamList } from '../../navigators/routeNames';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setProfilePicture } from '../../store/slices/userSlice';
-import { RootState } from '../../store';
+import { HandlerStateChangeEvent, PanGestureHandler, GestureHandlerRootView, PanGestureHandlerEventPayload } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedStyle,
   withSpring,
   useSharedValue as useReanimatedSharedValue,
   runOnJS,
 } from 'react-native-reanimated';
-import { HandlerStateChangeEvent, PanGestureHandler, GestureHandlerRootView, PanGestureHandlerEventPayload, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler';
-import BottomSheetProfile from '../../components/BottomSheetProfile';
-import { walletApi } from '../../api/walletApi';
-import { storage } from '../../api/axiosInstance';
 import Toast from 'react-native-toast-message';
-import { useEffect, useState } from 'react';
+
+import { storage } from '../../api/axiosInstance';
+import { walletApi } from '../../api/walletApi';
+import { Images } from '../../assets';
+import BottomSheetProfile from '../../components/BottomSheetProfile';
+import ProfileCard from '../../components/ProfileCards';
+import { AppNavigatorParamList } from '../../navigators/routeNames';
+import { RootState } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setProfilePicture } from '../../store/slices/userSlice';
+
+
+
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 
 export const ProfileScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
-  const translateY = useSharedValue(0);
 
   const { username, profilePicture } = useAppSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
@@ -44,7 +46,7 @@ export const ProfileScreen = () => {
   const displayUsername = username ? `${username.toLowerCase()}.kresus` : 'natemorey802.kresus';
 
   const handleChangeProfilePicture = () => {
-    const newPicture = profilePicture === Images.profileicon ? Images.profileicon : Images.profileicon;
+    const newPicture = profilePicture === Images.profileIcon ? Images.profileIcon : Images.profileIcon;
     dispatch(setProfilePicture(newPicture));
   };
 
@@ -77,29 +79,29 @@ export const ProfileScreen = () => {
         const cards = [] as any[];
         if (first.solana) {
           cards.push({
-            icon: Images.solanalogo,
+            icon: Images.solanaLogo,
             title: 'Solana Wallet Address',
             address: formatAddress(first.solana),
             copyValue: first.solana,
-            background: Images.solanabg,
+            background: Images.solanaBg,
           });
         }
         if (first.base) {
           cards.push({
-            icon: Images.basecardlogo,
+            icon: Images.baseCardLogo,
             title: 'Base Wallet Address',
             address: formatAddress(first.base),
             copyValue: first.base,
-            background: Images.basebg,
+            background: Images.baseBg,
           });
         }
         if (first.world) {
           cards.push({
-            icon: Images.basecardlogo,
+            icon: Images.baseCardLogo,
             title: 'World Wallet Address',
             address: formatAddress(first.world),
             copyValue: first.world,
-            background: Images.basebg,
+            background: Images.baseBg,
           });
         }
 
@@ -113,12 +115,6 @@ export const ProfileScreen = () => {
     fetchWallets();
   }, []);
 
-  const reorderedCards = useReanimatedSharedValue(wallets);
-
-
-  const swapCards = () => {
-    reorderedCards.value = [...reorderedCards.value].reverse();
-  };
 
 const CardDeck = () => {
   const topCardIndex = useReanimatedSharedValue(0);
@@ -132,13 +128,11 @@ const CardDeck = () => {
     if (card.title.includes('Base')) {
       navigation.navigate('baseReceiveScreen', { card });
     } else if (card.title.includes('Solana')) {
-      navigation.navigate('CardRecieveScreen', { card });
+      navigation.navigate('CardReceiveScreen', { card });
     } else {
       Toast.show({ type: 'info', text1: 'Screen not available for this wallet' });
     }
   };
-
-
 
   if (wallets.length === 0) {
     return null;
@@ -201,7 +195,6 @@ const CardDeck = () => {
   const NAME_FONT = screenWidth * 0.048;
   const USERNAME_FONT = screenWidth * 0.04;
   const UPGRADE_FONT = screenWidth * 0.037;
-  const HEADER_MARGIN = screenWidth * 0.025;
   const CARDS_MARGIN_TOP = screenHeight * 0.19;
 
 return (
@@ -210,7 +203,7 @@ return (
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image
-            source={Images.backbutton}
+            source={Images.backButton}
             style={[
               styles.icon,
               {
@@ -228,7 +221,7 @@ return (
       <View style={styles.profileSection}>
         <TouchableOpacity onPress={handleChangeProfilePicture}>
           <Image
-            source={profilePicture || Images.profileicon}
+            source={profilePicture || Images.profileIcon}
             style={[
               styles.avatar,
               { width: AVATAR_SIZE, height: AVATAR_SIZE, borderRadius: AVATAR_SIZE / 2 },

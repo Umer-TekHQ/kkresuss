@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+
 import { Images } from '../assets';
 
 const TransactionListItem = ({ item }: { item: any }) => {
   const isPositive = item.amountUSD.trim().startsWith('+');
-
 
   return(
   <View style={styles.item}>
@@ -20,7 +20,6 @@ const TransactionListItem = ({ item }: { item: any }) => {
         </Text>
       </View>
     </View>
-
     <View style={styles.rightSection}>
       <Text style={[styles.amount,{ color: isPositive ? '#30DB5B' : '#FFFFFF' }]}>
         {item.amountUSD}
@@ -32,9 +31,7 @@ const TransactionListItem = ({ item }: { item: any }) => {
   </View>
 );
 }
-
 export default TransactionListItem;
-
 
 const styles = StyleSheet.create({
   item: {

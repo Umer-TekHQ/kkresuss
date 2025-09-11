@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-import { Images } from '../assets'
+import { StyleSheet, Text, View, Image } from 'react-native'
+
+import { Colors } from '../theme/colors'
 
 type Props = {
   logo: any
@@ -9,9 +10,7 @@ type Props = {
   price: number
   amount: number;
   note: string;
-
 }
-
 
 const AssetTransferDetails = ({ logo, name, short,note,amount }: Props) => {
   return (
@@ -46,7 +45,7 @@ const AssetTransferDetails = ({ logo, name, short,note,amount }: Props) => {
 
       <View style={styles.infoRowSecond}>
         <Text style={styles.label}>Note to self</Text>
-        <Text style={styles.infosubText}>{note}</Text>
+        <Text style={styles.infoSubText}>{note}</Text>
       </View>
     </View>
   )
@@ -79,57 +78,53 @@ const styles = StyleSheet.create({
   },
   assetName: {
     fontSize: 19,
-    color: '#FFFFFF',
+    color: Colors.white,
     fontWeight: '600',
   },
   subText: {
     fontSize: 13,
-    color: '#ADD2FD',
+    color: Colors.lightblue,
   },
   amount: {
     fontSize: 19,
-    color: '#FFFFFF',
+    color: Colors.white,
     fontWeight: '600',
   },
   shortAmount: {
     fontSize: 13,
-    color: '#ADD2FD',
+    color: Colors.lightblue,
   },
   divider: {
     height: 1,
-    backgroundColor: '#10178A',
+    backgroundColor: Colors.background1,
     marginVertical: 8,
   },
   infoRow: {
     marginBottom: 15,
     flexDirection:'row',
     alignItems: 'flex-start',
-   
   },
-  infoRowSecond:{
+  infoRowSecond:
+  {
   marginBottom: 15,
-    
   },
   label: {
     fontSize: 15,
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     marginBottom: 4,
   },
   infoText: {
     fontSize: 15,
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     flexWrap: 'wrap',
-  lineHeight: 20,
-
+    lineHeight: 20,
   },
   addressContainer: {
   flex: 1,
   marginLeft: 90,
 },
-
-  infosubText:{
-    color:'white',
+  infoSubText:{
+    color: Colors.white,
     fontSize:15,
-   // paddingRight:20,
   }
 })

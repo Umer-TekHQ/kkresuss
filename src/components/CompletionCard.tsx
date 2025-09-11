@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+
 import { useAppSelector } from '../store/hooks';
+
+import { Colors } from '../theme/colors';
 
 interface CardProps {
   label: string | React.ReactNode;
@@ -45,13 +48,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderRadius: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#182281ff',
+    borderBottomColor: Colors.fieldBorder,
     padding: 16,
     marginTop: 8,
   },
   label: {
     fontSize: 15,
-    color: '#A1C4EE',
+    color: Colors.lightblue,
     marginBottom: 6,
   },
   valueRow: {
@@ -60,21 +63,21 @@ const styles = StyleSheet.create({
   },
   value: {
     fontSize: 16,
-    color: '#A1C4EE',
+    color: Colors.lightblue,
     alignSelf: 'flex-end'
   },
   usd: {
     fontSize: 15,
-    color: '#A1C4EE',
+    color: Colors.lightblue,
     alignSelf: 'flex-end'
 
   },
   strike: {
     textDecorationLine: 'line-through',
-    color: '#A1C4EE',
+    color: Colors.lightblue,
   },
   link: {
-    color: '#4490F6',
+    color: Colors.link,
     marginTop: 10,
     fontSize: 14,
     fontWeight: '500',

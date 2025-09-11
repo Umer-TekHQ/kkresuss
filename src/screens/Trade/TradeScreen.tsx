@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState, useRef } from 'react';
 import {
   View,
@@ -7,21 +9,18 @@ import {
   Image,
   StyleSheet,
   Alert,
-  KeyboardAvoidingView,
-  Platform,
   ScrollView,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AppNavigatorParamList } from '../../navigators/routeNames';
-import { Token } from './types';
-import { HeaderNav } from '../../components/HeaderNav';
-import { Images } from '../../assets';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setAmount1, setAmount2, toggleUSD, setToken1, setToken2 } from '../../store/slices/tradeSlice';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import TradeSwitch from '../../components/TradeSwitch';
+
+import { Token } from './types';
+import { Images } from '../../assets';
 import BottomSheetTrade, { BottomSheetTradeRef } from '../../components/BottomSheetTrade';
+import { HeaderNav } from '../../components/HeaderNav';
+import TradeSwitch from '../../components/TradeSwitch';
+import { AppNavigatorParamList } from '../../navigators/routeNames';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setAmount1, setAmount2, toggleUSD, setToken2 } from '../../store/slices/tradeSlice';
 
 export const TradeScreen = () => {
   const dispatch = useAppDispatch();
@@ -165,12 +164,12 @@ export const TradeScreen = () => {
               <Image source={token.logo} style={styles.tokenLogo} />
               <Text style={styles.tokenSymbol}>{token.abbreviation}</Text>
             </View>
-            <Image source={Images.downarrow} style={styles.downfieldarrow} />
+            <Image source={Images.downArrow} style={styles.downFieldArrow} />
           </View>
         ) : (
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <Text style={[styles.placeholderText, hasError && styles.errorText]}>Select Token</Text>
-            <Image source={Images.downarrow} style={styles.downfieldarrow} />
+            <Image source={Images.downArrow} style={styles.downFieldArrow} />
           </View>
         )}
         {field === 'token1' && displaySecondary ? <Text style={styles.secondaryText}>{displaySecondary}</Text> : null}
@@ -178,10 +177,8 @@ export const TradeScreen = () => {
       </TouchableOpacity>
     );
   };
-
   const isContinueEnabled =
     token1 && token2 && amount1 && amount2 && amount1 !== '0' && amount2 !== '0';
-
   return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
@@ -196,7 +193,6 @@ export const TradeScreen = () => {
               />
             </View>
           </View>
-
           {renderTokenField(
             token1,
             amount1,
@@ -206,13 +202,10 @@ export const TradeScreen = () => {
             errors.token1 || errors.amount1,
             'token1'
           )}
-
           <View style={styles.arrowContainer}>
-            <Image source={Images.downarroww} style={styles.downarrow} />
+            <Image source={Images.downArroww} style={styles.downArrow} />
           </View>
-
           <Text style={styles.title2}>Receive</Text>
-
           {renderTokenField(
             token2,
             amount2,
@@ -231,8 +224,6 @@ export const TradeScreen = () => {
             errors.token2 || errors.amount2,
             'token2'
           )}
-
-
           <View style={styles.footer}>
             <Text style={styles.gasText}>30 gas-free transactions remaining</Text>
             <TouchableOpacity
@@ -245,7 +236,6 @@ export const TradeScreen = () => {
               </Text>
             </TouchableOpacity>
           </View>
-
           <BottomSheetTrade ref={tradeSheetRef} />
         </View>
       </ScrollView>
@@ -253,12 +243,37 @@ export const TradeScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#01021D' },
-  headerRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 30, marginBottom: 8 },
-  title: { color: '#FFFFFF', fontSize: 19, marginLeft: 12 },
-  title2: { color: '#FFFFFF', fontSize: 19, marginLeft: 12, marginBottom: 8 },
-  toggleRow: { flexDirection: 'row', alignItems: 'center', marginRight: 12 },
-  enterUsdText: { color: '#ADD2FD', marginRight: 8, fontSize: 13 },
+  container: { 
+    flex: 1, 
+    backgroundColor: '#01021D'
+  },
+  headerRow: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    marginTop: 30, 
+    marginBottom: 8 
+  },
+  title: { 
+    color: '#FFFFFF', 
+    fontSize: 19, 
+    marginLeft: 12 
+  },
+  title2: { 
+    color: '#FFFFFF', 
+    fontSize: 19, 
+    marginLeft: 12, 
+    marginBottom: 8 
+  },
+  toggleRow: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    marginRight: 12 
+  },
+  enterUsdText: {
+     color: '#ADD2FD', 
+     marginRight: 8, 
+     fontSize: 13
+    },
   tokenField: {
     height: hp('11%'),
     borderRadius: 12,
@@ -269,17 +284,56 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     marginBottom: 16,
   },
-  errorField: { borderColor: '#FF4D4F' },
-  errorText: { color: '#FF4D4F' },
-  errorMessage: { color: '#FF4D4F', fontSize: 12, marginTop: 4 },
-  tokenInputContainer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  amountInput: { color: '#97B8E1', fontSize: 30, flex: 1, marginTop: -7 },
-  disabledInput: { color: '#ADD2FD'},
-  arrowContainer: { alignItems: 'center', marginVertical: 8 },
-  downarrow: { width: wp('4%'), height: hp('2.7%'), marginLeft: 15, tintColor: '#086DE1' },
-  downfieldarrow: { width: 13, height: 8, tintColor: '#4898F3' },
-  placeholderText: { color: '#ADD2FD', fontSize: 34 },
-  gasText: { color: '#ADD2FD', fontSize: 14, textAlign: 'center', marginBottom: 30 },
+  errorField: { 
+    borderColor: '#FF4D4F'
+   },
+  errorText: { 
+    color: '#FF4D4F' 
+  },
+  errorMessage: { 
+    color: '#FF4D4F', 
+    fontSize: 12,
+     marginTop: 4
+     },
+  tokenInputContainer: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center'
+   },
+  amountInput: { 
+    color: '#97B8E1', 
+    fontSize: 30, 
+    flex: 1, 
+    marginTop: -7 
+  },
+  disabledInput: { 
+    color: '#ADD2FD'
+  },
+  arrowContainer: { 
+    alignItems: 'center', 
+    marginVertical: 8 
+  },
+  downArrow: { 
+    width: wp('4%'), 
+    height: hp('2.7%'), 
+    marginLeft: 15, 
+    tintColor: '#086DE1'
+   },
+  downFieldArrow: { 
+    width: 13, 
+    height: 8, 
+    tintColor: '#4898F3' 
+  },
+  placeholderText: { 
+    color: '#ADD2FD', 
+    fontSize: 34 
+  },
+  gasText: { 
+    color: '#ADD2FD', 
+    fontSize: 14, 
+    textAlign: 'center',
+     marginBottom: 30 
+    },
   continueBtn: {
     backgroundColor: '#0734A9',
     paddingVertical: 16,
@@ -288,10 +342,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 20,
   },
-  continueText: { fontSize: 22, fontWeight: '500' },
-  tokenDisplay: { alignItems: 'center', marginLeft: 14 },
-  tokenLogo: { width: 40, height: 40, borderRadius: 12, marginRight: 15 },
-  tokenSymbol: { color: '#fff', fontSize: 15, fontWeight: '500', marginRight: 15 },
-  footer: { marginTop: hp('15%') },
-  secondaryText: { color: '#ADD2FD', fontSize: 14, marginTop: -17, marginLeft: 5 },
+  continueText: { 
+    fontSize: 22, 
+    fontWeight: '500' 
+  },
+  tokenDisplay: {
+     alignItems: 'center', 
+     marginLeft: 14 
+    },
+  tokenLogo: { 
+    width: 40, 
+    height: 40, 
+    borderRadius: 12, 
+    marginRight: 15 
+  },
+  tokenSymbol: { 
+    color: '#fff', 
+    fontSize: 15, 
+    fontWeight: '500', 
+    marginRight: 15 
+  },
+  footer: {
+     marginTop: hp('15%') },
+  secondaryText: { 
+    color: '#ADD2FD', 
+    fontSize: 14, 
+    marginTop: -17, 
+    marginLeft: 5 
+  },
 });

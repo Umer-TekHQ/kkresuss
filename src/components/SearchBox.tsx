@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { View, TextInput, Image, StyleSheet, TouchableOpacity } from 'react-native';
+
 import { Images } from '../assets';
 
 interface SearchBoxProps {
@@ -10,7 +10,6 @@ interface SearchBoxProps {
   onQrPress?: () => void;
   onClear?: () => void;
 }
-
 const SearchBox = ({
   value,
   onChangeText,
@@ -30,25 +29,18 @@ const SearchBox = ({
         value={value}
         onChangeText={onChangeText}
       />
-      {/* <TouchableOpacity onPress={showClearIcon ? onClear : onQrPress}>
-        <Image
-          source={showClearIcon ? Images.cross : Images.qr}
-          style={styles.rightIcon}
-        />
-      </TouchableOpacity> */}
         {showClearIcon ? (
         <TouchableOpacity onPress={onClear}>
           <Image source={Images.cross} style={styles.rightIcon} />
         </TouchableOpacity>
       ) : onQrPress ? (
         <TouchableOpacity onPress={onQrPress}>
-          <Image source={Images.qr} style={styles.rightIcon} />
+          <Image source={Images.qr1} style={styles.rightIcon} />
         </TouchableOpacity>
       ) : null}
     </View>
   );
 };
-
 export default SearchBox;
 
 const styles = StyleSheet.create({
@@ -65,7 +57,7 @@ const styles = StyleSheet.create({
   searchIcon: {
     width: 18,
     height: 18,
-    marginRight: 10, //orignal was 8 
+    marginRight: 10, 
     resizeMode: 'contain',
   },
   searchInput: {

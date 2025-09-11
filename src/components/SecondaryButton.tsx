@@ -1,12 +1,7 @@
 import React from 'react'
-import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  GestureResponderEvent,
-  ViewStyle,
-  TextStyle,
-} from 'react-native'
+import {TouchableOpacity,Text,StyleSheet,GestureResponderEvent,} from 'react-native'
+
+import { Colors } from '../theme/colors'
 
 interface Props {
   label: string
@@ -29,14 +24,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 100,
     borderWidth: 1,
-    borderColor: '#4898F3',
+    borderColor: Colors.blue,
     alignSelf: 'center',
-   // height:45, //(Added after qa)
-   // width:85,
+    
   },
   label: {
     fontSize: 15,
-    color: '#FFFFFF',
+    color: Colors.white,
     textAlign: 'center',
   },
 })

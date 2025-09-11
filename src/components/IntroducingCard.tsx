@@ -8,7 +8,10 @@ import {
   Image,
   ViewToken,
 } from 'react-native';
+
 import { Images } from '../assets';
+
+import { Colors } from '../theme/colors';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -34,9 +37,9 @@ export default function IntroducingCards() {
   const renderItem = () => (
     <View style={[styles.card, { marginRight: SPACING }]}>
       <View style={styles.content}>
-        <View style={styles.iconcontainer}>
+        <View style={styles.iconContainer}>
           <Image
-            source={Images.vaulticon}
+            source={Images.vaultIcon}
             style={styles.icon}
             resizeMode="contain"
           />
@@ -49,7 +52,7 @@ export default function IntroducingCards() {
             </Text>
             <Image
               source={Images.back}
-              style={styles.iconintro}
+              style={styles.iconIntro}
               resizeMode="contain"
             />
           </View>
@@ -100,17 +103,17 @@ const styles = StyleSheet.create({
   card: {
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
-    backgroundColor: '#080C4C',
+    backgroundColor: Colors.background2,
     borderRadius: 20,
     borderWidth: 1.5,
-    borderColor: '#080C4C',
+    borderColor: Colors.background2,
     marginTop: 15,
     marginBottom: 15,
   },
   content: {
     flexDirection: 'row',
   },
-  iconcontainer: {
+  iconContainer: {
     width: screenWidth * 0.22,
     height: screenWidth * 0.25,
     justifyContent: 'center',
@@ -118,7 +121,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     marginRight: 10,
-    backgroundColor: '#10132C',
+    backgroundColor: Colors.background,
   },
   icon: {
     width: screenWidth * 0.1,
@@ -126,11 +129,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginLeft: 10,
   },
-  iconintro: {
+  iconIntro: {
     width: screenWidth * 0.05,
     height: screenWidth * 0.05,
     marginBottom: 20,
-    tintColor: '#086DE1',
+    tintColor: Colors.back,
   },
   textContainer: {
     flex: 1,
@@ -141,7 +144,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   title: {
-    color: 'white',
+    color: Colors.white,
     fontWeight: '600',
     fontSize: 16,
     marginLeft: 5,
@@ -152,7 +155,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   subtitle: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 14,
     flex: 1,
   },

@@ -1,15 +1,12 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { useSharedValue } from 'react-native-reanimated'
 import React from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { Images } from '../../assets/index';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
+
+import { Images } from '../../assets/index';
 import BottomSheetExplore from '../../components/BottomSheetExplore'
 
-
-
 export const BottomSheetScreen = ({ navigation }: any) => {
-  const translateY = useSharedValue(0);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -17,8 +14,8 @@ export const BottomSheetScreen = ({ navigation }: any) => {
         <Image source={Images.trade1} style={styles.image} />
         <View style={{zIndex: 9999}}>
         <TouchableOpacity onPress={() => navigation.goBack()} >
-          <View style={styles.backborder}>
-            <Image source={Images.whitecross} style={styles.cross} />
+          <View style={styles.backBorder}>
+            <Image source={Images.whiteCross} style={styles.cross} />
           </View>
         </TouchableOpacity>
         </View>
@@ -32,7 +29,7 @@ export const BottomSheetScreen = ({ navigation }: any) => {
         >
           <Text style={styles.bottomButtonText}>Launch </Text>
           <Image
-            source={Images.launcharrowup}
+            source={Images.launchArrowUp}
             style={styles.uparrow}
           />
         </TouchableOpacity>
@@ -56,7 +53,7 @@ const styles = StyleSheet.create({
     width: wp('9'),
     height: hp('5%'),
     },
-  backborder: {
+  backBorder: {
     marginLeft: 15,
     marginTop: 20,
     width: 30,

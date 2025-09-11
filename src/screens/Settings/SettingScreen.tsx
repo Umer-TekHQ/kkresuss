@@ -1,22 +1,19 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Image,} from 'react-native'
-import Background from '../../components/Background'
-import AppButton from '../../components/AppButton'
-import { Images } from '../../assets'
-import SettingBottomSheet from '../../components/SettingBottomSheet'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { AppNavigatorParamList } from '../../navigators/routeNames'
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Image,} from 'react-native'
 
+import { Images } from '../../assets'
+import AppButton from '../../components/AppButton'
+import Background from '../../components/Background'
+import SettingBottomSheet from '../../components/SettingBottomSheet'
+import { AppNavigatorParamList } from '../../navigators/routeNames'
 
 const { width, height } = Dimensions.get('window')
 
   const SettingScreen = () => {
-
-    
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
   const [isSheetOpen, setIsSheetOpen] = useState(true)
-
   return (
     <View style={{ flex: 1 , backgroundColor:'#0B0B49'}}>
       <Background showContent hideBottomImages={false} showLogo={false}
@@ -28,21 +25,15 @@ const { width, height } = Dimensions.get('window')
                  activeOpacity={0.7}
                  onPress={() => navigation.goBack()}
                >
-                 <Image source={Images.backscreen} style={{ width: 30, height: 30 }} />
+                 <Image source={Images.backScreen} style={{ width: 30, height: 30 }} />
       </TouchableOpacity>
-
-
-        <Image source={Images.vaulticon} style={styles.logo} />
-
-      
+        <Image source={Images.vaultIcon} style={styles.logo} />
         <View style={styles.contentWrapper}>
           <Text style={styles.heading}>Subscribe Now to{'\n'}Kresus Pro</Text>
           <Text style={styles.subText}>
             Subscribe now and receive $10K of{'\n'}asset insurance coverage.
           </Text>
         </View>
-
-      
         <View style={styles.buttonWrapper}>
           <AppButton
             label="Subscribe — $9.99/mo."
@@ -55,7 +46,6 @@ const { width, height } = Dimensions.get('window')
     </View>
   )
 }
-
 export default SettingScreen
 
 const styles = StyleSheet.create({

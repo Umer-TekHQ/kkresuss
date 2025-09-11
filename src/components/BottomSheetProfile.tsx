@@ -1,8 +1,6 @@
-import React, { useRef, useMemo, useCallback, useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import BottomSheet, { BottomSheetView, BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Images } from '../assets';
+import React, { useRef, useMemo, useCallback, useState } from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet,} from 'react-native';
 import Animated, { 
   useSharedValue, 
   useAnimatedStyle, 
@@ -11,13 +9,18 @@ import Animated, {
   interpolate,
   Extrapolate 
 } from 'react-native-reanimated';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
+import { Images } from '../assets';
+
+import { Colors } from '../theme/colors';
+
 
 export interface BottomSheetProfileRef {
   openSheet: () => void;
   closeSheet: () => void;
 }
 
-const { width } = Dimensions.get('window');
 
 const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation: any }>(
   ({ navigation }, ref) => {
@@ -121,7 +124,7 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
           <TouchableOpacity activeOpacity={0.7} onPress={toggleSheet}>
             <View style={styles.headProfileRow}>
               <Animated.View style={logoAnimatedStyle}>
-                <Image source={Images.profileheadlogo} style={styles.headimgP} />
+                <Image source={Images.profileHeadLogo} style={styles.headImage} />
               </Animated.View>
               
               <Animated.Text style={[styles.headingP, textAnimatedStyle]}>
@@ -140,7 +143,7 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
           <View style={styles.expandableContent}>
             <View style={styles.l1}>
               <View style={styles.rowLeft}>
-                <Image source={Images.base} style={styles.baselogo} />
+                <Image source={Images.base} style={styles.baseLogo} />
                 <Text style={styles.l1text}> Base Network</Text>
               </View>
               <Text style={styles.trailingText}>Crypto and NFTs</Text>
@@ -148,18 +151,18 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
 
             <View style={styles.l12}>
               <View style={styles.rowLeft}>
-                <Image source={Images.solanalogo} style={styles.solanalogo} />
+                <Image source={Images.solanaLogo} style={styles.solanaLogo} />
                 <Text style={styles.l1textS}> Solana Network</Text>
               </View>
               <Text style={styles.trailingText}>Crypto only</Text>
             </View>
 
-            <Text style={styles.bottomtext}>
+            <Text style={styles.bottomText}>
               Do not send assets over Ethereum mainnets or they will be lost.
             </Text>
 
             <TouchableOpacity
-              style={styles.LMBtn}
+              style={styles.LBtn}
               onPress={() => {
                 navigation.navigate('ProfileBottom');
                 closeSheet();
@@ -176,7 +179,7 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: '#10132C',
+    backgroundColor: Colors.background,
   },
   contentContainer: {
     flex: 1,
@@ -193,7 +196,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp('4%'),
     marginBottom: 7,
   },
-  headimgP: {
+  headImage: {
     padding: wp('3%'),
     marginTop: 5,
     width: wp('9%'),
@@ -201,18 +204,18 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   headingP: {
-    color: '#ffffff',
+    color: Colors.white,
     fontSize: 15,
     fontWeight: '600',
     marginTop: 6,
     flex: 1,
     marginLeft: wp('5%'),
   },
-  upimgP: {
+  upImgP: {
     marginTop: 5,
     width: 28,
     height: 25,
-    tintColor: '#4898F3',
+    tintColor: Colors.blue,
   },
   l1: {
     flexDirection: 'row',
@@ -221,7 +224,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingHorizontal: wp('4%'),
     borderTopWidth: 0.5,
-    borderColor: '#101684',
+    borderColor: Colors.background1,
     paddingVertical: 20,
     borderTopRightRadius: 20,
   },
@@ -232,7 +235,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingHorizontal: wp('4%'),
     borderTopWidth: 0.5,
-    borderColor: '#101684',
+    borderColor: Colors.background1,
     borderTopRightRadius: 20,
     paddingVertical: 20,
   },
@@ -241,41 +244,41 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   l1text: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 18,
     marginLeft: 10,
   },
   l1textS: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 18,
     marginLeft: 10,
   },
   trailingText: {
-    color: 'lightblue',
+    color: Colors.lightblue,
     marginTop: 2,
     fontSize: 15,
     textAlign: 'right',
   },
-  solanalogo: {
+  solanaLogo: {
     width: 25,
     height: 25,
   },
-  baselogo: {
+  baseLogo: {
     width: 25,
     height: 25,
   },
-  bottomtext: {
-    color: 'lightblue',
+  bottomText: {
+    color: Colors.lightblue,
     marginHorizontal: wp('5%'),
     marginTop: 15,
   },
-  LMBtn: {
-    backgroundColor: '#0a0a23',
+  LBtn: {
+    backgroundColor: Colors.background,
     paddingVertical: 10,
     alignItems: 'center',
     marginHorizontal: wp('5%'),
     borderRadius: 20,
-    borderColor: '#4898F3',
+    borderColor: Colors.blue,
     borderWidth: 1,
     marginTop: 15,
   },

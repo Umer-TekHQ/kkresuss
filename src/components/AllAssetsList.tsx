@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
-import PopularAssetItem from './PopularAssetItem';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
+
+import PopularAssetItem from './PopularAssetItem';
 import { AppNavigatorParamList } from '../navigators/routeNames';
 import { fetchAssetsService } from '../services/assetsService';
+
+import { Colors } from '../theme/colors';
 
 type AllAssetsListProps = {
   showAll?: boolean;
@@ -78,7 +81,7 @@ export default AllAssetsList;
 const styles = StyleSheet.create({
   divider: {
     height: 1,
-    backgroundColor: '#080C4C',
+    backgroundColor: Colors.kresusblue,
     marginVertical: 8,
     marginLeft: 68,
   },
@@ -87,7 +90,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   emptyText: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 14,
   },
 });

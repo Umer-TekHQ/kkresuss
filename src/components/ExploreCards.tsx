@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
+import { Colors } from '../theme/colors';
+
 interface ExploreCardProps {
   title: string;
   description: string;
@@ -23,7 +25,7 @@ export const ExploreCard: React.FC<ExploreCardProps> = ({ title, description, im
 const styles = StyleSheet.create({
   card: {
     width: wp('47%'),
-    backgroundColor: '#080C4C',
+    backgroundColor: Colors.background2,
     borderRadius: 12,
     overflow: 'hidden',
     marginBottom: 16,
@@ -31,7 +33,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 2.5,
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
-    borderColor: '#080C4C'
+    borderColor: Colors.background2,
   },
   image: {
     width: wp('47%'),
@@ -45,13 +47,13 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 15,
-    color: '#fff',
+    color: Colors.white,
     fontSize: 19,
     marginBottom: 4,
   },
   description: {
     marginTop: 3,
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 15,
     lineHeight: 19,
   },

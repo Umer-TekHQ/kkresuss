@@ -1,5 +1,6 @@
 import React, { useImperativeHandle, useEffect, useState, forwardRef } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -8,8 +9,9 @@ import Animated, {
   interpolate,
   runOnJS
 } from 'react-native-reanimated';
-import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
+import { Colors } from '../theme/colors';
 
 export interface BottomSheetExploreRef {
   openSheet: () => void;
@@ -126,10 +128,10 @@ const BottomSheetExplore = forwardRef<BottomSheetExploreRef>((props, ref) => {
         <Animated.Text style={[styles.headingPro, rHeadingStyle]}>
           Uniswap
         </Animated.Text>
-        <Text style={styles.toppara}>
+        <Text style={styles.topParagraph}>
           Swap, earn, and build on the leading decentralized crypto trading protocol.
         </Text>
-        <Text style={styles.bottompara}>
+        <Text style={styles.bottomParagraph}>
           UniSwap is a decentralized exchange that enables the trading of digital assets. UNI is
           the cryptocurrency the UniSwap platform uses. Anyone can earn UNI by agreeing to not
           sell or trade their crypto holdings. The UniSwap platform is governed by UNI holders
@@ -146,10 +148,10 @@ const styles = StyleSheet.create({
     borderTopWidth: 0.5,
     borderRightWidth: 0.2,
     borderLeftWidth: 0.2,
-    borderColor: '#10178A',
+    borderColor: Colors.background1,
     height: hp('100%'),
     width: wp('100%'),
-    backgroundColor: '#10132C',
+    backgroundColor: Colors.background,
     position: 'absolute',
     top: hp('100%'),
     borderRadius: 15,
@@ -157,21 +159,21 @@ const styles = StyleSheet.create({
   lineExplore: {
     width: wp('15%'),
     height: 4,
-    backgroundColor: '#030A74',
+    backgroundColor: Colors.background3,
     alignSelf: 'center',
     marginVertical: 15,
     borderRadius: 2,
   },
   headingPro: {
-    color: '#ffffff',
+    color: Colors.white,
     fontSize: 30,
     fontWeight: '600',
     marginVertical: 8,
     marginBottom: 12,
     marginLeft: 15
   },
-  toppara: {
-    color: '#ffffff',
+  topParagraph: {
+    color: Colors.white,
     marginLeft: 15,
     marginRight: 100,
     marginTop: 15,
@@ -179,8 +181,8 @@ const styles = StyleSheet.create({
     letterSpacing: 0.25,
     fontSize: 17,
   },
-  bottompara: {
-    color: '#ffffff',
+  bottomParagraph: {
+    color: Colors.white,
     marginHorizontal: 15,
     fontSize: 20.5,
     marginTop: 15,

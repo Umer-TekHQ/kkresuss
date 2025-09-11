@@ -1,28 +1,32 @@
+import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Colors } from '../../theme/colors';
+import { ScrollView } from 'react-native-gesture-handler';
+
 import { tokens } from './tokens';
-import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
-import { AppNavigatorParamList } from '../../navigators/routeNames';
 import { Token } from './types';
+import SearchBox from '../../components/SearchBox';
+import { AppNavigatorParamList } from '../../navigators/routeNames';
 import { useAppDispatch } from '../../store/hooks';
 import { setToken1, setToken2 } from '../../store/slices/tradeSlice';
-import SearchBox from '../../components/SearchBox';
-import { ScrollView } from 'react-native-gesture-handler';
+
 
 type ReceiveTokenScreenRouteProp = RouteProp<AppNavigatorParamList, 'SearchScreen'>;
 
+import { Images } from '../../assets';
 const popularTokens = [
-  { symbol: 'BTRST', logo: require('../../assets/images/token1.png') },
-  { symbol: 'BRETT', logo: require('../../assets/images/token3.png') },
-  { symbol: 'cbETH', logo: require('../../assets/images/token2.png') },
-  { symbol: 'TOSHI', logo: require('../../assets/images/token5.png') },
-  { symbol: 'MOCHI', logo: require('../../assets/images/token6.png') },
-  { symbol: 'BSHIB', logo: require('../../assets/images/token7.png') },
-  { symbol: 'USDT', logo: require('../../assets/images/token4.png') },
-  { symbol: 'XRP', logo: require('../../assets/images/token2.png') },
-  { symbol: 'ADA', logo: require('../../assets/images/token3.png') },
-  { symbol: 'NORMIE', logo: require('../../assets/images/token6.png') },
-  { symbol: 'SNORT', logo: require('../../assets/images/token8.png') }
+  { symbol: 'BTRST', logo: Images.token1 },
+  { symbol: 'BRETT', logo: Images.token3 },
+  { symbol: 'cbETH', logo: Images.token2 },
+  { symbol: 'TOSHI', logo: Images.token5 },
+  { symbol: 'MOCHI', logo: Images.token6 },
+  { symbol: 'BSHIB', logo: Images.token7 },
+  { symbol: 'USDT', logo: Images.token4 },
+  { symbol: 'XRP', logo: Images.token2 },
+  { symbol: 'ADA', logo: Images.token3 },
+  { symbol: 'NORMIE', logo: Images.token6 },
+  { symbol: 'SNORT', logo: Images.token8 }
 ];
 
 const ReceiveTokenScreen = () => {
@@ -123,7 +127,6 @@ const ReceiveTokenScreen = () => {
             )}
           />
           </ScrollView>
-
         </>
       )}
     </View>
@@ -135,13 +138,13 @@ export default ReceiveTokenScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#01032C',
+    backgroundColor: Colors.backgroundAlt,
     paddingHorizontal: 16,
     paddingTop: 20,
   },
   sectionTitle: {
     marginTop: 20,
-    color: '#8DABD5',
+    color: Colors.lightblue,
     fontSize: 15,
     fontWeight: '600',
   },
@@ -153,7 +156,7 @@ const styles = StyleSheet.create({
   tokenChip: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderColor: '#8DABD5',
+    borderColor: Colors.lightblue,
     borderWidth: 1,
     borderRadius: 24,
     paddingHorizontal: 10,
@@ -168,7 +171,7 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
   chipText: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 14,
   },
   list: {
@@ -177,7 +180,7 @@ const styles = StyleSheet.create({
   tokenItem: {
     paddingTop: 20,
     borderTopWidth: 1,
-    borderColor: '#041B6A',
+    borderColor: Colors.background1,
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
@@ -193,22 +196,22 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   tokenName: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 16,
   },
   tokenAbbr: {
-    color: '#8DABD5',
+    color: Colors.lightblue,
     fontSize: 12,
   },
   amountContainer: {
     alignItems: 'flex-end',
   },
   amount: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 16,
   },
   price: {
-    color: '#8DABD5',
+    color: Colors.lightblue,
     fontSize: 12,
   },
   emptyContainer: {

@@ -1,8 +1,9 @@
-import React from 'react';
-import { View, TouchableOpacity, Image, Text, StyleSheet, Dimensions } from 'react-native';
-import { Images } from '../assets/index';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React from 'react';
+import { View, TouchableOpacity, Image, Text, StyleSheet, Dimensions } from 'react-native';
+
+import { Images } from '../assets/index';
 import { AppNavigatorParamList } from '../navigators/routeNames';
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -13,7 +14,7 @@ export const TokenActionButtons: React.FC = () => {
   const actions = [
     { name: 'Buy', icon: Images.buy },
     { name: 'Send', icon: Images.send },
-    { name: 'Receive', icon: Images.recieve },
+    { name: 'Receive', icon: Images.receive },
     { name: 'Cash Out', icon: Images.cash },
   ];
 

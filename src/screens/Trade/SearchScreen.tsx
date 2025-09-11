@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import { tokens } from '../Trade/tokens';
 import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { Colors } from '../../theme/colors';
+
+import { tokens } from "./tokens";
+import { Token } from "./types";
+import SearchBox from '../../components/SearchBox';
 import { AppNavigatorParamList } from '../../navigators/routeNames';
-import { Token } from '../Trade/types';
 import { useAppDispatch } from '../../store/hooks';
 import { setToken1, setToken2 } from '../../store/slices/tradeSlice';
-import SearchBox from '../../components/SearchBox';
 
 const SearchScreen = () => {
   const route = useRoute<RouteProp<AppNavigatorParamList, 'SearchScreen'>>();
@@ -54,7 +56,7 @@ const SearchScreen = () => {
   );
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: '#01032C' }} contentContainerStyle={{ paddingBottom: 20, }}>
+    <ScrollView style={{ flex: 1, backgroundColor: Colors.backgroundAlt }} contentContainerStyle={{ paddingBottom: 20, }}>
       <View style={{ marginTop: 20, paddingHorizontal: 16}}>
       <SearchBox
             placeholder="Search Name or Address"
@@ -89,7 +91,7 @@ export default SearchScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#01032C',
+    backgroundColor: Colors.backgroundAlt,
     paddingHorizontal: 16,
     paddingTop: 20,
   },
@@ -98,32 +100,32 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
     marginRight: 6,
-    tintColor: '#086DE1',
+    tintColor: Colors.back,
   },
   input: {
     flex: 1,
-    color: '#8DABD5',
+    color: Colors.lightblue,
     fontSize: 20,
     marginRight: 10,
   },
-  searchbarr: {
+  searchBarr: {
     flexDirection: 'row',
     marginTop: 15,
     justifyContent: 'flex-start',
     borderRadius: 40,
-    borderColor: '#0734A9',
+    borderColor: Colors.fieldBorder,
     borderWidth: 1.5,
     paddingVertical: 15,
     marginHorizontal: 16,
     paddingLeft: 20,
-    color: '#8DABD5',
-    backgroundColor: '#101221',
+    color: Colors.lightblue,
+    backgroundColor: Colors.background,
     fontSize: 16,
   },
   sectionTitle: {
     marginTop: 20,
     marginBottom: 10,
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 15,
     fontWeight: '600',
     paddingHorizontal: 15,
@@ -131,7 +133,7 @@ const styles = StyleSheet.create({
   tokenItem: {
     paddingTop: 20,
     borderTopWidth: 1,
-    borderColor: '#030A74',
+    borderColor: Colors.background4,
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
@@ -147,22 +149,22 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   tokenName: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 16,
   },
   tokenAbbr: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 12,
   },
   amountContainer: {
     alignItems: 'flex-end',
   },
   amount: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 16,
   },
   price: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 12,
   },
   emptyContainer: {

@@ -1,3 +1,4 @@
+import Clipboard from '@react-native-clipboard/clipboard';
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -7,14 +8,16 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import { Images } from '../../assets';
-import { Card } from '../../components/CompletionCard'; 
-import { useAppSelector} from '../../store/hooks';
-import { tokens } from './tokens';
-import { Token } from './types';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Toast from 'react-native-toast-message';
-import Clipboard from '@react-native-clipboard/clipboard';
+
+import { tokens } from './tokens';
+import { Token } from './types';
+import { Images } from '../../assets';
+import { Colors } from '../../theme/colors';
+import { Card } from '../../components/CompletionCard'; 
+import { useAppSelector} from '../../store/hooks';
+
 
 const TradeStatusScreen = ({navigation, route}: any) => {
   const tradeState = useAppSelector(state => state.trade);
@@ -83,7 +86,7 @@ const TradeStatusScreen = ({navigation, route}: any) => {
         </View>
         <View style={styles.arrowWrapper}>
           <View style={styles.divider} />
-            <Image source={Images.backyellow} style={styles.arrowIcon} />
+            <Image source={Images.backYellow} style={styles.arrowIcon} />
           <View style={styles.divider} />
         </View>
         <View style={styles.assetContainer}>
@@ -98,7 +101,7 @@ const TradeStatusScreen = ({navigation, route}: any) => {
         <View style={styles.right}>
         <Text style={styles.receivedTitle}>Received</Text>
         <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
-        <Text style={styles.receivedtoken}>{displayToken2.abbreviation}</Text>
+        <Text style={styles.receivedToken}>{displayToken2.abbreviation}</Text>
         <Text style={styles.receivedAmount}>{displayAmount2} {displayToken2.abbreviation}</Text>
         </View>
          </View>
@@ -158,8 +161,8 @@ const TradeStatusScreen = ({navigation, route}: any) => {
         }
       />
     <View style={{alignItems: 'center'}}>
-      <TouchableOpacity style={styles.bottombutton}>
-        <Text style={styles.bottombtn}>View Details on BaseScan</Text>
+      <TouchableOpacity style={styles.bottomButton}>
+        <Text style={styles.bottomBtn}>View Details on BaseScan</Text>
       </TouchableOpacity>
     </View>
     </ScrollView>
@@ -181,15 +184,15 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 19,
-    color: 'white',
+    color: Colors.white,
     marginTop: 20,
     marginLeft: wp('22%')
   },
   swapCard: {
-    backgroundColor: '#080C4C',
+    backgroundColor: Colors.kresusBlue,
     borderRadius: 30,
     borderWidth: 1,
-    borderColor: '#030A74',
+    borderColor: Colors.background4,
     paddingTop: 20,
     alignItems: 'center',
     marginHorizontal: 7,
@@ -203,14 +206,14 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 55,
     borderWidth: 5,
-    borderColor: '#030A74',
+    borderColor: Colors.background4,
     marginBottom: 8,
     paddingVertical: 20,
     resizeMode: 'contain'
   },
   assetLabel: {
     fontSize: 16,
-    color: 'white',
+    color: Colors.white,
   },
   arrow: {
     tintColor: '#F2C94C',
@@ -219,7 +222,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   receivedBox: {
-    backgroundColor: '#030A74',
+    backgroundColor: Colors.background4,
     padding: 16,
     width: wp('96%'),
     marginTop: 20,
@@ -228,30 +231,30 @@ const styles = StyleSheet.create({
   right:{
       },
   receivedTitle: {
-    color: '#CEB55A',
+    color: Colors.gold,
     fontSize: 15,
     lineHeight: 19,
   },
-  receivedtoken:{
-    color: '#fff',
+  receivedToken:{
+    color: Colors.white,
     fontSize: 19,
   },
   receivedAmount: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 19,
 
   },
   receivedDate: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 15,
   },
   receivedUSD: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 15,
     
   },
   tradeCompleteBtn: {
-    backgroundColor: '#CEB55A',
+    backgroundColor: Colors.gold,
     paddingVertical: 10,
     width: wp('96%'),
     borderBottomRightRadius: 25,
@@ -265,7 +268,7 @@ const styles = StyleSheet.create({
     color: '#0A0F3B',
     fontFamily: 'Nunito Sans',
   },
-  bottombutton:{
+  bottomButton:{
     alignItems: 'center',
     justifyContent: 'center',
     width: wp('85%'),
@@ -273,11 +276,11 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: '#4898F3',
+    borderColor: Colors.blue,
     borderRadius: 30,
   },
-  bottombtn:{
-    color: 'white',
+  bottomBtn:{
+    color: Colors.white,
     fontSize: 15,
   },arrowWrapper: {
     flexDirection: 'row',
@@ -289,19 +292,19 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 1,
-    backgroundColor: '#10178A',
+    backgroundColor: Colors.background1,
     flex: 1,
   },
 tokenSection: {
   height: 83,
   width: '100%',
-  backgroundColor: '#030A74',
+  backgroundColor: Colors.background4,
   paddingHorizontal: 16,
   paddingVertical: 12,
   justifyContent: 'center',
 },
 tokenLabel: {
-  color: '#CEB55A',
+  color: Colors.gold,
   fontSize: 15,
   marginBottom: 4,
 },
@@ -311,28 +314,28 @@ tokenRow: {
   alignItems: 'center',
 },
 tokenName: {
-  color: 'white',
+  color: Colors.white,
   fontSize: 19,
  
 },
 tokenValue: {
-  color: 'white',
+  color: Colors.white,
   fontSize: 19,
  
 },
 tokenDate: {
-  color: '#ADD2FD',
+  color: Colors.lightblue,
   fontSize: 15,
 },
 tokenUsd: {
-  color: '#ADD2FD',
+  color: Colors.lightblue,
   fontSize: 15,
 },
 
   statusBar: {
     width: '100%',
     height:'auto',
-    backgroundColor: '#CEB55A',
+    backgroundColor: Colors.gold,
     paddingVertical: 10,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
@@ -349,6 +352,6 @@ tokenUsd: {
   width: 24,
   height: 24,
   resizeMode: 'contain',
-  tintColor: '#CEB55A', 
+  tintColor: Colors.gold, 
 },
 });

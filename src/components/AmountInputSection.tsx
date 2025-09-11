@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TextInput, Image, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+
 import { Images } from '../assets';
+
+import { Colors } from '../theme/colors';
 
 type Props = {
   amount: string;
@@ -14,7 +17,7 @@ const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
   const [inputWidth, setInputWidth] = useState(0);
   const dollarSignPosition = useRef(new Animated.Value(0)).current;
   const inputRef = useRef<TextInput>(null);
-  const CONVERSION_RATE = 0.0;
+  const CONVERSION_RATE = 0.00020401;
 
   const handleInputLayout = (event: any) => {
     const { width } = event.nativeEvent.layout;
@@ -46,7 +49,7 @@ const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
               style={[
                 styles.currencyLabel,
                 { 
-                  color: isInsufficient ? '#FF5A5F' : '#FFFFFF', 
+                  color: isInsufficient ? Colors.red : Colors.white, 
                   transform: [{ translateX: dollarSignPosition }]
                 },
               ]}
@@ -57,7 +60,7 @@ const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
               ref={inputRef}
               style={[
                 styles.amountInputField,
-                { color: isInsufficient ? '#FF5A5F' : '#FFFFFF' },
+                { color: isInsufficient ? Colors.red : Colors.white },
               ]}
               keyboardType="decimal-pad"
               value={amount}
@@ -72,15 +75,13 @@ const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
                 const num = parseFloat(sanitized || '0');
                 setSubAmount((num * CONVERSION_RATE).toFixed(8));
               }}
-              // placeholder="0"
-              // placeholderTextColor={isInsufficient ? '#FF5A5F' : '#FFFFFF80'}
             />
           </View>
         ) : (
           <TextInput
             style={[
               styles.amountInputField,
-              { color: isInsufficient ? '#FF5A5F' : '#FFFFFF', fontSize: 40, },
+              { color: isInsufficient ? Colors.red : Colors.white, fontSize: 40, },
             ]}
             keyboardType="decimal-pad"
             value={subAmount}
@@ -159,12 +160,12 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     resizeMode: 'contain',
     left: 60,
-    zIndex: 5,
-    tintColor: '#ADD2FD',
+    // zIndex: 5,
+    tintColor: Colors.lightblue,
   },
   subAmount: {
     fontSize: 16,
-    color: '#ffffffff',
+    color: Colors.white,
     marginBottom: 20,
   },
 });

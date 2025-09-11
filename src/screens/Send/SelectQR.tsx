@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Camera, CameraType } from 'react-native-camera-kit';
+
 import AssetsHeader from '../../components/AssetsHeader ';
 
 const SelectQR = () => {

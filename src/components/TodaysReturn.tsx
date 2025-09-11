@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React, { forwardRef, useImperativeHandle } from 'react';
 import {
   View,
@@ -15,13 +17,9 @@ import Animated, {
   interpolate,
   Extrapolation ,
 } from 'react-native-reanimated';
+
 import { Images } from '../assets';
-import { useNavigation } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { AppNavigatorParamList } from '../navigators/routeNames'
-
-
-
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -29,18 +27,13 @@ export interface TodaysReturnRef {
   openSheet: () => void;
   closeSheet: () => void;
 }
-
-
 interface Props {}
-
 const TodaysReturnComponent =forwardRef<TodaysReturnRef, Props>((props, ref) => {
-    const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
+  const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
   const translateY = useSharedValue(-SCREEN_HEIGHT / 1.8);
   const context = useSharedValue({ y: 0 });
-
   const minY = -SCREEN_HEIGHT / 1.8; 
   const maxY = -SCREEN_HEIGHT; 
-
   const openSheet = () => {
     'worklet';
     translateY.value = withSpring(maxY, {
@@ -49,7 +42,6 @@ const TodaysReturnComponent =forwardRef<TodaysReturnRef, Props>((props, ref) => 
       mass: 0.8,
     });
   };
-
   const closeSheet = () => {
     'worklet';
     translateY.value = withSpring(minY, {
@@ -58,7 +50,6 @@ const TodaysReturnComponent =forwardRef<TodaysReturnRef, Props>((props, ref) => 
       mass: 0.8,
     });
   };
-
   useImperativeHandle(ref, () => ({
     openSheet,
     closeSheet,
@@ -98,9 +89,9 @@ const headingStyle = useAnimatedStyle(() => {
     Extrapolation.CLAMP
   );
 
-  const backBtnWidth = 30; // back icon area + gap
+  const backBtnWidth = 30; 
   const textWidth = 160; 
-  const startX = -15; // extreme left ke liye (back button ke right se start karega)
+  const startX = -15;
   const endX = (SCREEN_WIDTH / 2) - (textWidth / 2) - backBtnWidth / 2;
 
   return {
@@ -111,11 +102,7 @@ const headingStyle = useAnimatedStyle(() => {
       },
     ],
   };
-});
-
-
-
-  
+});  
   const backButtonStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       translateY.value,
@@ -135,10 +122,10 @@ const headingStyle = useAnimatedStyle(() => {
       <Animated.View style={[styles.container, rStyle]}>
       
 <Animated.View style={[styles.line, lineStyle]} />
-   <Animated.View style={[styles.headerRow]}>
+   <Animated.View style={styles.headerRow}>
   <Animated.View style={[styles.backBtnContainer, backButtonStyle]}>
     <TouchableOpacity onPress={() => navigation.goBack()}>
-      <Image source={Images.backscreen} style={styles.backIcon} />
+      <Image source={Images.backScreen} style={styles.backIcon} />
     </TouchableOpacity>
   </Animated.View>
 
@@ -146,8 +133,8 @@ const headingStyle = useAnimatedStyle(() => {
     Today's Return
   </Animated.Text>
 
-  <View style={{ width: 20 }} />
-</Animated.View>
+    <View style={{ width: 20 }} />
+    </Animated.View>
 
         <Text style={styles.description}>
           Today’s return refers to the percentage change in the value of a crypto investment from the

@@ -1,36 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { AppNavigatorParamList } from '../navigators/routeNames'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+
+import { Colors } from '../theme/colors'
 
 export type CheckboxRowProps = {
-  
   isChecked: boolean
   onToggle: () => void
-   hasLink?: boolean
-    prefixText?: string
+  hasLink?: boolean
+  prefixText?: string
   linkText?: string
 }
 
 
 const CheckboxRow = ({ isChecked,onToggle,hasLink, prefixText = '',
   linkText = '', }: CheckboxRowProps) => {
- 
-    const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
-
   return (
-
       <View style={styles.row}>
       <TouchableOpacity style={styles.box} onPress={onToggle}>
         {isChecked && <Text style={styles.tick}>✓</Text>}
       </TouchableOpacity>
-
       {!hasLink ? (
-       
           <Text style={styles.label}>{prefixText}</Text>
-      
-       ) 
+        ) 
       : (
         <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
           <Text style={styles.label}>{prefixText} </Text>
@@ -56,24 +47,24 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#0734A9',
+    borderColor: Colors.fieldBorder,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
-    backgroundColor: '#0A0F61',
+    backgroundColor: Colors.fieldBackground,
 
   },
   tick: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 14,
     fontWeight: 'bold',
   },
   label: {
-    color: '#FFFFFF',
+    color: Colors.white,
     fontSize: 15,
   },
     link: {
     textDecorationLine: 'underline',
-    color: 'white',
+    color: Colors.white,
   },
 })

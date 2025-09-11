@@ -1,13 +1,14 @@
-import React, { useState,useRef  } from 'react';
+import React, { useState} from 'react';
 import {
   View,
   StyleSheet,
   ScrollView,
 } from 'react-native';
+
 import AllAssetsList from '../../components/AllAssetsList';
 import AssetsHeader from '../../components/AssetsHeader ';
-import SearchBox from '../../components/SearchBox';
 import BottomSheetNetwork from '../../components/BottomSheetNetwork';
+import SearchBox from '../../components/SearchBox';
 
 const SupportedScreen = () => {
   const [searchText, setSearchText] = useState('');

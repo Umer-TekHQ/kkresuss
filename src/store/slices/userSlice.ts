@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { Images } from '../../assets';
 
 interface UserState {
@@ -11,7 +12,7 @@ interface UserState {
 const initialState: UserState = {
   email: '',
   username: '',
-  profilePicture: Images.profileicon, 
+  profilePicture: Images.profileIcon, 
   otpToken: null,
 };
 

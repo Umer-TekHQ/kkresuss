@@ -1,4 +1,6 @@
 import 'react-native-reanimated';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useState, useRef } from 'react';
 import {
   View,
@@ -9,29 +11,25 @@ import {
   FlatList,
   StatusBar,
   Dimensions,
+  StyleSheet
 } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
+import { Images } from '../../assets';
 import { ActionButtons } from '../../components/ActionButtons';
-import { SummaryCard } from '../../components/SummaryCard';
+import { BottomSheetUnifiedRef } from '../../components/BottomSheet';
+import BottomSheetHome from '../../components/BottomSheetHome';
+import FullSkeletonLoader from '../../components/FullSkeletonLoader';
+import { HeaderNav } from '../../components/HeaderNav';
+import IntroducingCards from '../../components/IntroducingCard';
 import { MarketActivityCard } from '../../components/MarketActivityCard';
 import { Projects } from '../../components/Projects';
 import { ProjectsList } from '../../components/ProjectsList';
-import { Images } from '../../assets';
+import { SummaryCard } from '../../components/SummaryCard';
 import WelcomeOverlay from '../../components/WelcomeOverlay';
-import { useNavigation } from '@react-navigation/native';
-import Animated, { useSharedValue } from 'react-native-reanimated';
-import { HeaderNav } from '../../components/HeaderNav';
-import { BottomSheetUnified, BottomSheetUnifiedRef } from '../../components/BottomSheet';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppNavigatorParamList } from '../../navigators/routeNames';
-import styles from '../../styles/homestyles';
-import IntroducingCards from '../../components/IntroducingCard';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import BottomSheetHome from '../../components/BottomSheetHome';
-import FullSkeletonLoader from '../../components/FullSkeletonLoader';
 
 export const HomeScreen: React.FC = () => {
-  const translateY = useSharedValue(hp('100%'));
   const [loading, setLoading] = useState(true);
   const [showOverlay, setShowOverlay] = useState(false);
   const bottomSheetRef = useRef<BottomSheetUnifiedRef>(null);
@@ -67,7 +65,7 @@ export const HomeScreen: React.FC = () => {
       {loading ? (
         <FullSkeletonLoader />
       ) : (
-        <ScrollView contentContainerStyle={styles.content}>
+        <ScrollView>
           <>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
               <FlatList
@@ -91,16 +89,16 @@ export const HomeScreen: React.FC = () => {
               <ActionButtons />
             </View>
             
-            <View style={styles.prossection}>
+            <View style={styles.prosSection}>
               <TouchableOpacity onPress={() => navigation.navigate('ProsScreen')}>
-                <Text style={styles.prostext}>What the Pros are Buying</Text>
+                <Text style={styles.prosText}>What the Pros are Buying</Text>
               </TouchableOpacity>
               
               <TouchableOpacity onPress={() => navigation.navigate('ProsScreen')}>
                 <Image
                   source={Images.pros}
                   style={[
-                    styles.prosicon,
+                    styles.prosIcon,
                     {
                       width: wp('9%'), 
                       height: wp('9%'),
@@ -126,7 +124,7 @@ export const HomeScreen: React.FC = () => {
 
             <IntroducingCards />
 
-            <Text style={styles.projectstext}>Projects to Try</Text>
+            <Text style={styles.projectsText}>Projects to Try</Text>
             <View style={{marginLeft: 15}}>
               <Projects />
             </View>
@@ -149,3 +147,39 @@ export const HomeScreen: React.FC = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+
+  container: {
+    backgroundColor: '#01022C',
+  },
+  prosSection:{
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+},
+prosText:{
+  color: '#7AB7FD',
+  fontSize: 16,
+  marginTop: 4,
+  marginLeft: 15,
+  marginBottom: 15,
+},
+prosIcon:{
+  paddingBottom: 15,
+  marginRight: wp('6%'),
+},
+projectsText:{
+  color: '#7AB7FD',
+  fontSize: 16,
+  marginTop: 4,
+  marginLeft: 15,
+  marginBottom: 5,
+},
+  bottomSheetContainer: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'flex-end',
+    pointerEvents: 'box-none',
+    width: '100%',
+  },
+
+})

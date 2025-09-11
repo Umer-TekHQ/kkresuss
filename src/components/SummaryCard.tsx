@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { LineChart } from 'react-native-gifted-charts';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import LinearGradient from 'react-native-linear-gradient';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 import { Images } from '../assets';
 
 
@@ -16,11 +17,11 @@ type SummaryCardProps = {
 };
 
 const graphDataMap: Record<string, number[]> = {
-  '1D': [10,20,20,30,20,10, 65, 70, 48, 56, 60, 72, 40, 55, 30, 68, 66, 70, 75, 15, 20, 30, 40, 45, 50, 40, 30],
-  '1W': [12, 70, 48, 55, 52, 63, 70, 42, 58, 28, 66, 64, 28, 73, 28, 22, 32, 38, 43, 52, 42, 33],
-  '1M': [14, 42, 92, 67, 55, 65, 74, 39, 53, 31, 70, 67, 62, 78, 37, 21, 29, 42, 47, 54, 38, 29],
-  '1Y': [11, 68, 66, 70, 54, 62, 71, 41, 56, 33, 69, 65, 39, 76, 16, 24, 28, 36, 44, 49, 37, 34],
-  'ALL':[13, 83, 49, 26, 57, 61, 73, 38, 54, 29, 67, 63, 61, 74, 59, 23, 31, 39, 46, 51, 41, 32],
+  '1D': [10,20,20,30,20,10, 65, 70, 48, 56, 60, 72, 40, 55, 30, 68, 66, 70, 75, 15, 20, 30, 40, 45, 50, 40, 30,45, 50, 40, 30],
+  '1W': [12, 70, 48, 55, 52, 63, 70, 42, 58, 28, 66, 64, 28, 73, 28, 22, 32, 38, 43, 52, 42, 33,45, 50, 40, 30,45, 50, 40, 30],
+  '1M': [14, 42, 92, 67, 55, 65, 74, 39, 53, 31, 70, 67, 62, 78, 37, 21, 29, 42, 47, 54, 38, 29,45, 50, 40, 30,45, 50, 40, 30],
+  '1Y': [11, 68, 66, 70, 54, 62, 71, 41, 56, 33, 69, 65, 39, 76, 16, 24, 28, 36, 44, 49, 37, 34,45, 50, 40, 30,45, 50, 40, 30],
+  'ALL':[13, 83, 49, 26, 57, 61, 73, 38, 54, 29, 67, 63, 61, 74, 59, 23, 31, 39, 46, 51, 41, 32,45, 50, 40, 30,45, 50, 40, 30],
 };
 
 export const SummaryCard: React.FC<SummaryCardProps> = ({
@@ -59,10 +60,10 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
       ]}
     >
       <View style={styles.summaryTopSection}>
-        <Text style={styles.currencyhead}>{currency}</Text>
+        <Text style={styles.currencyHead}>{currency}</Text>
         <Text style={styles.cryptoTotalValue}>{totalValue}</Text>
         <View style={styles.cryptoChangeRow}>
-            <Image source={Images.greenarrowup} style={{width:10, height:10, marginLeft: wp('4%'),marginRight: 5,}}/>
+            <Image source={Images.greenArrowUp} style={{width:10, height:10, marginLeft: wp('4%'),marginRight: 5,}}/>
           <Text
             style={[
               styles.cryptoChangeText,
@@ -181,10 +182,7 @@ const styles = StyleSheet.create({
   cryptoTotalValue: {
     fontSize: wp('9%'),
     color: 'white',
-    // marginBottom: hp('0.3%'),
     marginLeft: wp('4%'),
-    // fontFamily: 'PlayfairDisplay-Bold', 
-
   },
   cryptoChangeRow: {
     flexDirection: 'row',
@@ -204,14 +202,12 @@ const styles = StyleSheet.create({
   negativeChange: {
     color: '#FF4D4D',
   },
-  currencyhead: {
+  currencyHead: {
     width: wp('20%'),
     height: hp('3.5%'),
     color: '#ADD2FD',
     fontSize: wp('5.2%'),
-    // marginBottom: hp('0.7%'),
     marginLeft: wp('4%'),
-    // marginTop: hp('4%'),
   },
 });
 

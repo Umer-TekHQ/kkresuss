@@ -1,15 +1,14 @@
-import { StyleSheet, Text, View, Image,TouchableOpacity, GestureResponderEvent, } from 'react-native'
 import React from 'react'
+import { StyleSheet, Text, View, Image,TouchableOpacity, GestureResponderEvent, } from 'react-native'
+
 import {Images} from '../assets';
 
 interface Props{
     onPress?:(event: GestureResponderEvent) => void
 }
-
 const TransactionButton = ({onPress}:Props) => {
   return (
     <View>
-    
     <TouchableOpacity
       style={styles.viewAllTxnBtn}
       onPress={onPress}
@@ -19,12 +18,9 @@ const TransactionButton = ({onPress}:Props) => {
         <Image source={Images.forward} style={styles.forwardIcon} />
       </View>
     </TouchableOpacity>
-    
-
     </View>
   )
 }
-
 export default TransactionButton
 
 const styles = StyleSheet.create({
@@ -34,7 +30,7 @@ viewAllTxnBtn: {
   borderWidth: 1,
   borderColor: '#030A74',
   borderRadius: 8,
-  paddingHorizontal: 12, //before qa it was 24
+  paddingHorizontal: 12,
   justifyContent: 'center',
   width: '93%', 
   alignSelf: 'center',

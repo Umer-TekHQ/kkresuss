@@ -1,13 +1,14 @@
-
+import { useNavigation} from '@react-navigation/native'
 import React from 'react'
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
-import { Images } from '../assets'
-import { useNavigation, NavigationProp } from '@react-navigation/native'
-import { AppNavigatorParamList } from '../navigators/routeNames'
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { Dimensions } from 'react-native'
 
+import { Images } from '../assets'
+import { AppNavigatorParamList } from '../navigators/routeNames'
 
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
+
+import { Colors } from '../theme/colors'
 
 interface AppHeaderProps {
   title: string
@@ -31,14 +32,14 @@ const handleGoBack = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={handleGoBack} style={styles.icon}>
-        <Image source={Images.backscreen} style={styles.iconImage} />
+        <Image source={Images.backScreen} style={styles.iconImage} />
       </TouchableOpacity>
 
       <Text style={styles.title}>{title}</Text>
 
       {showClose && (
         <TouchableOpacity style={styles.rightIcon}>
-         <Image source={Images.whitecross} style={styles.iconImage} /> 
+         <Image source={Images.whiteCross} style={styles.iconImage} /> 
         </TouchableOpacity>
       )}
     </View>
@@ -53,7 +54,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 30,
     paddingHorizontal: 20,
-    backgroundColor: '#010D2A',
     position: 'relative',
   },
   icon: {
@@ -67,11 +67,6 @@ const styles = StyleSheet.create({
     right: 10,
     top:10
   },
-  // iconImage: {
-  //   width: 32,
-  //   height: 32,
-  //   resizeMode:'contain'
-  // },
   iconImage: {
   width: ICON_SIZE,
   height: ICON_SIZE,
@@ -82,6 +77,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     fontWeight: '600',
-    color: 'white',
+    color: Colors.white,
   },
 })

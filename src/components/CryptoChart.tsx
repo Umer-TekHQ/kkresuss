@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, StyleSheet, Image } from 'react-native';
-import { Images } from '../assets'; 
+import { View, Text, TouchableOpacity,StyleSheet, Image } from 'react-native';
 import { LineChart } from 'react-native-gifted-charts';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const { width } = Dimensions.get('window');
+import { Images } from '../assets';
+ 
+import { Colors } from '../theme/colors';
+
   const MAX_CARD_HEIGHT = hp('44%');  
   const MIN_CARD_HEIGHT = hp('28%'); 
   let cardHeight = hp('33%'); 
@@ -42,7 +44,7 @@ const CryptoChart = () => {
 
   <View style={styles.subInfo}>
     <Image
-      source={Images.greenarrowup}
+      source={Images.greenArrowUp}
       style={styles.greenUpIcon}
     />
     <Text style={styles.greenText}>$440.22 (1.92%) </Text>
@@ -116,7 +118,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'center',
     borderWidth: 1,
-    borderColor: '#4898F3',
+    borderColor: Colors.blue,
     paddingVertical: 6,
     paddingHorizontal: 16,
     borderRadius: 20,
@@ -130,7 +132,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   insuredButtonText: {
-    color: '#FFFFFF',
+    color: Colors.white,
     fontSize: 14,
     fontWeight: '500',
   },
@@ -139,23 +141,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   price: {
-    color: '#FFFFFF',
+    color: Colors.white,
     fontSize: 50,
     fontWeight: 'bold',
   },
   subInfo: {
     marginTop: 4,
-    //fontSize: 13,
     flexDirection:'row',
     alignItems:'center'
   },
   greenText: {
-    color: '#30DB5B',
+    color: Colors.transaction,
     fontWeight:'semibold',
     fontSize:13,
   },
   whiteText: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontWeight:'semibold',
     fontSize:13,
   },
@@ -180,15 +181,15 @@ greenUpIcon: {
   alignItems: 'center',  
   },
   activeTimeFilterButton: {
-    backgroundColor: '#0734A9',
+    backgroundColor: Colors.fieldBorder,
   },
   timeFilterText: {
-    color: '#7AB7FD',
+    color: Colors.lightblue,
     fontSize: 13,
     fontWeight:'semibold'
   },
   activeTimeFilterText: {
-    color: 'white',
+    color: Colors.white,
     fontWeight: 'bold',
   },
 });

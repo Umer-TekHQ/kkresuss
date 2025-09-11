@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native';
 import React, { useRef,useEffect } from 'react';
 import {
   StyleSheet,
@@ -7,8 +8,8 @@ import {
   ImageBackground,
   Image
 } from 'react-native';
+
 import { Images } from '../assets'; 
-import { useIsFocused } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 const SWIPE_WIDTH = width - 40;
@@ -37,7 +38,7 @@ const SwipeToSend: React.FC<SwipeToSendProps> = ({ placeholder = 'Swipe to Send'
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (_, gesture) => {
-        let newX = Math.min(Math.max(0, gesture.dx), SWIPE_LIMIT);
+        const newX = Math.min(Math.max(0, gesture.dx), SWIPE_LIMIT);
         panX.setValue(newX);
         bgColor.setValue(newX / SWIPE_LIMIT);
       },
@@ -78,7 +79,7 @@ const textOpacity = panX.interpolate({
           {...panResponder.panHandlers}
           style={[styles.whiteCircle, { transform: [{ translateX: panX }] }]}
         >
-          <Image source={Images.arrowforward} style={styles.arrowIcon} resizeMode="contain" />
+          <Image source={Images.arrowForward} style={styles.arrowIcon} resizeMode="contain" />
         </Animated.View>
 
         <Animated.Text style={[styles.swipeText, { opacity: textOpacity }]}>

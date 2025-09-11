@@ -1,24 +1,23 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native'
-import { useSharedValue } from 'react-native-reanimated'
 import React from 'react'
+import { Image, StyleSheet, TouchableOpacity, View, Dimensions } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+
 import { Images } from '../../assets/index'
 import BottomSheetProfileBottom from '../../components/BottomSheetProfileBottom'
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export const ProfileBottom = ({navigation}: any) => {
-  const translateY = useSharedValue(0);
   return (
       <GestureHandlerRootView>
         <View style={styles.container}>
               <Image
-              source={Images.prosimage}
+              source={Images.prosImage}
               style={styles.image}
               />
               <TouchableOpacity onPress={() => navigation.goBack()} style={{zIndex:999}}>
-              <View style={styles.backborder}>
+              <View style={styles.backBorder}>
               <Image
-                source={Images.backbutton}
+                source={Images.backButton}
                 style={styles.cross}
               />
               </View>
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
     width: screenWidth * 0.08,
     height: screenWidth * 0.08,
   },
-  backborder:{
+  backBorder:{
     width: screenWidth * 0.07,
     marginLeft: screenWidth * 0.05,
     marginTop: screenHeight * 0.025,

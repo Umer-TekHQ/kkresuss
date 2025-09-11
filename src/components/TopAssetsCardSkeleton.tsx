@@ -12,7 +12,6 @@ const TopAssetsCardSkeleton = () => {
               <View style={styles.assetName} />
               <View style={styles.assetSymbol} />
             </View>
-            {/* <View style={styles.change} /> */}
             <View style={styles.priceBlock}>
               <View style={styles.price} />
               <View style={styles.amount} />
@@ -57,26 +56,14 @@ const styles = StyleSheet.create({
   assetName: {
     width: 140,
     height: 16,
-  //  borderRadius: 4,
     backgroundColor: skeletonColor,
     marginBottom: 4,
   },
   assetSymbol: {
     width: 140,
     height: 14,
-  //  borderRadius: 4,
     backgroundColor: skeletonColor,
   },
-//   change: {
-//     width: 60,
-//     height: 12,
-//     borderRadius: 4,
-//     backgroundColor: skeletonColor,
-//     marginRight: 10,
-//     position: 'absolute',
-//     right: 85,
-//     top: 20,
-//   },
   priceBlock: {
     flex: 1,
     alignItems: 'flex-end',
@@ -84,14 +71,12 @@ const styles = StyleSheet.create({
   price: {
     width: 90,
     height: 16,
-    //borderRadius: 4,
     backgroundColor: skeletonColor,
     marginBottom: 6,
   },
   amount: {
     width: 90,
     height: 14,
-   // borderRadius: 4,
     backgroundColor: skeletonColor,
     marginBottom: 2,
   },

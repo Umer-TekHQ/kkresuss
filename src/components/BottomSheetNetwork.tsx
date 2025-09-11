@@ -1,20 +1,21 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withSpring,
-  runOnJS,
-  withTiming 
-} from 'react-native-reanimated';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import {
   GestureDetector,
   Gesture,
   GestureHandlerRootView,
 } from 'react-native-gesture-handler';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  runOnJS,
+  withTiming 
+} from 'react-native-reanimated';
+
 import { Images } from '../assets';
 
-const { height } = Dimensions.get('window');
+import { Colors } from '../theme/colors';
+
 const MAX_TRANSLATE_Y = -180;
 
 type Props = {
@@ -24,10 +25,6 @@ type Props = {
 
 const BottomSheetNetwork = ({ visible, onClose }: Props) => {
   const translateY = useSharedValue(0);
-
-  // useEffect(() => {
-  //   translateY.value = withSpring(visible ? MAX_TRANSLATE_Y : 0);
-  // }, [visible]);
 
   useEffect(() => {
   translateY.value = withTiming(visible ? MAX_TRANSLATE_Y : 0, {
@@ -45,7 +42,6 @@ const BottomSheetNetwork = ({ visible, onClose }: Props) => {
       if (translateY.value > MAX_TRANSLATE_Y / 2) {
        runOnJS(onClose)();
       } else {
-        // translateY.value = withSpring(MAX_TRANSLATE_Y);
           translateY.value = withTiming(MAX_TRANSLATE_Y, {
         duration: 250,
       });
@@ -73,12 +69,12 @@ const BottomSheetNetwork = ({ visible, onClose }: Props) => {
           <View style={styles.optionBox}>
             <View style={styles.optionRow}>
               <Text style={styles.option}>Both Networks</Text>
-              <Image source={Images.profileheadlogo} style={{width: 35, height: 25}} />
+              <Image source={Images.profileHeadLogo} style={{width: 35, height: 25}} />
             </View>
 
             <View style={styles.optionRow}>
               <Text style={styles.option}>Solana</Text>
-              <Image source={Images.solanalogo} style={styles.optionIcon} />
+              <Image source={Images.solanaLogo} style={styles.optionIcon} />
             </View>
 
             <View style={styles.optionRow}>
@@ -104,7 +100,7 @@ const styles = StyleSheet.create({
     bottom: -180,
     height: 240,
     width: '100%',
-    backgroundColor: '#01032C',
+    backgroundColor: Colors.background,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingHorizontal: 20,
@@ -115,12 +111,12 @@ const styles = StyleSheet.create({
     width: 40,
     height: 4,
     borderRadius: 2,
-    backgroundColor: '#0734A9',
+    backgroundColor: Colors.fieldBorder,
     alignSelf: 'center',
     marginBottom: 10,
   },
   sheetTitle: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     textAlign: 'center',
     fontSize: 15,
     marginBottom: 10,
@@ -130,14 +126,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   option: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 16,
     paddingVertical: 12,
     textAlign: 'center',
   },
   divider: {
     height: 1,
-    backgroundColor: '#10178A',
+    backgroundColor: Colors.background1,
   },
   optionRow: {
     flexDirection: 'row',

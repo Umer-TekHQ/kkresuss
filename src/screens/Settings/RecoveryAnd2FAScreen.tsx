@@ -1,14 +1,16 @@
-import { Images } from '../../assets'
-import React, { useState } from 'react'
-import { View, Text, StyleSheet, Image,TouchableOpacity } from 'react-native'
-import AppHeader from '../../components/AppHeader'
-import SecondaryButton from '../../components/SecondaryButton'
-import LabeledPhoneInput from '../../components/LabeledPhoneInput'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../store' 
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, Image,TouchableOpacity } from 'react-native'
+import { Colors } from '../../theme/colors'
+import { useSelector } from 'react-redux'
+
+import { Images } from '../../assets'
+import AppHeader from '../../components/AppHeader'
+import LabeledPhoneInput from '../../components/LabeledPhoneInput'
+import SecondaryButton from '../../components/SecondaryButton'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
+import { RootState } from '../../store' 
 
 const RecoveryAnd2FAScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
@@ -20,8 +22,8 @@ const RecoveryAnd2FAScreen = () => {
   return (
     <View style={styles.container}>
       <AppHeader title="Recovery and 2FA" />
-      <View style={styles.subcontainer}>
- <View style={styles.dividertwo} />
+      <View style={styles.subContainer}>
+ <View style={styles.dividerTwo} />
       <View style={styles.section}>
         <Text style={styles.label}>Email </Text>
         <Text style={styles.emailText}>{email}</Text>
@@ -75,9 +77,9 @@ export default RecoveryAnd2FAScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#010D2A',
+    backgroundColor: Colors.backgroundAlt,
   },
-  subcontainer:{
+  subContainer:{
  paddingHorizontal: 18,
   },
   section: {
@@ -85,69 +87,67 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 15,
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     marginBottom: 8,
     height: 22,
   },
   emailText: {
-    color: '#ffffff',
+    color: Colors.white,
     fontSize: 19,
     fontWeight: '500',
   },
   verified: {
-    color: '#44D26D',
+    color: Colors.transaction,
     fontSize: 13,
     marginTop: 4,
     marginBottom:8
   },
   divider: {
     height: 1,
-    backgroundColor: '#030A74',
+    backgroundColor: Colors.background4,
     marginVertical: 20,
   },
   sectionTitle: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 19,
     fontWeight: '500',
     marginBottom: 0,
   },
   sectionDescription: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 15,
-  // marginBottom: 20,
   },
   advancedRow: {
-  
      flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   globalLabel: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 19,
     fontWeight: '500',
-
   },
   globalDesc: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 15,
     marginTop: 2,
   },
   titleWithIcon: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  marginBottom: 6,
-  marginTop:40,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 6,
+    marginTop:40,
 },
 identityIcon: {
   width: 30,
   height: 30,
  resizeMode:'cover',
-  tintColor: '#ADD2FD',
-},dividertwo:{
- height: 0.5,
-    backgroundColor: '#030A74',
+  tintColor: Colors.lightblue,
+},
+dividerTwo:{
+  height: 0.5,
+  backgroundColor: Colors.background4,
 },
 textWrapper: {
   flex: 1,

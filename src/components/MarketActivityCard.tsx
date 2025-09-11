@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
-import styles from '../styles/homestyles';
+import { View, Text, TouchableOpacity, Image, Dimensions, StyleSheet } from 'react-native';
+
 import { Images } from '../assets/index';
+
+import { Colors } from '../theme/colors';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -33,7 +35,7 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
     <View style={[styles.marketActivityCard, { width: cardWidth }]}>
         <View style={styles.coinInfoHeader}>
             <Image 
-              source={Images.coinlogo}
+              source={Images.coinLogo}
               style={styles.coinLogo}
               resizeMode="contain"
             />
@@ -44,9 +46,9 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
               </View>
               <View style={styles.priceRow}>
                 <Text style={styles.coinPrice}>{coinPrice}</Text>
-                <Text style={styles.priceChangeText}> <Image source={Images.greenarrowup} style={{width: 10, height: 10}}/>  {priceChange}</Text>
+                <Text style={styles.priceChangeText}> <Image source={Images.greenArrowUp} style={styles.greenarrow} />  {priceChange}</Text>
               </View>
-              <View style={styles.mktcap}>
+              <View style={styles.marketCapital}>
                 <Text style={styles.marketCapLabel}>Mkt Cap</Text>
                 <Text style={styles.marketCapValue}>{marketCap}</Text>
               </View>
@@ -54,7 +56,7 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
             <View>
               <TouchableOpacity style={styles.tradeButton}>
                 <Image 
-                  source={Images.tradelogo}
+                  source={Images.tradeLogo}
                   style={styles.tradeIcon}
                   resizeMode="contain"
                 />
@@ -64,26 +66,149 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
           </View>
         </View>
         <View style={styles.marketDataRow}>
-          <Text style={[
-            isPositive ? styles.positiveChange : styles.negativeChange
-          ]}>
-          </Text>
+          <Text style={isPositive ? styles.positiveChange : styles.negativeChange} />
         </View>
       <View style={styles.buyersSellersContainer}>
         <View style={[styles.buyersBar, { width: `${buyersPercentage}%` }]} />
         <View style={[styles.sellersBar, { width: `${sellersPercentage}%` }]} />
       </View>
-      <View style={styles.BSpercent}>
+      <View style={styles.BsPercent}>
         <View style={{ flexDirection: 'row', gap: 5 }}>
-          <Image source={Images.buyerlogo} resizeMode="contain" style={styles.bslogo} />
+          <Image source={Images.buyerLogo} resizeMode="contain" style={styles.bsLogo} />
           <Text style={styles.buyersText}>{buyersPercentage}% Buyers</Text>
         </View>
         <View style={{ flexDirection: 'row', gap: 5 }}>
           <Text style={styles.sellersText}>Sellers {sellersPercentage}%</Text>
-          <Image source={Images.sellerlogo} resizeMode="contain" style={styles.bslogo2} />
+          <Image source={Images.sellerLogo} resizeMode="contain" style={styles.bsLogo2} />
         </View>
       </View>
     </View>
   );
 };
+const styles = StyleSheet.create({
+    marketActivityCard: {
+    width: "100%",
+    marginRight: 13,
+    backgroundColor: Colors.background3, 
+    borderRadius: 15,
+    padding: 10,
+  },
+    coinName: {
+    color: Colors.white,
+    fontSize: 16,
+    marginTop: 5,
+  },
+    coinInfoHeader: {
+    flexDirection: 'row',
+  },
+  coinLogo: {
+    width: screenWidth * 0.16,
+    height: screenWidth * 0.16,
+    marginTop:5,
+    marginRight: 10,
+    borderRadius: 12
+  },
+  greenarrow:{
+    width: 10,
+    height: 10
+  },
+  tradeButton: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: Colors.white,
+    marginTop: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderRadius: 20,
+  },
+  tradeIcon: {
+    width: 11,
+    height: 16,
+    marginRight: 6,
+    tintColor: Colors.black
+  },
+  tradeButtonText: {
+    fontSize: 13,
+    color: Colors.background,
+    fontWeight: '600',
+  },
+  priceRow: {
+    flexDirection: 'row',
 
+  },
+  coinPrice: {
+    color: Colors.white,
+    fontSize: 14,
+  },
+  marketCapital:{
+    flexDirection: 'row',
+  },
+  marketDataRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 4,
+  },
+  marketCapLabel: {
+    fontSize: 13,
+    color: Colors.lightblue,
+  },
+  marketCapValue: {
+    fontSize: 13,
+    color: Colors.lightblue,
+    marginLeft: 5,
+  },
+  priceChangeText: {
+    fontSize: 14,
+    color: Colors.graphGreen,
+    marginLeft: 18,
+  },
+  positiveChange: {
+    color: Colors.greenBar,
+  },
+  negativeChange: {
+    color: Colors.redBar,
+  },
+  buyersSellersContainer: {
+    flexDirection: 'row',
+    height: 2,
+    borderRadius: 4,
+    overflow: 'hidden',
+    backgroundColor: Colors.dim,
+    marginHorizontal: 12,
+  },
+  buyersBar: {
+    backgroundColor: Colors.greenBar,
+    marginRight: 4,
+  },
+  sellersBar: {
+    backgroundColor: Colors.redBar,
+  },
+  BsPercent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 8,
+    marginHorizontal: 12,
+  },
+  buyersText: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    color:  Colors.white,
+    fontSize: 14,
+  },
+  bsLogo:{
+    width: 16,
+    height: 16,
+  },
+  bsLogo2:{
+    width: 18,
+    height: 18,
+  },
+  sellersText: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    color: Colors.white,
+    fontSize: 14,
+  },
+  })

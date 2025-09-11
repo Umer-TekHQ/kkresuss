@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native'
+import { Colors } from '../theme/colors'
 
 const { width, height } = Dimensions.get('window')
 
@@ -10,13 +11,11 @@ const BackgroundStyles  = StyleSheet.create({
     alignItems: 'center' 
   },
   gradient: {
-   //  flex: 1,
   width: '100%',
   height: '100%', 
   },
   logo: {
     position: 'absolute',
-  //  top: height * 0.06,  orignal ye hai 
   top:height * 0.12,
     alignSelf: 'center',
     width: width * 0.35, 
@@ -33,7 +32,7 @@ const BackgroundStyles  = StyleSheet.create({
   },
   waves: {
     width: width,
-    height: height * 0.17,//orignal was 0.15
+    height: height * 0.17,
   },
   land1: {
     position: 'absolute',
@@ -67,14 +66,13 @@ const BackgroundStyles  = StyleSheet.create({
     top: '40%', 
     left: 0,
     right: 0,
-    //top:0,
     bottom:0,
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 10,
   },
   lostAccessText: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 15,
     fontWeight:'semibold'
   

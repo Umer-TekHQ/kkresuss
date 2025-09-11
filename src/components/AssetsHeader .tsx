@@ -1,10 +1,13 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { Images } from '../assets'; 
 import { ImageSourcePropType } from 'react-native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+
+import { Images } from '../assets';
 import { AppNavigatorParamList } from '../navigators/routeNames'
+
+import { Colors } from '../theme/colors';
 
 
 
@@ -24,7 +27,7 @@ const AssetsHeader: React.FC<HeaderProps> = ({ title, showRightIcons = false ,le
     
       <View style={styles.sideContainer}>
         <TouchableOpacity onPress={() => navigation.navigate('BottomNavigator')}>
-          <Image source={leftIcon || Images.backscreen} style={styles.icon1} />
+          <Image source={leftIcon || Images.backScreen} style={styles.icon1} />
         </TouchableOpacity>
       </View>
 
@@ -36,8 +39,8 @@ const AssetsHeader: React.FC<HeaderProps> = ({ title, showRightIcons = false ,le
         {showRightIcons ? (
           <TouchableOpacity onPress={onRightPress}>
           <View style={styles.rightIcons}>
-            <Image source={Images.bothsolanabase} style={styles.icon} />
-            <Image source={Images.down} style={[styles.icon, { marginLeft: 8 }]} />
+            <Image source={Images.bothSolanaBase} style={styles.icon} />
+            <Image source={Images.down} style={styles.icon} />
           </View>
           </TouchableOpacity>
         ) 
@@ -66,7 +69,7 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     fontSize: 18,
-    color: 'white',
+    color: Colors.white,
     fontWeight: '600',
     textAlign: 'center',
     marginTop: 4,
@@ -75,6 +78,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     resizeMode: 'contain',
+    marginLeft: 8 
   },
   icon1: {
     width: 30,
@@ -82,7 +86,7 @@ const styles = StyleSheet.create({
     marginTop: 6,
     marginLeft: 5,
     resizeMode: 'contain',
-    tintColor: 'white',
+    tintColor: Colors.white,
   },
   rightIcons: {
     flexDirection: 'row',

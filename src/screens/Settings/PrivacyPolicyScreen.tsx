@@ -1,56 +1,44 @@
-
-import React from 'react'
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
-import AppHeader from '../../components/AppHeader'
-import { Images } from '../../assets'
 import { useNavigation } from '@react-navigation/native'
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import React from 'react'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { Colors } from '../../theme/colors'
+
+import { Images } from '../../assets'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
+
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
+
 
 const PrivacyPolicyScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
-
- 
-
   return (
     <View style={styles.container}>
-    
     <View style={styles.customHeader}>
-  <View style={styles.leftIcons}>
+    <View style={styles.leftIcons}>
     <TouchableOpacity onPress={() => navigation.goBack()}>
-      <Image source={Images.backscreen} style={styles.headerIcon} />
+      <Image source={Images.backScreen} style={styles.headerIcon} />
     </TouchableOpacity>
     <TouchableOpacity>
       <Image source={Images.refresh} style={[styles.headerIcon, { marginLeft: 10 }]} />
     </TouchableOpacity>
-  </View>
-  <TouchableOpacity onPress={() => navigation.goBack()}>
-    <Image source={Images.whitecross} style={styles.headerIcon} />
-  </TouchableOpacity>
-</View>
-      
-        <View style={styles.topSection}>
-          
-    
+    </View>
+    <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Image source={Images.whiteCross} style={styles.headerIcon} />
+    </TouchableOpacity>
+    </View>  
+      <View style={styles.topSection}>    
           <View style={styles.logoRow}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Image source={Images.logo} style={styles.logo} />
             <Text style={styles.kresus}>Kresus</Text>
           </View>
-          <TouchableOpacity>
-            {/* <Image source={Images.hamburgerbg} style={styles.hamburgerIcon} /> */}
-          </TouchableOpacity>
+          <TouchableOpacity />
         </View>
-
-
           <Text style={styles.privacyTitle}>Privacy Policy</Text>
-           <Text style={styles.lastUpdated}></Text> 
+           <Text style={styles.lastUpdated} /> 
         </View>
-
-      
         <View style={styles.whiteSection}>
-  <Text style={styles.lastUpdated}>Last modified: February 20, 2024</Text>
-
+    <Text style={styles.lastUpdated}>Last modified: February 20, 2024</Text>
           <Text style={styles.sectionTitle}>Introduction</Text>
           <Text style={styles.bodyText}>
             Kresus Labs, Inc. (“Kresus” or “We”) respect your privacy and are committed to protecting it. This Privacy
@@ -59,13 +47,12 @@ const PrivacyPolicyScreen = () => {
             “App”) and any other websites or apps that link to this Policy (jointly, the “Services”) and how we process
             your Personal Data. This Policy also explains your rights and choices about how we use your Personal Data, including how you can
             access or update certain information about you. Beyond the Privacy Policy, your use of our Services and
-            Website is also subject to our<TouchableOpacity><Text style={{color:'#ADD2FD', fontWeight:'bold', top:5}}> Terms and Conditions.</Text></TouchableOpacity>
+            Website is also subject to our<TouchableOpacity><Text style={{color: Colors.lightblue, fontWeight:'bold', top:5}}> Terms and Conditions.</Text></TouchableOpacity>
           </Text>
         </View>
     </View>
   )
 }
-
 export default PrivacyPolicyScreen
 
 const styles = StyleSheet.create({
@@ -95,46 +82,46 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   kresus: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 22,
     fontWeight: '700',
   },
   privacyTitle: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 28,
     fontWeight: '800',
     marginTop: 18,
     marginBottom: 6,
   },
   lastUpdated: {
-    color: 'black',
+    color: Colors.black,
     fontSize: 13,
     fontWeight:'500',
     marginBottom: 16,
   },
   whiteSection: {
       flex: 1, // add this
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
     paddingHorizontal: 20,
     paddingTop: 20,
     paddingBottom: 40,
   },
   sectionTitle: {
-    color: 'black',
+    color: Colors.black,
     fontSize: 18,
     fontWeight: '700',
     marginBottom: 8,
     textDecorationLine:'underline'
   },
   bodyText: {
-    color: 'black',
+    color: Colors.black,
     fontSize: 14,
     lineHeight: 22,
     marginBottom: 12,
   },
    customHeader: {
     height: 65,
-    backgroundColor: '#080C4C',
+    backgroundColor: Colors.kresusBlue,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -154,6 +141,6 @@ const styles = StyleSheet.create({
    // backgroundColor:'transparent'
    width:100,
    height:100,
-   tintColor:'blue'
+   tintColor: Colors.blue
   }
 })

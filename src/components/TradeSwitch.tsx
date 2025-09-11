@@ -6,10 +6,8 @@ interface CustomSwitchProps {
   onValueChange: (val: boolean) => void;
   disabled?: boolean;
 }
-
 const TradeSwitch = ({ value, onValueChange }: CustomSwitchProps) => {
   const [animatedValue] = useState(new Animated.Value(value ? 1 : 0));
-
   useEffect(() => {
     Animated.timing(animatedValue, {
       toValue: value ? 1 : 0,
@@ -17,7 +15,6 @@ const TradeSwitch = ({ value, onValueChange }: CustomSwitchProps) => {
       useNativeDriver: false,
     }).start();
   }, [value]);
-
   const translateX = animatedValue.interpolate({
     inputRange: [0, 1],
     outputRange: [2, 24], 

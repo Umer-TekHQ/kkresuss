@@ -1,11 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userReducer from './slices/userSlice';
-import tradeReducer from './slices/tradeSlice';
-import selectedAssetReducer from './slices/selectedAssetSlice'
-import noteReducer from './slices/noteSlice';
+
 import amountReducer from './slices/amountSlice';
+import noteReducer from './slices/noteSlice';
 import recipientReducer from './slices/recipientSlice'
 import securityReducer from './slices/securitySlice';
+import selectedAssetReducer from './slices/selectedAssetSlice'
+import tradeReducer from './slices/tradeSlice';
+import userReducer from './slices/userSlice';
 
 export const store = configureStore({
   reducer: {

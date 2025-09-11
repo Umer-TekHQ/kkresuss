@@ -1,42 +1,35 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import React from 'react';
-import AssetsHeader from '../../components/AssetsHeader ';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { Colors } from '../../theme/colors';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { Images } from '../../assets';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AppNavigatorParamList } from '../../navigators/routeNames';
+import AssetsHeader from '../../components/AssetsHeader ';
 import TransactionCompleteCard from '../../components/TransactionCompleteCard';
 import TransactionInfoRow from '../../components/TransactionInfoRow';
 import { useAppSelector } from '../../store/hooks';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 const TransactionStatus = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
   const note = useAppSelector(state => state.note.note);
   const { username, profilePicture } = useAppSelector(state => state.user);
-
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        
         <ScrollView 
           style={{flex: 1}} 
           contentContainerStyle={{paddingBottom: 20}}
           showsVerticalScrollIndicator={false}
         >
           <AssetsHeader title="Transaction Status" leftIcon={Images.cancel} />
-          
           <View style={{ marginBottom: 10 }}>
             <TransactionCompleteCard  
               name={username || 'My Wallet'}
               image={profilePicture || Images.logo}
             />
           </View>
-
           <TransactionInfoRow note={note} />
         </ScrollView>
-
-     
         <View style={styles.footer}>
           <TouchableOpacity
             style={styles.viewAllButton}
@@ -44,22 +37,20 @@ const TransactionStatus = () => {
             <Text style={styles.viewAllText}>View Details on BaseScan ↗</Text>
           </TouchableOpacity>
         </View>
-
       </View>
     </SafeAreaView>
   );
 };
-
 export default TransactionStatus;
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#01021D',
+    backgroundColor: Colors.backgroundAlt,
   },
   container: {
     flex: 1,
-    backgroundColor: '#01021D',
+    backgroundColor: Colors.backgroundAlt,
     justifyContent: 'space-between',
   },
   viewAllButton: {
@@ -68,11 +59,11 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 99,
     borderWidth: 1,
-    borderColor: '#4898F3',
+    borderColor: Colors.blue,
     backgroundColor: 'transparent',
   },
   viewAllText: {
-    color: 'white',
+    color: Colors.white,
     fontWeight: '600',
     textAlign: 'center',
     fontSize: 16,

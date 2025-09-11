@@ -38,7 +38,7 @@ export const cryptoData = [
     subPrice: 'Price: $0.18',
     change: '2.03%',
     changeValue: '$27.21 (5.58%)',
-    icon: Images.dogecoin,
+    icon: Images.dogeCoin,
     isNegative: true,
   },
   {
@@ -48,7 +48,7 @@ export const cryptoData = [
     subPrice: 'Price: $17.25',
     change: '1.92%',
     changeValue: '$17.27 (3.32%)',
-    icon: Images.chainlink,
+    icon: Images.chainLink,
     isNegative: false,
   },
   {

@@ -2,6 +2,8 @@ import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
+import { Colors } from '../theme/colors';
+
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const FullSkeletonLoader = () => {
@@ -11,7 +13,7 @@ const FullSkeletonLoader = () => {
     <View style={styles.fullHeight}>
 
 
-        <View style={styles.summarycard}>
+        <View style={styles.summaryCard}>
         <View style={styles.cardContainer}>
           <View style={styles.cardLineShort} />
           <View style={styles.cardLineMedium} />
@@ -72,7 +74,7 @@ const FullSkeletonLoader = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    backgroundColor: '#0D0D33',
+    backgroundColor: Colors.background,
   },
   fullHeight: {
   minHeight: Dimensions.get('window').height,
@@ -81,9 +83,9 @@ const styles = StyleSheet.create({
   cardContainer: {
     marginBottom: 20,
   },
-  summarycard:{
+  summaryCard:{
     borderWidth: 1.5,
-    borderColor: '#1A1A66',
+    borderColor: Colors.background1,
     borderRadius: 18,
     padding: 16,
     marginBottom: 24,
@@ -155,13 +157,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 16,
-    // borderRadius: 12,
     marginBottom: 24,
     borderWidth: 1.5,
-    borderColor: '#1A1A66',
+    borderColor: Colors.background1,
     borderRadius: 18,
-    // padding: 16,
-    // marginBottom: 24,
   },
   avatar: {
     width: 50,
@@ -184,7 +183,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 28,
     borderRadius: 14,
-    backgroundColor: '#1A1A66',
+    backgroundColor: Colors.background1,
   },
   footerRow: {
     flexDirection: 'row',

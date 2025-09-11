@@ -1,6 +1,6 @@
 import React, { useImperativeHandle, useEffect, useState, forwardRef } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -10,10 +10,13 @@ import Animated, {
   useAnimatedReaction,
   runOnJS,
 } from 'react-native-reanimated';
-import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 import SwipeButton from './SwipeButton';
 import { Images } from '../assets';
 import { useAppSelector } from '../store/hooks';
+
+import { Colors } from '../theme/colors';
 
 export interface BottomSheetTradeRef {
   openSheet: () => void;
@@ -136,13 +139,13 @@ const closeSheet = () => {
       />
 
       <GestureDetector gesture={gesture}>
-        <Animated.View style={[styles.tradebottomsheet, rStyle, { paddingTop: hp('1%') }]}>
+        <Animated.View style={[styles.tradeBottomSheet, rStyle, { paddingTop: hp('1%') }]}>
           <View style={[styles.lineTB, { width: wp('15%'), height: hp('0.5%'), marginTop: hp('1%') }]} />
           <View style={[styles.head, { marginBottom: hp('1.5%') }]}>
             <Image
-              source={Images.tradebottom}
+              source={Images.tradeBottom}
               style={[
-                styles.headimg,
+                styles.headImg,
                 { width: wp('4%'), height: hp('2.5%'), marginLeft: wp('5%'), marginTop: hp('1%') },
               ]}
             />
@@ -162,7 +165,7 @@ const closeSheet = () => {
 
           {token1 && token2 && (
             <>
-              <View style={styles.inputfields}>
+              <View style={styles.inputFields}>
                 <View
                   style={[
                     styles.tokenInputContainer,
@@ -205,8 +208,8 @@ const closeSheet = () => {
 
                 <View style={styles.arrowContainer}>
                   <Image
-                    source={Images.downarroww}
-                    style={[styles.downarrow, { width: wp('4%'), height: hp('3%') }]}
+                    source={Images.downArroww}
+                    style={[styles.downArrow, { width: wp('4%'), height: hp('3%') }]}
                   />
                 </View>
 
@@ -253,7 +256,7 @@ const closeSheet = () => {
 
               <View
                 style={[
-                  styles.feescontainer,
+                  styles.feesContainer,
                   { marginHorizontal: wp('5%'), paddingVertical: hp('1%') },
                 ]}
               >
@@ -263,7 +266,7 @@ const closeSheet = () => {
 
               <Text
                 style={[
-                  styles.bottomtext1,
+                  styles.bottomText1,
                   { fontSize: wp('3.5%'), marginTop: hp('3%'), marginBottom: hp('4.5%') },
                 ]}
               >
@@ -287,15 +290,15 @@ const closeSheet = () => {
 });
 
 const styles = StyleSheet.create({
-  tradebottomsheet: {
+  tradeBottomSheet: {
     borderRadius: 35,
     borderTopWidth: 1,
     borderRightWidth: 2,
     borderLeftWidth: 2,
-    borderTopColor: '#10178A',
+    borderTopColor: Colors.background1,
     height: hp('100%'),
     width: wp('100%'),
-    backgroundColor: '#01032C',
+    backgroundColor: Colors.background,
     position: 'absolute',
     top: hp('100%'),
   },
@@ -303,7 +306,7 @@ const styles = StyleSheet.create({
     width: 55,
     height: 4,
     marginLeft: 4,
-    backgroundColor: '#030A74',
+    backgroundColor: Colors.background4,
     alignSelf: 'center',
     marginTop: 15,
     marginHorizontal: 8,
@@ -316,12 +319,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignItems: 'center',
   },
-  headimg: {
+  headImg: {
     padding: 12,
     marginLeft: 15,
   },
   headingTB: {
-    color: '#2ED459',
+    color: Colors.transaction,
     fontSize: 15,
     marginTop: 6,
     marginLeft: 20,
@@ -333,9 +336,9 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   closeIcon: {
-    tintColor: 'lightblue',
+    tintColor: Colors.lightblue,
   },
-  inputfields: {
+  inputFields: {
     alignItems: 'center',
   },
   tokenInputContainer: {
@@ -344,7 +347,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     borderWidth: 1.5,
-    borderColor: '#4898F3',
+    borderColor: Colors.blue,
     paddingHorizontal: 10,
     marginVertical: 10,
   },
@@ -356,7 +359,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tradeAmount: {
-    color: '#FFF',
+    color: Colors.white,
     fontSize: 24,
     marginRight: 10,
   },
@@ -367,7 +370,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   tokenSymbol: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 12,
     marginRight: 9,
     letterSpacing: 0.5,
@@ -376,24 +379,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 10,
   },
-  downarrow: {
+  downArrow: {
     marginLeft: 15,
   },
-  feescontainer: {
+  feesContainer: {
     flexDirection: 'row',
     marginTop: 20,
     marginHorizontal: 22,
     borderTopWidth: 0.5,
     borderBottomWidth: 0.5,
-    borderColor: '#28569B',
+    borderColor: Colors.back,
     paddingVertical: 20,
     justifyContent: 'space-between',
   },
   fees: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
   },
-  bottomtext1: {
-    color: '#ADD2FD',
+  bottomText1: {
+    color: Colors.lightblue,
     marginTop: 15,
     textAlign: 'center',
   },

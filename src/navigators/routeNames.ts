@@ -1,5 +1,3 @@
-import AssetDetailScreen from '@Screen/TokenDetails/AssetDetailScreen';
-import baseReceiveScreen from '../screens/Profile/baseReceiveScreen';
 import { Token } from '../screens/Trade/types';
 
 export const routeNames = {
@@ -11,7 +9,7 @@ export const routeNames = {
   username: "UserName",
   BottomNavigator: "BottomNavigator",
   prosScreen: "prosScreen",
-  bottomscreen: "bottomscreen",
+  bottomScreen: "bottomScreen",
   ProsScreen: "ProsScreen",
   ProfileScreen: "ProfileScreen",
   Settings:"Settings",
@@ -21,7 +19,7 @@ export const routeNames = {
   Verification:"Verification",
   TokenAsset:"TokenDetail",
   ProfileBottom: "ProfileBottom", 
-  CardRecieveScreen: "CardRecieveScreen",
+  CardReceiveScreen: "CardReceiveScreen",
   SearchScreen: "SearchScreen",
   ReceiveTokenScreen: "ReceiveTokenScreen",
   TodayReturns:"TodayReturns",
@@ -29,7 +27,7 @@ export const routeNames = {
   Supported:"Supported",
   Spam:"Spam",
   Currency:"Currency",
-  Recepient:"Recepient",
+  Recipient:"Recipient",
   QR:"QR",
   SendDetails:"SendDetails",
   Review:"Review",
@@ -50,7 +48,7 @@ export type AppNavigatorParamList = {
     screen?: string;
   } | undefined
   UserName: undefined
-  bottomscreen: undefined
+  bottomScreen: undefined
   ProsScreen: undefined
   ProfileScreen: undefined
   Settings: undefined
@@ -60,7 +58,7 @@ export type AppNavigatorParamList = {
   Verification:undefined
   TokenDetail:undefined |  { contractAddress: string }
   ProfileBottom: undefined
-    CardRecieveScreen: {
+    CardReceiveScreen: {
     card: {
       icon: any;
       title: string;
@@ -87,7 +85,7 @@ export type AppNavigatorParamList = {
   Supported:undefined
    Spam: { defaultTab?: 'Crypto' | 'NFTs' };
   Currency:undefined
-  Recepient:undefined
+  Recipient:undefined
   QR:undefined
   SendDetails:undefined
   Review:undefined

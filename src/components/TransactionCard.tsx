@@ -1,14 +1,12 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { Images } from '../assets'; 
 
+import { Images } from '../assets'; 
 
 const truncateText = (text: string, maxLength: number) => {
   if (!text) return '';
   return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
 };
-
-
 const getStatusLogo = (status: string) => {
   switch (status.toLowerCase()) {
     case 'pending':
@@ -23,7 +21,6 @@ const getStatusLogo = (status: string) => {
       return Images.logo || Images.pending; 
   }
 };
-
 const getTextColor = (status: string, field: string) => {
   switch (status.toLowerCase()) {
     case 'pending':
@@ -43,7 +40,6 @@ const getTextColor = (status: string, field: string) => {
       return '#ADD2FD';
   }
 };
-
 const TransactionCard = ({ item }: { item: any }) => {
   return (
     <View style={styles.transactionRow}>
@@ -74,7 +70,6 @@ const styles = StyleSheet.create({
   transactionRow: {
     flexDirection: 'row',
     alignItems: 'center',
-   // backgroundColor: '#0B0B2B',
     padding: 6,
     borderRadius: 10,
     marginBottom: 10,

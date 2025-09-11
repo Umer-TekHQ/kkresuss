@@ -1,25 +1,23 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native'
-import React from 'react'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import React from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native'
+
 import { Images } from '../../assets'
-import ProfileCard from '../../components/ProfileCards'
-import { BottomSheetUnified } from '../../components/BottomSheet' 
-import { useSharedValue } from 'react-native-reanimated'
 import BottomSheetProfile from '../../components/BottomSheetProfile'
+import ProfileCard from '../../components/ProfileCards'
+import { AppNavigatorParamList } from '../../navigators/routeNames'
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default function BaseReceiveScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
-  const translateY = useSharedValue(0);
   const cards = [
       {
-        icon: Images.basecardlogo,
+        icon: Images.baseCardLogo,
         title: 'Base Wallet Address',
         address: 'dDCQNn...c7c8',
-        background: Images.basebg,
+        background: Images.baseBg,
       },
     ];
   return (
@@ -27,8 +25,8 @@ export default function BaseReceiveScreen() {
       <View style={{flexDirection: 'row', alignItems: 'center',}}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image 
-            source={Images.backbutton}
-            style={[styles.backarrow, { width: screenWidth * 0.08, height: screenWidth * 0.08,  }]}
+            source={Images.backButton}
+            style={[styles.backArrow, { width: screenWidth * 0.08, height: screenWidth * 0.08,  }]}
           />
         </TouchableOpacity>
         <View style={{flex: 1, marginLeft: screenWidth * 0.23}}>
@@ -46,7 +44,7 @@ export default function BaseReceiveScreen() {
       </View>
       <View style={[styles.qr, { marginTop: screenHeight * 0.04 }]}>
         <Image
-          source={Images.qr1}
+          source={Images.qr}
           style={{
             width: screenWidth * 0.55,
             height: screenWidth * 0.55,
@@ -71,7 +69,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: 18,
   },
-  backarrow:{
+  backArrow:{
     marginLeft: 15,
   },
   card:{

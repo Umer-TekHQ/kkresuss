@@ -1,7 +1,8 @@
+import Clipboard from '@react-native-clipboard/clipboard';
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from 'react-native-toast-message';
+
 import { Images } from '../assets/index';
 
 interface Props {
@@ -39,7 +40,7 @@ const ProfileCard: React.FC<Props> = ({ icon, title, address, background, copyVa
             activeOpacity={0.7}
             onPress={handleCopy}
           >
-            <Image source={Images.copy} style={styles.copyimg} />
+            <Image source={Images.copy} style={styles.copyImg} />
             <Text style={styles.address}>{address}</Text>
           </TouchableOpacity>
         </View>
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginBottom: 20,
   },
-  copyimg: {
+  copyImg: {
     marginRight: 10,
     width: 15,
     height: 15,

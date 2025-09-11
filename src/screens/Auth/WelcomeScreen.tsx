@@ -1,18 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { View, Text, Animated, Keyboard, Image, TouchableOpacity, Platform, } from 'react-native'
-import Background from '../../components/Background'
-import AppInput from '../../components/AppInput'
-import WelcomeStyles from '../../styles/WelcomeScreen.styles'
-import { Images } from '../../assets'
-import { Dimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import AppButton from '../../components/AppButton'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import React, { useEffect, useRef, useState } from 'react'
+import { View, Text, Animated, Keyboard, Image, TouchableOpacity} from 'react-native'
+import { Dimensions } from 'react-native'
+import Toast from 'react-native-toast-message';
+
+import { authApi } from '../../api/authApi';
+import { Images } from '../../assets'
+import AppButton from '../../components/AppButton'
+import AppInput from '../../components/AppInput'
+import Background from '../../components/Background'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { setEmail, setOtpToken } from '../../store/slices/userSlice'
-import { authApi } from '../../api/authApi';
-import Toast from 'react-native-toast-message';
+import WelcomeStyles from '../../styles/WelcomeScreen.styles'
 
 
 const { height } = Dimensions.get('window')
@@ -20,7 +21,6 @@ const isValidEmail = (email: string): boolean => {
   const regex = /^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/
   return regex.test(email)
 }
-
 const WelcomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
   const [keyboardVisible, setKeyboardVisible] = useState(false)
@@ -34,11 +34,9 @@ const WelcomeScreen = () => {
   const headingOpacity = useRef(new Animated.Value(1)).current;
   const headingTranslateY = useRef(new Animated.Value(0)).current;
 
-
   useEffect(() => {
   const showSub = Keyboard.addListener('keyboardDidShow', () => {
     setKeyboardVisible(true);
-
     Animated.parallel([
       Animated.timing(inputTranslateY, {
         toValue: height * 0.03,
@@ -57,10 +55,8 @@ const WelcomeScreen = () => {
       }),
     ]).start();
   });
-
   const hideSub = Keyboard.addListener('keyboardDidHide', () => {
     setKeyboardVisible(false);
-
     Animated.parallel([
       Animated.timing(inputTranslateY, {
         toValue: 0,
@@ -85,7 +81,6 @@ const WelcomeScreen = () => {
     hideSub.remove();
   };
   }, []);
-
   useEffect(() => {
     setIsEmailValid(isValidEmail(emailText))
   }, [emailText])

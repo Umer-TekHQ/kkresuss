@@ -1,20 +1,21 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useRef, useState } from 'react';
 import {
   StyleSheet,
-  Text,
   Dimensions,
   Animated,
   PanResponder,
   ImageBackground,
   Image,
 } from 'react-native';
+import { heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 import { Images } from '../assets'; 
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppNavigatorParamList, routeNames } from '../navigators/routeNames';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { useAppDispatch} from '../store/hooks';
 import { resetTrade } from '../store/slices/tradeSlice';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+
 
 const { width } = Dimensions.get('window');
 const SWIPE_WIDTH = width - 40;
@@ -31,7 +32,6 @@ const SwipeButton: React.FC<SwipeButton> = ({ placeholder = 'Swipe to Send', onN
   const [isCompleted, setIsCompleted] = useState(false);
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
   const dispatch = useAppDispatch();
-  const tradeState = useAppSelector(state => state.trade);
 
   const handleTradeComplete = () => {
     setIsCompleted(true);
@@ -61,7 +61,7 @@ const SwipeButton: React.FC<SwipeButton> = ({ placeholder = 'Swipe to Send', onN
       onStartShouldSetPanResponder: () => !isCompleted,
       onPanResponderMove: (_, gesture) => {
         if (isCompleted) return;
-        let newX = Math.min(Math.max(0, gesture.dx), SWIPE_LIMIT);
+        const newX = Math.min(Math.max(0, gesture.dx), SWIPE_LIMIT);
         panX.setValue(newX);
         bgColor.setValue(newX / SWIPE_LIMIT);
       },
@@ -109,7 +109,7 @@ const SwipeButton: React.FC<SwipeButton> = ({ placeholder = 'Swipe to Send', onN
           style={[styles.whiteCircle, { transform: [{ translateX: panX }] }]}
         >
           <Image
-            source={Images.swipearrow}
+            source={Images.swipeArrow}
             style={styles.arrowIcon}
             resizeMode="contain"
           />

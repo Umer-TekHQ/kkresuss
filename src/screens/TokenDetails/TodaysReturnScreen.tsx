@@ -1,13 +1,12 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View, } from 'react-native'
-import { useSharedValue } from 'react-native-reanimated'
 import React,{useRef} from 'react'
+import { Image, StyleSheet, TouchableOpacity, View, } from 'react-native'
+import { Colors } from '../../theme/colors'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+
 import { Images } from '../../assets/index'
-import {BottomSheetUnified} from '../../components/BottomSheet'
 import TodaysReturn, { TodaysReturnRef } from '../../components/TodaysReturn'
 
  const TodaysReturnScreen = ({navigation}: any) => {
-  const translateY = useSharedValue(0);
    const sheetRef = useRef<TodaysReturnRef>(null);
 
   return (
@@ -18,16 +17,14 @@ import TodaysReturn, { TodaysReturnRef } from '../../components/TodaysReturn'
               style={styles.image}
               />
               <TouchableOpacity onPress={() => navigation.goBack()}>
-              <View style={styles.backborder}>
+              <View style={styles.backBorder}>
               <Image
-                source={Images.backarrow}
+                source={Images.backArrow}
                 style={styles.cross}
               />
               </View>
               </TouchableOpacity>
         </View>
-        {/* <BottomSheetUnified screen="todaysReturn" translateY={translateY} /> */}
-        {/* if error arises i will call uppar component */}
        <TodaysReturn ref={sheetRef} />
       </GestureHandlerRootView>
   )
@@ -37,7 +34,7 @@ export default TodaysReturnScreen;
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor: '#080C4C'
+    backgroundColor: Colors.kresusBlue
   },
   image:{
     width: '60%',
@@ -52,14 +49,11 @@ const styles = StyleSheet.create({
     width: 12,
     height: 16,
     fontWeight: '400',
-    tintColor: 'white'
+    tintColor: Colors.white
   },
-  backborder:{
-    // backgroundColor: 'grey',
-    // borderWidth: 1,
+  backBorder:{
     width: 25,
     marginLeft: 20,
     marginTop: 20,
-    // borderRadius: 20,    
   }
 })

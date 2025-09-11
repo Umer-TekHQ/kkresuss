@@ -1,33 +1,29 @@
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image,   } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import AssetsHeader from '../../components/AssetsHeader ';
-import SearchBox from '../../components/SearchBox';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AppNavigatorParamList } from '../../navigators/routeNames';
-import RecepientSkeleton from '../../components/RecepientSkeleton';
-import { Images } from '../../assets'; 
-import { recipients } from '../../mock/recipients'; 
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image,   } from 'react-native';
 import { ImageSourcePropType } from 'react-native';
 import { useDispatch } from 'react-redux';
+
+import { Images } from '../../assets'; 
+import AssetsHeader from '../../components/AssetsHeader ';
+import RecipientSkeleton from '../../components/RecipientSkeleton';
+import SearchBox from '../../components/SearchBox';
+import { recipients } from '../../mock/recipients';
+import { AppNavigatorParamList } from '../../navigators/routeNames';
 import { setRecipient } from '../../store/slices/recipientSlice';
 
-
-
-const SelectRecepient = () => {
+const SelectRecipient = () => {
 const dispatch = useDispatch();
-
-
-  const [searchText, setSearchText] = useState(''); 
-  const [loading, setLoading] = useState(true);
+const [searchText, setSearchText] = useState(''); 
+const [loading, setLoading] = useState(true);
  type Recipient = {
-  id: string;
-  name?: string;
-  email?: string;
-  code?: string;
-  logo?: ImageSourcePropType; 
- };
-
+    id: string;
+    name?: string;
+    email?: string;
+    code?: string;
+    logo?: ImageSourcePropType; 
+  };
 const [data, setData] = useState<Recipient[]>([]);
 const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
 
@@ -40,20 +36,18 @@ const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList
 
   const handleQrPress = () => navigation.navigate('QR');
   const handleClear = () => setSearchText('');
-
-const filteredData = data.filter((item) => {
+  const filteredData = data.filter((item) => {
   const searchLower = searchText.toLowerCase();
   return (
     item.name?.toLowerCase().includes(searchLower) ||
     item.email?.toLowerCase().includes(searchLower) ||
     item.code?.toLowerCase().includes(searchLower)
   );
-});
-
-const renderItem = ({ item }: { item: Recipient }) => {
+  });
+  const renderItem = ({ item }: { item: Recipient }) => {
   const displayName = item.name || item.code || 'Unknown';
   const displayEmail = item.email || (item.name ? item.code : '') || '';
- const displayImage = item.logo || (!item.name && !item.email ? Images.sent : null);
+  const displayImage = item.logo || (!item.name && !item.email ? Images.sent : null);
   return (
      <TouchableOpacity
       onPress={() => handlePress(item)}
@@ -63,7 +57,7 @@ const renderItem = ({ item }: { item: Recipient }) => {
   
       <View style={styles.imageBox}>
       {displayImage && (
-      <Image source={displayImage} style={styles.semtImage} />
+      <Image source={displayImage} style={styles.sentImage} />
         )}
       </View>
 
@@ -84,11 +78,9 @@ const handlePress = (item: Recipient) => {
   const rname = item.name || '';
   const subtext = item.email || item.code || '';
   const logo = item.logo || null;
-
   dispatch(setRecipient({ rname, subtext, logo }));
   navigation.navigate('SendDetails');
 };
-
   return (
     <View style={styles.container}>
       <AssetsHeader title="Select Recipient" />
@@ -101,7 +93,6 @@ const handlePress = (item: Recipient) => {
         onClear={handleClear}
       />
       </View>
-
       <View style={styles.suggestedRow}>
         <Text style={styles.suggestedText}>Suggested</Text>
         {!loading && (
@@ -111,14 +102,13 @@ const handlePress = (item: Recipient) => {
           </TouchableOpacity>
         )}
       </View>
-
       <View style={styles.divider} />
       <View style={{paddingHorizontal: 15}}>
      {loading ? (
     <FlatList
     data={Array.from({ length: 5 })}
     keyExtractor={(_, index) => index.toString()}
-    renderItem={() => <RecepientSkeleton />}
+    renderItem={() => <RecipientSkeleton />}
   />
   ) : (
    <FlatList
@@ -130,16 +120,13 @@ const handlePress = (item: Recipient) => {
       <Text style={styles.noUserText}>No user name found</Text>
     ) : null
   }
-
   />
 )}
 </View>
-
     </View>
   );
 };
-
-export default SelectRecepient;
+export default SelectRecipient;
 
 const styles = StyleSheet.create({
   container: {
@@ -204,7 +191,7 @@ const styles = StyleSheet.create({
     color: '#ADD2FD',
     fontSize: 13,
   },
-  semtImage: {
+  sentImage: {
     width: '100%',
     height: '100%',
   },

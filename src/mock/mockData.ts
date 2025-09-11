@@ -17,7 +17,6 @@ export const mockAssetData = {
     circulatingSupply: '120,326,064',
     maxSupply: '',
   },
-
   
   transactions: [
     {

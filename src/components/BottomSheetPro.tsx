@@ -1,5 +1,6 @@
 import React, { useImperativeHandle, useEffect, useState, forwardRef } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions,} from 'react-native';
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -8,8 +9,9 @@ import Animated, {
   runOnJS,
   interpolate,
 } from 'react-native-reanimated';
-import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
+import { Colors } from '../theme/colors';
 
 export interface BottomSheetProRef {
   openSheet: () => void;
@@ -102,19 +104,6 @@ const BottomSheetPro = forwardRef<BottomSheetProRef>(({ onBackPress }: any, ref)
   };
 });
 
-const backButtonAnimatedStyle = useAnimatedStyle(() => {
-  const range = maxY.value - minY.value;
-  const progress = Math.max(0, Math.min(1, (translateY.value - minY.value) / range));
-
-  return {
-    opacity: interpolate(progress, [0.7, 1], [0, 1]),
-    transform: [
-      { translateX: interpolate(progress, [0.7, 1], [-20, 0]) }
-    ],
-  };
-});
-
-
   const rStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
   }));
@@ -135,13 +124,13 @@ const backButtonAnimatedStyle = useAnimatedStyle(() => {
     <GestureDetector gesture={gesture}>
       <Animated.View style={[styles.container, rStyle]}>
         <View style={styles.line} />
-        <Animated.View style={[styles.headerRow]}>
+        <Animated.View style={styles.headerRow}>
           <Animated.Text style={[styles.headingPro, headingAnimatedStyle]}>
             See What the Pros are Buying
           </Animated.Text>
           <View style={{ width: 20 }} />
         </Animated.View>
-        <Text style={styles.bottompara1}>
+        <Text style={styles.bottomParagraph}>
           Sourced from on-chain data, 'Top Buys' reveals which coins historically profitable
           traders are buying right now, to help you find potentially winning trades ahead of
           the rest. Please conduct your own research before making any trades.
@@ -155,20 +144,20 @@ const styles = StyleSheet.create({
   container: {
     height: hp('100%'),
     width: wp('100%'),
-    backgroundColor: '#01032C',
+    backgroundColor: Colors.background,
     position: 'absolute',
     top: hp('100%'),
     borderRadius: 15,
     borderTopWidth: 1,
     borderRightWidth: 0.5,
     borderLeftWidth: 0.5,
-    borderColor: '#030A74'
+    borderColor: Colors.background4
   },
   line: {
     position: 'absolute',
     width: 55,
     height: 4,
-    backgroundColor: '#030A74',
+    backgroundColor: Colors.background4,
     alignSelf: 'center',
     borderRadius: 4,
     marginTop: 10,
@@ -186,13 +175,12 @@ const styles = StyleSheet.create({
     tintColor: 'white',
   },
   headingPro: {
-    color: '#ffffff',
-    // fontWeight: '600',
+    color: Colors.white,
     marginTop: 28,
     marginLeft: 15
   },
-  bottompara1: {
-    color: '#B4C8E0',
+  bottomParagraph: {
+    color: Colors.lightblue,
     marginHorizontal: 15,
     marginTop: 25,
     fontSize: 19,

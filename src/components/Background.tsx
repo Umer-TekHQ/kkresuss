@@ -1,9 +1,12 @@
 import React,{ReactNode} from 'react'
-import { View, Image, StyleSheet, Dimensions ,DimensionValue} from 'react-native'
+import { View, Image, DimensionValue} from 'react-native'
+import { StyleProp, ViewStyle ,TouchableOpacity,Text} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
+
 import { Images } from '../assets'
 import BackgroundStyles from '../styles/Background.styles'
-import { StyleProp, ViewStyle ,TouchableOpacity,Text} from 'react-native';
+
+import { Colors } from '../theme/colors';
 
 
 
@@ -20,7 +23,7 @@ type Props = {
 const Background = ({ showContent = true,children ,showLogo,hideBottomImages,containerHeight, containerStyle , showLostAccess = false  }: Props) => {
   return (
     <LinearGradient
-     colors={['#080C4C',  '#0E1799']} 
+     colors={[Colors.background2,  Colors.background3]} 
   locations={[0, 1]}
     style={[
     BackgroundStyles.gradient,

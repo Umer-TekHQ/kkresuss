@@ -1,10 +1,11 @@
-import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { SplashScreen } from '../screens/Splash/SplashScreen';
-import WelcomeScreen from '../screens/Auth/WelcomeScreen';
+import React from 'react';
+
+import { UserNameScreen } from '../screens';
 import { OtpScreen } from '../screens/Auth/OtpScreen';
 import { OtpSuccessScreen } from '../screens/Auth/OtpSuccessScreen';
-import { UserNameScreen } from '../screens';
+import WelcomeScreen from '../screens/Auth/WelcomeScreen';
+import { SplashScreen } from '../screens/Splash/SplashScreen';
 
 const AuthStack = createNativeStackNavigator();
 

@@ -1,8 +1,11 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native'
+
 import AppButton from './AppButton'
 import SecondaryButton from './SecondaryButton'
 import { Images } from '../assets'
+
+import { Colors } from '../theme/colors'
 
 const { width, height } = Dimensions.get('window')
 
@@ -16,7 +19,7 @@ const FingerprintModal = ({ onContinue, onGoBack }: Props) => {
     <View style={styles.container}>
       <View style={styles.modalBox}>
         <View style={styles.logoWrapper}>
-          <Image source={Images.iconcircle} style={styles.iconImg} resizeMode="contain" />
+          <Image source={Images.iconCircle} style={styles.iconImg} resizeMode="contain" />
         </View>
 
         <View style={styles.contentWrapper}>
@@ -45,15 +48,15 @@ export default FingerprintModal
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    marginTop: height * 0.09, //0.14 was actual 
+    marginTop: height * 0.09, 
   },
   modalBox: {
     width: 343,
-    height: 411, //actual 441 hai 
-    backgroundColor: '#10178A',
+    height: 411, 
+    backgroundColor: Colors.background1,
     borderRadius: 20,
     borderTopWidth: 1,
-    borderColor: '#0734A9',
+    borderColor: Colors.background4,
     alignItems: 'center',
     paddingTop: 20,
     paddingHorizontal: 35,
@@ -63,7 +66,7 @@ const styles = StyleSheet.create({
     width: 71,
     height: 71,
     borderWidth: 1,
-    borderColor: '#0734A9',
+    borderColor: Colors.fieldBorder,
     borderRadius: 99,
     justifyContent: 'center',
     alignItems: 'center',
@@ -81,16 +84,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   faceIdText: {
-    color: '#FFFFFF',
+    color: Colors.white,
     fontSize: 30,
    marginBottom:2,
    fontFamily: 'PlayfairDisplay-Bold', 
 
   },
   subText: {
-    marginTop:-25, //-45 tha
+    marginTop:-25, 
     fontSize: 19,
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     textAlign: 'center',
     maxWidth: 280,
     lineHeight: 20,

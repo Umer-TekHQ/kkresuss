@@ -1,5 +1,6 @@
 import React, { useImperativeHandle, useEffect, useState, forwardRef } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions} from 'react-native';
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -9,9 +10,9 @@ import Animated, {
   interpolate,
   Extrapolate
 } from 'react-native-reanimated';
-import { Images } from '../assets';
-import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
+import { Colors } from '../theme/colors';
 
 export interface BottomSheetProfileBottomRef {
   openSheet: () => void;
@@ -112,27 +113,6 @@ const rHeadingStyle = useAnimatedStyle(() => {
   };
 });
 
-
-  const rLineStyle = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      translateY.value,
-      [minY.value, maxY.value],
-      [1, 0],
-      Extrapolate.CLAMP
-    );
-    return { opacity };
-  });
-
-  const rBackButtonStyle = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      translateY.value,
-      [minY.value, maxY.value],
-      [0, 1],  
-      Extrapolate.CLAMP
-    );
-    return { opacity };
-  });
-
   const rStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
   }));
@@ -152,30 +132,16 @@ const rHeadingStyle = useAnimatedStyle(() => {
   return (
     <GestureDetector gesture={gesture}>
       <Animated.View style={[styles.container, rStyle]}>
-        
-        {/* <Animated.View style={[styles.lineProfile, rLineStyle]} /> */}
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          {/* <Animated.View style={[rBackButtonStyle]}>
-            <TouchableOpacity onPress={closeSheet} style={styles.backButton}>
-              <Text style={{ color: 'white', fontSize: 16 }}>
-                <Image
-                  source={Images.backbutton}
-                  style={styles.backButton}
-                />
-              </Text>
-            </TouchableOpacity>
-          </Animated.View> */}
-
           <Animated.Text style={[styles.headingPro, rHeadingStyle]}>
             Supported Networks
           </Animated.Text>
         </View>
-
-        <Text style={styles.toppara1}>
-          Kresus wallet is designed specifically for seamless transactions with tokens and NFTs on the Base network, as well as tokens on the Solana networks. It's crucial to ensure that you are sending and receiving assets exclusively on these networks, as transactions on other networks-- like Etherium MainNet--can lead to the permanent loss of your assets.
+        <Text style={styles.topParagraph}>
+          Kresus wallet is designed specifically for seamless transactions with tokens and NFTs on the Base network, as well as tokens on the Solana networks. It's crucial to ensure that you are sending and receiving assets exclusively on these networks, as transactions on other networks-- like Ethereum MainNet--can lead to the permanent loss of your assets.
         </Text>
-        <Text style={styles.heading1}>Double Check</Text>
-        <Text style={styles.toppara1}>
+        <Text style={styles.heading}>Double Check</Text>
+        <Text style={styles.topParagraph}>
           Always double-check the networks compatibility before making a transfer to protect your valuable tokens and NFTs. If you have any questions or need assistance, our support team is here to help.
         </Text>
       </Animated.View>
@@ -187,7 +153,7 @@ const styles = StyleSheet.create({
   container: {
     height: hp('100%'),
     width: wp('100%'),
-    backgroundColor: '#01021D',
+    backgroundColor: Colors.backgroundAlt,
     position: 'absolute',
     top: hp('100%'),
     borderRadius: 15,
@@ -195,31 +161,31 @@ const styles = StyleSheet.create({
   lineProfile: {
     width: 80,
     height: 4,
-    backgroundColor: '#030A74',
+    backgroundColor: Colors.background4,
     alignSelf: 'center',
     marginTop: 15,
     borderRadius: 2,
   },
   headingPro: {
-    color: '#ffffff',
+    color: Colors.white,
     fontSize: 26,
     marginBottom: 12,
     marginHorizontal: 15,
     marginTop: 20,
     fontFamily: 'PlayfairDisplay-Bold', 
   },
-  toppara1: {
-    color: '#A2C5EF',
+  topParagraph: {
+    color: Colors.lightblue,
     fontSize: 20,
     marginLeft: 15,
     marginRight: 20,
     marginTop: 20,
   },
-  heading1: {
+  heading: {
     marginTop: 20,
     marginLeft: 15,
     fontSize: 15,
-    color: '#ffffff',
+    color: Colors.white,
   },
   backButton: {
     marginLeft: 10,

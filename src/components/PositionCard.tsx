@@ -1,303 +1,242 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image ,TouchableOpacity } from 'react-native';
-import { Images } from '../assets'
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AppNavigatorParamList } from '../navigators/routeNames';
+import { View, Text, StyleSheet, Image } from 'react-native';
+import { Images } from '../assets';
 
+function formatNumber(num: any) {
+  if (num === undefined || num === null) return '0';
+  if (num === Infinity) return '∞';
+  if (typeof num === 'string' && num.toLowerCase() === 'infinity') return '∞';
+  const n = Number(num);
+  if (isNaN(n)) return num;
+  return n.toLocaleString();
+}
 
-const PositionCard = ({ data }: { data: any }) =>{
-   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
- return (
-  <View style={styles.card}>
-
-    <View style={styles.headerRow}>
-      <View style={styles.titleContainer}>
-        {data.image && (
-          <Image 
-            source={{ uri: data.image }} 
-            style={styles.tokenImage} 
-            defaultSource={Images.titanium}
-          />
-        )}
-        <Text style={styles.title}>Your Position</Text>
-      </View>
-      <Image source={Images.titanium} style={styles.iconRight} /> 
-   
-    </View>
-
-    <View style={styles.divider} />
-
-   
-    <View style={styles.rowSpaceBetween}>
-      <Text style={styles.label}>Value</Text>
-      <Text style={styles.value}>${data.position.value}</Text>
-    </View>
-
-    <View style={styles.divider} />
-
-<View style={styles.metricRow}>
-
-  <View style={styles.metricBlock}>
-    <View style={styles.iconRow}>
-      <TouchableOpacity onPress={() => navigation.navigate('TodayReturns')}>
-        <Text style={styles.metricLabel}>Today's Return</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('TodayReturns')}>
-      <Image source={Images.identity} style={styles.iconSmall} />
-      </TouchableOpacity>
-    </View>
-
-    <View style={styles.valueRow}>
-      <Text style={styles.whiteText}>{data.position.todayReturn} </Text>
-      <Image
-        source={
-          parseFloat(data.position.todayReturnPercent) >= 0
-            ? Images.greenup
-            : Images.reddown
-        }
-        style={styles.changeIcon}
-      />
-      <Text
-        style={
-          parseFloat(data.position.todayReturnPercent) >= 0
-            ? styles.greenText
-            : styles.redText
-        }
-      >
-        {data.position.todayReturnPercent}
-      </Text>
-    </View>
-  </View>
-
-
-  <View style={styles.metricBlock}>
-    <View style={styles.iconRow}>
-      <TouchableOpacity>
-        <Text style={styles.metricLabel}>1-Year High</Text>
-      </TouchableOpacity>
-      <TouchableOpacity>
-      <Image source={Images.identity} style={styles.iconSmall} />
-      </TouchableOpacity>
-    </View>
-
-    <View style={styles.valueRow}>
-      <Text style={styles.whiteText}>{data.position.yearHigh} </Text>
-      <Image
-        source={
-          parseFloat(data.position.yearHighPercent) >= 0
-            ? Images.greenup
-            : Images.reddown
-        }
-        style={styles.changeIcon}
-      />
-      <Text
-        style={
-          parseFloat(data.position.yearHighPercent) >= 0
-            ? styles.greenText
-            : styles.redText
-        }
-      >
-        {data.position.yearHighPercent}
-      </Text>
-    </View>
-  </View>
-</View>
-
-    <View style={styles.metricRow}>
-      <View style={styles.metricBlock}>
-        <TouchableOpacity>
-        <Text style={styles.metricLabel}>Quantity Owned</Text>
-        </TouchableOpacity>
-        <Text style={styles.lightValue}>{data.position.quantityOwned}</Text>
-      </View>
-
-      <View style={styles.metricBlock}>
-         <View style={styles.iconRow}>
-        <TouchableOpacity>
-        <Text style={styles.metricLabel}>Holders</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-         <Image source={Images.identity} style={styles.iconSmall} />
-        </TouchableOpacity>       
-         </View>
-        <Text style={styles.lightValue}>{data.position.holders}</Text>
-      </View>
-    </View>
-
-
-    <View style={styles.metricRow}>
-      <View style={styles.metricBlock}>
-        <View style={styles.iconRow}>
-          <TouchableOpacity>
-          <Text style={styles.metricLabel}>Circulating Supply</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-          <Image source={Images.identity} style={styles.iconSmall} />
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.lightValue}>{data.position.circulatingSupply}</Text>
-      </View>
-
-      <View style={styles.metricBlock}>
-        <View style={styles.iconRow}>
-          <TouchableOpacity>
-          <Text style={styles.metricLabel}>Maximum Supply</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-          <Image source={Images.identity} style={styles.iconSmall} />
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.lightValue}>{data.position.maxSupply}</Text>
-      </View>
-    </View>
-
-
-
-
-  </View>
+const InfoIcon = () => (
+  <Image source={Images.pros} style={styles.infoIcon} />
 );
+
+const UpDownIcon = ({ percent }: { percent: number }) => (
+  <Image
+    source={percent >= 0 ? Images.greenUp : Images.redDown}
+    style={styles.percentIcon}
+  />
+);
+
+const PositionCard = ({ data }: { data: any }) => {
+  const {
+    image,
+    value,
+    todayReturn,
+    todayReturnPercent,
+    yearHigh,
+    yearHighPercent,
+    quantityOwned,
+    holders,
+    circulating_supply,
+    maxSupply,
+  } = data || {};
+
+  return (
+    <View style={styles.card}>
+      <View style={styles.headerRow}>
+        <Text style={styles.title}>Your Position</Text>
+        {image ? (
+          <Image source={{ uri: image }} style={styles.tokenImage} />
+        ) : (
+          <Image source={Images.titanium} style={styles.tokenImage} />
+        )}
+      </View>
+      <View style={styles.divider} />
+      <View style={styles.valueRowMain}>
+        <Text style={styles.valueLabel}>Value</Text>
+        <Text style={styles.valueMain}>
+          {value !== undefined ? `$${formatNumber(value)}` : 'N/A'}
+        </Text>
+      </View>
+      <View style={styles.divider} />
+      {/* Metrics Row 1 */}
+      <View style={styles.metricsRow}>
+        <View style={styles.metricBlock}>
+          <View style={styles.metricLabelRow}>
+            <Text style={styles.metricLabel}>Today's Return</Text>
+            <InfoIcon />
+          </View>
+          <View style={styles.metricValueRow}>
+            <Text style={styles.metricValue}>
+              {todayReturn !== undefined ? `$${formatNumber(todayReturn)}` : 'N/A'}
+            </Text>
+            {todayReturnPercent !== undefined && (
+              <>
+                <UpDownIcon percent={Number(todayReturnPercent)} />
+                <Text
+                  style={Number(todayReturnPercent) >= 0 ? styles.greenText : styles.redText}
+                >
+                  {`${Math.abs(Number(todayReturnPercent)).toFixed(2)}%`}
+                </Text>
+              </>
+            )}
+          </View>
+        </View>
+        <View style={styles.metricBlock}>
+          <View style={styles.metricLabelRow}>
+            <Text style={styles.metricLabel}>1-Year High</Text>
+            <InfoIcon />
+          </View>
+          <View style={styles.metricValueRow}>
+            <Text style={styles.metricValue}>
+              {yearHigh !== undefined ? `$${formatNumber(yearHigh)}` : 'N/A'}
+            </Text>
+            {yearHighPercent !== undefined && (
+              <>
+                <UpDownIcon percent={Number(yearHighPercent)} />
+                <Text
+                  style={Number(yearHighPercent) >= 0 ? styles.greenText : styles.redText}
+                >
+                  {`${Math.abs(Number(yearHighPercent)).toFixed(2)}%`}
+                </Text>
+              </>
+            )}
+          </View>
+        </View>
+      </View>
+      {/* Metrics Row 2 */}
+      <View style={styles.metricsRow}>
+        <View style={styles.metricBlock}>
+          <View style={styles.metricLabelRow}>
+            <Text style={styles.metricLabel}>Quantity Owned</Text>
+            <InfoIcon />
+          </View>
+          <Text style={styles.metricValue}>{formatNumber(quantityOwned)}</Text>
+        </View>
+        <View style={styles.metricBlock}>
+          <View style={styles.metricLabelRow}>
+            <Text style={styles.metricLabel}>Holders</Text>
+            <InfoIcon />
+          </View>
+          <Text style={styles.metricValue}>{formatNumber(holders)}</Text>
+        </View>
+      </View>
+      {/* Metrics Row 3 */}
+      <View style={styles.metricsRow}>
+        <View style={styles.metricBlock}>
+          <View style={styles.metricLabelRow}>
+            <Text style={styles.metricLabel}>Circulating Supply</Text>
+            <InfoIcon />
+          </View>
+          <Text style={styles.metricValue}>{formatNumber(circulating_supply)}</Text>
+        </View>
+        <View style={styles.metricBlock}>
+          <View style={styles.metricLabelRow}>
+            <Text style={styles.metricLabel}>Maximum Supply</Text>
+            <InfoIcon />
+          </View>
+          <Text style={styles.metricValue}>{formatNumber(maxSupply)}</Text>
+        </View>
+      </View>
+    </View>
+  );
 };
+
 export default PositionCard;
 
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#080C4C',
-    marginHorizontal: 16,
+    marginHorizontal: 8,
     marginBottom: 16,
-    padding: 16,
-    borderRadius: 12,
+    padding: 20,
+    borderRadius: 18,
+    shadowColor: '#000',
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 2 },
   },
   headerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  tokenImage: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    marginRight: 8,
+    marginBottom: 8,
   },
   title: {
-    color: '#FFFFFF',
+    color: '#fff',
     fontSize: 16,
-    fontWeight: '600',
   },
-  iconRight: {
-    width: 20,
-    height: 20,
-    resizeMode: 'contain',
+  tokenImage: {
+    width: 35,
+    height: 35,
+    borderRadius: 24,
   },
   divider: {
-    height: 1,
+    height: 1.5,
     backgroundColor: '#0734A9',
-    marginVertical: 10,
+    marginVertical: 14,
   },
-  rowSpaceBetween: {
+  valueRowMain: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 8,
   },
-  value: {
-    color: '#FFFFFF',
-    fontSize: 19,
+  valueLabel: {
+    color: '#ADD2FD',
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  valueMain: {
+    color: '#fff',
+    fontSize: 16,
     fontWeight: '700',
   },
-  metricRow: {
+  metricsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 12,
+    marginTop: 8,
+    marginBottom: 2,
   },
   metricBlock: {
     flex: 1,
-    marginRight: 8,
+    marginRight: 12,
   },
-  iconRow: {
+  metricLabelRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
+    marginBottom: 2,
   },
   metricLabel: {
     color: '#ADD2FD',
-    fontSize: 13,
+    fontSize: 14,
+    marginRight: 4,
   },
-  iconSmall: {
-    width: 12,
-    height: 12,
-    marginLeft: 4,
-    tintColor:'#ADD2FD'
+  infoIcon: {
+    width: 25,
+    height: 25,
+    tintColor: '#ADD2FD',
   },
-  greenText: {
-    color: '#00FF99',
-    fontSize: 13,
-    fontWeight: '500',
-   // marginTop: 2,
-  },
-  redText: {
-    color: '#FF5C5C',
-    fontSize: 13,
-    fontWeight: '500',
-   // marginTop: 2,
-  },
-  lightValue: {
-    color: 'white',
-    fontSize: 15,
+  metricValueRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 2,
   },
-  label: {
-  color: '#ADD2FD',
-  fontSize: 13,
-  marginTop: 4,
-},
-
-contractRow: {
-  marginTop: 16,
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-},
-contractLabel: {
-  color: '#999',
-  fontSize: 12,
-},
-copyRow: {
-  flexDirection: 'row',
-  alignItems: 'center',
-},
-contractCode: {
-  color: '#FFFFFF',
-  fontSize: 12,
-  marginRight: 6,
-},
-copyIcon: {
-  width: 14,
-  height: 14,
-  tintColor: '#00FF99',
-},
-whiteText: {
-  color: '#FFFFFF',
-  fontSize: 15,
-  fontWeight: '500',
-},
-metricRowText: {
-  marginTop: 2,
-},
-changeIcon: {
-  width: 12,
-  height: 12,
-  resizeMode: 'contain',
-  marginRight: 4,
-},
-valueRow: {
- flexDirection: 'row',
-  alignItems: 'center',
-  marginTop: 2,
-},
-
-
+  metricValue: {
+    color: '#fff',
+    fontSize: 16,
+    marginRight: 6,
+  },
+  percentIcon: {
+    width: 14,
+    height: 14,
+    marginRight: 2,
+    marginLeft: 2,
+    resizeMode: 'contain',
+  },
+  greenText: {
+    color: '#30DB5B',
+    fontSize: 15,
+    fontWeight: '600',
+  },
+  redText: {
+    color: '#FF4D4F',
+    fontSize: 15,
+    fontWeight: '600',
+  },
 });

@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet} from 'react-native';
+
+import { Colors } from '../theme/colors';
 
 type Props = {
   logo: any
@@ -32,7 +34,7 @@ export default AssetInfoBox;
 const styles = StyleSheet.create({
   ethBox: {
     height: 70,
-    backgroundColor: '#080C4C',
+    backgroundColor: Colors.kresusblue,
     borderRadius: 20,
     padding: 16,
     marginBottom: 16,
@@ -47,12 +49,12 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   ethSymbol: {
-    color: '#FFF',
+    color: Colors.white,
     fontSize: 14,
     fontWeight: '600',
   },
   ethShort: {
-    color: '#7AB7FD',
+    color: Colors.lightblue,
     fontSize: 12,
     marginTop: 2,
   },
@@ -61,12 +63,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   price: {
-    color: '#FFF',
+    color: Colors.white,
     fontSize: 15,
     fontWeight: '600',
   },
   ethBalance: {
-    color: '#7AB7FD',
+    color: Colors.lightblue,
     fontSize: 12,
     marginTop: 2,
   },

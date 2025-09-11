@@ -1,5 +1,3 @@
-//not using it right now 
-
 import React from 'react';
 import {
   View,
@@ -8,12 +6,12 @@ import {
   FlatList,
   Image,
 } from 'react-native';
+
 import { Images } from '../assets';
 
 const TransactionList = ({ transactions }: { transactions: any[] }) => {
   const renderItem = ({ item }: { item: any }) => (
     <View style={styles.item}>
-      {/* Left side: Icon + Name + type/time */}
       <View style={styles.leftSection}>
         <Image
           source={item.type === 'Sent' ? Images.sent : Images.received}
@@ -26,8 +24,6 @@ const TransactionList = ({ transactions }: { transactions: any[] }) => {
           </Text>
         </View>
       </View>
-
-      {/* Right side: USD + ETH */}
       <View style={styles.rightSection}>
         <Text
           style={[
@@ -48,7 +44,6 @@ const TransactionList = ({ transactions }: { transactions: any[] }) => {
       </View>
     </View>
   );
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Recent Transactions</Text>
@@ -61,7 +56,6 @@ const TransactionList = ({ transactions }: { transactions: any[] }) => {
     </View>
   );
 };
-
 export default TransactionList;
 
 const styles = StyleSheet.create({

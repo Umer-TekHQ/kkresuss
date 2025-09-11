@@ -1,10 +1,7 @@
+import { ImageSourcePropType } from 'react-native';
 
 import { Images } from '../assets'
-
-import { ImageSourcePropType } from 'react-native';
 import { AppNavigatorParamList } from '../navigators/routeNames'; 
-
-
 
 export interface SettingItem {
   title: string
@@ -17,7 +14,7 @@ export const settingsData:SettingItem[] = [
   {
     title: 'Security',
     subtitle: 'Email and phone, recovery, biometrics, insurance',
-    icon: Images.securityicon,
+    icon: Images.securityIcon,
     route:'Security'
   },
   {
@@ -49,12 +46,12 @@ export const settingsData:SettingItem[] = [
   {
     title: 'Help and Support',
     subtitle: 'Contact, legal, app info',
-    icon: Images.helpsupport,
+    icon: Images.helpSupport,
   },
    {
     title: 'Privacy Policy',
     subtitle: 'Contact, legal, app info',
-    icon: Images.helpsupport,
+    icon: Images.helpSupport,
     route:"Privacy"
   },
  

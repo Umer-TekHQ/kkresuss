@@ -1,3 +1,7 @@
+import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
+import { StackActions } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React, { useState ,useEffect,useCallback} from 'react'
 import {
   View,
@@ -9,28 +13,21 @@ import {
   Keyboard,
   BackHandler
 } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import Background from '../../components/Background'
-import AppInput from '../../components/AppInput'
-import AppButton from '../../components/AppButton'
+
 import { Images } from '../../assets'
+import AppButton from '../../components/AppButton'
+import AppInput from '../../components/AppInput'
+import Background from '../../components/Background'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { setUsername } from '../../store/slices/userSlice'
-import { useFocusEffect } from '@react-navigation/native'
-import { StackActions } from '@react-navigation/native';
-
-
 
 
 const { width, height } = Dimensions.get('window')
-
 export const UserNameScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
   const dispatch = useAppDispatch()
   const savedUsername = useAppSelector(state => state.user.username)
-
 useFocusEffect(
   useCallback(() => {
     const backAction = () => {
@@ -40,60 +37,48 @@ useFocusEffect(
       })
       return true
     }
-
     const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
-
     return () => backHandler.remove()
   }, [navigation])
 )
-
   useEffect(() => {
   const showSub = Keyboard.addListener('keyboardDidShow', () => setKeyboardVisible(true))
   const hideSub = Keyboard.addListener('keyboardDidHide', () => setKeyboardVisible(false))
-
   return () => {
     showSub.remove()
     hideSub.remove()
   }
 }, [])
-
-  
 const [keyboardVisible, setKeyboardVisible] = useState(false)
   const [username, setUsernameLocal] = useState(savedUsername || '')
   const isCharTyped = username.length > 0
   const isLengthTooLong = username.length > 20
   const isCharValid = /^[a-zA-Z0-9]*$/.test(username)  
   const isLengthValid = username.length >= 8 && username.length <= 20
-
   const getCharRuleColor = () => {
     if (!isCharTyped) return '#ADD2FD'
     return isCharValid ? '#FFFFFF' : 'red'
   }
-
   const getLengthRuleColor = () => {
     if (!isCharTyped) return '#ADD2FD'
     if (isLengthTooLong) return 'red'
     return isLengthValid ? '#FFFFFF' : '#ADD2FD'
   }
-
   const getCharSymbol = () => {
     if (!isCharTyped) return ''
     return isCharValid ? '✓' : '❌'
   }
-
   const getLengthSymbol = () => {
     if (!isCharTyped) return ''
     if (isLengthTooLong) return '❌'
     return isLengthValid ? '✓' : ''
   }
-
   const handleContinue = () => {
     if (isCharValid && isLengthValid && !isLengthTooLong) {
       dispatch(setUsername(username));
       navigation.dispatch(StackActions.replace('MainStack'));
     }
   };
-
   return (
     <View style={{ flex: 1 }}>
       <Background showContent hideBottomImages={keyboardVisible} showLogo={false}>
@@ -104,19 +89,13 @@ const [keyboardVisible, setKeyboardVisible] = useState(false)
             activeOpacity={0.7}
             onPress={() => navigation.goBack()}
           >
-            <Image source={Images.backscreen} style={{ width: 30, height: 30, marginLeft: 5 }} />
+            <Image source={Images.backScreen} style={{ width: 30, height: 30, marginLeft: 5 }} />
           </TouchableOpacity>
-
           <Image source={Images.logo} style={styles.logo} />
-       
           <TouchableOpacity style={styles.commentIcon} activeOpacity={0.7}>
           <Image source={Images.comment} style={{ width: 40, height: 40, }} />
            </TouchableOpacity>
-
-
-
           <Text style={styles.heading}>Select a Username</Text>
-
           <AppInput
             placeholder="Username"
             value={username}
@@ -124,7 +103,6 @@ const [keyboardVisible, setKeyboardVisible] = useState(false)
             onClear={() => setUsernameLocal('')} 
             style={{ backgroundColor: '#090F5F' }} 
           />
-
           <View style={{ gap: 6, paddingLeft: 4 }}>
             <Text style={{ color: getLengthRuleColor() }}>
               {getLengthSymbol()} Must be 8–20 characters

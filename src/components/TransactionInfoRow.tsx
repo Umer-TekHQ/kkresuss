@@ -1,13 +1,14 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import React from 'react';
-import { Images } from '../assets';
 import Clipboard from '@react-native-clipboard/clipboard';
+import React from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Toast from 'react-native-toast-message';
+
+import { Images } from '../assets';
+
 
 type Props = {
   note?: string;
 };
-
 const TransactionInfoRow = ({ note }: Props) => {
   const data = [
     { label: 'Network', value: 'Base', withBase: true },
@@ -15,7 +16,6 @@ const TransactionInfoRow = ({ note }: Props) => {
     { label: 'Transaction ID', value: 'a32c...6dg4', withCopy: true },
     { label: 'Note to Self', value: note ?? '', isNote: true },
   ];
-
   const handleCopy = (value: string, label: string) => {
     Clipboard.setString(value);
     Toast.show({
@@ -27,7 +27,6 @@ const TransactionInfoRow = ({ note }: Props) => {
       autoHide: true,
     });
   };
-
   return (
     <View>
       {data.map((item, index) => (
@@ -40,7 +39,6 @@ const TransactionInfoRow = ({ note }: Props) => {
           ]}
         >
           <Text style={styles.label}>{item.label}</Text>
-
           {item.isNote ? (
             <Text style={[styles.value, styles.noteValue, { color: '#FFF' }]}>
               {item.value}
@@ -48,10 +46,9 @@ const TransactionInfoRow = ({ note }: Props) => {
           ) : (
             <View style={styles.valueRow}>
               {item.withBase && (
-                <Image source={Images.basesmall} style={styles.baseIcon} />
+                <Image source={Images.baseSmall} style={styles.baseIcon} />
               )}
               <Text style={styles.value}>{item.value}</Text>
-
               {item.withCopy && (
                 <TouchableOpacity
                   onPress={() => handleCopy(item.value, item.label)}
@@ -66,7 +63,6 @@ const TransactionInfoRow = ({ note }: Props) => {
     </View>
   );
 };
-
 export default TransactionInfoRow;
 
 const styles = StyleSheet.create({

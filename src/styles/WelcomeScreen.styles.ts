@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native'
+import { Colors } from '../theme/colors'
 
 const { width, height } = Dimensions.get('window')
 
@@ -11,7 +12,6 @@ export default StyleSheet.create({
   height: height * 0.2,
   },
   content: {
-   // marginTop: height *0.001, (QA changes)
   marginBottom:125,
     alignItems: 'center',
     justifyContent:'center',
@@ -23,14 +23,13 @@ export default StyleSheet.create({
   },
   heading: {
     fontSize: 36,
-    // fontWeight: 'bold',
-    color: '#fff',
+    color: Colors.white,
      lineHeight: 34,
     fontFamily: 'PlayfairDisplay-Bold', 
   },
   subheading: {
     fontSize: 19,
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     marginTop: 8,
     flexWrap:"wrap",
     textAlign:"center",
@@ -39,7 +38,7 @@ export default StyleSheet.create({
   },
   caption: {
     fontSize: 16,
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     marginTop: 34,
     marginBottom: -2,
   },

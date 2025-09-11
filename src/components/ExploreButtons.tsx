@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
-import { Images } from '../assets/index';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
+import { Images } from '../assets/index';
+
+import { Colors } from '../theme/colors';
 
 export const ExploreButtons: React.FC<{ onPressAction: (name: string) => void }> = ({ onPressAction }) => {
   const actions = [
@@ -32,13 +35,13 @@ export const ExploreButtons: React.FC<{ onPressAction: (name: string) => void }>
                 source={action.icon}
                 style={[
                   styles.actionButtonIcon,
-                  { tintColor: isActive ? '#FFFFFF' : '#7AB7FD' },
+                  { tintColor: isActive ? Colors.white : Colors.activeTint },
                 ]}
               />
               <Text
                 style={[
                   styles.actionButtonText,
-                  { color: isActive ? '#FFFFFF' : '#7AB7FD' },
+                  { color: isActive ? Colors.white : Colors.activeTint },
                 ]}
               >
                 {action.name}
@@ -56,7 +59,7 @@ export const ExploreButtons: React.FC<{ onPressAction: (name: string) => void }>
               key={`underline-${index}`}
               style={[
                 styles.underlineSegment,
-                { backgroundColor: isActive ? '#086DE1' : '#080C4C' },
+                { backgroundColor: isActive ? Colors.back : Colors.background2 },
               ]}
             />
           );

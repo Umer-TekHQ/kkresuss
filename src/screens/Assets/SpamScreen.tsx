@@ -1,8 +1,9 @@
+import { useRoute,RouteProp } from '@react-navigation/native'; 
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
-import { useRoute,RouteProp } from '@react-navigation/native'; 
-import AssetsHeader from '../../components/AssetsHeader ';
+
 import { Images } from '../../assets'; 
+import AssetsHeader from '../../components/AssetsHeader ';
 import SpamAssetItem from '../../components/SpamAssetItem';
 import { cryptoData } from '../../mock/cryptoData';
 import { AppNavigatorParamList } from '../../navigators/routeNames'
