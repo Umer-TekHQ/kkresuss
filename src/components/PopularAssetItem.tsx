@@ -14,7 +14,7 @@ interface PopularAssetItemProps {
 
 const PopularAssetItem = ({ item }: PopularAssetItemProps) => {
   const percent = parseFloat(item.price_24h_percent_change || '0');
-  const profit = percent.toFixed(2);
+  const profit = Math.abs(percent).toFixed(2);
   const isProfit = percent >= 0;
 
   const tokenName =

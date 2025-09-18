@@ -8,6 +8,19 @@ import SecondaryButtonWithIcon from './SecondaryButtonWithIcon';
 const PriceHeader = ({ data, onBack }: { data: any; onBack?: () => void }) => {
   const currentTime = moment().format('hh:mm A'); 
 
+  const formattedPrice = Number(data.usdPrice || 0).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+  const changeValue = Number(data.usdPrice24hr || 0);
+  const formattedChange = Math.abs(changeValue).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+  const isProfit = changeValue >= 0;
+
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
@@ -29,11 +42,19 @@ const PriceHeader = ({ data, onBack }: { data: any; onBack?: () => void }) => {
       <SecondaryButtonWithIcon label=" Get Insured" onPress={() => {}} />
 
       <View style={styles.priceBox}>
-        <Text style={styles.price}>${data.price}</Text>
+        <Text style={styles.price}>${formattedPrice}</Text>
         <View style={styles.subContainer}>
-          <Image source={Images.greenArrowUp} style={styles.changeIcon} />
-          <Text style={styles.sub}>
-            {data.priceChange}
+          <Image
+            source={isProfit ? Images.greenArrowUp : Images.redDown}
+            style={styles.changeIcon}
+          />
+          <Text
+            style={[
+              styles.sub,
+              { color: isProfit ? '#30DB5B' : '#FF4D4F' },
+            ]}
+          >
+            ${formattedChange}
             <Text style={styles.sub2}> @ {currentTime}</Text>
           </Text>
         </View>
@@ -86,7 +107,6 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   sub: {
-    color: '#30DB5B',
     fontSize: 14,
     marginTop: 4,
   },
