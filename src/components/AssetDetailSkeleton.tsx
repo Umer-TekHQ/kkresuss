@@ -1,149 +1,139 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions,Image,TouchableOpacity,Text } from 'react-native';
-
-import { Images } from '../assets';
+import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 import { Colors } from '../theme/colors';
-
+import { Images } from '../assets';
 
 const { width } = Dimensions.get('window');
 
-const AssetDetailSkeleton = ({ data, onBack }: { data: any, onBack?: () => void }) => {
+type AssetDetailSkeletonProps = {
+  data: { name?: string };
+  onBack?: () => void;
+};
+
+const AssetDetailSkeleton: React.FC<AssetDetailSkeletonProps> = ({ data, onBack }) => {
   return (
     <View style={styles.container}>
-  <View style={styles.priceHeader}>
- 
- <View style={styles.topBar}>
-    <TouchableOpacity onPress={onBack} style={styles.backButtonReal}>
-      <Image source={Images.backScreen} style={styles.backIcon} />
-    </TouchableOpacity>
-    <Text style={styles.titleReal}>{data.name}</Text>
-  </View>
-
- 
-  <View style={styles.priceBox}>
-    <View style={styles.priceLarge} />
-    <View style={styles.priceChangeRow}>
-      <View style={styles.priceChange} />
-      <View style={styles.timeBlock} />
-    </View>
-  </View>
-</View>
-
-
-
-<View style={styles.chartBox}>
- 
-  <View style={styles.chartLineArea} />
-
-
-  <View style={styles.chartFilters}>
-    {Array.from({ length: 5 }).map((_, i) => (
-      <View key={i} style={styles.filterButton} />
-    ))}
-  </View>
-
- 
-  <View style={styles.divider} />
-
-
-  <View style={styles.progressBar}>
-    <View style={styles.greenBarSkeleton} />
-    <View style={styles.redBarSkeleton} />
-  </View>
-
-
-  <View style={styles.chartBottomRow}>
-    <View style={styles.chartRowItem}>
-      <View style={styles.iconBox} />
-      <View style={styles.labelBox} />
-    </View>
-    <View style={styles.chartRowItem}>
-      <View style={styles.labelBox} />
-      <View style={styles.iconBox} />
-    </View>
-  </View>
-
-
-  <View style={styles.divider} />
-</View>
-
-      <View style={styles.actionRow}>
-  {Array.from({ length: 4 }).map((_, i) => (
-    <View key={i} style={styles.actionButton}>
-      <View style={styles.actionIconPlaceholder} />
-      <View style={styles.actionTextPlaceholder} />
-    </View>
-  ))}
-</View>
-
-      <View style={styles.positionCard}>
-
-  <View style={styles.cardHeaderRow}>
-    <View style={styles.cardTitleSkeleton} />
-    <View style={styles.cardIconSkeleton} />
-  </View>
-
-  <View style={styles.divider} />
-
-  <View style={styles.rowSpaceBetween}>
-    <View style={styles.labelSkeleton} />
-    <View style={styles.valueSkeleton} />
-  </View>
-
-  <View style={styles.divider} />
-
-
-  <View style={styles.metricRow}>
-    <View style={styles.metricBlock}>
-      <View style={styles.iconRow}>
-        <View style={styles.metricLabelSkeleton} />
-        <View style={styles.iconSmallSkeleton} />
+      <View style={styles.priceHeader}>
+        <View style={styles.topBar}>
+          <TouchableOpacity onPress={onBack} style={styles.backButtonReal}>
+            <Image source={Images.backButton} style={styles.backIcon} resizeMode="contain" />
+          </TouchableOpacity>
+          <Text style={styles.titleReal}>{data?.name ?? ''}</Text>
+        </View>
       </View>
-      <View style={styles.greenTextSkeleton} />
-    </View>
 
-    <View style={styles.metricBlock}>
-      <View style={styles.iconRow}>
-        <View style={styles.metricLabelSkeleton} />
-        <View style={styles.iconSmallSkeleton} />
-      </View>
-      <View style={styles.redTextSkeleton} />
-    </View>
-  </View>
+      <SkeletonPlaceholder
+        backgroundColor={Colors.background4}
+        highlightColor={Colors.background}
+        speed={1200}
+      >
+        <View style={styles.priceBox}>
+          <View style={styles.priceLarge} />
+          <View style={styles.priceChangeRow}>
+            <View style={styles.priceChange} />
+            <View style={styles.timeBlock} />
+          </View>
+        </View>
 
+        <View style={styles.chartBox}>
+          <View style={styles.chartLineArea} />
 
-  <View style={styles.metricRow}>
-    <View style={styles.metricBlock}>
-      <View style={styles.metricLabelSkeleton} />
-      <View style={styles.lightValueSkeleton} />
-    </View>
-    <View style={styles.metricBlock}>
-      <View style={styles.metricLabelSkeleton} />
-      <View style={styles.lightValueSkeleton} />
-    </View>
-  </View>
+          <View style={styles.chartFilters}>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <View key={i} style={styles.filterButton} />
+            ))}
+          </View>
 
+          <View style={styles.divider} />
 
-  <View style={styles.metricRow}>
-    <View style={styles.metricBlock}>
-      <View style={styles.iconRow}>
-        <View style={styles.metricLabelSkeleton} />
-        <View style={styles.iconSmallSkeleton} />
-      </View>
-      <View style={styles.lightValueSkeleton} />
-    </View>
+          <View style={styles.chartBottomRow}>
+            <View style={styles.chartRowItem}>
+              <View style={styles.iconBox} />
+              <View style={styles.labelBox} />
+            </View>
+            <View style={styles.chartRowItem}>
+              <View style={styles.labelBox} />
+              <View style={styles.iconBox} />
+            </View>
+          </View>
 
-    <View style={styles.metricBlock}>
-      <View style={styles.iconRow}>
-        <View style={styles.metricLabelSkeleton} />
-        <View style={styles.iconSmallSkeleton} />
-      </View>
-      <View style={styles.lightValueSkeleton} />
-    </View>
-  </View>
-</View>
+          <View style={styles.divider} />
+        </View>
 
+        <View style={styles.actionRow}>
+          {Array.from({ length: 4 }).map((_, i) => (
+            <View key={i} style={styles.actionButton}>
+              <View style={styles.actionIconPlaceholder} />
+              <View style={styles.actionTextPlaceholder} />
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.positionCard}>
+          <View style={styles.cardHeaderRow}>
+            <View style={styles.cardTitleSkeleton} />
+            <View style={styles.cardIconSkeleton} />
+          </View>
+
+          <View style={styles.divider} />
+
+          <View style={styles.rowSpaceBetween}>
+            <View style={styles.labelSkeleton} />
+            <View style={styles.valueSkeleton} />
+          </View>
+
+          <View style={styles.divider} />
+
+          <View style={styles.metricRow}>
+            <View style={styles.metricBlock}>
+              <View style={styles.iconRow}>
+                <View style={styles.metricLabelSkeleton} />
+                <View style={styles.iconSmallSkeleton} />
+              </View>
+              <View style={styles.greenTextSkeleton} />
+            </View>
+
+            <View style={styles.metricBlock}>
+              <View style={styles.iconRow}>
+                <View style={styles.metricLabelSkeleton} />
+                <View style={styles.iconSmallSkeleton} />
+              </View>
+              <View style={styles.redTextSkeleton} />
+            </View>
+          </View>
+
+          <View style={styles.metricRow}>
+            <View style={styles.metricBlock}>
+              <View style={styles.metricLabelSkeleton} />
+              <View style={styles.lightValueSkeleton} />
+            </View>
+            <View style={styles.metricBlock}>
+              <View style={styles.metricLabelSkeleton} />
+              <View style={styles.lightValueSkeleton} />
+            </View>
+          </View>
+
+          <View style={styles.metricRow}>
+            <View style={styles.metricBlock}>
+              <View style={styles.iconRow}>
+                <View style={styles.metricLabelSkeleton} />
+                <View style={styles.iconSmallSkeleton} />
+              </View>
+              <View style={styles.lightValueSkeleton} />
+            </View>
+
+            <View style={styles.metricBlock}>
+              <View style={styles.iconRow}>
+                <View style={styles.metricLabelSkeleton} />
+                <View style={styles.iconSmallSkeleton} />
+              </View>
+              <View style={styles.lightValueSkeleton} />
+            </View>
+          </View>
+        </View>
+      </SkeletonPlaceholder>
     </View>
   );
 };
@@ -153,7 +143,7 @@ export default AssetDetailSkeleton;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.backgroundAlt,
     padding: 16,
   },
 priceHeader: {
@@ -175,11 +165,11 @@ priceBox: {
 
 priceLarge: {
   marginTop:58,
-  width: 160,
-  height: 50,
-  backgroundColor: Colors.fieldBackground,
-  borderRadius: 6,
-  marginBottom: 8,
+  width: 200,
+  height: 40,
+  backgroundColor: Colors.background4,
+  borderRadius: 2,
+  marginBottom: 12,
 },
 
 priceChangeRow: {
@@ -189,16 +179,16 @@ priceChangeRow: {
 
 priceChange: {
   width: 60,
-  height: 16,
-  backgroundColor: Colors.fieldBackground,
-  borderRadius: 4,
+  height: 14,
+  backgroundColor: Colors.background4,
+  borderRadius: 2,
 },
 
 timeBlock: {
   width: 80,
-  height: 16,
-  backgroundColor: Colors.fieldBackground,
-  borderRadius: 4,
+  height: 14,
+  backgroundColor: Colors.background4,
+  borderRadius: 2,
 },
 
   chartFilters: {
@@ -215,32 +205,35 @@ timeBlock: {
     backgroundColor: Colors.background,
     padding: 16,
     borderRadius: 12,
+    borderWidth: 1,
+    borderColor: Colors.background4
   },
 chartBox: {
   borderRadius: 12,
   marginBottom: 16,
-  paddingVertical: 12,
+  paddingVertical: 18,
   paddingHorizontal: 16,
 },
 
 chartLineArea: {
-  height: 150,
-  borderRadius: 10,
-  backgroundColor: Colors.fieldBackground,
+  height: 120,
+  borderRadius: 2,
+  backgroundColor: Colors.background4,
   marginBottom: 12,
+  marginTop: 20,
 },
 
 filterButton: {
   marginTop:42,
-  width: 25,
-  height: 25,
-  backgroundColor: Colors.fieldBackground,
+  width: 35,
+  height: 35,
+  backgroundColor: Colors.background4,
   borderRadius: 4,
 },
 
 divider: {
   height: 1,
-  backgroundColor: '#181c87',
+  backgroundColor: Colors.background4,
   marginVertical: 5,
 },
 
@@ -254,12 +247,12 @@ progressBar: {
 },
 
 greenBarSkeleton: {
-  backgroundColor: Colors.fieldBackground,
+  backgroundColor: Colors.background4,
   width: '76%', 
 },
 
 redBarSkeleton: {
-  backgroundColor: Colors.fieldBackground,
+  backgroundColor: Colors.background4,
   width: '24%', 
 },
 
@@ -405,7 +398,7 @@ backButtonReal: {
 },
 titleReal: {
   color: 'white',
-  fontSize: 18,
+  fontSize: 16,
   fontWeight: '600',
 },
 backIcon: {
@@ -415,3 +408,5 @@ backIcon: {
   tintColor:'white'
 }
 });
+
+

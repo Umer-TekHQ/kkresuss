@@ -1,26 +1,19 @@
+import React, { useState, useRef } from 'react';
+import { ScrollView, Alert, View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useState, useRef } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-  Alert,
-  ScrollView,
-} from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-import { Token } from './types';
-import { Images } from '../../assets';
-import BottomSheetTrade, { BottomSheetTradeRef } from '../../components/BottomSheetTrade';
-import { HeaderNav } from '../../components/HeaderNav';
-import TradeSwitch from '../../components/TradeSwitch';
 import { AppNavigatorParamList } from '../../navigators/routeNames';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setAmount1, setAmount2, toggleUSD, setToken2 } from '../../store/slices/tradeSlice';
+import { Token } from './types';
+import { HeaderNav } from '../../components/HeaderNav';
+import BottomSheetTrade, { BottomSheetTradeRef } from '../../components/BottomSheetTrade';
+import TradeHeaderRow from '../../components/tradeHeaderRow';
+import TokenField from '../../components/tokenField';
+import ArrowDivider from '../../components/arrowDivider';
+import TradeFooter from '../../components/tradeFooter';
+import { Colors } from '../../theme/colors';
 
 export const TradeScreen = () => {
   const dispatch = useAppDispatch();
@@ -122,252 +115,78 @@ export const TradeScreen = () => {
     tradeSheetRef.current?.openSheet();
   };
 
-  const renderTokenField = (
-    token: Token | null,
-    amount: string,
-    onAmountChange: (text: string) => void,
-    onPress: () => void,
-    editable: boolean,
-    hasError: boolean,
-    field: 'token1' | 'token2'
-  ) => {
-    const usdValue = token && amount ? parseFloat(amount) * (tokenRates[token.abbreviation] || 0) : 0;
-    const displayMain =
-      isUSD && field === 'token1'
-        ? usdValue ? usdValue.toString() : ''
-        : amount;
-    const displaySecondary =
-      isUSD && field === 'token1'
-        ? `${amount || 0} ${token?.abbreviation || ''}`
-        : !isUSD && field === 'token1' && usdValue
-        ? `$${usdValue.toFixed(2)}`
-        : null;
-
-    return (
-      <TouchableOpacity
-        onPress={onPress}
-        style={[styles.tokenField, hasError && styles.errorField]}
-      >
-        {token ? (
-          <View style={styles.tokenInputContainer}>
-            <TextInput
-              style={[styles.amountInput, !editable && styles.disabledInput]}
-              value={displayMain}
-              onChangeText={onAmountChange}
-              keyboardType="numeric"
-              editable={editable}
-              placeholder="0"
-              placeholderTextColor="#97B8E1"
-              selectTextOnFocus={editable}
-            />
-            <View style={styles.tokenDisplay}>
-              <Image source={token.logo} style={styles.tokenLogo} />
-              <Text style={styles.tokenSymbol}>{token.abbreviation}</Text>
-            </View>
-            <Image source={Images.downArrow} style={styles.downFieldArrow} />
-          </View>
-        ) : (
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Text style={[styles.placeholderText, hasError && styles.errorText]}>Select Token</Text>
-            <Image source={Images.downArrow} style={styles.downFieldArrow} />
-          </View>
-        )}
-        {field === 'token1' && displaySecondary ? <Text style={styles.secondaryText}>{displaySecondary}</Text> : null}
-        {hasError && <Text style={styles.errorMessage}>This field is required</Text>}
-      </TouchableOpacity>
-    );
-  };
-  const isContinueEnabled =
-    token1 && token2 && amount1 && amount2 && amount1 !== '0' && amount2 !== '0';
   return (
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={styles.container}>
-          <HeaderNav />
-          <View style={styles.headerRow}>
-            <Text style={styles.title}>Trade</Text>
-            <View style={styles.toggleRow}>
-              <Text style={styles.enterUsdText}>Enter USD</Text>
-              <TradeSwitch 
-                onValueChange={handleToggleUSD} 
-                value={!!amount1 && amount1 !== '0' && isUSD} 
-              />
-            </View>
-          </View>
-          {renderTokenField(
-            token1,
-            amount1,
-            handleAmount1Change,
-            () => navigation.navigate('SearchScreen', { field: 'token1', excludeToken: token2?.abbreviation }),
-            true,
-            errors.token1 || errors.amount1,
-            'token1'
-          )}
-          <View style={styles.arrowContainer}>
-            <Image source={Images.downArroww} style={styles.downArrow} />
-          </View>
-          <Text style={styles.title2}>Receive</Text>
-          {renderTokenField(
-            token2,
-            amount2,
-            handleAmount2Change,
-            () => navigation.navigate('ReceiveTokenScreen', { 
-              field: 'token2', 
-              excludeToken: token1?.abbreviation, 
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.ContentContainer}>
+        <HeaderNav />
+        <TradeHeaderRow isUSD={isUSD} amount1={amount1} onToggleUSD={handleToggleUSD} />
+        <TokenField
+          token={token1}
+          amount={amount1}
+          onAmountChange={handleAmount1Change}
+          onPress={() =>
+            navigation.navigate('SearchScreen', {
+              field: 'token1',
+              excludeToken: token2?.abbreviation,
+            })
+          }
+          editable={true}
+          hasError={errors.token1 || errors.amount1}
+          field="token1"
+          isUSD={isUSD}
+          tokenRates={tokenRates}
+        />
+        <ArrowDivider />
+        <Text style={styles.title2}>Receive</Text>
+        <TokenField
+          token={token2}
+          amount={amount2}
+          onAmountChange={handleAmount2Change}
+          onPress={() =>
+            navigation.navigate('ReceiveTokenScreen', {
+              field: 'token2',
+              excludeToken: token1?.abbreviation,
               onSelectToken: (selectedToken: Token) => {
-                if (selectedToken.abbreviation === token1?.abbreviation) {
-                  return;
-                }
+                if (selectedToken.abbreviation === token1?.abbreviation) return;
                 dispatch(setToken2(selectedToken));
               },
-            }),
-            false,
-            errors.token2 || errors.amount2,
-            'token2'
+            })
+          }
+          editable={false}
+          hasError={errors.token2 || errors.amount2}
+          field="token2"
+          isUSD={isUSD}
+          tokenRates={tokenRates}
+        />
+        <TradeFooter
+          onContinue={handleContinue}
+          isEnabled={Boolean(
+            token1 &&
+            token2 &&
+            amount1 &&
+            amount2 &&
+            amount1 !== '0' &&
+            amount2 !== '0'
           )}
-          <View style={styles.footer}>
-            <Text style={styles.gasText}>30 gas-free transactions remaining</Text>
-            <TouchableOpacity
-              style={[styles.continueBtn, isContinueEnabled && { backgroundColor: '#FFFFFF' }]}
-              onPress={handleContinue}
-              disabled={!isContinueEnabled} 
-            >
-              <Text style={[styles.continueText, isContinueEnabled && { color: '#01021D' }]}>
-                Continue
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <BottomSheetTrade ref={tradeSheetRef} />
-        </View>
+        />
+        <BottomSheetTrade ref={tradeSheetRef} />
       </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    backgroundColor: '#01021D'
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background5,
   },
-  headerRow: { 
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    marginTop: 30, 
-    marginBottom: 8 
+  ContentContainer: {
+    flexGrow: 1,
   },
-  title: { 
-    color: '#FFFFFF', 
-    fontSize: 19, 
-    marginLeft: 12 
-  },
-  title2: { 
-    color: '#FFFFFF', 
-    fontSize: 19, 
-    marginLeft: 12, 
-    marginBottom: 8 
-  },
-  toggleRow: { 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    marginRight: 12 
-  },
-  enterUsdText: {
-     color: '#ADD2FD', 
-     marginRight: 8, 
-     fontSize: 13
-    },
-  tokenField: {
-    height: hp('11%'),
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#0734A9',
-    justifyContent: 'center',
-    paddingHorizontal: 16,
-    marginHorizontal: 12,
-    marginBottom: 16,
-  },
-  errorField: { 
-    borderColor: '#FF4D4F'
-   },
-  errorText: { 
-    color: '#FF4D4F' 
-  },
-  errorMessage: { 
-    color: '#FF4D4F', 
-    fontSize: 12,
-     marginTop: 4
-     },
-  tokenInputContainer: { 
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    alignItems: 'center'
-   },
-  amountInput: { 
-    color: '#97B8E1', 
-    fontSize: 30, 
-    flex: 1, 
-    marginTop: -7 
-  },
-  disabledInput: { 
-    color: '#ADD2FD'
-  },
-  arrowContainer: { 
-    alignItems: 'center', 
-    marginVertical: 8 
-  },
-  downArrow: { 
-    width: wp('4%'), 
-    height: hp('2.7%'), 
-    marginLeft: 15, 
-    tintColor: '#086DE1'
-   },
-  downFieldArrow: { 
-    width: 13, 
-    height: 8, 
-    tintColor: '#4898F3' 
-  },
-  placeholderText: { 
-    color: '#ADD2FD', 
-    fontSize: 34 
-  },
-  gasText: { 
-    color: '#ADD2FD', 
-    fontSize: 14, 
-    textAlign: 'center',
-     marginBottom: 30 
-    },
-  continueBtn: {
-    backgroundColor: '#0734A9',
-    paddingVertical: 16,
-    borderRadius: 35,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 20,
-  },
-  continueText: { 
-    fontSize: 22, 
-    fontWeight: '500' 
-  },
-  tokenDisplay: {
-     alignItems: 'center', 
-     marginLeft: 14 
-    },
-  tokenLogo: { 
-    width: 40, 
-    height: 40, 
-    borderRadius: 12, 
-    marginRight: 15 
-  },
-  tokenSymbol: { 
-    color: '#fff', 
-    fontSize: 15, 
-    fontWeight: '500', 
-    marginRight: 15 
-  },
-  footer: {
-     marginTop: hp('15%') },
-  secondaryText: { 
-    color: '#ADD2FD', 
-    fontSize: 14, 
-    marginTop: -17, 
-    marginLeft: 5 
+  title2: {
+    color: Colors.white,
+    fontSize: 19,
+    marginLeft: 12,
+    marginBottom: 8,
   },
 });

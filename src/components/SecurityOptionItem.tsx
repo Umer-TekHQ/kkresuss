@@ -13,6 +13,7 @@ interface Props {
   onNavigate?: (route: keyof AppNavigatorParamList) => void
   totalItems: number
   index: number
+  onToggleTick: () => void 
 }
 
 const CheckCircle = ({ isActive }: { isActive: boolean }) => (
@@ -55,6 +56,7 @@ const SecurityOptionItem = ({
   onNavigate,
   totalItems,
   index,
+  onToggleTick
 }: Props) => {
   const handleRowPress = () => {
     if (item.route) {
@@ -65,7 +67,7 @@ const SecurityOptionItem = ({
   return (
     <View>
       <TouchableOpacity style={styles.optionRow} onPress={handleRowPress}>
-        <Pressable style={styles.leftCheck}>
+        <Pressable style={styles.leftCheck} onPress={onToggleTick}>
           <CheckCircle isActive={isActive} />
         </Pressable>
 
@@ -103,14 +105,15 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   checkCircle: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
     backgroundColor: '#01021D',
     borderWidth: 1,
     borderColor: '#10178A',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop:2
   },
   tickImage: {
     width: 12,

@@ -25,9 +25,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-
 import { Images } from "../assets";
-
 import { Colors } from "../theme/colors";
 
 const { height: windowHeight, width: windowWidth } = Dimensions.get("window");

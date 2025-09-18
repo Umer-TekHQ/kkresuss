@@ -14,72 +14,73 @@ import { ExploreCard } from '../../components/ExploreCards';
 import ExploreSkeletonLoader from '../../components/ExploreSkeletonLoader';
 import { HeaderNav } from '../../components/HeaderNav';
 import { exploreSections } from '../../mock/exploreData';
-
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { Colors } from '../../theme/colors';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const ExploreScreen: React.FC = ({ navigation }: any) => {
   const [loading, setLoading] = useState(true);
   const scrollRef = useRef<ScrollView>(null);
-  const scrollYRef = useRef(0); 
+  const scrollYRef = useRef(0);
   const sectionPositions = useRef<{ [key: string]: number }>({});
-
-  const stickyHeaderHeight = 60; 
+  const [activeSection, setActiveSection] = useState('Trade');
+  const [buttonsHeight, setButtonsHeight] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2500);
     return () => clearTimeout(timer);
   }, []);
 
+  const handleScroll = (e: any) => {
+    scrollYRef.current = e.nativeEvent.contentOffset.y;
+
+    const positions = sectionPositions.current;
+    const sortedSections = Object.entries(positions).sort((a, b) => a[1] - b[1]);
+
+    let current = sortedSections[0][0];
+
+    for (const [name, y] of sortedSections) {
+      if (scrollYRef.current >= y - buttonsHeight - 10) {
+        current = name;
+      }
+    }
+
+    if (current !== activeSection) {
+      setActiveSection(current);
+    }
+  };
+
   const handleButtonPress = (sectionName: string) => {
     const y = sectionPositions.current[sectionName];
     if (y !== undefined && scrollRef.current) {
-      const currentY = scrollYRef.current;
-      if (Math.abs(currentY - y) < 2) {
-        scrollRef.current.scrollTo({ y: y + 1, animated: false });
-        setTimeout(() => {
-          scrollRef.current?.scrollTo({ y, animated: true });
-        }, 10);
-      } else {
-        scrollRef.current.scrollTo({ y, animated: true });
-      }
+      scrollRef.current.scrollTo({ y: y - buttonsHeight + hp('10%') , animated: true });
     }
   };
 
   const onSectionLayout = (name: string, event: any) => {
-    sectionPositions.current[name] = event.nativeEvent.layout.y - stickyHeaderHeight;
+    sectionPositions.current[name] = event.nativeEvent.layout.y;
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
 
       <ScrollView
         ref={scrollRef}
         contentContainerStyle={{ paddingBottom: 20 }}
-        stickyHeaderIndices={[2]} 
+        stickyHeaderIndices={[0]}
         showsVerticalScrollIndicator={false}
         scrollEventThrottle={16}
-        onScroll={(e) => {
-          scrollYRef.current = e.nativeEvent.contentOffset.y;
-        }}
+        onScroll={handleScroll}
       >
-        <HeaderNav />
-
-        <Text
-          style={{
-            fontSize: 40,
-            lineHeight: 50,
-            color: '#fff',
-            marginHorizontal: wp('4%'),
-            marginVertical: wp('4%'),
-            fontFamily: 'PlayfairDisplay-Bold'
-          }}
-        >
-          Explore
-        </Text>
-
-        <View style={{ backgroundColor: styles.container.backgroundColor, zIndex: 10, marginBottom: 20, }}>
-          <ExploreButtons onPressAction={handleButtonPress} />
+        <View style={styles.stickyHeader}>
+          <HeaderNav />
+          <Text style={styles.heading}>Explore</Text>
+          <View onLayout={(e) => setButtonsHeight(e.nativeEvent.layout.height)}>
+            <ExploreButtons onPressAction={handleButtonPress} activeSection={activeSection} />
+          </View>
         </View>
+
         {loading ? (
           <ExploreSkeletonLoader />
         ) : (
@@ -110,31 +111,44 @@ export const ExploreScreen: React.FC = ({ navigation }: any) => {
                 </View>
               </View>
             ))}
+
+            <View style={{ height: 300 }} />
           </View>
         )}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#01022C',
+    backgroundColor: Colors.background,
+    flex: 1,
+  },
+  stickyHeader: {
+    backgroundColor: Colors.background,
+    zIndex: 10,
   },
   sectionTitle: {
-  color: '#fff',
-  fontSize: 22,
-  fontWeight: '400',
-  marginBottom: 12,
-  marginHorizontal: wp('4%')
-},
-
-cardRow: {
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  flexWrap: 'wrap',
-  marginBottom: 20,
-  marginHorizontal: 5,
-},
-
-})
+    color: Colors.white,
+    fontSize: 22,
+    fontWeight: '400',
+    marginBottom: 12,
+    marginHorizontal: wp('4%'),
+  },
+  heading: {
+    fontSize: 30,
+    lineHeight: 40,
+    color: Colors.white,
+    marginHorizontal: wp('4%'),
+    marginVertical: wp('4%'),
+    fontFamily: 'PlayfairDisplay-Bold',
+  },
+  cardRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexGrow: 1,
+    marginBottom: 20,
+    marginHorizontal: 5,
+  },
+});

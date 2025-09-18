@@ -1,6 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Images } from '../assets';
+import { AppNavigatorParamList } from '../navigators/routeNames';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 function formatNumber(num: any) {
   if (num === undefined || num === null) return '0';
@@ -17,31 +20,37 @@ const InfoIcon = () => (
 
 const UpDownIcon = ({ percent }: { percent: number }) => (
   <Image
-    source={percent >= 0 ? Images.greenUp : Images.redDown}
+    source={percent >= 0 ? Images.greenArrowUp : Images.redDown}
     style={styles.percentIcon}
   />
 );
 
 const PositionCard = ({ data }: { data: any }) => {
   const {
-    image,
+    logo,
     value,
-    todayReturn,
-    todayReturnPercent,
     yearHigh,
     yearHighPercent,
     quantityOwned,
     holders,
-    circulating_supply,
+    circulatingSupply,
     maxSupply,
+    usdePriceChange24hr,
+    priceChangePercentChange,
   } = data || {};
+
+    const percent = Number(priceChangePercentChange ?? 0);
+    const isProfit = percent >= 0;
+
+    const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
+  
 
   return (
     <View style={styles.card}>
       <View style={styles.headerRow}>
         <Text style={styles.title}>Your Position</Text>
-        {image ? (
-          <Image source={{ uri: image }} style={styles.tokenImage} />
+        {logo ? (
+          <Image source={{ uri: logo }} style={styles.tokenImage} />
         ) : (
           <Image source={Images.titanium} style={styles.tokenImage} />
         )}
@@ -50,85 +59,89 @@ const PositionCard = ({ data }: { data: any }) => {
       <View style={styles.valueRowMain}>
         <Text style={styles.valueLabel}>Value</Text>
         <Text style={styles.valueMain}>
-          {value !== undefined ? `$${formatNumber(value)}` : 'N/A'}
+          {value !== undefined ? `$${formatNumber(value)}` : '$0.00'}
         </Text>
       </View>
       <View style={styles.divider} />
-      {/* Metrics Row 1 */}
       <View style={styles.metricsRow}>
         <View style={styles.metricBlock}>
           <View style={styles.metricLabelRow}>
             <Text style={styles.metricLabel}>Today's Return</Text>
-            <InfoIcon />
+            <TouchableOpacity onPress={() => navigation.navigate('TodayReturns')}>
+                <InfoIcon />
+            </TouchableOpacity>
+            
           </View>
-          <View style={styles.metricValueRow}>
-            <Text style={styles.metricValue}>
-              {todayReturn !== undefined ? `$${formatNumber(todayReturn)}` : 'N/A'}
-            </Text>
-            {todayReturnPercent !== undefined && (
-              <>
-                <UpDownIcon percent={Number(todayReturnPercent)} />
-                <Text
-                  style={Number(todayReturnPercent) >= 0 ? styles.greenText : styles.redText}
-                >
-                  {`${Math.abs(Number(todayReturnPercent)).toFixed(2)}%`}
-                </Text>
-              </>
-            )}
-          </View>
+            <View style={styles.metricValueRow}>
+              <Text style={styles.metricValue}>
+                {usdePriceChange24hr !== undefined ? `$${formatNumber(usdePriceChange24hr)}` : '$0.00'}
+              </Text>
+              <Image
+                source={isProfit ? Images.greenArrowUp : Images.redDown}
+                style={{ width: 12, height: 12, marginHorizontal: 4 }}
+              />
+              <Text style={isProfit ? styles.greenText : styles.redText}>
+                {`${Math.abs(percent).toFixed(2)}%`}
+              </Text>
+            </View>
         </View>
         <View style={styles.metricBlock}>
           <View style={styles.metricLabelRow}>
             <Text style={styles.metricLabel}>1-Year High</Text>
-            <InfoIcon />
+            <TouchableOpacity>
+                <InfoIcon />
+            </TouchableOpacity>
+            
           </View>
           <View style={styles.metricValueRow}>
             <Text style={styles.metricValue}>
-              {yearHigh !== undefined ? `$${formatNumber(yearHigh)}` : 'N/A'}
+              {yearHigh !== undefined ? `$${formatNumber(yearHigh)}` : '$0.00'}
             </Text>
-            {yearHighPercent !== undefined && (
-              <>
-                <UpDownIcon percent={Number(yearHighPercent)} />
-                <Text
-                  style={Number(yearHighPercent) >= 0 ? styles.greenText : styles.redText}
-                >
-                  {`${Math.abs(Number(yearHighPercent)).toFixed(2)}%`}
-                </Text>
-              </>
-            )}
+            <UpDownIcon percent={Number(yearHighPercent ?? 0)} />
+            <Text
+              style={(Number(yearHighPercent ?? 0)) >= 0 ? styles.greenText : styles.redText}
+            >
+              {`${Math.abs(Number(yearHighPercent ?? 0)).toFixed(2)}%`}
+            </Text>
           </View>
         </View>
       </View>
-      {/* Metrics Row 2 */}
       <View style={styles.metricsRow}>
         <View style={styles.metricBlock}>
           <View style={styles.metricLabelRow}>
             <Text style={styles.metricLabel}>Quantity Owned</Text>
-            <InfoIcon />
+            <TouchableOpacity>
+                <InfoIcon />
+            </TouchableOpacity>
           </View>
           <Text style={styles.metricValue}>{formatNumber(quantityOwned)}</Text>
         </View>
         <View style={styles.metricBlock}>
           <View style={styles.metricLabelRow}>
             <Text style={styles.metricLabel}>Holders</Text>
-            <InfoIcon />
+            <TouchableOpacity>
+                <InfoIcon />
+            </TouchableOpacity>
           </View>
           <Text style={styles.metricValue}>{formatNumber(holders)}</Text>
         </View>
       </View>
-      {/* Metrics Row 3 */}
       <View style={styles.metricsRow}>
         <View style={styles.metricBlock}>
           <View style={styles.metricLabelRow}>
             <Text style={styles.metricLabel}>Circulating Supply</Text>
-            <InfoIcon />
+            <TouchableOpacity>
+                <InfoIcon />
+            </TouchableOpacity>
           </View>
-          <Text style={styles.metricValue}>{formatNumber(circulating_supply)}</Text>
+          <Text style={styles.metricValue}>{formatNumber(circulatingSupply)}</Text>
         </View>
         <View style={styles.metricBlock}>
           <View style={styles.metricLabelRow}>
             <Text style={styles.metricLabel}>Maximum Supply</Text>
-            <InfoIcon />
+            <TouchableOpacity>
+                <InfoIcon />
+            </TouchableOpacity>
           </View>
           <Text style={styles.metricValue}>{formatNumber(maxSupply)}</Text>
         </View>
@@ -224,7 +237,7 @@ const styles = StyleSheet.create({
   },
   percentIcon: {
     width: 14,
-    height: 14,
+    height: 12,
     marginRight: 2,
     marginLeft: 2,
     resizeMode: 'contain',

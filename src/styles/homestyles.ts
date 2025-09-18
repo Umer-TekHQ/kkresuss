@@ -1,4 +1,5 @@
 import { StyleSheet} from 'react-native';
+
 import { Colors } from '../theme/colors';
 
 
@@ -63,14 +64,14 @@ skeletonActions: {
   marginBottom: 16,
 },
 skeletonActionButton: {
-  backgroundColor: '#101038',
+  backgroundColor: Colors.background,
   borderRadius: 12,
   padding: 12,
   width: '23%',
   aspectRatio: 1,
 },
 skeletonMarketActivity: {
-  backgroundColor: '#101038',
+  backgroundColor: Colors.background,
   borderRadius: 16,
   padding: 16,
   marginBottom: 16,

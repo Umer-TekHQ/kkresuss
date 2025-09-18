@@ -14,7 +14,7 @@ export const ProfileBottom = ({navigation}: any) => {
               source={Images.prosImage}
               style={styles.image}
               />
-              <TouchableOpacity onPress={() => navigation.goBack()} style={{zIndex:999}}>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
               <View style={styles.backBorder}>
               <Image
                 source={Images.backButton}

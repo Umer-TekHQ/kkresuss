@@ -17,7 +17,7 @@ interface AppHeaderProps {
 }
 
 const { width } = Dimensions.get('window')
-const ICON_SIZE = width * 0.08 
+const ICON_SIZE = width * 0.10 
 
 const AppHeader = ({ title, showClose = false, onBackPress }: AppHeaderProps) => {
    const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
@@ -32,7 +32,7 @@ const handleGoBack = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={handleGoBack} style={styles.icon}>
-        <Image source={Images.backScreen} style={styles.iconImage} />
+        <Image source={Images.backButton} style={styles.iconImage} />
       </TouchableOpacity>
 
       <Text style={styles.title}>{title}</Text>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 30,
+    marginVertical: 20,
     paddingHorizontal: 20,
     position: 'relative',
   },
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     textAlign: 'center',
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 16,
+    fontWeight: '500',
     color: Colors.white,
   },
 })

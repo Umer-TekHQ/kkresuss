@@ -13,11 +13,11 @@ export const ProsScreen = ({navigation}: any) => {
               source={Images.prosImage}
               style={styles.image}
               />
-              <View style={{zIndex: 9999}}>
+              <View>
               <TouchableOpacity onPress={() => navigation.goBack()}>
               <View style={styles.backBorder}>
               <Image
-                source={Images.backArrow}
+                source={Images.backButton}
                 style={styles.cross}
               />
               </View>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   cross:{
     marginTop: 10,
-    width: 10,
+    width: 30,
     height: 14,
     fontWeight: '400',
     tintColor: 'white',

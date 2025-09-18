@@ -1,115 +1,127 @@
-import { useNavigation } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import React from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-  Image,
-} from 'react-native'
+import React, { forwardRef, useRef, useMemo, useImperativeHandle } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import BottomSheet from '@gorhom/bottom-sheet';
+import { BottomSheetFlashList } from '@gorhom/bottom-sheet';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { Images } from '../assets' 
-import { settingsData } from '../mock/settingsData'
-import { AppNavigatorParamList } from '../navigators/routeNames'
+import { Images } from '../assets';
+import { settingsData } from '../mock/settingsData';
+import { AppNavigatorParamList } from '../navigators/routeNames';
+import { Colors } from '../theme/colors';
 
-const SettingBottomSheet = ({ onClose }: { onClose: () => void, }) => {
-const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
-const handleItemPress = (route?: keyof AppNavigatorParamList) => {
-  if (route) {
-    onClose()
-    navigation.navigate(route as any )
-  }
+export interface SettingsBottomSheetRef {
+  expand: () => void;
+  collapse: () => void;
 }
-  const renderItem = ({ item,index }: any) =>{
-      const isLastItem = index === settingsData.length - 1
+
+const SettingBottomSheet = forwardRef<SettingsBottomSheetRef, { onClose: () => void }>(
+  ({ onClose }, ref) => {
+    const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
+    const bottomSheetRef = useRef<BottomSheet>(null);
+
+    const snapPoints = useMemo(() => ['55%', '100%'], []);
+
+    useImperativeHandle(ref, () => ({
+      expand: () => bottomSheetRef.current?.snapToIndex(1),
+      collapse: () => bottomSheetRef.current?.snapToIndex(0),
+    }));
+
+    const handleItemPress = (route?: keyof AppNavigatorParamList) => {
+      if (route) {
+        onClose();
+        navigation.navigate(route as any);
+      }
+    };
+
+    const renderItem = ({ item, index }: any) => {
+      const isLastItem = index === settingsData.length - 1;
+      return (
+        <View>
+          {index === 0 && <View style={styles.separator} />}
+
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => handleItemPress(item.route)}
+            activeOpacity={0.7}
+          >
+            <Image source={item.icon} style={styles.icon} />
+            <View style={{ flex: 1 }}>
+              <Text style={styles.itemTitle}>{item.title}</Text>
+              <Text style={styles.itemSubtitle}>{item.subtitle}</Text>
+            </View>
+            <Image source={Images.introducingArrow} style={styles.arrow} />
+          </TouchableOpacity>
+
+          {!isLastItem && <View style={styles.separator} />}
+        </View>
+      );
+    };
+
     return (
-      <View>
-   {index === 0 && (
-        <View
-          style={{
-            height: 0.5,
-            backgroundColor: '#183460',
-            marginLeft: 33,
-            marginBottom:12,
-          }}
-        />
-      )}
-
-    <TouchableOpacity
-        style={styles.item}
-        onPress={() => handleItemPress(item.route)}
-        activeOpacity={0.7}
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        enablePanDownToClose={false}
+        backgroundStyle={styles.sheetBackground}
       >
-      <Image source={item.icon} style={styles.icon} />
-      <View style={{ flex: 1 }}>
-        <Text style={styles.itemTitle}>{item.title}</Text>
-        <Text style={styles.itemSubtitle}>{item.subtitle}</Text>
-      </View>
-       <TouchableOpacity onPress={() => handleItemPress(item.route)}>
-       
-      <Image source={Images.forward} style={styles.arrow} />
-      </TouchableOpacity>
-      </TouchableOpacity>
-     {!isLastItem && (
-        <View
-          style={{
-            height: 0.5,
-            backgroundColor: '#183460',
-            marginLeft: 33,
-             marginTop: 12,
-             marginBottom: 12
-          }}
+        <BottomSheetFlashList
+          style={{ flex: 1 }}
+          data={settingsData}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.title}
+          showsVerticalScrollIndicator={false}
+          nestedScrollEnabled
+          contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 30, flexGrow: 1 }}
+          ListHeaderComponent={
+            <View>
+              <View style={styles.line} />
+              <Text style={styles.sheetTitle}>Settings</Text>
+            </View>
+          }
+          ListFooterComponent={
+            <TouchableOpacity onPress={() => navigation.navigate('Welcome')}>
+              <Text style={styles.delete}>Delete Account</Text>
+            </TouchableOpacity>
+          }
         />
-      )}
-  </View>
-  )}
-  return (
-    <View style={styles.container}>
-      <View style={styles.line} />
-      <Text style={styles.sheetTitle}>Settings</Text>
-      <FlatList
-        data={settingsData}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.title}
-        contentContainerStyle={{ paddingBottom: 30 }}
-        showsVerticalScrollIndicator={false}
-      />
-      <TouchableOpacity onPress={()=> navigation.navigate('Welcome')} >
-          <Text style={styles.delete}>Delete Account</Text>
-      </TouchableOpacity>
-    </View>
-  )
-}
-export default SettingBottomSheet
+      </BottomSheet>
+
+    );
+  }
+);
+
+export default SettingBottomSheet;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingTop: 10,
+  },
+  sheetBackground: {
     backgroundColor: '#01032C',
-   borderTopLeftRadius: 20,
+    borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
   sheetTitle: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '500',
-    marginBottom: 20,
-    justifyContent:"center",
-    textAlign:"center"
+    color: Colors.white,
+    fontSize: 18,
+    marginBottom: 10,
+    textAlign: 'center',
+    letterSpacing: 1,
   },
   item: {
     flexDirection: 'row',
     alignItems: 'flex-start',
+    flex: 1,
+    paddingVertical: 10,
   },
   icon: {
-    width: 17,
-    height: 24,
+    width: 16,
+    height: 22,
     marginRight: 16,
-    marginTop: 0,
+    resizeMode: 'contain',
   },
   itemTitle: {
     color: 'white',
@@ -122,26 +134,30 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   arrow: {
-    width: 14,
-    height: 14,
-   resizeMode:'contain',
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
     marginLeft: 10,
-    marginTop: 10,
+    marginTop: 23,
   },
   delete: {
-    color:'white',
+    color: 'white',
     fontSize: 12,
     fontWeight: '500',
     paddingVertical: 16,
   },
-line: {
-  alignSelf: 'center',
-  width: 50,
-  height: 4,
-  borderRadius: 4,
-  backgroundColor: '#183460', 
-  marginBottom: 12,
-},radiusColor:{
-  backgroundColor:'#BOB4A'
-}
-})
+  line: {
+    alignSelf: 'center',
+    width: 50,
+    height: 4,
+    borderRadius: 4,
+    backgroundColor: Colors.background4,
+    marginBottom: 15,
+  },
+  separator: {
+    height: 0.5,
+    backgroundColor: '#183460',
+    marginLeft: 33,
+    marginVertical: 12,
+  },
+});

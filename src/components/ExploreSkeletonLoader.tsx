@@ -5,28 +5,42 @@ import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import { Colors } from '../theme/colors';
 
 const { width } = Dimensions.get('window');
-const cardWidth = (width - 48) / 2;
+const cardWidth = (width - 38) / 2; 
 
 const ExploreSkeletonLoader = () => {
   return (
     <View style={styles.container}>
-    <SkeletonPlaceholder
-      backgroundColor="#0D0D33"
-      highlightColor="#1A1A66"
-    >
+      <SkeletonPlaceholder
+        backgroundColor="#0D0D33"
+        highlightColor="#1A1A66"
+        speed={2500}
+      >
         <View style={styles.fullHeight}>
-        <View style={styles.cardGrid}>
-          {[...Array(4)].map((_, index) => (
-            <View key={index} style={styles.cardContainer}>
-              <View style={styles.cardImage} />
-              <View style={styles.cardTextLine} />
-              <View style={styles.cardTextLineShort} />
-              <View style={styles.cardTextLineSmaller} />
-            </View>
-          ))}
+          <View style={styles.titleBar} />
+          <View style={styles.cardGrid}>
+            {[...Array(2)].map((_, index) => (
+              <View key={`row1-${index}`} style={styles.cardContainer}>
+                <View style={styles.cardImage} />
+                <View style={styles.cardTextLine} />
+                <View style={styles.cardTextLineShort} />
+                <View style={styles.cardTextLineSmaller} />
+              </View>
+            ))}
+          </View>
+
+          <View style={styles.titleBar} />
+          <View style={styles.cardGrid}>
+            {[...Array(2)].map((_, index) => (
+              <View key={`row2-${index}`} style={styles.cardContainer}>
+                <View style={styles.cardImage} />
+                <View style={styles.cardTextLine} />
+                <View style={styles.cardTextLineShort} />
+                <View style={styles.cardTextLineSmaller} />
+              </View>
+            ))}
+          </View>
         </View>
-      </View>
-    </SkeletonPlaceholder>
+      </SkeletonPlaceholder>
     </View>
   );
 };
@@ -36,55 +50,24 @@ const styles = StyleSheet.create({
     padding: 8,
     paddingBottom: 60,
   },
-  headerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 24,
-    justifyContent: 'space-between',
-  },
- fullHeight: {
+  fullHeight: {
     minHeight: Dimensions.get('window').height,
     padding: 8,
   },
-  avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-  },
-  headerTextBlock: {
-    width: 180,
-    height: 20,
-    borderRadius: 4,
-  },
-  icon: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-  },
   titleBar: {
-    width: 160,
-    height: 36,
-    borderRadius: 8,
-    marginBottom: 24,
-  },
-  tabRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 24,
-  },
-  tabButton: {
-    width: 70,
-    height: 30,
-    borderRadius: 6,
+    width: 90,
+    height: 18,
+    borderRadius: 2,
+    marginBottom: 16,
+    marginTop: 8,
   },
   cardGrid: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
     justifyContent: 'space-between',
+    marginBottom: 24,
   },
   cardContainer: {
     width: cardWidth,
-    marginBottom: 34,
     borderWidth: 1.5,
     borderColor: Colors.fieldBackground,
     borderRadius: 18,

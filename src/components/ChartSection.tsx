@@ -27,7 +27,7 @@ const ChartSection = () => {
       
       <LineChart
         data={chartData}
-       width={width * 0.91}
+        width={width * 0.91}
         height={140}
         curved
         areaChart
@@ -86,12 +86,12 @@ const ChartSection = () => {
 
       <View style={styles.bottomRow}>
         <View style={styles.rowItem}>
-          <Image source={Images.rocket} style={styles.icon} />
+          <Image source={Images.buyerLogo} style={styles.icon} />
           <Text style={styles.label}>{buyersPercent}% Buyers</Text>
         </View>
         <View style={styles.rowItem}>
           <Text style={styles.label}>Sellers{sellersPercent}%</Text>
-          <Image source={Images.cashOut} style={styles.icon2} />
+          <Image source={Images.sellerLogo} style={styles.icon2} />
         </View>
       </View>
 

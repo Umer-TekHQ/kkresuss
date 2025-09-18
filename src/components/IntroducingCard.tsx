@@ -51,7 +51,7 @@ export default function IntroducingCards() {
               $10K in insurance and 350{'\n'}monthly gasless transactions
             </Text>
             <Image
-              source={Images.back}
+              source={Images.introducingArrow}
               style={styles.iconIntro}
               resizeMode="contain"
             />
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   iconIntro: {
-    width: screenWidth * 0.05,
+    width: screenWidth * 0.09,
     height: screenWidth * 0.05,
     marginBottom: 20,
     tintColor: Colors.back,
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   },
   dotsContainer: {
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 5,
   },
   dot: {
     width: 4,

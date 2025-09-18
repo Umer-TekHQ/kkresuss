@@ -34,10 +34,14 @@ export default AssetInfoBox;
 const styles = StyleSheet.create({
   ethBox: {
     height: 70,
-    backgroundColor: Colors.kresusblue,
-    borderRadius: 20,
+    backgroundColor: Colors.background1,
+    borderRadius: 15,
     padding: 16,
     marginBottom: 16,
+    borderTopWidth: 1.5,
+    borderRightWidth: 0.5,
+    borderLeftWidth: 0.5,
+    borderColor: Colors.fieldBorder
   },
   ethBoxInner: {
     flexDirection: 'row',

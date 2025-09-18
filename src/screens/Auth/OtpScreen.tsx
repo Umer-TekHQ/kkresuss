@@ -25,6 +25,7 @@ export const OtpScreen = () => {
   const [otpStarted, setOtpStarted] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [keepUpdated, setKeepUpdated] = useState(false);
+  const [otpVerified, setOtpVerified] = useState(false);
 
   const email = useAppSelector(state => state.user.email);
 
@@ -44,18 +45,24 @@ export const OtpScreen = () => {
     };
   }, []);
 
-const handleOtpComplete = async (otp: string) => {
-  try {
-    await authApi.verifyOtp(otp);
+  const handleOtpComplete = async (otp: string) => {
     try {
-      await walletApi.createWallet();
-    } catch (e) {
+      await authApi.verifyOtp(otp);
+      setOtpVerified(true);
+
+      try {
+        await walletApi.createWallet();
+      } catch (e) {
+      }
+
+      if (acceptTerms) {
+        navigation.navigate('OtpSuccess');
+      }
+    } catch (err: any) {
+      Toast.show({ type: 'error', text1: err.message || 'Invalid OTP' });
     }
-    navigation.navigate('OtpSuccess');
-  } catch (err: any) {
-    Toast.show({ type: 'error', text1: err.message || 'Something went wrong' });
-  }
-};
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <Background showContent hideBottomImages={keyboardVisible} showLogo={false}>
@@ -97,13 +104,19 @@ const handleOtpComplete = async (otp: string) => {
             <View style={styles.divider} />
 
             <View style={styles.checkContainer}>
-              <CheckboxRow
-                isChecked={acceptTerms}
-                onToggle={() => setAcceptTerms(!acceptTerms)}
-                hasLink={true}
-                prefixText="Accept the"
-                linkText="terms & conditions"
-              />
+            <CheckboxRow
+              isChecked={acceptTerms}
+              onToggle={() => {
+                const newValue = !acceptTerms;
+                setAcceptTerms(newValue);
+                if (newValue && otpVerified) {
+                  navigation.navigate('OtpSuccess');
+                }
+              }}
+              hasLink={true}
+              prefixText="Accept the"
+              linkText="terms & conditions"
+            />
               <CheckboxRow
                 isChecked={keepUpdated}
                 onToggle={() => setKeepUpdated(!keepUpdated)}

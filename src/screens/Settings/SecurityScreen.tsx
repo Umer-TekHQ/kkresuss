@@ -63,8 +63,8 @@ const SecurityScreen = () => {
         ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
       />
       <View style={styles.seedPhrase}>
-      <Image source={Images.questionMark}  />
-      <TouchableOpacity style={styles.whyText}>
+        <TouchableOpacity style={styles.whyText}>
+      <Image source={Images.questionMark} style={styles.question} />
         <Text style={styles.whyQuestion}>Why no seed phrases?</Text>
       </TouchableOpacity>
       </View>
@@ -85,18 +85,22 @@ const styles = StyleSheet.create({
     marginTop: 0,
     alignItems: 'center',
     justifyContent:'center',
-    
+    flexDirection: 'row', 
   },
   whyQuestion: {
     color: '#FFFFFF',
-    fontSize: 15,
-  
+    fontSize: 14,
+    marginLeft: 10,
   },
   seedPhrase:{
     flexDirection:'row',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 8,
-    bottom:22,
+    bottom:20,
+  },
+  question:{
+    width: 18,
+    height: 18
   }
 })

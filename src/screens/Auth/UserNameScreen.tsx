@@ -64,15 +64,41 @@ const [keyboardVisible, setKeyboardVisible] = useState(false)
     if (isLengthTooLong) return 'red'
     return isLengthValid ? '#FFFFFF' : '#ADD2FD'
   }
-  const getCharSymbol = () => {
-    if (!isCharTyped) return ''
-    return isCharValid ? '✓' : '❌'
+const getCharSymbol = () => {
+  if (!isCharTyped) return null; 
+  if (isCharValid) {
+    return (
+      <Image
+        source={Images.tickAuth}
+        style={{ width: 18, height: 20, marginTop: 5 }}
+        resizeMode="contain"
+      />
+    );
   }
-  const getLengthSymbol = () => {
-    if (!isCharTyped) return ''
-    if (isLengthTooLong) return '❌'
-    return isLengthValid ? '✓' : ''
+  return (
+    <Text style={{ color: 'red', fontSize: 16 }}>❌</Text>
+  );
+};
+
+const getLengthSymbol = () => {
+  if (!isCharTyped) return null;
+  if (isLengthTooLong) {
+    return (
+      <Text style={{ color: 'red', fontSize: 16 }}>❌</Text>
+    );
   }
+  if (isLengthValid) {
+    return (
+      <Image
+        source={Images.tickAuth}
+        style={{ width: 18, height: 20, }}
+        resizeMode="contain"
+      />
+    );
+  }
+  return null;
+};
+
   const handleContinue = () => {
     if (isCharValid && isLengthValid && !isLengthTooLong) {
       dispatch(setUsername(username));
@@ -104,13 +130,21 @@ const [keyboardVisible, setKeyboardVisible] = useState(false)
             style={{ backgroundColor: '#090F5F' }} 
           />
           <View style={{ gap: 6, paddingLeft: 4 }}>
-            <Text style={{ color: getLengthRuleColor() }}>
-              {getLengthSymbol()} Must be 8–20 characters
-            </Text>
-            <Text style={{ color: getCharRuleColor() }}>
-              {getCharSymbol()} No special characters
-            </Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              {getLengthSymbol()}
+              <Text style={{ color: getLengthRuleColor(), marginLeft: 6 }}>
+                Must be 8–20 characters
+              </Text>
+            </View>
+
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              {getCharSymbol()}
+              <Text style={{ color: getCharRuleColor(), marginLeft: 6 }}>
+                No special characters
+              </Text>
+            </View>
           </View>
+
           <View style={styles.buttonPosition} >
           <AppButton 
             label="Continue" 

@@ -7,7 +7,6 @@ import AssetsScreen from '../screens/Assets/AssetsScreen';
 import { ExploreScreen } from '../screens/Explore/ExploreScreen';
 import { HomeScreen } from '../screens/HomeScreen/HomeScreen';
 import { TradeScreen } from '../screens/Trade/TradeScreen';
-// import styles from '../styles/homestyles';
 
 const Tab = createBottomTabNavigator();
 

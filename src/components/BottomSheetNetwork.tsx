@@ -58,8 +58,6 @@ const BottomSheetNetwork = ({ visible, onClose }: Props) => {
     <GestureHandlerRootView style={StyleSheet.absoluteFill}>
      
       <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={onClose} />
-
-  
       <GestureDetector gesture={panGesture}>
         <Animated.View style={[styles.bottomSheet, animatedStyle]}>
           <View style={styles.handle} />

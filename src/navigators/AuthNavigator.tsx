@@ -10,7 +10,12 @@ import { SplashScreen } from '../screens/Splash/SplashScreen';
 const AuthStack = createNativeStackNavigator();
 
 export const AuthNavigator = () => (
-  <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+  <AuthStack.Navigator 
+    screenOptions={{
+      headerShown: false,
+      animation: 'slide_from_right', 
+      animationTypeForReplace: 'push', 
+    }}>
     <AuthStack.Screen name="Splash" component={SplashScreen} />
     <AuthStack.Screen name="Welcome" component={WelcomeScreen} />
     <AuthStack.Screen name="Otp" component={OtpScreen} />

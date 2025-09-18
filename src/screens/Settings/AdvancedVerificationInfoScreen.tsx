@@ -24,7 +24,7 @@ import { AppNavigatorParamList } from '../../navigators/routeNames'
                   <TouchableOpacity onPress={() => navigation.goBack()}>
                   <View style={styles.backBorder}>
                   <Image
-                    source={Images.backArrow}
+                    source={Images.backButton}
                     style={styles.cross}
                   />
                   </View>
@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
   cross:{
     marginLeft: 5,
     marginTop: 10,
-    width: 12,
-    height: 16,
+    width: 20,
+    height: 30,
     fontWeight: '400',
     tintColor: Colors.white
   },

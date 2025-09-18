@@ -44,6 +44,8 @@ export const ProjectsList: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
+    marginBottom: 110,
+    marginRight: 8,
   },
   card: {
     flexDirection: 'row',

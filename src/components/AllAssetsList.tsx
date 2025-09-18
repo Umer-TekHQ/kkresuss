@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
-
 import PopularAssetItem from './PopularAssetItem';
 import { AppNavigatorParamList } from '../navigators/routeNames';
 import { fetchAssetsService } from '../services/assetsService';
@@ -65,6 +64,7 @@ const AllAssetsList: React.FC<AllAssetsListProps> = ({ showAll = false, searchTe
           onPress={() =>
             navigation.navigate('TokenDetail', {
               contractAddress: item.contract_address,
+              name: item.token_name,
             })
           }
         >
@@ -81,7 +81,7 @@ export default AllAssetsList;
 const styles = StyleSheet.create({
   divider: {
     height: 1,
-    backgroundColor: Colors.kresusblue,
+    backgroundColor: Colors.kresusBlue,
     marginVertical: 8,
     marginLeft: 68,
   },

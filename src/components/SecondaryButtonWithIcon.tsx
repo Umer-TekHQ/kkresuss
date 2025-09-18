@@ -34,13 +34,14 @@ export default SecondaryButtonWithIcon
 const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    borderRadius: 100,
+    alignSelf: 'center',
     borderWidth: 1,
     borderColor: Colors.blue,
-    alignSelf: 'center',
+    paddingVertical: 6,
+    paddingHorizontal: 16,
+    borderRadius: 20,
+    marginTop: 1,
+    alignItems: 'center',
   },
   icon: {
     width: 20,

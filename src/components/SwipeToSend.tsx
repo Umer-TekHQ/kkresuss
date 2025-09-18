@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import { Images } from '../assets'; 
+import { Colors } from '../theme/colors';
 
 const { width } = Dimensions.get('window');
 const SWIPE_WIDTH = width - 40;
@@ -79,7 +80,7 @@ const textOpacity = panX.interpolate({
           {...panResponder.panHandlers}
           style={[styles.whiteCircle, { transform: [{ translateX: panX }] }]}
         >
-          <Image source={Images.arrowForward} style={styles.arrowIcon} resizeMode="contain" />
+          <Image source={Images.swipeArrow} style={styles.arrowIcon} resizeMode="contain" />
         </Animated.View>
 
         <Animated.Text style={[styles.swipeText, { opacity: textOpacity }]}>
@@ -121,9 +122,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',  
   },
   swipeText: {
-    color: '#fff',
+    color: Colors.lightblue,
     fontSize: 16,
-    fontWeight: 'bold',
     alignSelf: 'center',
   },
   arrowIcon: {

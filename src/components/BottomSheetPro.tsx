@@ -1,190 +1,200 @@
-import React, { useImperativeHandle, useEffect, useState, forwardRef } from 'react';
-import { View, Text, StyleSheet, Dimensions,} from 'react-native';
-import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import React, { forwardRef, useImperativeHandle } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
-  useAnimatedReaction,
-  runOnJS,
   interpolate,
+  Extrapolation ,
 } from 'react-native-reanimated';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-import { Colors } from '../theme/colors';
+import { Images } from '../assets';
+import { AppNavigatorParamList } from '../navigators/routeNames'
 
-export interface BottomSheetProRef {
+const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
+
+export interface TodaysReturnRef {
   openSheet: () => void;
   closeSheet: () => void;
 }
-
-const TRANSLATE_Y_CONFIG = {
-  initial: -hp('55.56%'),
-  min: -hp('55.56%'),
-  max: -hp('100%'),
-};
-
-const BottomSheetPro = forwardRef<BottomSheetProRef>(({ onBackPress }: any, ref) => {
-  const translateY = useSharedValue(TRANSLATE_Y_CONFIG.initial);
+interface Props {}
+const BottomSheetPro =forwardRef<TodaysReturnRef, Props>((props, ref) => {
+  const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
+  const translateY = useSharedValue(-SCREEN_HEIGHT / 1.8);
   const context = useSharedValue({ y: 0 });
-  const initialY = useSharedValue(TRANSLATE_Y_CONFIG.initial);
-  const minY = useSharedValue(TRANSLATE_Y_CONFIG.min);
-  const maxY = useSharedValue(TRANSLATE_Y_CONFIG.max);
-  const [blockingPointerEvents, setBlockingPointerEvents] = useState(false);
-
+  const minY = -SCREEN_HEIGHT / 1.8; 
+  const maxY = -SCREEN_HEIGHT; 
   const openSheet = () => {
-    translateY.value = withSpring(maxY.value, {
+    'worklet';
+    translateY.value = withSpring(maxY, {
       damping: 15,
       stiffness: 80,
       mass: 0.8,
     });
-    setBlockingPointerEvents(true);
   };
   const closeSheet = () => {
-    translateY.value = withSpring(initialY.value, {
+    'worklet';
+    translateY.value = withSpring(minY, {
       damping: 15,
       stiffness: 80,
       mass: 0.8,
     });
-    setBlockingPointerEvents(false);
   };
-  useImperativeHandle(ref, () => ({ openSheet, closeSheet }));
-
-  useAnimatedReaction(
-    () => {
-      const range = maxY.value - minY.value;
-      const progress = Math.max(0, Math.min(1, (translateY.value - minY.value) / range));
-      return progress;
-    },
-    (progress) => {
-      runOnJS(setBlockingPointerEvents)(progress > 0.85);
-    }
-  );
+  useImperativeHandle(ref, () => ({
+    openSheet,
+    closeSheet,
+  }));
 
   const gesture = Gesture.Pan()
     .onStart(() => {
       context.value = { y: translateY.value };
     })
     .onUpdate((event) => {
-      translateY.value = Math.max(
-        Math.min(event.translationY + context.value.y, minY.value),
-        maxY.value
-      );
+      translateY.value = Math.max(Math.min(event.translationY + context.value.y, minY), maxY);
     })
     .onEnd((event) => {
-      const midPoint = (minY.value + maxY.value) / 2;
-      const shouldOpenFully =
-        event.velocityY < -500 || (event.velocityY > -200 && translateY.value < midPoint);
-      if (shouldOpenFully) {
-        translateY.value = withSpring(maxY.value, {
-          damping: 15,
-          stiffness: 80,
-          mass: 0.8,
-          velocity: event.velocityY,
-        });
+      const midpoint = (minY + maxY) / 2;
+      if (event.velocityY < -500 || translateY.value < midpoint) {
+        openSheet();
       } else {
-        translateY.value = withSpring(minY.value, {
-          damping: 15,
-          stiffness: 80,
-          mass: 0.8,
-          velocity: event.velocityY,
-        });
+        closeSheet();
       }
     });
-  const headingAnimatedStyle = useAnimatedStyle(() => {
-  const range = maxY.value - minY.value;
-  const progress = Math.max(0, Math.min(1, (translateY.value - minY.value) / range));
+
+    const lineStyle = useAnimatedStyle(() => {
+  const opacity = interpolate(
+    translateY.value,
+    [minY, maxY],
+    [1, 0], 
+    Extrapolation.CLAMP
+  );
+  return { opacity };
+});
+
+const headingStyle = useAnimatedStyle(() => {
+  const progress = interpolate(
+    translateY.value,
+    [minY, maxY],
+    [0, 1],
+    Extrapolation.CLAMP
+  );
+
+  const backBtnWidth = 30; 
+  const textWidth = 160; 
+  const startX = -15;
+  const endX = (SCREEN_WIDTH / 2) - (textWidth / 1.2) - backBtnWidth / 2;
 
   return {
-    fontSize: interpolate(progress, [0, 1], [30, 19]),
+    fontSize: interpolate(progress, [0, 1], [28, 18]),
     transform: [
-      { translateY: interpolate(progress, [0, 1], [0, -5]) },
-      { translateX: interpolate(progress, [0, 1], [0, 35]) },
+      {
+        translateX: interpolate(progress, [0, 1], [startX, endX]),
+      },
     ],
   };
-});
+});  
+  const backButtonStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translateY.value,
+      [minY, maxY],
+      [0, 1],
+      Extrapolation.CLAMP
+    );
+    return { opacity };
+  });
 
   const rStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
   }));
 
-  useEffect(() => {
-    const handler = () => {
-      initialY.value = TRANSLATE_Y_CONFIG.initial;
-      minY.value = TRANSLATE_Y_CONFIG.min;
-      maxY.value = TRANSLATE_Y_CONFIG.max;
-    };
-    const sub = Dimensions.addEventListener('change', handler);
-    return () => {
-      if (sub && typeof sub.remove === 'function') sub.remove();
-    };
-  }, []);
-
   return (
     <GestureDetector gesture={gesture}>
       <Animated.View style={[styles.container, rStyle]}>
-        <View style={styles.line} />
-        <Animated.View style={styles.headerRow}>
-          <Animated.Text style={[styles.headingPro, headingAnimatedStyle]}>
-            See What the Pros are Buying
-          </Animated.Text>
-          <View style={{ width: 20 }} />
-        </Animated.View>
-        <Text style={styles.bottomParagraph}>
-          Sourced from on-chain data, 'Top Buys' reveals which coins historically profitable
-          traders are buying right now, to help you find potentially winning trades ahead of
-          the rest. Please conduct your own research before making any trades.
+      
+<Animated.View style={[styles.line, lineStyle]} />
+   <Animated.View style={styles.headerRow}>
+  <Animated.View style={[styles.backBtnContainer, backButtonStyle]}>
+    <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Image source={Images.backScreen} style={styles.backIcon} />
+    </TouchableOpacity>
+  </Animated.View>
+
+  <Animated.Text style={[styles.heading, headingStyle]}>
+    See What the Pros are Buying
+  </Animated.Text>
+
+    <View style={{ width: 20 }} />
+    </Animated.View>
+
+        <Text style={styles.description}>
+           Sourced from on-chain data, 'Top Buys' reveals which coins historically profitable
+           traders are buying right now, to help you find potentially winning trades ahead of
+           the rest. Please conduct your own research before making any trades.
         </Text>
       </Animated.View>
     </GestureDetector>
   );
 });
 
+export default BottomSheetPro;
+
 const styles = StyleSheet.create({
   container: {
-    height: hp('100%'),
-    width: wp('100%'),
-    backgroundColor: Colors.background,
+    height: SCREEN_HEIGHT,
+    width: SCREEN_WIDTH,
+    backgroundColor: '#01032C',
+    borderColor: '#10178A',
+    borderTopWidth: 1.5,
+    borderLeftWidth:0.5,
+    borderRightWidth:0.5,
     position: 'absolute',
-    top: hp('100%'),
+    top: SCREEN_HEIGHT,
     borderRadius: 15,
-    borderTopWidth: 1,
-    borderRightWidth: 0.5,
-    borderLeftWidth: 0.5,
-    borderColor: Colors.background4
   },
   line: {
-    position: 'absolute',
     width: 55,
     height: 4,
-    backgroundColor: Colors.background4,
+    backgroundColor: '#030A74',
     alignSelf: 'center',
-    borderRadius: 4,
-    marginTop: 10,
+    marginVertical: 10,
+    borderRadius: 2,
   },
-  headerRow: {
-    flexDirection: 'row',
-    marginRight: 20,    
+  heading: {
+    color: '#ffffff',
+    fontFamily: 'PlayfairDisplay-Bold',
+    fontSize:30,
+    marginTop: 20,
+  },
+  description: {
+    color: '#ADD2FD',
+    marginHorizontal: 20,
+    marginTop: 25,
+    fontSize: 20,
+  },
+  backBtnContainer: {
+     width: 20,
   },
   backIcon: {
-    width: 15,
-    height: 15,
-    marginRight: 25,
-    marginLeft: 25,
-    marginTop: 30,
+    width: 30,
+    height: 30,
     tintColor: 'white',
+    marginTop: 22,
   },
-  headingPro: {
-    color: Colors.white,
-    marginTop: 28,
-    marginLeft: 15
-  },
-  bottomParagraph: {
-    color: Colors.lightblue,
-    marginHorizontal: 15,
-    marginTop: 25,
-    fontSize: 19,
-  },
+  headerRow: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  marginHorizontal: 15,
+  marginTop: -20, 
+},
 });
-
-export default BottomSheetPro;

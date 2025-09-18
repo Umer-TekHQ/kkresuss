@@ -167,24 +167,24 @@ const styles = StyleSheet.create({
   headingPro: {
     color: Colors.white,
     fontSize: 30,
-    fontWeight: '600',
     marginVertical: 8,
     marginBottom: 12,
-    marginLeft: 15
+    marginLeft: 15,
+    fontFamily: 'PlayfairDisplay-Bold'
   },
   topParagraph: {
     color: Colors.white,
     marginLeft: 15,
-    marginRight: 100,
+    marginRight: 40,
     marginTop: 15,
     fontWeight: 'bold',
     letterSpacing: 0.25,
-    fontSize: 17,
+    fontSize: 16,
   },
   bottomParagraph: {
     color: Colors.white,
     marginHorizontal: 15,
-    fontSize: 20.5,
+    fontSize: 16,
     marginTop: 15,
     letterSpacing: 1,
   },

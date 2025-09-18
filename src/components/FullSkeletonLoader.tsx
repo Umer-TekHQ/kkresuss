@@ -1,220 +1,328 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import { Colors } from '../theme/colors';
-
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const FullSkeletonLoader = () => {
   return (
     <View style={styles.container}>
-    <SkeletonPlaceholder backgroundColor="#0D0D33" highlightColor="#1A1A66">
-    <View style={styles.fullHeight}>
-
-
-        <View style={styles.summaryCard}>
-        <View style={styles.cardContainer}>
-          <View style={styles.cardLineShort} />
-          <View style={styles.cardLineMedium} />
-          <View style={styles.cardLineShort} />
-          <View style={styles.cardLineSmall} />
-        </View>
-
-        <View style={styles.squareRow}>
-          {[...Array(5)].map((_, index) => (
-            <View key={index} style={styles.square} />
-          ))}
-        </View>
-        </View>
-
-        <View style={styles.circleRow}>
-          {[...Array(4)].map((_, index) => (
-            <View key={index} style={styles.circleWrapper}>
-              <View style={styles.circle} />
-              <View style={styles.circleBar} />
+      <SkeletonPlaceholder
+        backgroundColor="#01032C"
+        highlightColor="#020B8E"
+        speed={2000}
+      >
+        <View style={styles.fullHeight}>
+          {/* Summary Card */}
+          <View style={styles.summaryCard}>
+            <View style={styles.cardContainer}>
+              <View style={styles.cardLineShort} />
+              <View style={styles.cardLineMedium} />
+              <View style={styles.rowLine}>
+                <View style={styles.cardLineSmall} />
+                <View style={styles.cardLineXsmall} />
+              </View>
             </View>
-          ))}
-        </View>
 
-        <View style={styles.longBarRow}>
-          <View style={styles.longBar} />
-          <View style={styles.dot} />
-        </View>
-
-        <View style={styles.profileCard}>
-          <View style={styles.avatar} />
-          <View>
-            <View style={styles.profileLineShort} />
-            <View style={styles.profileLineMedium} />
-            <View style={styles.profileLineMedium} />
-
+            <View style={styles.squareRow}>
+              {[...Array(4)].map((_, index) => (
+                <View key={index} style={styles.square} />
+              ))}
+              <View style={styles.rectangle} />
+            </View>
           </View>
-          <View style={styles.profileButton} />
-        </View>
 
-        <View style={styles.footerRow}>
-          <View style={styles.footerCircle} />
-          <View style={styles.footerButton} />
-          <View style={styles.footerButtonSmall} />
-        </View>
+          {/* Circle Row */}
+          <View style={styles.circleRow}>
+            {[...Array(4)].map((_, index) => (
+              <View key={index} style={styles.circleWrapper}>
+                <View style={styles.circle} />
+                <View style={styles.circleBar} />
+              </View>
+            ))}
+          </View>
 
-        <View style={styles.bottomCard}>
-          <View style={styles.bottomLine} />
-          <View style={styles.bottomLine} />
-          <View style={styles.bottomLine} />
-        </View>
+          {/* Long Bar */}
+          <View style={styles.longBarRow}>
+            <View style={styles.longBar} />
+            <View style={styles.dot} />
+          </View>
 
-      </View>
-    </SkeletonPlaceholder>
+          {/* Profile Card */}
+          <View style={styles.profileCard}>
+            <View style={styles.profileCardHeader}>
+              <View style={styles.avatar} />
+              <View style={styles.profileCardLines}>
+                <View style={styles.profileLineShort} />
+                <View style={styles.midLine}>
+                  <View style={styles.profileLineXsmall} />
+                  <View style={styles.profileLineXxsmall} />
+                </View>
+                <View style={styles.profileLineMedium} />
+              </View>
+              <View style={styles.buttonBackground}>
+                <View style={styles.profileButton} />
+              </View>
+            </View>
+
+            <View style={styles.percentLine}>
+              <View style={styles.bar} />
+              <View style={styles.bar} />
+            </View>
+
+            <View style={styles.profileBottom}>
+              <View style={styles.dot1} />
+              <View style={styles.bottomSmallLine} />
+              <View style={styles.bottomXsmallLine} />
+              <View style={styles.bottomX2smallLine} />
+              <View style={styles.bottomSmallLine} />
+              <View style={styles.dot1} />
+            </View>
+          </View>
+
+          {/* Footer */}
+          <View style={styles.footerRow}>
+            <View style={styles.footerCircle} />
+            <View style={styles.footerButton} />
+            <View style={styles.footerButtonSmall} />
+          </View>
+
+          {/* Bottom Card */}
+          <View style={styles.bottomCard}>
+            <View style={styles.bottomLine} />
+            <View style={styles.bottomLine} />
+            <View style={styles.bottomLine} />
+          </View>
+        </View>
+      </SkeletonPlaceholder>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    padding: wp('4%'),
     backgroundColor: Colors.background,
   },
   fullHeight: {
-  minHeight: Dimensions.get('window').height,
-  padding: 8,
+    minHeight: Dimensions.get('window').height,
+    padding: wp('2%'),
   },
   cardContainer: {
-    marginBottom: 20,
+    marginBottom: hp('2.5%'),
   },
-  summaryCard:{
+  summaryCard: {
     borderWidth: 1.5,
     borderColor: Colors.background1,
-    borderRadius: 18,
-    padding: 16,
-    marginBottom: 24,
+    borderRadius: wp('4%'),
+    padding: wp('4%'),
+    marginBottom: hp('3%'),
   },
   cardLineShort: {
-    width: SCREEN_WIDTH * 0.4,
-    height: 20,
-    borderRadius: 4,
-    marginBottom: 8,
+    width: wp('20%'),
+    height: hp('2.5%'),
+    marginBottom: hp('1%'),
+    borderRadius: 2,
   },
   cardLineMedium: {
-    width: SCREEN_WIDTH * 0.6,
-    height: 20,
-    borderRadius: 4,
-    marginBottom: 8,
+    width: wp('50%'),
+    height: hp('3.5%'),
+    marginBottom: hp('1%'),
+    borderRadius: 2,
   },
   cardLineSmall: {
-    width: SCREEN_WIDTH * 0.3,
-    height: 20,
-    borderRadius: 4,
+    width: wp('30%'),
+    height: hp('2.5%'),
+    borderRadius: 2,
+  },
+  cardLineXsmall: {
+    width: wp('22%'),
+    height: hp('2.5%'),
+    marginLeft: wp('1%'),
+    borderRadius: 2,
+  },
+  rowLine: {
+    flexDirection: 'row',
   },
   squareRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 24,
+    marginTop: hp('2%'),
+    marginBottom: hp('1%'),
   },
   square: {
-    width: 50,
-    height: 50,
-    borderRadius: 8,
+    width: wp('10%'),
+    height: wp('10%'),
+    borderRadius: 2,
+  },
+  rectangle: {
+    width: wp('15%'),
+    height: wp('10%'),
+    borderRadius: 2,
   },
   circleRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 24,
+    marginBottom: hp('3%'),
   },
   circleWrapper: {
     alignItems: 'center',
+    marginHorizontal: wp('2%'),
   },
   circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: wp('12%'),
+    height: wp('12%'),
+    borderRadius: wp('6%'),
   },
   circleBar: {
-    width: 30,
-    height: 8,
-    borderRadius: 4,
-    marginTop: 6,
+    width: wp('8%'),
+    height: hp('1.5%'),
+    borderRadius: 2,
+    marginTop: hp('1%'),
   },
   longBarRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 24,
+    marginBottom: hp('3%'),
   },
   longBar: {
     flex: 1,
-    height: 14,
-    borderRadius: 7,
+    height: hp('1.8%'),
+    borderRadius: 2,
   },
   dot: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    marginLeft: 10,
+    width: wp('4%'),
+    height: wp('4%'),
+    borderRadius: wp('2%'),
+    marginLeft: wp('20%'),
+  },
+  dot1: {
+    width: wp('7%'),
+    height: wp('7%'),
+    borderRadius: wp('3.5%'),
+    marginLeft: wp('1%'),
   },
   profileCard: {
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 16,
-    marginBottom: 24,
+    padding: wp('4%'),
+    marginBottom: hp('3%'),
     borderWidth: 1.5,
     borderColor: Colors.background1,
-    borderRadius: 18,
+    borderRadius: wp('4%'),
+  },
+  profileCardHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 12,
+    width: wp('18%'),
+    height: wp('18%'),
+    borderRadius: wp('9%'),
+    marginRight: wp('3%'),
+  },
+  profileCardLines: {
+    marginLeft: wp('2%'),
   },
   profileLineShort: {
-    width: 80,
-    height: 10,
-    borderRadius: 4,
-    marginBottom: 6,
+    width: wp('20%'),
+    height: hp('2%'),
+    borderRadius: 2,
+    marginBottom: hp('1%'),
+  },
+  midLine: {
+    flexDirection: 'row',
+    marginBottom: hp('1%'),
+  },
+  profileLineXsmall: {
+    width: wp('15%'),
+    height: hp('1.8%'),
+    borderRadius: 2,
+  },
+  profileLineXxsmall: {
+    width: wp('10%'),
+    height: hp('1.8%'),
+    borderRadius: 2,
+    marginLeft: wp('1%'),
   },
   profileLineMedium: {
-    width: 120,
-    height: 10,
-    borderRadius: 4,
+    width: wp('30%'),
+    height: hp('1.5%'),
+    borderRadius: 2,
+  },
+  buttonBackground: {
+    padding: wp('4%'),
+    borderWidth: 1,
+    borderColor: '#086DE1',
+    borderRadius: wp('8%'),
+    marginLeft: wp('8%'),
   },
   profileButton: {
-    width: 60,
-    height: 28,
-    borderRadius: 14,
+    width: wp('12%'),
+    height: hp('1.2%'),
+    borderRadius: 4,
     backgroundColor: Colors.background1,
+  },
+  percentLine: {
+    flexDirection: 'row',
+    marginTop: hp('1.5%'),
+  },
+  bar: {
+    height: hp('0.7%'),
+    marginRight: wp('1%'),
+    backgroundColor: '#086DE1',
+    flex: 1,
+  },
+  profileBottom: {
+    flexDirection: 'row',
+    marginTop: hp('1.5%'),
+    alignItems: 'center',
+  },
+  bottomSmallLine: {
+    height: hp('2%'),
+    width: wp('12%'),
+    marginLeft: wp('1%'),
+  },
+  bottomXsmallLine: {
+    height: hp('2%'),
+    width: wp('15%'),
+    marginLeft: wp('1%'),
+  },
+  bottomX2smallLine: {
+    height: hp('2%'),
+    width: wp('15%'),
+    marginLeft: wp('12%'),
   },
   footerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 24,
+    marginBottom: hp('3%'),
     alignItems: 'center',
   },
   footerCircle: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
+    width: wp('4%'),
+    height: wp('4%'),
+    borderRadius: wp('2%'),
   },
   footerButton: {
-    width: 70,
-    height: 20,
-    borderRadius: 10,
+    width: wp('18%'),
+    height: hp('2.5%'),
+    borderRadius: wp('5%'),
   },
   footerButtonSmall: {
-    width: 40,
-    height: 20,
-    borderRadius: 10,
+    width: wp('12%'),
+    height: hp('2.5%'),
+    borderRadius: wp('5%'),
   },
   bottomCard: {
-    padding: 16,
-    borderRadius: 12,
+    padding: wp('4%'),
+    borderRadius: wp('3%'),
   },
   bottomLine: {
     width: '100%',
-    height: 12,
-    borderRadius: 6,
-    marginBottom: 10,
+    height: hp('1.5%'),
+    borderRadius: wp('2%'),
+    marginBottom: hp('1.5%'),
   },
 });
 

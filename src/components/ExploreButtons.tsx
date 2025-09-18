@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
@@ -6,7 +6,10 @@ import { Images } from '../assets/index';
 
 import { Colors } from '../theme/colors';
 
-export const ExploreButtons: React.FC<{ onPressAction: (name: string) => void }> = ({ onPressAction }) => {
+export const ExploreButtons: React.FC<{ 
+  onPressAction: (name: string) => void, 
+  activeSection?: string 
+}> = ({ onPressAction, activeSection }) => {
   const actions = [
     { name: 'Trade', icon: Images.trade },
     { name: 'Earn', icon: Images.earn },
@@ -14,21 +17,16 @@ export const ExploreButtons: React.FC<{ onPressAction: (name: string) => void }>
     { name: 'NFTs', icon: Images.nfts },
   ];
 
-  const [activeIndex, setActiveIndex] = useState(0);
-
   return (
     <View>
       <View style={styles.actionButtonsContainer}>
         {actions.map((action, index) => {
-          const isActive = index === activeIndex;
+          const isActive = action.name === activeSection;
           return (
             <TouchableOpacity
               key={action.name}
               style={styles.actionButton}
-              onPress={() => {
-                setActiveIndex(index);
-                onPressAction(action.name);
-              }}
+              onPress={() => onPressAction(action.name)}
               activeOpacity={0.8}
             >
               <Image
@@ -52,11 +50,11 @@ export const ExploreButtons: React.FC<{ onPressAction: (name: string) => void }>
       </View>
 
       <View style={styles.underlineContainer}>
-        {actions.map((_, index) => {
-          const isActive = index === activeIndex;
+        {actions.map((action) => {
+          const isActive = action.name === activeSection;
           return (
             <View
-              key={`underline-${index}`}
+              key={`underline-${action.name}`}
               style={[
                 styles.underlineSegment,
                 { backgroundColor: isActive ? Colors.back : Colors.background2 },
@@ -78,6 +76,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     width: wp('5.5%'),
     height: hp('6%'),
+    marginBottom: -5
   },
   actionButtonText: {
     fontSize: 14,

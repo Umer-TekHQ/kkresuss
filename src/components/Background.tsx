@@ -8,8 +8,6 @@ import BackgroundStyles from '../styles/Background.styles'
 
 import { Colors } from '../theme/colors';
 
-
-
 type Props = {
   showContent?: boolean
    children?: ReactNode

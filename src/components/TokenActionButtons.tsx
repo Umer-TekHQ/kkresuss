@@ -21,6 +21,8 @@ export const TokenActionButtons: React.FC = () => {
   const handlePress = (name: string) => {
     if (name === 'Send') {
       navigation.navigate('Currency');
+    } else if (name === 'Receive') {
+      navigation.navigate('ProfileScreen');
     }
   };
 

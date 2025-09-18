@@ -28,14 +28,15 @@ import ReceiveTokenScreen from '../screens/Trade/ReceiveSearchScreen';
 import SearchScreen from '../screens/Trade/SearchScreen';
 import TradeStatusScreen from '../screens/Trade/TradeStatusScreen';
 
+
 const MainStack = createNativeStackNavigator();
 
 export const MainNavigator = () => (
   <MainStack.Navigator
     screenOptions={{
       headerShown: false,
-      animation: 'slide_from_right', // 👈 Global animation
-      animationTypeForReplace: 'push', // keeps the same animation when replacing
+      animation: 'slide_from_right',
+      animationTypeForReplace: 'push',
     }}
   >
     <MainStack.Screen name="BottomNavigator" component={BottomNavigator} />
@@ -64,5 +65,6 @@ export const MainNavigator = () => (
     <MainStack.Screen name="AssetsScreen" component={AssetsScreen} />
     <MainStack.Screen name="TransactionStatus" component={TransactionStatus} />
     <MainStack.Screen name="TradeStatusScreen" component={TradeStatusScreen} />
+
   </MainStack.Navigator>
 );

@@ -1,12 +1,17 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 const TopAssetsCardSkeleton = () => {
   return (
     <View style={styles.card}>
-      {[...Array(6)].map((_, index) => (
-        <View key={index}>
-          <View style={styles.row}>
+      <SkeletonPlaceholder
+        backgroundColor="#030A74"
+        highlightColor="#1E2D56"
+        speed={1200}
+      >
+        {[...Array(7)].map((_, index) => (
+          <View key={index} style={styles.row}>
             <View style={styles.logo} />
             <View style={styles.assetInfo}>
               <View style={styles.assetName} />
@@ -17,16 +22,13 @@ const TopAssetsCardSkeleton = () => {
               <View style={styles.amount} />
             </View>
           </View>
-         
-        </View>
-      ))}
+        ))}
+      </SkeletonPlaceholder>
     </View>
   );
 };
 
 export default TopAssetsCardSkeleton;
-
-const skeletonColor = '#030A74';
 
 const styles = StyleSheet.create({
   card: {
@@ -46,7 +48,6 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: skeletonColor,
     marginRight: 12,
   },
   assetInfo: {
@@ -56,13 +57,13 @@ const styles = StyleSheet.create({
   assetName: {
     width: 140,
     height: 16,
-    backgroundColor: skeletonColor,
+    borderRadius: 4,
     marginBottom: 4,
   },
   assetSymbol: {
     width: 140,
     height: 14,
-    backgroundColor: skeletonColor,
+    borderRadius: 4,
   },
   priceBlock: {
     flex: 1,
@@ -71,14 +72,13 @@ const styles = StyleSheet.create({
   price: {
     width: 90,
     height: 16,
-    backgroundColor: skeletonColor,
+    borderRadius: 4,
     marginBottom: 6,
   },
   amount: {
     width: 90,
     height: 14,
-    backgroundColor: skeletonColor,
+    borderRadius: 4,
     marginBottom: 2,
   },
- 
 });

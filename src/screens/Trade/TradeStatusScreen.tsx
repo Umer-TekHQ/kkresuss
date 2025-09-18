@@ -1,41 +1,35 @@
-import Clipboard from '@react-native-clipboard/clipboard';
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import Toast from 'react-native-toast-message';
-
+import { ScrollView, StyleSheet, Text } from 'react-native';
+import { Colors } from '../../theme/colors';
+import { useAppSelector } from '../../store/hooks';
 import { tokens } from './tokens';
 import { Token } from './types';
-import { Images } from '../../assets';
-import { Colors } from '../../theme/colors';
-import { Card } from '../../components/CompletionCard'; 
-import { useAppSelector} from '../../store/hooks';
+import { Card } from '../../components/CompletionCard';
+import TradeHeader from '../../components/tradeHeader';
+import TokenSwapCard from '../../components/tokenSwapCard';
+import ReceivedBox from '../../components/receivedBox';
+import TradeCompleteBanner from '../../components/tradeCompleteBanner';
+import TransactionIdCard from '../../components/transactionIdCard';
+import BaseScanButton from '../../components/baseScanButton';
+import { Images } from '../../assets/index';
 
-
-const TradeStatusScreen = ({navigation, route}: any) => {
+const TradeStatusScreen = ({ navigation }: any) => {
   const tradeState = useAppSelector(state => state.trade);
-  
+
   const [tradeData, setTradeData] = useState({
     token1: null as Token | null,
     token2: null as Token | null,
     amount1: '',
-    amount2: ''
+    amount2: '',
   });
-  
+
   useEffect(() => {
     if (tradeState.token1 || tradeState.token2) {
       setTradeData({
         token1: tradeState.token1,
         token2: tradeState.token2,
         amount1: tradeState.amount1,
-        amount2: tradeState.amount2
+        amount2: tradeState.amount2,
       });
     }
   }, []);
@@ -49,12 +43,12 @@ const TradeStatusScreen = ({navigation, route}: any) => {
     amount: '6,806.5292',
     price: '$396.14',
   };
-  
+
   const defaultToken2 = {
     id: '8',
     name: 'Snort',
     abbreviation: 'SNORT',
-    logo: Images.token8 || require('../../assets/images/token8.png'),
+    logo: Images.token8,
     amount: '865.58817085',
     price: '$396.14',
   };
@@ -65,106 +59,34 @@ const TradeStatusScreen = ({navigation, route}: any) => {
   const displayAmount2 = tradeData.amount2 || tradeState.amount2 || '865.58817085';
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View style={styles.headline}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Image
-                source={Images.cancel}
-                style={{marginTop: 20, marginLeft: 10, width: 30, height: 30, }}
-              />
-              </TouchableOpacity>
-        <Text style={styles.header}>Trade Status</Text>      
-      </View>
-
-      <View style={styles.swapCard}>
-        <View style={styles.assetContainer}>
-          <Image 
-            source={displayToken1.logo} 
-            style={styles.tokenImage} 
-          />
-          <Text style={styles.assetLabel}>{displayToken1.abbreviation}</Text>
-        </View>
-        <View style={styles.arrowWrapper}>
-          <View style={styles.divider} />
-            <Image source={Images.backYellow} style={styles.arrowIcon} />
-          <View style={styles.divider} />
-        </View>
-        <View style={styles.assetContainer}>
-          <Image 
-            source={displayToken2.logo} 
-            style={styles.tokenImage} 
-          />
-          <Text style={styles.assetLabel}>{displayToken2.abbreviation}</Text>
-        </View>
-
-      <View style={styles.receivedBox}>
-        <View style={styles.right}>
-        <Text style={styles.receivedTitle}>Received</Text>
-        <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
-        <Text style={styles.receivedToken}>{displayToken2.abbreviation}</Text>
-        <Text style={styles.receivedAmount}>{displayAmount2} {displayToken2.abbreviation}</Text>
-        </View>
-         </View>
-         <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
-          <Text style={styles.receivedDate}>Thu, Apr 11, 2024</Text>
-          <Text style={styles.receivedUSD}>$396.14</Text>
-        </View>
-      </View>
-
-      <View style={styles.tradeCompleteBtn}>
-        <Text style={styles.tradeCompleteText}>✓ Trade Complete</Text>
-      </View>
-    </View>
-      <Card 
-        label="Traded" 
-        value={`${displayAmount1} ${displayToken1.abbreviation}`} 
-        usd="$396.14 USD" 
+    <ScrollView style={styles.container}>
+      <TradeHeader navigation={navigation} />
+      <TokenSwapCard token1={displayToken1} token2={displayToken2} />
+      <ReceivedBox token={displayToken2} amount={displayAmount2} />
+      <TradeCompleteBanner />
+      <Card
+        label="Traded"
+        value={`${displayAmount1} ${displayToken1.abbreviation}`}
+        usd="$396.14 USD"
       />
-      <Card 
-        label="Provider Fees" 
-        value={`${displayAmount2} ${displayToken2.abbreviation}`}  
-        usd="$0.01 USD" 
+      <Card
+        label="Provider Fees"
+        value={`${displayAmount2} ${displayToken2.abbreviation}`}
+        usd="$0.01 USD"
       />
-      <Card 
+      <Card
         label={
-        <View>
-          <Text style={{color: '#ADD2FD', fontSize: 15  }}>Network Fees</Text>
-          <Text style={{color: '#ADD2FD', fontSize: 15}}> (Waived )</Text>
-        </View>}
-        value={`${displayAmount2} ${displayToken2.abbreviation}`}  
-        usd="$0.01 USD" strike />
-      <Card 
-        label="Transaction ID" 
-        value={
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={{ color: '#ADD2FD' }}>a32c...6dg4</Text>
-
-            <TouchableOpacity
-              onPress={() => {
-                Clipboard.setString('a32c...6dg4'); 
-                Toast.show({
-                  type: 'success',
-                  text1: 'Copied',
-                  text2: 'Transaction ID copied!',
-                  position: 'bottom',
-                  visibilityTime: 1500,
-                  autoHide: true,
-                });
-              }}
-            >
-              <Image
-                source={Images.copy}
-                style={{ width: 18, height: 18, marginLeft: 8, tintColor: '#ADD2FD' }}
-              />
-            </TouchableOpacity>
-          </View>
+          <>
+            <Text style={{ color: Colors.lightblue, fontSize: 15 }}>Network Fees</Text>
+            <Text style={{ color: Colors.lightblue, fontSize: 15 }}> (Waived)</Text>
+          </>
         }
+        value={`${displayAmount2} ${displayToken2.abbreviation}`}
+        usd="$0.01 USD"
+        strike
       />
-    <View style={{alignItems: 'center'}}>
-      <TouchableOpacity style={styles.bottomButton}>
-        <Text style={styles.bottomBtn}>View Details on BaseScan</Text>
-      </TouchableOpacity>
-    </View>
+      <TransactionIdCard />
+      <BaseScanButton />
     </ScrollView>
   );
 };
@@ -174,184 +96,6 @@ export default TradeStatusScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#10121D',
+    backgroundColor: Colors.background5,
   },
-  headline:{
-    flexDirection: 'row',
-    marginBottom: hp('1%')
-  },
-  contentContainer: {
-  },
-  header: {
-    fontSize: 19,
-    color: Colors.white,
-    marginTop: 20,
-    marginLeft: wp('22%')
-  },
-  swapCard: {
-    backgroundColor: Colors.kresusBlue,
-    borderRadius: 30,
-    borderWidth: 1,
-    borderColor: Colors.background4,
-    paddingTop: 20,
-    alignItems: 'center',
-    marginHorizontal: 7,
-  },
-  assetContainer: {
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  tokenImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 55,
-    borderWidth: 5,
-    borderColor: Colors.background4,
-    marginBottom: 8,
-    paddingVertical: 20,
-    resizeMode: 'contain'
-  },
-  assetLabel: {
-    fontSize: 16,
-    color: Colors.white,
-  },
-  arrow: {
-    tintColor: '#F2C94C',
-    width: 15,
-    height: 20,
-    marginVertical: 15,
-  },
-  receivedBox: {
-    backgroundColor: Colors.background4,
-    padding: 16,
-    width: wp('96%'),
-    marginTop: 20,
-    justifyContent: 'space-between',
-  },
-  right:{
-      },
-  receivedTitle: {
-    color: Colors.gold,
-    fontSize: 15,
-    lineHeight: 19,
-  },
-  receivedToken:{
-    color: Colors.white,
-    fontSize: 19,
-  },
-  receivedAmount: {
-    color: Colors.white,
-    fontSize: 19,
-
-  },
-  receivedDate: {
-    color: Colors.lightblue,
-    fontSize: 15,
-  },
-  receivedUSD: {
-    color: Colors.lightblue,
-    fontSize: 15,
-    
-  },
-  tradeCompleteBtn: {
-    backgroundColor: Colors.gold,
-    paddingVertical: 10,
-    width: wp('96%'),
-    borderBottomRightRadius: 25,
-    borderBottomLeftRadius: 25,
-    alignItems: 'center',
-    marginHorizontal: 7
-  },
-  tradeCompleteText: {
-    fontWeight: '700',
-    fontSize:18,
-    color: '#0A0F3B',
-    fontFamily: 'Nunito Sans',
-  },
-  bottomButton:{
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: wp('85%'),
-    height: hp('7%'),
-    marginTop: 15,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: Colors.blue,
-    borderRadius: 30,
-  },
-  bottomBtn:{
-    color: Colors.white,
-    fontSize: 15,
-  },arrowWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 5,
-    width: '100%',
-    justifyContent: 'center',
-    gap: 8,
-  },
-  divider: {
-    height: 1,
-    backgroundColor: Colors.background1,
-    flex: 1,
-  },
-tokenSection: {
-  height: 83,
-  width: '100%',
-  backgroundColor: Colors.background4,
-  paddingHorizontal: 16,
-  paddingVertical: 12,
-  justifyContent: 'center',
-},
-tokenLabel: {
-  color: Colors.gold,
-  fontSize: 15,
-  marginBottom: 4,
-},
-tokenRow: {
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-},
-tokenName: {
-  color: Colors.white,
-  fontSize: 19,
- 
-},
-tokenValue: {
-  color: Colors.white,
-  fontSize: 19,
- 
-},
-tokenDate: {
-  color: Colors.lightblue,
-  fontSize: 15,
-},
-tokenUsd: {
-  color: Colors.lightblue,
-  fontSize: 15,
-},
-
-  statusBar: {
-    width: '100%',
-    height:'auto',
-    backgroundColor: Colors.gold,
-    paddingVertical: 10,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    position: 'absolute',
-    bottom: 0,
-  },
-  statusText: {
-    fontSize:15,
-    textAlign: 'center',
-    color: '#01032C',
-    fontWeight: 'bold',
-  },
-  arrowIcon: {
-  width: 24,
-  height: 24,
-  resizeMode: 'contain',
-  tintColor: Colors.gold, 
-},
 });

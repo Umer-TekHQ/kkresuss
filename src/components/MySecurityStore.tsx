@@ -9,7 +9,7 @@ const MySecurityScore = ({ score }: { score: number }) => {
     <View style={styles.container}>
       
    <View style={styles.iconWrapper}>
-        <Image source={Images.secureIcon} style={styles.icon} />
+        <Image source={Images.headImage} style={styles.icon} />
         <View style={styles.titleRow}>
         <Text style={styles.title}>My Security Score</Text>
         <Text style={styles.scoreText}>{score}/5</Text>
@@ -43,7 +43,6 @@ const MySecurityScore = ({ score }: { score: number }) => {
 export default MySecurityScore
 const styles = StyleSheet.create({
   container: {
-    
     alignItems: 'flex-start', 
     paddingVertical: 25,      
     paddingHorizontal: 15,
@@ -59,10 +58,10 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   icon: {
-    width: 24,
-    height: 28,
+    width: 20,
+    height: 24,
     resizeMode:"contain",
-    top:-12,
+    top:-10,
     marginRight:8,
   },
   middleSection: {

@@ -1,33 +1,27 @@
-import BottomSheet, { BottomSheetView, BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 import React, { useRef, useMemo, useCallback, useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet,} from 'react-native';
-import Animated, { 
-  useSharedValue, 
-  useAnimatedStyle, 
-  withTiming, 
-  Easing,
-  interpolate,
-  Extrapolate 
-} from 'react-native-reanimated';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import BottomSheet, { BottomSheetView, BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
+import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing, interpolate, Extrapolate } from 'react-native-reanimated';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
 import { Images } from '../assets';
-
 import { Colors } from '../theme/colors';
 
+interface BottomSheetProfileProps {
+  navigation: any;
+}
 
 export interface BottomSheetProfileRef {
   openSheet: () => void;
   closeSheet: () => void;
+  navigation: any;
 }
 
-
-const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation: any }>(
+const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, BottomSheetProfileProps>(
   ({ navigation }, ref) => {
     const bottomSheetRef = useRef<BottomSheet>(null);
     const [isOpen, setIsOpen] = useState(false);
 
-    const snapPoints = useMemo(() => [hp('8%'), hp('50%')], []);
+    const snapPoints = useMemo(() => [hp('8%'), hp('45%')], []);
 
     const openSheet = useCallback(() => {
       bottomSheetRef.current?.snapToIndex(1);
@@ -40,14 +34,23 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
     React.useImperativeHandle(ref, () => ({
       openSheet,
       closeSheet,
+      navigation,
     }));
 
     const rotation = useSharedValue(0);
-    const sheetPosition = useSharedValue(0); 
+    const sheetPosition = useSharedValue(0);
 
-    const arrowAnimatedStyle = useAnimatedStyle(() => ({
-      transform: [{ rotate: `${rotation.value}deg` }],
-    }));
+    const arrowAnimatedStyle = useAnimatedStyle(() => {
+      const rotate = interpolate(
+        sheetPosition.value,
+        [0, 1],
+        [0, 180],
+        Extrapolate.CLAMP
+      );
+      return {
+        transform: [{ rotate: `${rotate}deg` }],
+      };
+    });
 
     const logoAnimatedStyle = useAnimatedStyle(() => {
       const opacity = interpolate(
@@ -56,7 +59,6 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
         [1, 0],
         Extrapolate.CLAMP
       );
-      
       return {
         opacity: withTiming(opacity, { duration: 150 }),
       };
@@ -66,27 +68,22 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
       const translateX = interpolate(
         sheetPosition.value,
         [0, 1],
-        [0, -50], 
+        [0, -50],
         Extrapolate.CLAMP
       );
-      
       return {
         transform: [{ translateX: withTiming(translateX, { duration: 150 }) }],
       };
     });
 
-    const handleSheetChange = useCallback(
-      (index: number) => {
-        rotation.value = withTiming(index === 1 ? 180 : 0, {
-          duration: 150,
-          easing: Easing.out(Easing.ease),
-        });
-        
-        sheetPosition.value = index;
-        setIsOpen(index === 1);
-      },
-      [rotation, sheetPosition]
-    );
+    const handleSheetChange = useCallback((index: number) => {
+      rotation.value = withTiming(index === 1 ? 180 : 0, {
+        duration: 150,
+        easing: Easing.out(Easing.ease),
+      });
+      sheetPosition.value = index;
+      setIsOpen(index === 1);
+    }, []);
 
     const toggleSheet = useCallback(() => {
       if (isOpen) {
@@ -96,18 +93,15 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
       }
     }, [isOpen]);
 
-    const renderBackdrop = useCallback(
-      (props: BottomSheetBackdropProps) => (
-        <BottomSheetBackdrop
-          {...props}
-          appearsOnIndex={1}
-          disappearsOnIndex={0}
-          pressBehavior="collapse"
-          opacity={0.5}
-        />
-      ),
-      []
-    );
+    const renderBackdrop = useCallback((props: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop
+        {...props}
+        appearsOnIndex={1}
+        disappearsOnIndex={0}
+        pressBehavior="collapse"
+        opacity={0.5}
+      />
+    ), []);
 
     return (
       <BottomSheet
@@ -126,7 +120,7 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
               <Animated.View style={logoAnimatedStyle}>
                 <Image source={Images.profileHeadLogo} style={styles.headImage} />
               </Animated.View>
-              
+
               <Animated.Text style={[styles.headingP, textAnimatedStyle]}>
                 Supported Networks
               </Animated.Text>
@@ -134,7 +128,7 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
               <View style={{ width: 28, height: 25, justifyContent: 'center', alignItems: 'center' }}>
                 <Animated.Image
                   source={Images.up}
-                  style={[{ width: 28, height: 25, tintColor: '#4898F3' }, arrowAnimatedStyle]}
+                  style={[{ width: 28, height: 25, marginTop: 7, tintColor: '#4898F3' }, arrowAnimatedStyle]}
                 />
               </View>
             </View>
@@ -158,7 +152,7 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
             </View>
 
             <Text style={styles.bottomText}>
-              Do not send assets over Ethereum mainnets or they will be lost.
+              Do not send assets over Ethereum Mainnet or they will be lost.
             </Text>
 
             <TouchableOpacity
@@ -178,109 +172,103 @@ const BottomSheetProfile = React.forwardRef<BottomSheetProfileRef, { navigation:
 );
 
 const styles = StyleSheet.create({
-  background: {
-    backgroundColor: Colors.background,
+  background: { 
+    backgroundColor: Colors.background 
   },
-  contentContainer: {
-    flex: 1,
-    paddingTop: hp('1%'),
+  contentContainer: { 
+    flex: 1, 
+    paddingTop: hp('1%') 
   },
-  expandableContent: {
-    flex: 1,
-    paddingBottom: hp('2%'),
+  expandableContent: { 
+    flex: 1, 
+    paddingBottom: hp('2%') 
   },
-  headProfileRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: wp('4%'),
-    marginBottom: 7,
+  headProfileRow: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'space-between', 
+    paddingHorizontal: wp('4%'), 
+    marginBottom: 7 
   },
-  headImage: {
-    padding: wp('3%'),
-    marginTop: 5,
-    width: wp('9%'),
-    height: hp('5%'),
-    resizeMode: 'contain',
+  headImage: { 
+    padding: wp('3%'), 
+    marginTop: 5, 
+    width: wp('9%'), 
+    height: hp('5%'), 
+    resizeMode: 'contain' 
   },
-  headingP: {
-    color: Colors.white,
-    fontSize: 15,
-    fontWeight: '600',
-    marginTop: 6,
-    flex: 1,
-    marginLeft: wp('5%'),
+  headingP: { 
+    color: Colors.white, 
+    fontSize: 15, 
+    fontWeight: '600', 
+    marginTop: 6, 
+    flex: 1, 
+    marginLeft: wp('5%') 
   },
-  upImgP: {
-    marginTop: 5,
-    width: 28,
-    height: 25,
-    tintColor: Colors.blue,
+  l1: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    marginTop: 10, 
+    paddingHorizontal: wp('4%'), 
+    borderTopWidth: 0.3, 
+    borderColor: Colors.background1, 
+    paddingVertical: 20, 
+    borderTopRightRadius: 20 
   },
-  l1: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 10,
-    paddingHorizontal: wp('4%'),
-    borderTopWidth: 0.5,
-    borderColor: Colors.background1,
-    paddingVertical: 20,
-    borderTopRightRadius: 20,
+  l12: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    marginTop: 10, 
+    paddingHorizontal: wp('4%'), 
+    borderTopWidth: 0.3, 
+    borderColor: Colors.background1, 
+    borderTopRightRadius: 20, 
+    paddingVertical: 20 
   },
-  l12: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 10,
-    paddingHorizontal: wp('4%'),
-    borderTopWidth: 0.5,
-    borderColor: Colors.background1,
-    borderTopRightRadius: 20,
-    paddingVertical: 20,
+  rowLeft: { 
+    flexDirection: 'row', 
+    alignItems: 'center' 
   },
-  rowLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  l1text: { 
+    color: Colors.white, 
+    fontSize: 18, 
+    marginLeft: 10 
   },
-  l1text: {
-    color: Colors.white,
-    fontSize: 18,
-    marginLeft: 10,
+  l1textS: { 
+    color: Colors.white, 
+    fontSize: 18, 
+    marginLeft: 10 
   },
-  l1textS: {
-    color: Colors.white,
-    fontSize: 18,
-    marginLeft: 10,
+  trailingText: { 
+    color: Colors.lightblue, 
+    marginTop: 2, 
+    fontSize: 15, 
+    textAlign: 'right' 
   },
-  trailingText: {
-    color: Colors.lightblue,
-    marginTop: 2,
-    fontSize: 15,
-    textAlign: 'right',
+  solanaLogo: { 
+    width: 25, 
+    height: 25 
   },
-  solanaLogo: {
-    width: 25,
-    height: 25,
+  baseLogo: { 
+    width: 25, 
+    height: 25 
   },
-  baseLogo: {
-    width: 25,
-    height: 25,
+  bottomText: { 
+    color: Colors.lightblue, 
+    marginHorizontal: wp('5%'), 
+    marginTop: 15 
   },
-  bottomText: {
-    color: Colors.lightblue,
-    marginHorizontal: wp('5%'),
-    marginTop: 15,
-  },
-  LBtn: {
-    backgroundColor: Colors.background,
-    paddingVertical: 10,
-    alignItems: 'center',
-    marginHorizontal: wp('5%'),
-    borderRadius: 20,
-    borderColor: Colors.blue,
-    borderWidth: 1,
-    marginTop: 15,
+  LBtn: { 
+    backgroundColor: Colors.background, 
+    paddingVertical: 10, 
+    alignItems: 'center', 
+    marginHorizontal: wp('5%'), 
+    borderRadius: 20, 
+    borderColor: Colors.blue, 
+    borderWidth: 1, 
+    marginTop: 15 
   },
 });
 

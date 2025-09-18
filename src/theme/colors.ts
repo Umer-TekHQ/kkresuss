@@ -12,7 +12,9 @@ export const Colors = {
   background2: '#080C4C',
   background3: '#0E1799',
   background4: "#030A74",
-  fieldBackground: '#0B1171',
+  background5: "#10121D",
+  fieldBackground: '#0B1170',
+  fieldBackground1: '#080C51',
   fieldBorder: '#0734A9',
   gold: '#CEB55A',
   title: "#D4EBFF",
@@ -28,5 +30,8 @@ export const Colors = {
   deepNavy: '#1a1a2e',
   darkIndigo: '#101038',
   rgbaGreen20: 'rgba(76, 175, 80, 0.2)',
-  rgbaRed20: 'rgba(244, 67, 54, 0.2)'
+  rgbaRed20: 'rgba(244, 67, 54, 0.2)',
+  downArrow: '#4898F3',
+  linear1: '#0D1586',  
+  linear2: '#0E1699'
 };

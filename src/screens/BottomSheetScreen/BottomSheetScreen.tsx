@@ -14,15 +14,11 @@ export const BottomSheetScreen = ({ navigation }: any) => {
         <Image source={Images.trade1} style={styles.image} />
         <View style={{zIndex: 9999}}>
         <TouchableOpacity onPress={() => navigation.goBack()} >
-          <View style={styles.backBorder}>
-            <Image source={Images.whiteCross} style={styles.cross} />
-          </View>
+            <Image source={Images.cancel} style={styles.cross} />
         </TouchableOpacity>
         </View>
         </View>
-
       <BottomSheetExplore/>
-
       <View style={styles.bottomOverlay}>
         <TouchableOpacity
           style={styles.bottomButton}
@@ -52,6 +48,8 @@ const styles = StyleSheet.create({
     tintColor: "white",
     width: wp('9'),
     height: hp('5%'),
+    marginLeft: 5,
+    marginTop: 15,
     },
   backBorder: {
     marginLeft: 15,
@@ -65,8 +63,6 @@ const styles = StyleSheet.create({
 
   },
   bottomOverlay: {
-    borderTopWidth: 0.5,
-    borderColor: 'blue',
     position: "absolute",
     alignItems: 'center',
     justifyContent: 'center',

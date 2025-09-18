@@ -19,6 +19,7 @@ import TransactionCard from '../../components/TransactionCard';
 import nftImages from '../../mock/NftImages';
 import {transactionData} from '../../mock/nftRecentData'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
+import { Colors } from '../../theme/colors';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -49,7 +50,7 @@ const [showSheet, setShowSheet] = useState(false);
           <Text style={styles.sectionTitle}>Popular</Text>
             <TouchableOpacity onPress={() => setShowSheet(true)}>
             <View style={styles.popularIcons}>
-            <Image source={Images.bothSolanaBase} style={styles.popularIcon} />
+            <Image source={Images.profileHeadLogo} style={styles.popularIcon} />
             <Image source={Images.down} style={[styles.popularIcon, { marginLeft: 4 }]} />
             </View>
             </TouchableOpacity>
@@ -95,6 +96,7 @@ const ITEM_WIDTH = (screenWidth - ITEM_MARGIN * (NUM_COLUMNS + 1)) / NUM_COLUMNS
       <View style={styles.nftGrid}>
        <FlatList
         data={nftImages}
+        showsVerticalScrollIndicator={false}
         renderItem={({ item }) =>(
            <NFTCard image={item.image} style={{ width: ITEM_WIDTH }}
            />
@@ -217,7 +219,7 @@ export default AssetsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: Colors.backgroundAlt,
     paddingHorizontal: 5,
    
   },

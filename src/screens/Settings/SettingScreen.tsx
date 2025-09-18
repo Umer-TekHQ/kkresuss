@@ -8,6 +8,7 @@ import AppButton from '../../components/AppButton'
 import Background from '../../components/Background'
 import SettingBottomSheet from '../../components/SettingBottomSheet'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
+import { Colors } from '../../theme/colors'
 
 const { width, height } = Dimensions.get('window')
 
@@ -15,17 +16,17 @@ const { width, height } = Dimensions.get('window')
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
   const [isSheetOpen, setIsSheetOpen] = useState(true)
   return (
-    <View style={{ flex: 1 , backgroundColor:'#0B0B49'}}>
+    <View style={styles.container}>
       <Background showContent hideBottomImages={false} showLogo={false}
        containerHeight={height * 0.50}
       >
       
        <TouchableOpacity
-                 style={styles.leftIcon}
-                 activeOpacity={0.7}
-                 onPress={() => navigation.goBack()}
-               >
-                 <Image source={Images.backScreen} style={{ width: 30, height: 30 }} />
+          style={styles.leftIcon}
+          activeOpacity={0.7}
+          onPress={() => navigation.goBack()}
+          >
+        <Image source={Images.backButton} style={styles.back} />
       </TouchableOpacity>
         <Image source={Images.vaultIcon} style={styles.logo} />
         <View style={styles.contentWrapper}>
@@ -34,13 +35,13 @@ const { width, height } = Dimensions.get('window')
             Subscribe now and receive $10K of{'\n'}asset insurance coverage.
           </Text>
         </View>
-        <View style={styles.buttonWrapper}>
+        <View  style={styles.subscribeButton}>
           <AppButton
             label="Subscribe — $9.99/mo."
             onPress={() => {}}
             width="68%"
           />
-        </View>
+        </View>  
       </Background> 
       <SettingBottomSheet onClose={() => setIsSheetOpen(false)} />
     </View>
@@ -49,6 +50,14 @@ const { width, height } = Dimensions.get('window')
 export default SettingScreen
 
 const styles = StyleSheet.create({
+  container:{
+    flex: 1 , 
+    backgroundColor:Colors.background
+  },
+  back:{
+    width: 35, 
+    height: 35,
+  },
  leftIcon: {
     position: 'absolute',
     top: 70,
@@ -64,10 +73,10 @@ const styles = StyleSheet.create({
   },
   logo: {
     position: 'absolute',
-    top: 74,
+    top: 78,
     alignSelf: 'center',
     width: width * 0.20,
-    height: height * 0.05,
+    height: height * 0.06,
     resizeMode:'contain'
   },
   contentWrapper: {
@@ -75,38 +84,29 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    top: height * 0.20 ,
-    gap: 12,
+    top: height * 0.18 ,
+    gap: 20,
   },
   heading: {
-    fontSize: 30,
-    fontWeight: '600', 
-    color: '#FFFFFF',
+    fontSize: 28,
+    color: Colors.white,
     textAlign: 'center',
-    lineHeight: 38,
+    lineHeight: 36,
     fontFamily: 'PlayfairDisplay-Bold'
   },
   subText: {
-    fontSize: 19,
-    color: '#ADD2FD',
+    fontSize: 16,
+    color: Colors.lightblue,
     fontWeight: '400',
     textAlign: 'center',
     lineHeight: 24,
   },
-  buttonWrapper: {
-    position: 'absolute',
-    bottom: height * 0.01 - 30,
-    width: '100%',
-    alignItems: 'center',
-  },
-  sheetContainer: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    height: height * 0.5,
-    backgroundColor: '#fff',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    padding: 20,
-  },
+sheetContainer: {
+  flex: 1,
+  width: '100%',
+  padding: 20,
+},
+  subscribeButton:{
+    bottom: -150
+  }
 })

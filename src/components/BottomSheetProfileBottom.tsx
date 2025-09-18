@@ -1,197 +1,215 @@
-import React, { useImperativeHandle, useEffect, useState, forwardRef } from 'react';
-import { View, Text, StyleSheet, Dimensions} from 'react-native';
-import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import React, { forwardRef, useImperativeHandle } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
-  useAnimatedReaction,
-  runOnJS,
   interpolate,
-  Extrapolate
+  Extrapolation ,
 } from 'react-native-reanimated';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
+import { Images } from '../assets';
 import { Colors } from '../theme/colors';
+import { AppNavigatorParamList } from '../navigators/routeNames'
 
-export interface BottomSheetProfileBottomRef {
+const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
+
+export interface TodaysReturnRef {
   openSheet: () => void;
   closeSheet: () => void;
 }
-
-const TRANSLATE_Y_CONFIG = {
-  initial: -hp('55.56%'),
-  min: -hp('55.56%'),
-  max: -hp('100%'),
-};
-
-const BottomSheetProfileBottom = forwardRef<BottomSheetProfileBottomRef>((props, ref) => {
-  const translateY = useSharedValue(TRANSLATE_Y_CONFIG.initial);
+interface Props {}
+const TodaysReturnComponent =forwardRef<TodaysReturnRef, Props>((props, ref) => {
+  const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
+  const translateY = useSharedValue(-SCREEN_HEIGHT / 1.8);
   const context = useSharedValue({ y: 0 });
-  const initialY = useSharedValue(TRANSLATE_Y_CONFIG.initial);
-  const minY = useSharedValue(TRANSLATE_Y_CONFIG.min);
-  const maxY = useSharedValue(TRANSLATE_Y_CONFIG.max);
-  const [blockingPointerEvents, setBlockingPointerEvents] = useState(false);
-
+  const minY = -SCREEN_HEIGHT / 1.8; 
+  const maxY = -SCREEN_HEIGHT; 
   const openSheet = () => {
-    translateY.value = withSpring(maxY.value, {
+    'worklet';
+    translateY.value = withSpring(maxY, {
       damping: 15,
       stiffness: 80,
       mass: 0.8,
     });
-    setBlockingPointerEvents(true);
   };
   const closeSheet = () => {
-    translateY.value = withSpring(initialY.value, {
+    'worklet';
+    translateY.value = withSpring(minY, {
       damping: 15,
       stiffness: 80,
       mass: 0.8,
     });
-    setBlockingPointerEvents(false);
   };
-  useImperativeHandle(ref, () => ({ openSheet, closeSheet }));
-
-  useAnimatedReaction(
-    () => {
-      const range = maxY.value - minY.value;
-      const progress = Math.max(0, Math.min(1, (translateY.value - minY.value) / range));
-      return progress;
-    },
-    (progress) => {
-      runOnJS(setBlockingPointerEvents)(progress > 0.95);
-    }
-  );
+  useImperativeHandle(ref, () => ({
+    openSheet,
+    closeSheet,
+  }));
 
   const gesture = Gesture.Pan()
     .onStart(() => {
       context.value = { y: translateY.value };
     })
     .onUpdate((event) => {
-      translateY.value = Math.max(
-        Math.min(event.translationY + context.value.y, minY.value),
-        maxY.value
-      );
+      translateY.value = Math.max(Math.min(event.translationY + context.value.y, minY), maxY);
     })
     .onEnd((event) => {
-      const midPoint = (minY.value + maxY.value) / 2;
-      const shouldOpenFully = event.velocityY < -500 ||
-        (event.velocityY > -200 && translateY.value < midPoint);
-      if (shouldOpenFully) {
-        translateY.value = withSpring(maxY.value, {
-          damping: 15,
-          stiffness: 80,
-          mass: 0.8,
-          velocity: event.velocityY
-        });
+      const midpoint = (minY + maxY) / 2;
+      if (event.velocityY < -500 || translateY.value < midpoint) {
+        openSheet();
       } else {
-        translateY.value = withSpring(minY.value, {
-          damping: 15,
-          stiffness: 80,
-          mass: 0.8,
-          velocity: event.velocityY
-        });
+        closeSheet();
       }
     });
 
-const rHeadingStyle = useAnimatedStyle(() => {
-  const range = maxY.value - minY.value;
-  const progress = Math.max(
-    0,
-    Math.min(1, (translateY.value - minY.value) / range)
+    const lineStyle = useAnimatedStyle(() => {
+  const opacity = interpolate(
+    translateY.value,
+    [minY, maxY],
+    [1, 0], 
+    Extrapolation.CLAMP
+  );
+  return { opacity };
+});
+
+const headingStyle = useAnimatedStyle(() => {
+  const progress = interpolate(
+    translateY.value,
+    [minY, maxY],
+    [0, 1],
+    Extrapolation.CLAMP
   );
 
-  const marginLeft = interpolate(
-    translateY.value,
-    [minY.value, maxY.value],
-    [15, 90],
-    Extrapolate.CLAMP
-  );
+  const backBtnWidth = 30; 
+  const textWidth = 160; 
+  const startX = -15;
+  const endX = (SCREEN_WIDTH / 2) - (textWidth / 1.5) - backBtnWidth / 2;
 
   return {
-    fontSize: interpolate(progress, [0, 1], [26, 18]),
-    marginLeft,
+    fontSize: interpolate(progress, [0, 1], [30, 18]),
+    transform: [
+      {
+        translateX: interpolate(progress, [0, 1], [startX, endX]),
+      },
+    ],
   };
-});
+});  
+  const backButtonStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translateY.value,
+      [minY, maxY],
+      [0, 1],
+      Extrapolation.CLAMP
+    );
+    return { opacity };
+  });
 
   const rStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
   }));
 
-  useEffect(() => {
-    const handler = () => {
-      initialY.value = TRANSLATE_Y_CONFIG.initial;
-      minY.value = TRANSLATE_Y_CONFIG.min;
-      maxY.value = TRANSLATE_Y_CONFIG.max;
-    };
-    const sub = Dimensions.addEventListener('change', handler);
-    return () => {
-      if (sub && typeof sub.remove === 'function') sub.remove();
-    };
-  }, []);
-
   return (
     <GestureDetector gesture={gesture}>
       <Animated.View style={[styles.container, rStyle]}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Animated.Text style={[styles.headingPro, rHeadingStyle]}>
-            Supported Networks
-          </Animated.Text>
-        </View>
-        <Text style={styles.topParagraph}>
-          Kresus wallet is designed specifically for seamless transactions with tokens and NFTs on the Base network, as well as tokens on the Solana networks. It's crucial to ensure that you are sending and receiving assets exclusively on these networks, as transactions on other networks-- like Ethereum MainNet--can lead to the permanent loss of your assets.
+      
+<Animated.View style={[styles.line, lineStyle]} />
+   <Animated.View style={styles.headerRow}>
+  <Animated.View style={[styles.backBtnContainer, backButtonStyle]}>
+    <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Image source={Images.backScreen} style={styles.backIcon} />
+    </TouchableOpacity>
+  </Animated.View>
+
+  <Animated.Text style={[styles.heading, headingStyle]}>
+    Supported Networks
+  </Animated.Text>
+
+    <View style={{ width: 20 }} />
+    </Animated.View>
+
+        <Text style={styles.description}>
+            Kresus wallet is designed specifically for seamless transactions with tokens
+            and NFTs on the Base network, as well as tokens on the Solana networks. It's
+            crucial to ensure that you are sending and receiving assets exclusively on
+            these networks, as transactions on other networks like Ethereum MainNet can
+            lead to the permanent loss of your assets.
         </Text>
-        <Text style={styles.heading}>Double Check</Text>
-        <Text style={styles.topParagraph}>
-          Always double-check the networks compatibility before making a transfer to protect your valuable tokens and NFTs. If you have any questions or need assistance, our support team is here to help.
+        <Text style={styles.heading2}>Double Check</Text>
+        <Text style={styles.description}>
+           Always double-check the networks compatibility before making a transfer to protect your valuable tokens and NFTs. If you have any questions or need assistance, our support team is here to help.        
         </Text>
       </Animated.View>
     </GestureDetector>
   );
 });
 
+export default TodaysReturnComponent;
+
 const styles = StyleSheet.create({
   container: {
-    height: hp('100%'),
-    width: wp('100%'),
+    height: SCREEN_HEIGHT,
+    width: SCREEN_WIDTH,
     backgroundColor: Colors.backgroundAlt,
     position: 'absolute',
-    top: hp('100%'),
+    top: SCREEN_HEIGHT,
     borderRadius: 15,
+    borderColor: Colors.background4,
+    borderTopWidth: 1.5,
+    borderLeftWidth: 0.5,
+    borderRightWidth: 0.5,
   },
-  lineProfile: {
-    width: 80,
+  line: {
+    width: 55,
     height: 4,
     backgroundColor: Colors.background4,
     alignSelf: 'center',
-    marginTop: 15,
+    marginVertical: 10,
     borderRadius: 2,
   },
-  headingPro: {
-    color: Colors.white,
-    fontSize: 26,
-    marginBottom: 12,
-    marginHorizontal: 15,
-    marginTop: 20,
-    fontFamily: 'PlayfairDisplay-Bold', 
-  },
-  topParagraph: {
-    color: Colors.lightblue,
-    fontSize: 20,
-    marginLeft: 15,
-    marginRight: 20,
-    marginTop: 20,
-  },
   heading: {
-    marginTop: 20,
-    marginLeft: 15,
-    fontSize: 15,
     color: Colors.white,
+    fontWeight: '600',
+    fontSize:30,
+    fontFamily: 'PlayfairDisplay-Bold',
+    marginTop: 20,
   },
-  backButton: {
-    marginLeft: 10,
-    marginTop: 15,
-    paddingVertical: 5,
-  }
+  description: {
+    color: Colors.lightblue,
+    marginHorizontal: 20,
+    marginTop: 25,
+    fontSize: 20,
+  },
+  backBtnContainer: {
+     width: 20,
+  },
+  backIcon: {
+    width: 30,
+    height: 30,
+    tintColor: Colors.white,
+    marginTop: 20,
+  },
+  headerRow: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  marginHorizontal: 15,
+  marginTop: -20, 
+},
+heading2:{
+  marginTop: 60,
+  marginLeft: 20,
+  fontWeight: '700',
+  fontSize: 15,
+  color: Colors.white,
+},
 });
-
-export default BottomSheetProfileBottom;

@@ -9,6 +9,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import { Images } from '../../assets';
@@ -48,49 +49,62 @@ const SendDetails = () => {
 
 return (
   <View style={styles.wrapper}>
-    <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-        <Image source={Images.backScreen} style={styles.backIconSmall} />
-      </TouchableOpacity>
-      <View style={styles.headerContent}>
-        <ProfileInfo />
-      <AmountInputSection
-       amount={amount}
-      setAmount={(val) => dispatch(setAmount(val))}
-       isInsufficient={isInsufficient}
-       />
-      </View>
-      <Text style={styles.availableLabel}>Available Balance:</Text>
-      {selectedAsset && (
-  <AssetInfoBox
-    logo={selectedAsset.logo}
-    name={selectedAsset.name}
-    short={selectedAsset.short}
-    price={parseFloat(selectedAsset.price.replace('$', '').replace(',', ''))}
-    availableAmount={parseFloat(selectedAsset.amount)}
-  />
-)}
-      <Text style={styles.noteLabel}>Note to Self <Text style={styles.optionalText}>(Optional)</Text></Text>
-      <TextInput
-        placeholder="What's it for?"
-        placeholderTextColor="#ADD2FD"
-        style={styles.input}
-        value={note}
-       onChangeText={(val) => dispatch(setNote(val))}
-      />
-    </ScrollView>
-    {isInsufficient ?
-    <WarningBox />
-    : 
-    (
+      <ScrollView
+        contentContainerStyle={styles.container}
+        keyboardShouldPersistTaps="handled"
+      >
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+          <Image source={Images.backScreen} style={styles.backIconSmall} />
+        </TouchableOpacity>
+
+        <View style={styles.headerContent}>
+          <ProfileInfo />
+          <AmountInputSection
+            amount={amount}
+            setAmount={(val) => dispatch(setAmount(val))}
+            isInsufficient={isInsufficient}
+          />
+        </View>
+
+        <Text style={styles.availableLabel}>Available Balance:</Text>
+        {selectedAsset && (
+          <AssetInfoBox
+            logo={selectedAsset.logo}
+            name={selectedAsset.name}
+            short={selectedAsset.short}
+            price={parseFloat(selectedAsset.price.replace('$', '').replace(',', ''))}
+            availableAmount={parseFloat(selectedAsset.amount)}
+          />
+        )}
+
+        <Text style={styles.noteLabel}>
+          Note to Self <Text style={styles.optionalText}>(Optional)</Text>
+        </Text>
+        <TextInput
+          placeholder="What's it for?"
+          placeholderTextColor="#ADD2FD"
+          style={styles.input}
+          value={note}
+          onChangeText={(val) => dispatch(setNote(val))}
+        />
+
+    {isInsufficient ? (
+      <WarningBox />
+    ) : (
       <View style={styles.fixedBottom}>
         <View style={styles.buttonWrapper}>
-          <AppButton label="Review Transfer" onPress={handleReviewPress}  disabled={!amount}/>
+          <AppButton
+            label="Review Transfer"
+            onPress={handleReviewPress}
+            disabled={!amount || parseFloat(amount) <= 0}
+          />
         </View>
       </View>
     )}
+    </ScrollView>
   </View>
 );
+
 };
 export default SendDetails;
 
@@ -113,14 +127,14 @@ const styles = StyleSheet.create({
   },
   headerContent: {
     alignItems: 'center',
-    marginBottom: 24,
+    marginBottom: 44,
     marginTop:-17,
   },
   availableLabel: {
     color: '#ADD2FD',
     fontSize: 14,
-    marginBottom: 4,
-    left:4,
+    marginBottom: 8,
+    paddingHorizontal: 12,
   }, 
   noteLabel: {
     color: '#FFFFFF',
@@ -141,7 +155,7 @@ const styles = StyleSheet.create({
   },
   fixedBottom: {
   position: 'absolute',
-  bottom: 20,
+  bottom: -100,
   left: 0,
   right: 0,
   backgroundColor: '#01021D',

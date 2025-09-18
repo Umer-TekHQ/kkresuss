@@ -688,7 +688,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#fff",
     lineHeight: 20,
-    marginLeft: 27,
+    marginLeft: 35,
   },
   linner:{
     flexDirection: 'row',
@@ -817,9 +817,10 @@ tokenDisplay: {
   },
   headingAV:{
     color: '#ffffff',
-    fontSize: 32,
+    fontSize: 30,
     marginTop: 20,
     marginLeft: 20,
+    fontFamily: 'PlayfairDisplay-Bold'
   },
   heading1:{
     marginTop: 20,

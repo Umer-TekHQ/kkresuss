@@ -12,6 +12,7 @@ import SearchBox from '../../components/SearchBox';
 import { recipients } from '../../mock/recipients';
 import { AppNavigatorParamList } from '../../navigators/routeNames';
 import { setRecipient } from '../../store/slices/recipientSlice';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const SelectRecipient = () => {
 const dispatch = useDispatch();
@@ -93,6 +94,7 @@ const handlePress = (item: Recipient) => {
         onClear={handleClear}
       />
       </View>
+      <ScrollView>
       <View style={styles.suggestedRow}>
         <Text style={styles.suggestedText}>Suggested</Text>
         {!loading && (
@@ -113,6 +115,7 @@ const handlePress = (item: Recipient) => {
   ) : (
    <FlatList
     data={filteredData}
+    scrollEnabled={false}
     renderItem={renderItem}
     keyExtractor={(item) => item.id}
    ListEmptyComponent={
@@ -123,6 +126,7 @@ const handlePress = (item: Recipient) => {
   />
 )}
 </View>
+</ScrollView>
     </View>
   );
 };
@@ -139,6 +143,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 15,
+    marginTop: 25,
   },
   suggestedText: {
     color: '#FFFFFF',

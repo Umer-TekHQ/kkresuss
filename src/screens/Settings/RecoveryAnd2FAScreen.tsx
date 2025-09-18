@@ -11,6 +11,7 @@ import LabeledPhoneInput from '../../components/LabeledPhoneInput'
 import SecondaryButton from '../../components/SecondaryButton'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { RootState } from '../../store' 
+import { ScrollView } from 'react-native-gesture-handler'
 
 const RecoveryAnd2FAScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
@@ -22,12 +23,13 @@ const RecoveryAnd2FAScreen = () => {
   return (
     <View style={styles.container}>
       <AppHeader title="Recovery and 2FA" />
+      <ScrollView>
       <View style={styles.subContainer}>
- <View style={styles.dividerTwo} />
+      <View style={styles.dividerTwo} />
       <View style={styles.section}>
         <Text style={styles.label}>Email </Text>
         <Text style={styles.emailText}>{email}</Text>
-        <Text style={styles.verified}>✔ Email address verified</Text>
+        <Text style={styles.verified}>< Image source={Images.tickAuth} style={styles.tick}/> Email address verified</Text>
       </View>
 
       <View style={styles.divider} />
@@ -67,6 +69,7 @@ const RecoveryAnd2FAScreen = () => {
             <SecondaryButton label="+ Add" />
       </View>
       </View>
+      </ScrollView>
       </View>
   )
 }
@@ -85,6 +88,11 @@ const styles = StyleSheet.create({
   section: {
     marginTop: 20,
   },
+  tick:{
+    tintColor: Colors.greenBar,
+    width: 15,
+    height: 10,
+  },
   label: {
     fontSize: 15,
     color: Colors.lightblue,
@@ -93,8 +101,8 @@ const styles = StyleSheet.create({
   },
   emailText: {
     color: Colors.white,
-    fontSize: 19,
-    fontWeight: '500',
+    fontSize: 16,
+    fontWeight: '400',
   },
   verified: {
     color: Colors.transaction,
@@ -109,8 +117,8 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     color: Colors.white,
-    fontSize: 19,
-    fontWeight: '500',
+    fontSize: 16,
+    // fontWeight: '500',
     marginBottom: 0,
   },
   sectionDescription: {
@@ -124,8 +132,8 @@ const styles = StyleSheet.create({
   },
   globalLabel: {
     color: Colors.white,
-    fontSize: 19,
-    fontWeight: '500',
+    fontSize: 16,
+    // fontWeight: '500',
   },
   globalDesc: {
     color: Colors.lightblue,

@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
  
-    input: {
+  input: {
     width: '100%',
     height: 65,
     borderRadius: 12,
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     height: 18,
   },
   elevatedInput: {
-  backgroundColor: Colors.kresusblue,
+  backgroundColor: Colors.fieldBackground1,
   borderColor: Colors.blue,
 },  inputWithText: {
     paddingTop: 17, 

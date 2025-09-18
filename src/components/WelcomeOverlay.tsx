@@ -1,12 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Dimensions,
+} from 'react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import OverlayBackground from './OverlayBackground';
 import { Images } from '../assets/index';
-
 import { Colors } from '../theme/colors';
-
 
 const { width, height } = Dimensions.get('window');
 
@@ -21,10 +26,15 @@ const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
   const bgTopHeight = width * 0.7;
   const bgBottomWidth = width * 0.9;
   const bgBottomHeight = width * 0.68;
+
   return (
     <View style={styles.overlay}>
-      <View style={[styles.container, { width: containerWidth, height: containerHeight }]}>
-        <View style={[styles.backGroundTop, { width: bgTopWidth, height: bgTopHeight }]}>
+      <View
+        style={[styles.container, { width: containerWidth, height: containerHeight }]}
+      >
+        <View
+          style={[styles.backGroundTop, { width: bgTopWidth, height: bgTopHeight }]}
+        >
           <OverlayBackground
             showContent
             hideBottomImages={false}
@@ -45,22 +55,31 @@ const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
             </Text>
           </OverlayBackground>
         </View>
-        <View style={[styles.backGroundBottom, { width: bgBottomWidth, height: bgBottomHeight }]}>
+
+        <View
+          style={[styles.backGroundBottom, { width: bgBottomWidth, height: bgBottomHeight }]}
+        >
           <TouchableOpacity style={styles.primaryButton}>
             <Image source={Images.primary} style={styles.icons21} />
-            <Text style={[styles.primaryText, styles.centeredText]}>Buy Crypto</Text>
+            <Text style={[styles.primaryText, styles.centeredText]}>
+              Buy Crypto
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.secondaryButton}>
             <Image source={Images.primary1} style={styles.icons} />
-            <Text style={[styles.secondaryText1, styles.centeredText]}>Transfer Crypto into Kresus</Text>
+            <Text style={[styles.secondaryText1, styles.centeredText]}>
+              Transfer Crypto into Kresus
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.secondaryButton}>
             <Image source={Images.primary2} style={styles.icons1} />
-            <Text style={[styles.secondaryText, styles.centeredText]}>Connect Coinbase</Text>
+            <Text style={[styles.secondaryText, styles.centeredText]}>
+              Connect Coinbase
+            </Text>
           </TouchableOpacity>
-          
+
           <TouchableOpacity onPress={onClose}>
             <Text style={styles.laterText}>Maybe Later</Text>
           </TouchableOpacity>
@@ -69,12 +88,13 @@ const WelcomeOverlay: React.FC<Props> = ({ onClose }) => {
     </View>
   );
 };
+
 export default WelcomeOverlay;
 
 const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)', 
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 999,
@@ -84,27 +104,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'relative',
     borderWidth: 2,
-    borderColor: "#080C4C",
-    backgroundColor: "#01032C"
+    borderColor: '#080C4C',
+    backgroundColor: '#01032C',
+  },
+  backGroundTop: {
+    backgroundColor: '#131c91ff',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    alignItems: 'center',
   },
   backGroundBottom: {
-    backgroundColor:"#10132C",
+    backgroundColor: '#10132C',
     alignItems: 'center',
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
     paddingHorizontal: 26,
     height: '100%',
-    borderColor: "#080C4C",
+    borderColor: '#080C4C',
     borderRightWidth: 1.5,
     borderLeftWidth: 1.5,
     borderBottomWidth: 2,
     justifyContent: 'center',
-  },
-  backGroundTop: {
-    backgroundColor: "#131c91ff",
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-    alignItems: 'center',
   },
   closeButton: {
     position: 'absolute',
@@ -122,7 +142,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginBottom: 20,
     lineHeight: 36,
-    fontFamily: 'PlayfairDisplay-Bold', 
+    fontFamily: 'PlayfairDisplay-Bold',
     letterSpacing: 1,
   },
   laterText: {

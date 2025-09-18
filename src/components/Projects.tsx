@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     borderWidth: 1,
     borderColor: '#080C4C',
-    width: '95%',
+    width: '92%',
     height: screenHeight * 0.42, 
     backgroundColor: '#0D1A47',
     borderRadius: 16,
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     marginBottom: screenHeight * 0.015,
     paddingBottom: screenHeight * 0.015,
     marginTop: screenHeight * 0.013,
+    marginLeft: 15,
   },
     earnBadge: {
     position: 'absolute',
@@ -80,16 +81,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: screenWidth * 0.13,
-    height: screenWidth * 0.13,
+    width: 40,
+    height: 40,
     marginBottom: 20,
     borderRadius: screenWidth * 0.02,
     marginTop: 10,
   },
   title: {
     color: 'white',
-    fontSize: 16,
-    width: screenWidth * 0.3,
+    fontSize: 14,
+    width: screenWidth * 0.35,
   },
   subtitle: {
     color: '#ADD2FD',
