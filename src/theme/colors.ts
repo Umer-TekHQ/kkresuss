@@ -16,6 +16,7 @@ export const Colors = {
   fieldBackground: '#0B1170',
   fieldBackground1: '#080C51',
   fieldBorder: '#0734A9',
+  privacy: '#070942',
   gold: '#CEB55A',
   title: "#D4EBFF",
   back: "#086DE1",
@@ -33,5 +34,6 @@ export const Colors = {
   rgbaRed20: 'rgba(244, 67, 54, 0.2)',
   downArrow: '#4898F3',
   linear1: '#0D1586',  
-  linear2: '#0E1699'
+  linear2: '#0E1699',
+  otpBg: '#ADD2FD33'
 };

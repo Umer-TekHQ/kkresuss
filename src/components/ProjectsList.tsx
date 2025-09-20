@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 
 import { DATA } from '../mock/projects';
-
 import { Colors } from '../theme/colors';
 
 type DataProject = typeof DATA[0];

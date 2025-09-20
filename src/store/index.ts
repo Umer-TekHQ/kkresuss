@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import amountReducer from './slices/amountSlice';
+import appReducer from './slices/appSlice'
 import noteReducer from './slices/noteSlice';
 import recipientReducer from './slices/recipientSlice'
 import securityReducer from './slices/securitySlice';
@@ -17,6 +18,7 @@ export const store = configureStore({
     amount: amountReducer,
     recipient: recipientReducer,
     security: securityReducer,
+    app: appReducer,
   },
 });
 

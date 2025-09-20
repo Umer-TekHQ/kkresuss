@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, Image,TouchableOpacity } from 'react-native'
-import { Colors } from '../../theme/colors'
+import { ScrollView } from 'react-native-gesture-handler'
 import { useSelector } from 'react-redux'
 
 import { Images } from '../../assets'
@@ -10,8 +10,9 @@ import AppHeader from '../../components/AppHeader'
 import LabeledPhoneInput from '../../components/LabeledPhoneInput'
 import SecondaryButton from '../../components/SecondaryButton'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
-import { RootState } from '../../store' 
-import { ScrollView } from 'react-native-gesture-handler'
+import { RootState } from '../../store'
+import { Colors } from '../../theme/colors'
+ 
 
 const RecoveryAnd2FAScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()

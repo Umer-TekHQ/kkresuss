@@ -6,7 +6,6 @@ import { ImageSourcePropType } from 'react-native';
 
 import { Images } from '../assets';
 import { AppNavigatorParamList } from '../navigators/routeNames'
-
 import { Colors } from '../theme/colors';
 
 interface HeaderProps {

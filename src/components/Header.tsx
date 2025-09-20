@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Image, Text, TouchableOpacity,StyleSheet, Dimensions} from 'react-native';
 
 import { Images } from '../assets/index';
-
 import { Colors } from '../theme/colors';
 
 const { width: screenWidth, } = Dimensions.get('window');

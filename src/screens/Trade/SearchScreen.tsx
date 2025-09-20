@@ -1,17 +1,16 @@
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet} from 'react-native';
-import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 
+import { tokens } from './tokens';
+import { Token } from './types';
+import EmptyState from '../../components/emptyState';
+import SearchHeader from '../../components/searchHeader';
+import TokenList from '../../components/tokenList';
 import { AppNavigatorParamList } from '../../navigators/routeNames';
 import { useAppDispatch } from '../../store/hooks';
 import { setToken1, setToken2 } from '../../store/slices/tradeSlice';
-import { tokens } from './tokens';
-import { Token } from './types';
 import { Colors } from '../../theme/colors';
-
-import SearchHeader from '../../components/searchHeader';
-import TokenList from '../../components/tokenList';
-import EmptyState from '../../components/emptyState';
 
 const SearchScreen = () => {
   const route = useRoute<RouteProp<AppNavigatorParamList, 'SearchScreen'>>();

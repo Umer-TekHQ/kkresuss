@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { useAppSelector } from '../store/hooks';
-
 import { Colors } from '../theme/colors';
 
 interface CardProps {

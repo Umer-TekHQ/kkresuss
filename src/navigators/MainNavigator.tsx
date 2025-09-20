@@ -1,7 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { BottomNavigator } from './BottomNavigator';
+import WelcomeOverlay from '../components/WelcomeOverlay'; 
 import { BottomSheetScreen } from '../screens';
 import AssetsScreen from '../screens/Assets/AssetsScreen';
 import SpamScreen from '../screens/Assets/SpamScreen';
@@ -31,40 +32,54 @@ import TradeStatusScreen from '../screens/Trade/TradeStatusScreen';
 
 const MainStack = createNativeStackNavigator();
 
-export const MainNavigator = () => (
-  <MainStack.Navigator
-    screenOptions={{
-      headerShown: false,
-      animation: 'slide_from_right',
-      animationTypeForReplace: 'push',
-    }}
-  >
-    <MainStack.Screen name="BottomNavigator" component={BottomNavigator} />
-    <MainStack.Screen name="ProfileScreen" component={ProfileScreen} />
-    <MainStack.Screen name="bottomScreen" component={BottomSheetScreen} />
-    <MainStack.Screen name="ProsScreen" component={ProsScreen} />
-    <MainStack.Screen name="Settings" component={SettingScreen} />
-    <MainStack.Screen name="Security" component={SecurityScreen} />
-    <MainStack.Screen name="Recovery" component={RecoveryAnd2FAScreen} />
-    <MainStack.Screen name="Privacy" component={PrivacyPolicyScreen} />
-    <MainStack.Screen name="Verification" component={AdvancedVerificationInfoScreen} />
-    <MainStack.Screen name="TokenDetail" component={AssetDetailScreen} />
-    <MainStack.Screen name="ProfileBottom" component={ProfileBottom} />
-    <MainStack.Screen name="CardReceiveScreen" component={CardReceiveScreen} />
-    <MainStack.Screen name="baseReceiveScreen" component={BaseReceiveScreen} />
-    <MainStack.Screen name="SearchScreen" component={SearchScreen} />
-    <MainStack.Screen name="ReceiveTokenScreen" component={ReceiveTokenScreen} />
-    <MainStack.Screen name="TodayReturns" component={TodaysReturnScreen} />
-    <MainStack.Screen name="Supported" component={SupportedScreen} />
-    <MainStack.Screen name="Spam" component={SpamScreen} />
-    <MainStack.Screen name="Currency" component={SelectCurrency} />
-    <MainStack.Screen name="Recipient" component={SelectRecipient} />
-    <MainStack.Screen name="QR" component={SelectQR} />
-    <MainStack.Screen name="SendDetails" component={SendDetails} />
-    <MainStack.Screen name="Review" component={ReviewSend} />
-    <MainStack.Screen name="AssetsScreen" component={AssetsScreen} />
-    <MainStack.Screen name="TransactionStatus" component={TransactionStatus} />
-    <MainStack.Screen name="TradeStatusScreen" component={TradeStatusScreen} />
+export const MainNavigator = () => {
+  const [showOverlay, setShowOverlay] = useState(false);
 
-  </MainStack.Navigator>
-);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowOverlay(true);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <>
+      <MainStack.Navigator
+        screenOptions={{
+          headerShown: false,
+          animation: 'slide_from_right',
+          animationTypeForReplace: 'push',
+        }}
+      >
+        <MainStack.Screen name="BottomNavigator" component={BottomNavigator} />
+        <MainStack.Screen name="ProfileScreen" component={ProfileScreen} />
+        <MainStack.Screen name="bottomScreen" component={BottomSheetScreen} />
+        <MainStack.Screen name="ProsScreen" component={ProsScreen} />
+        <MainStack.Screen name="Settings" component={SettingScreen} />
+        <MainStack.Screen name="Security" component={SecurityScreen} />
+        <MainStack.Screen name="Recovery" component={RecoveryAnd2FAScreen} />
+        <MainStack.Screen name="Privacy" component={PrivacyPolicyScreen} />
+        <MainStack.Screen name="Verification" component={AdvancedVerificationInfoScreen} />
+        <MainStack.Screen name="TokenDetail" component={AssetDetailScreen} />
+        <MainStack.Screen name="ProfileBottom" component={ProfileBottom} />
+        <MainStack.Screen name="CardReceiveScreen" component={CardReceiveScreen} />
+        <MainStack.Screen name="baseReceiveScreen" component={BaseReceiveScreen} />
+        <MainStack.Screen name="SearchScreen" component={SearchScreen} />
+        <MainStack.Screen name="ReceiveTokenScreen" component={ReceiveTokenScreen} />
+        <MainStack.Screen name="TodayReturns" component={TodaysReturnScreen} />
+        <MainStack.Screen name="Supported" component={SupportedScreen} />
+        <MainStack.Screen name="Spam" component={SpamScreen} />
+        <MainStack.Screen name="Currency" component={SelectCurrency} />
+        <MainStack.Screen name="Recipient" component={SelectRecipient} />
+        <MainStack.Screen name="QR" component={SelectQR} />
+        <MainStack.Screen name="SendDetails" component={SendDetails} />
+        <MainStack.Screen name="Review" component={ReviewSend} />
+        <MainStack.Screen name="AssetsScreen" component={AssetsScreen} />
+        <MainStack.Screen name="TransactionStatus" component={TransactionStatus} />
+        <MainStack.Screen name="TradeStatusScreen" component={TradeStatusScreen} />
+      </MainStack.Navigator>
+
+      {showOverlay && <WelcomeOverlay onClose={() => setShowOverlay(false)} />}
+    </>
+  );
+};

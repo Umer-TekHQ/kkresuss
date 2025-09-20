@@ -1,9 +1,10 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { Images } from '../assets';
-import { AppNavigatorParamList } from '../navigators/routeNames';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+
+import { Images } from '../assets';
+import { AppNavigatorParamList } from '../navigators/routeNames';
 
 function formatNumber(num: any) {
   if (num === undefined || num === null) return '0';
@@ -66,8 +67,8 @@ const PositionCard = ({ data }: { data: any }) => {
       <View style={styles.metricsRow}>
         <View style={styles.metricBlock}>
           <View style={styles.metricLabelRow}>
+            <TouchableOpacity onPress={() => navigation.navigate('TodayReturns')} style={styles.touchable}>
             <Text style={styles.metricLabel}>Today's Return</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('TodayReturns')}>
                 <InfoIcon />
             </TouchableOpacity>
             
@@ -87,8 +88,8 @@ const PositionCard = ({ data }: { data: any }) => {
         </View>
         <View style={styles.metricBlock}>
           <View style={styles.metricLabelRow}>
+            <TouchableOpacity style={styles.touchable}>
             <Text style={styles.metricLabel}>1-Year High</Text>
-            <TouchableOpacity>
                 <InfoIcon />
             </TouchableOpacity>
             
@@ -109,8 +110,8 @@ const PositionCard = ({ data }: { data: any }) => {
       <View style={styles.metricsRow}>
         <View style={styles.metricBlock}>
           <View style={styles.metricLabelRow}>
+            <TouchableOpacity style={styles.touchable}>
             <Text style={styles.metricLabel}>Quantity Owned</Text>
-            <TouchableOpacity>
                 <InfoIcon />
             </TouchableOpacity>
           </View>
@@ -118,8 +119,8 @@ const PositionCard = ({ data }: { data: any }) => {
         </View>
         <View style={styles.metricBlock}>
           <View style={styles.metricLabelRow}>
+            <TouchableOpacity style={styles.touchable}>
             <Text style={styles.metricLabel}>Holders</Text>
-            <TouchableOpacity>
                 <InfoIcon />
             </TouchableOpacity>
           </View>
@@ -129,8 +130,8 @@ const PositionCard = ({ data }: { data: any }) => {
       <View style={styles.metricsRow}>
         <View style={styles.metricBlock}>
           <View style={styles.metricLabelRow}>
+            <TouchableOpacity style={styles.touchable}>
             <Text style={styles.metricLabel}>Circulating Supply</Text>
-            <TouchableOpacity>
                 <InfoIcon />
             </TouchableOpacity>
           </View>
@@ -138,8 +139,8 @@ const PositionCard = ({ data }: { data: any }) => {
         </View>
         <View style={styles.metricBlock}>
           <View style={styles.metricLabelRow}>
+            <TouchableOpacity style={styles.touchable}>
             <Text style={styles.metricLabel}>Maximum Supply</Text>
-            <TouchableOpacity>
                 <InfoIcon />
             </TouchableOpacity>
           </View>
@@ -169,6 +170,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 8,
+  },
+  touchable:{
+    flexDirection: 'row'
   },
   title: {
     color: '#fff',
@@ -205,15 +209,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 8,
     marginBottom: 2,
+    columnGap: 40,
   },
   metricBlock: {
     flex: 1,
     marginRight: 12,
   },
+
+  metricBlock13:{
+  },
   metricLabelRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 2,
   },
   metricLabel: {
     color: '#ADD2FD',
@@ -221,18 +228,17 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
   infoIcon: {
-    width: 25,
-    height: 25,
+    width: 18,
+    height: 18,
     tintColor: '#ADD2FD',
   },
   metricValueRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 2,
   },
   metricValue: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
     marginRight: 6,
   },
   percentIcon: {
@@ -244,12 +250,12 @@ const styles = StyleSheet.create({
   },
   greenText: {
     color: '#30DB5B',
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '600',
   },
   redText: {
     color: '#FF4D4F',
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '600',
   },
 });

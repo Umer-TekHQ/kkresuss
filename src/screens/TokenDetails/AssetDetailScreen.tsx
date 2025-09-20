@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
 
-import AssetDetailSkeleton from '../../components/AssetDetailSkeleton';
 import AssetDetailError from '../../components/assetDetailError';
 import AssetDetailList from '../../components/assetDetailList';
+import AssetDetailSkeleton from '../../components/AssetDetailSkeleton';
 import { mockAssetData } from '../../mock/mockData';
 import { getTokenDetails } from '../../services/tokenApi';
 

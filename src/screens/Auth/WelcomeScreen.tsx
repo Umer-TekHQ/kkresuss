@@ -104,7 +104,7 @@ const WelcomeScreen = () => {
       Animated.parallel([
         Animated.timing(inputTranslateY, {
           toValue: 0,
-          duration: 600, // ⬅️ slow return
+          duration: 600, 
           easing: Easing.out(Easing.quad),
           useNativeDriver: true,
         }),

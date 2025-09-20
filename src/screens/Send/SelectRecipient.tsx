@@ -3,6 +3,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image,   } from 'react-native';
 import { ImageSourcePropType } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
 
 import { Images } from '../../assets'; 
@@ -12,7 +13,7 @@ import SearchBox from '../../components/SearchBox';
 import { recipients } from '../../mock/recipients';
 import { AppNavigatorParamList } from '../../navigators/routeNames';
 import { setRecipient } from '../../store/slices/recipientSlice';
-import { ScrollView } from 'react-native-gesture-handler';
+import { Colors } from '../../theme/colors';
 
 const SelectRecipient = () => {
 const dispatch = useDispatch();
@@ -135,7 +136,7 @@ export default SelectRecipient;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#01021D',
+    backgroundColor: Colors.backgroundAlt,
     paddingHorizontal: 10,
   },
   suggestedRow: {
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   suggestedText: {
-    color: '#FFFFFF',
+    color: Colors.white,
     fontSize: 15,
   },
   syncButton: {
@@ -160,12 +161,12 @@ const styles = StyleSheet.create({
     resizeMode:'contain'
   },
   syncText: {
-    color: '#4898F3',
+    color: Colors.downArrow,
     fontSize: 15,
   },
   divider: {
     height: 1,
-    backgroundColor: '#10178A',
+    backgroundColor: Colors.background1,
     marginBottom: 10,
     marginTop: 8,
     marginHorizontal: 15
@@ -179,7 +180,7 @@ const styles = StyleSheet.create({
   imageBox: {
     width: 50,
     height: 50,
-    backgroundColor: '#2E2F40',
+    backgroundColor: Colors.deepNavy,
     borderRadius: 25,
     marginRight: 12,
     resizeMode:'contain'
@@ -188,12 +189,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   name: {
-    color: '#FFFFFF',
+    color: Colors.white,
     fontSize: 15,
     fontWeight: 'bold',
   },
   email: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 13,
   },
   sentImage: {
@@ -201,14 +202,9 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   noUserText: {
-    color: '#4898F3',
+    color: Colors.downArrow,
     fontSize: 15,
     textAlign: 'center',
     marginTop: 20,
   },
-
-
-
-
-
 });

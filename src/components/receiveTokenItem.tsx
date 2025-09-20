@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+
 import { Token } from '../screens/Trade/types';
 import { Colors } from '../theme/colors';
 

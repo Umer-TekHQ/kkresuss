@@ -1,10 +1,10 @@
 import React,{useRef} from 'react'
 import { Image, StyleSheet, TouchableOpacity, View, } from 'react-native'
-import { Colors } from '../../theme/colors'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import { Images } from '../../assets/index'
 import TodaysReturn, { TodaysReturnRef } from '../../components/TodaysReturn'
+import { Colors } from '../../theme/colors'
 
  const TodaysReturnScreen = ({navigation}: any) => {
    const sheetRef = useRef<TodaysReturnRef>(null);

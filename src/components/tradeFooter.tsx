@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Colors } from '../theme/colors';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
+import { Colors } from '../theme/colors';
 
 const TradeFooter = ({ onContinue, isEnabled }: { onContinue: () => void; isEnabled: boolean }) => (
   <View style={styles.footer}>
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
   },
   continueBtn: {
     backgroundColor: Colors.fieldBorder,
-    paddingVertical: 16,
+    paddingVertical: 12,
     borderRadius: 35,
     justifyContent: 'center',
     alignItems: 'center',

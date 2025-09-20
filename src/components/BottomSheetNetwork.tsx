@@ -13,7 +13,6 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { Images } from '../assets';
-
 import { Colors } from '../theme/colors';
 
 const MAX_TRANSLATE_Y = -180;
@@ -67,7 +66,7 @@ const BottomSheetNetwork = ({ visible, onClose }: Props) => {
           <View style={styles.optionBox}>
             <View style={styles.optionRow}>
               <Text style={styles.option}>Both Networks</Text>
-              <Image source={Images.profileHeadLogo} style={{width: 35, height: 25}} />
+              <Image source={Images.profileHeadLogo} style={styles.optionIcon1} />
             </View>
 
             <View style={styles.optionRow}>
@@ -145,8 +144,9 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   optionIcon1: {
-    width: 24,
-    height: 24,
     resizeMode: 'contain',
+    width: 35, 
+    height: 25,
+    marginRight: 5,
   },
 });

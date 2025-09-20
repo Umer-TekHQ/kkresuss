@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { Colors } from '../theme/colors';
-import { Token } from '../screens/Trade/types';
-import { Images } from '../assets';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+
+import { Images } from '../assets';
+import { Token } from '../screens/Trade/types';
+import { Colors } from '../theme/colors';
+
 
 const TokenSwapCard = ({ token1, token2 }: { token1: Token; token2: Token }) => (
   <View style={styles.card}>
@@ -29,9 +31,9 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: Colors.kresusBlue,
     marginTop: 30,
-    width: wp('96%'),
-    borderTopRightRadius: 30,
-    borderTopLeftRadius: 30,
+    width: wp('95%'),
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
     borderWidth: 1,
     borderColor: Colors.background4,
     paddingTop: 20,

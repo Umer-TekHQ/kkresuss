@@ -4,6 +4,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import { Images } from '../../assets/index'
 import BottomSheetPro  from '../../components/BottomSheetPro'
+import { Colors } from '../../theme/colors'
 
 export const ProsScreen = ({navigation}: any) => {
   return (
@@ -33,7 +34,7 @@ export const ProsScreen = ({navigation}: any) => {
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor: '#080C4C'
+    backgroundColor: Colors.kresusBlue
   },
   image:{
     width: '60%',
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 14,
     fontWeight: '400',
-    tintColor: 'white',
+    tintColor: Colors.white,
 
   },
   backBorder:{

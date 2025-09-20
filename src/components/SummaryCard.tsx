@@ -1,9 +1,10 @@
-import { Images } from '../assets';
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { LineChart } from 'react-native-gifted-charts';
 import LinearGradient from 'react-native-linear-gradient';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
+import { Images } from '../assets';
 
 type SummaryCardProps = {
   currency?: string;

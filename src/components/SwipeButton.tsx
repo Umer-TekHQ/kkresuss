@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   swipeContainer: {
     width: SWIPE_WIDTH,
-    height: hp('8%'),
+    height: hp('7.8%'),
     borderRadius: 99,
     justifyContent: 'center',
     marginTop: hp('2%'),
@@ -142,8 +142,8 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   whiteCircle: {
-    width: 60,
-    height: 60,
+    width: 55,
+    height: 55,
     borderRadius: 99,
     backgroundColor: '#fff',
     position: 'absolute',

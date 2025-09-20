@@ -1,9 +1,10 @@
-import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
+import React from 'react';
 import { Provider } from 'react-redux';
+
+import { Images } from '../src/assets';
 import { store } from '../src/store';
 import { setEmail, setUsername, setProfilePicture } from '../src/store/slices/userSlice';
-import { Images } from '../src/assets';
 
 describe('Redux User State', () => {
   test('should update email in store', () => {

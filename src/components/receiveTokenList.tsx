@@ -1,7 +1,8 @@
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import { Token } from '../screens/Trade/types';
+
 import ReceiveTokenItem from './receiveTokenItem';
+import { Token } from '../screens/Trade/types';
 
 const ReceiveTokenList = ({
   tokens,

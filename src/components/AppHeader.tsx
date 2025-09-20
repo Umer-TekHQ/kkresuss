@@ -5,10 +5,10 @@ import { Dimensions } from 'react-native'
 
 import { Images } from '../assets'
 import { AppNavigatorParamList } from '../navigators/routeNames'
+import { Colors } from '../theme/colors'
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
-import { Colors } from '../theme/colors'
 
 interface AppHeaderProps {
   title: string

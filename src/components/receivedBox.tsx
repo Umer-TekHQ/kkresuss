@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Colors } from '../theme/colors';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+
 import { Token } from '../screens/Trade/types';
+import { Colors } from '../theme/colors';
 
 const ReceivedBox = ({ token, amount }: { token: Token; amount: string }) => (
   <View style={styles.box}>
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: Colors.background4,
     padding: 16,
-    width: wp('96%'),
+    width: wp('95%'),
     justifyContent: 'space-between',
     marginHorizontal: 7,
 

@@ -5,6 +5,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 
 import { Images } from '../../assets/index';
 import BottomSheetExplore from '../../components/BottomSheetExplore'
+import { Colors } from '../../theme/colors';
 
 export const BottomSheetScreen = ({ navigation }: any) => {
 
@@ -37,7 +38,7 @@ export const BottomSheetScreen = ({ navigation }: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#070807",
+    backgroundColor: Colors.black,
   },
   image: {
     width: "100%",
@@ -71,10 +72,10 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     zIndex: 999,
-    backgroundColor: '#10132C'
+    backgroundColor: Colors.background
   },
   bottomButton: {
-    borderColor: '#4898F3',
+    borderColor: Colors.downArrow,
     borderWidth: 1,
     paddingHorizontal: 135,
     paddingVertical: 12,

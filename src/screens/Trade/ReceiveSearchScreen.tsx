@@ -1,18 +1,17 @@
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 
+import { tokens } from './tokens';
+import { Token } from './types';
+import PopularTokenChips from '../../components/popularTokenChips';
+import ReceiveEmptyState from '../../components/receiveEmptyState';
+import ReceiveSearchHeader from '../../components/receiveSearchHeader';
+import ReceiveTokenList from '../../components/receiveTokenList';
 import { AppNavigatorParamList } from '../../navigators/routeNames';
 import { useAppDispatch } from '../../store/hooks';
 import { setToken1, setToken2 } from '../../store/slices/tradeSlice';
-import { Token } from './types';
-import { tokens } from './tokens';
 import { Colors } from '../../theme/colors';
-
-import ReceiveSearchHeader from '../../components/receiveSearchHeader';
-import PopularTokenChips from '../../components/popularTokenChips';
-import ReceiveTokenList from '../../components/receiveTokenList';
-import ReceiveEmptyState from '../../components/receiveEmptyState';
 
 type ReceiveTokenScreenRouteProp = RouteProp<AppNavigatorParamList, 'SearchScreen'>;
 

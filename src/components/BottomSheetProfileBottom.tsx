@@ -19,8 +19,8 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { Images } from '../assets';
-import { Colors } from '../theme/colors';
 import { AppNavigatorParamList } from '../navigators/routeNames'
+import { Colors } from '../theme/colors';
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 

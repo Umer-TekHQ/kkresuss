@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, Dimensions, StyleSheet, Image } from 'rea
 import { LineChart } from 'react-native-gifted-charts';
 
 import { Images } from '../assets';
-
 import { Colors } from '../theme/colors';
 
 const { width } = Dimensions.get('window');

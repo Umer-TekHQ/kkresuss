@@ -21,6 +21,7 @@ import Background from '../../components/Background'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { setUsername } from '../../store/slices/userSlice'
+import { Colors } from '../../theme/colors';
 
 
 const { width, height } = Dimensions.get('window')
@@ -115,7 +116,7 @@ const getLengthSymbol = () => {
             activeOpacity={0.7}
             onPress={() => navigation.goBack()}
           >
-            <Image source={Images.backScreen} style={{ width: 30, height: 30, marginLeft: 5 }} />
+            <Image source={Images.backButton} style={{ width: 30, height: 30, marginLeft: 5 }} />
           </TouchableOpacity>
           <Image source={Images.logo} style={styles.logo} />
           <TouchableOpacity style={styles.commentIcon} activeOpacity={0.7}>
@@ -129,15 +130,15 @@ const getLengthSymbol = () => {
             onClear={() => setUsernameLocal('')} 
             style={{ backgroundColor: '#090F5F' }} 
           />
-          <View style={{ gap: 6, paddingLeft: 4 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={styles.subView}>
+            <View style={styles.subText}>
               {getLengthSymbol()}
               <Text style={{ color: getLengthRuleColor(), marginLeft: 6 }}>
                 Must be 8–20 characters
               </Text>
             </View>
 
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={styles.subText}>
               {getCharSymbol()}
               <Text style={{ color: getCharRuleColor(), marginLeft: 6 }}>
                 No special characters
@@ -192,7 +193,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 30,
     fontWeight: '600',
-    color: '#FFFFFF',
+    color: Colors.white,
     marginBottom: 15,
     textAlign: 'center',
     fontFamily: 'PlayfairDisplay-Bold',
@@ -201,5 +202,13 @@ const styles = StyleSheet.create({
     flex: 1, 
     justifyContent: 'flex-end',
     marginTop:10,
+  }, 
+  subView:{
+    gap: 6, 
+    paddingLeft: 4
+  },
+  subText:{
+    flexDirection: 'row', 
+    alignItems: 'center'
   }
 })

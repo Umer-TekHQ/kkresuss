@@ -6,9 +6,10 @@ import {
   Dimensions,
 } from 'react-native'
 
+import { Colors } from '../theme/colors'
+
 import type { DimensionValue } from 'react-native'
 
-import { Colors } from '../theme/colors'
 const { width: screenWidth } = Dimensions.get('window')
 
 interface AppButtonProps {

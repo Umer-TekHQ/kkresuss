@@ -4,7 +4,6 @@ import { View, Text, Image, StyleSheet, Dimensions } from 'react-native'
 import AppButton from './AppButton'
 import SecondaryButton from './SecondaryButton'
 import { Images } from '../assets'
-
 import { Colors } from '../theme/colors'
 
 const { width, height } = Dimensions.get('window')

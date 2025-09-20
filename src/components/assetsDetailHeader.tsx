@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import PriceHeader from './PriceHeader';
+import { View } from 'react-native';
+
 import ChartSection from './ChartSection';
-import { TokenActionButtons } from './TokenActionButtons';
-import PositionCard from './PositionCard';
 import { ContactAddress } from './ContactAddress';
+import PositionCard from './PositionCard';
+import PriceHeader from './PriceHeader';
+import { TokenActionButtons } from './TokenActionButtons';
 
 const AssetDetailHeader = ({ data, onBack }: { data: any; onBack: () => void }) => (
   <View>
@@ -13,17 +14,9 @@ const AssetDetailHeader = ({ data, onBack }: { data: any; onBack: () => void }) 
     <TokenActionButtons />
     <PositionCard data={data} />
     <ContactAddress contractAddress={data?.contract_address} />
-    <View style={styles.divider} />
-    <View style={{ height: 100 }} />
+    <View style={{ height: 40 }} />
   </View>
 );
 
 export default AssetDetailHeader;
 
-const styles = StyleSheet.create({
-  divider: {
-    height: 1,
-    marginHorizontal: 16,
-    backgroundColor: '#0734A9',
-  },
-});

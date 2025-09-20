@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+
 import TradeSwitch from './TradeSwitch';
 import { Colors } from '../theme/colors';
 

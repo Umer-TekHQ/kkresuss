@@ -2,12 +2,13 @@ import 'react-native-reanimated';
 import React from 'react';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
-import RootNavigator from './src/navigators/RootNavigator';
 import { View, StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Provider } from 'react-redux';
-import { store } from './src/store';
 import Toast from 'react-native-toast-message'; 
+import { Provider } from 'react-redux';
+
+import RootNavigator from './src/navigators/RootNavigator';
+import { store } from './src/store';
 
 const App = () => {
   return (

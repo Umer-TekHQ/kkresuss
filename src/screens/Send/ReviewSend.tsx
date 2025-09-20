@@ -9,6 +9,7 @@ import ProfileInfo from '../../components/ProfileInfo';
 import SwipeToSend from '../../components/SwipeToSend';
 import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { useAppSelector } from '../../store/hooks'
+import { Colors } from '../../theme/colors';
 
 const ReviewSend = () => {
    const { selectedAsset } = useAppSelector(state => state.selectedAsset)
@@ -55,7 +56,7 @@ export default ReviewSend;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#01021D',
+    backgroundColor: Colors.backgroundAlt,
 
   },
   profile: {

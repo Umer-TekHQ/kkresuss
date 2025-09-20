@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
-import { Colors } from '../../theme/colors';
-import { useAppSelector } from '../../store/hooks';
+
 import { tokens } from './tokens';
 import { Token } from './types';
-import { Card } from '../../components/CompletionCard';
-import TradeHeader from '../../components/tradeHeader';
-import TokenSwapCard from '../../components/tokenSwapCard';
-import ReceivedBox from '../../components/receivedBox';
-import TradeCompleteBanner from '../../components/tradeCompleteBanner';
-import TransactionIdCard from '../../components/transactionIdCard';
-import BaseScanButton from '../../components/baseScanButton';
 import { Images } from '../../assets/index';
+import BaseScanButton from '../../components/baseScanButton';
+import { Card } from '../../components/CompletionCard';
+import ReceivedBox from '../../components/receivedBox';
+import TokenSwapCard from '../../components/tokenSwapCard';
+import TradeCompleteBanner from '../../components/tradeCompleteBanner';
+import TradeHeader from '../../components/tradeHeader';
+import TransactionIdCard from '../../components/transactionIdCard';
+import { useAppSelector } from '../../store/hooks';
+import { Colors } from '../../theme/colors';
 
 const TradeStatusScreen = ({ navigation }: any) => {
   const tradeState = useAppSelector(state => state.trade);

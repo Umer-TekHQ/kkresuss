@@ -8,7 +8,6 @@ import {
 } from 'react-native'
 
 import { Images } from '../assets'
-
 import { Colors } from '../theme/colors'
 
 interface Props {

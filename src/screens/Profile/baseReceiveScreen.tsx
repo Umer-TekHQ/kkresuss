@@ -7,6 +7,7 @@ import { Images } from '../../assets';
 import BottomSheetProfile from '../../components/BottomSheetProfile';
 import ProfileCard from '../../components/ProfileCards';
 import { AppNavigatorParamList } from '../../navigators/routeNames';
+import { Colors } from '../../theme/colors';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -25,15 +26,10 @@ export default function BaseReceiveScreen() {
 
   return (
     <View style={styles.container}>
-    <View style={{ 
-      flexDirection: 'row', 
-      alignItems: 'center', 
-      justifyContent: 'center',
-      paddingVertical: 10
-    }}>
+    <View style={styles.header}>
       <TouchableOpacity 
         onPress={() => navigation.goBack()} 
-        style={{ position: 'absolute', left: 15 }}
+        style={styles.back}
       >
         <Image
           source={Images.backButton}
@@ -48,14 +44,10 @@ export default function BaseReceiveScreen() {
         <ProfileCard {...card} />
       </View>
 
-      <View style={[styles.qr, { marginTop: screenHeight * 0.15}]}>
+      <View style={styles.qr}>
         <Image
           source={Images.qr}
-          style={{
-            width: screenWidth * 0.55,
-            height: screenWidth * 0.55,
-            resizeMode: 'contain'
-          }}
+          style={styles.qrImage}
         />
       </View>
 
@@ -65,12 +57,22 @@ export default function BaseReceiveScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#000', paddingTop: 10 },
+  container: { flex: 1, backgroundColor: Colors.black , paddingTop: 10 },
   head1: { color: 'white', fontSize: 16, textAlign: 'center' },
   backArrow: {  
     width: screenWidth * 0.08, 
     height: screenWidth * 0.08  
   },
+  header:{      
+      flexDirection: 'row', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      paddingVertical: 10 
+    },
   card: { display: 'flex', alignItems: 'center', marginTop: screenHeight * 0.04  },
-  qr: { alignItems: 'center' },
+  qr: { alignItems: 'center', marginTop: screenHeight * 0.15 },
+  back:{position: 'absolute', left: 15 },
+  qrImage:{  width: screenWidth * 0.55,
+            height: screenWidth * 0.55,
+            resizeMode: 'contain'}
 });

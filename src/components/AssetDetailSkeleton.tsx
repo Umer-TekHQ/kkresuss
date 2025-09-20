@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
-import { Colors } from '../theme/colors';
 import { Images } from '../assets';
+import { Colors } from '../theme/colors';
 
 const { width } = Dimensions.get('window');
 

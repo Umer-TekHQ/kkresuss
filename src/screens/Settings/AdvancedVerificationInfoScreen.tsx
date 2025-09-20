@@ -2,13 +2,13 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React from 'react'
 import { View, StyleSheet, Image, TouchableOpacity} from 'react-native'
-import { Colors } from '../../theme/colors'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useSharedValue } from 'react-native-reanimated'
 
 import { Images } from '../../assets' 
 import { BottomSheetUnified } from '../../components/BottomSheet'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
+import { Colors } from '../../theme/colors'
 
 
   const AdvancedVerificationInfoScreen = () => {

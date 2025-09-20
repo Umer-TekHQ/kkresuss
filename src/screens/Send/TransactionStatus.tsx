@@ -1,16 +1,18 @@
-import React, { useCallback } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, BackHandler } from 'react-native';
-import { Colors } from '../../theme/colors';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React, { useCallback } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, BackHandler, Image } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { Images } from '../../assets';
 import AssetsHeader from '../../components/AssetsHeader ';
 import TransactionCompleteCard from '../../components/TransactionCompleteCard';
 import TransactionInfoRow from '../../components/TransactionInfoRow';
-import { useAppSelector } from '../../store/hooks';
 import { AppNavigatorParamList, routeNames } from '../../navigators/routeNames';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useFocusEffect } from '@react-navigation/native';
+import { useAppSelector } from '../../store/hooks';
+import { Colors } from '../../theme/colors';
+
 
 const TransactionStatus = () => {
   const note = useAppSelector(state => state.note.note);
@@ -53,7 +55,8 @@ const TransactionStatus = () => {
         </ScrollView>
         <View style={styles.footer}>
           <TouchableOpacity style={styles.viewAllButton}>
-            <Text style={styles.viewAllText}>View Details on BaseScan ↗</Text>
+            <Text style={styles.viewAllText}>View Details on BaseScan </Text>
+            <Image source={Images.greenArrowUp} style={styles.arrow}/>
           </TouchableOpacity>
         </View>
       </View>
@@ -74,12 +77,21 @@ const styles = StyleSheet.create({
   },
   viewAllButton: {
     alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
     width: '90%',
     paddingVertical: 12,
     borderRadius: 99,
     borderWidth: 1,
     borderColor: Colors.blue,
     backgroundColor: 'transparent',
+  },
+  arrow:{
+    tintColor: Colors.white,
+    width: 13,
+    height: 10,
+    marginTop: 7,
+    marginLeft: 5,
   },
   viewAllText: {
     color: Colors.white,
@@ -92,7 +104,7 @@ const styles = StyleSheet.create({
   },
   divider:{
     height: 1,
-    backgroundColor: '#10178A',
+    backgroundColor: Colors.background1,
     flex: 1,
     marginHorizontal: 20,
   }

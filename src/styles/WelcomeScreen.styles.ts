@@ -13,7 +13,7 @@ export default StyleSheet.create({
   height: height * 0.2,
   },
   content: {
-  marginBottom:125,
+  marginBottom:110,
     alignItems: 'center',
     justifyContent:'center',
     gap:8,

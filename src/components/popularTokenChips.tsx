@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+
 import { Images } from '../assets';
-import { Colors } from '../theme/colors';
 import { Token } from '../screens/Trade/types';
+import { Colors } from '../theme/colors';
 
 const popularTokens = [
   { symbol: 'BTRST', logo: Images.token1 },

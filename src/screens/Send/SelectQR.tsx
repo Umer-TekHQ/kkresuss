@@ -3,6 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import { Camera, CameraType } from 'react-native-camera-kit';
 
 import AssetsHeader from '../../components/AssetsHeader ';
+import { Colors } from '../../theme/colors';
 
 const SelectQR = () => {
   return (
@@ -34,7 +35,7 @@ export default SelectQR;
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#01021D',
+    backgroundColor: Colors.backgroundAlt,
   },
   headerContainer: {
     width: '100%',
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   text: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     textAlign: 'center',
     fontSize: 15,
   },
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     height: 343,
     borderRadius: 20,
     borderWidth: 3,
-    borderColor: '#ADD2FD',
+    borderColor: Colors.lightblue,
     overflow: 'hidden',
   },
   camera: {

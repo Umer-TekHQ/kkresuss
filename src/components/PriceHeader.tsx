@@ -1,6 +1,6 @@
+import moment from 'moment';
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import moment from 'moment';
 
 import { Images } from '../assets';
 import SecondaryButtonWithIcon from './SecondaryButtonWithIcon';
@@ -13,19 +13,23 @@ const PriceHeader = ({ data, onBack }: { data: any; onBack?: () => void }) => {
     maximumFractionDigits: 2,
   });
 
-  const changeValue = Number(data.usdPrice24hr || 0);
+  const changeValue = Number(data.usdePriceChange24hr || 0);
   const formattedChange = Math.abs(changeValue).toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
 
+  const percentChange = Number(data.priceChangePercentChange || 0);
+  const formattedPercentChange = Math.abs(percentChange).toFixed(2); 
+
   const isProfit = changeValue >= 0;
+
 
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
         <TouchableOpacity onPress={onBack} style={styles.backButton}>
-          <Image source={Images.backScreen} style={styles.backIcon} />
+          <Image source={Images.backButton} style={styles.backIcon} />
         </TouchableOpacity>
         <View style={styles.titleContainer}>
           {data.image && (
@@ -48,15 +52,19 @@ const PriceHeader = ({ data, onBack }: { data: any; onBack?: () => void }) => {
             source={isProfit ? Images.greenArrowUp : Images.redDown}
             style={styles.changeIcon}
           />
-          <Text
-            style={[
-              styles.sub,
-              { color: isProfit ? '#30DB5B' : '#FF4D4F' },
-            ]}
-          >
-            ${formattedChange}
-            <Text style={styles.sub2}> @ {currentTime}</Text>
-          </Text>
+          
+            <View style={styles.subContainer}>
+            
+            <Text
+              style={[
+                styles.sub,
+                { color: isProfit ? '#30DB5B' : '#FF4D4F' },
+              ]}
+            >
+              ${formattedChange} ({formattedPercentChange}%)
+              <Text style={styles.sub2}> @ {currentTime}</Text>
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -129,6 +137,6 @@ const styles = StyleSheet.create({
     height: 12,
     resizeMode: 'contain',
     marginRight: 4,
-    marginTop: 2,
+    marginTop: 8,
   },
 });

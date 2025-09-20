@@ -1,50 +1,43 @@
-import 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useEffect, useState, useRef } from 'react';
-import {
-  View,
-  Image,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  FlatList,
-  StatusBar,
-  Dimensions,
-  StyleSheet,
-} from 'react-native';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, ScrollView, StatusBar, StyleSheet } from 'react-native';
 
-import { Images } from '../../assets';
+
+
 import { ActionButtons } from '../../components/ActionButtons';
 import { BottomSheetUnifiedRef } from '../../components/BottomSheet';
-import BottomSheetHome from '../../components/BottomSheetHome';
+import { BottomSheetWrapper } from '../../components/bottomSheetWrapper';
 import FullSkeletonLoader from '../../components/FullSkeletonLoader';
 import { HeaderNav } from '../../components/HeaderNav';
 import IntroducingCards from '../../components/IntroducingCard';
-import { MarketActivityCard } from '../../components/MarketActivityCard';
-import { Projects } from '../../components/Projects';
-import { ProjectsList } from '../../components/ProjectsList';
-import { SummaryCard } from '../../components/SummaryCard';
-import WelcomeOverlay from '../../components/WelcomeOverlay';
-import { AppNavigatorParamList } from '../../navigators/routeNames';
+import MarketActivityCarousel from '../../components/marketActivityCarousel';
+import ProjectsSection from '../../components/projectsSection';
+import { ProsSection } from '../../components/prosSection';
+import { SummaryCarousel } from '../../components/summaryCarousel';
+import { AppNavigatorParamList } from '../../navigators/routeNames'; 
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { setHasLoadedHome } from '../../store/slices/appSlice';
 
 export const HomeScreen: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-  const [showOverlay, setShowOverlay] = useState(false);
+  const dispatch = useAppDispatch();
+  const hasLoadedHome = useAppSelector((state) => state.app.hasLoadedHome);
+  const [loading, setLoading] = useState(!hasLoadedHome);
   const bottomSheetRef = useRef<BottomSheetUnifiedRef>(null);
-  const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
 
-  const { width: screenWidth } = Dimensions.get('window');
-  const CARD_WIDTH = screenWidth * 0.85;
+const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-      setShowOverlay(true);
-    }, 2500);
-    return () => clearTimeout(timer);
-  }, []);
+    if (!hasLoadedHome) {
+      const timer = setTimeout(() => {
+        setLoading(false);
+        dispatch(setHasLoadedHome(true));
+      }, 2500);
+      return () => clearTimeout(timer);
+    }
+    setLoading(false);
+    return;
+  }, [hasLoadedHome, dispatch]);
 
   useEffect(() => {
     if (!loading && bottomSheetRef.current) {
@@ -53,7 +46,7 @@ export const HomeScreen: React.FC = () => {
       }, 100);
       return () => clearTimeout(timer);
     }
-    return undefined;
+    return;
   }, [loading]);
 
   return (
@@ -65,64 +58,16 @@ export const HomeScreen: React.FC = () => {
         <FullSkeletonLoader />
       ) : (
         <ScrollView showsVerticalScrollIndicator={false}>
-          <>
-            <View style={styles.centeredContainer}>
-              <FlatList
-                data={[1, 2]}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={(_, index) => `summary-${index}`}
-                renderItem={() => <SummaryCard />}
-                snapToInterval={Dimensions.get('window').width / 1}
-                snapToAlignment="center"
-                decelerationRate="fast"
-                contentContainerStyle={{
-                  paddingHorizontal: (screenWidth - CARD_WIDTH) / 4,
-                }}
-              />
-            </View>
-
-            <ActionButtons />
-
-            <View style={styles.prosSection}>
-              <TouchableOpacity onPress={() => navigation.navigate('ProsScreen')}>
-                <Text style={styles.prosText}>What the Pros are Buying</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => navigation.navigate('ProsScreen')}>
-                <Image source={Images.pros} style={styles.prosIcon} />
-              </TouchableOpacity>
-            </View>
-
-            <FlatList
-              data={[1, 2]}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={(_, index) => `market-${index}`}
-              renderItem={() => <MarketActivityCard />}
-              snapToInterval={Dimensions.get('window').width / 1}
-              snapToAlignment="center"
-              decelerationRate="fast"
-              contentContainerStyle={{
-                paddingHorizontal: (screenWidth - CARD_WIDTH) / 4,
-              }}
-            />
-
-            <IntroducingCards />
-
-            <Text style={styles.projectsText}>Projects to Try</Text>
-            <Projects />
-            <ProjectsList />
-          </>
+          <SummaryCarousel />
+          <ActionButtons />
+          <ProsSection onPress={() => navigation.navigate('ProsScreen')} />
+          <MarketActivityCarousel />
+          <IntroducingCards />
+          <ProjectsSection />
         </ScrollView>
       )}
 
-      {showOverlay && <WelcomeOverlay onClose={() => setShowOverlay(false)} />}
-
-      {!loading && (
-        <View pointerEvents="box-none" style={styles.bottomSheetContainer}>
-          <BottomSheetHome navigation={navigation} />
-        </View>
-      )}
+      {!loading && <BottomSheetWrapper navigation={navigation} />}
     </View>
   );
 };
@@ -130,41 +75,7 @@ export const HomeScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#01022C',
-    // flex: 1,
-  },
-  centeredContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  prosSection: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  prosText: {
-    color: '#7AB7FD',
-    fontSize: 16,
-    marginTop: 4,
-    marginLeft: 15,
-    marginBottom: 15,
-  },
-  prosIcon: {
-    paddingBottom: 15,
-    marginRight: wp('6%'),
-    width: wp('9%'),
-    height: wp('9%'),
-  },
-  projectsText: {
-    color: '#7AB7FD',
-    fontSize: 16,
-    marginTop: 4,
-    marginLeft: 15,
-    marginBottom: 5,
-  },
-  bottomSheetContainer: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
-    pointerEvents: 'box-none',
-    width: '100%',
   },
 });
+
+export default HomeScreen;

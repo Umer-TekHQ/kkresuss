@@ -4,6 +4,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import { Images } from '../../assets/index'
 import BottomSheetProfileBottom from '../../components/BottomSheetProfileBottom'
+import { Colors } from '../../theme/colors'
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export const ProfileBottom = ({navigation}: any) => {
@@ -32,7 +33,7 @@ export const ProfileBottom = ({navigation}: any) => {
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor: '#080C4C',
+    backgroundColor: Colors.background2,
   },
   image:{
     width: screenWidth * 0.45,

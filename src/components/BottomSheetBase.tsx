@@ -12,7 +12,6 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import {Images} from '../assets';
-
 import { Colors } from '../theme/colors';
 
 const MAX_TRANSLATE_Y = -180;

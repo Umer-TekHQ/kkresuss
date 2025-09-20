@@ -1,41 +1,31 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 
-import { Images } from '../../assets';
 import AmountInputSection from '../../components/AmountInputSection';
-import AppButton from '../../components/AppButton';
 import AssetInfoBox from '../../components/AssetInfoBox';
+import HeaderBackButton from '../../components/handleBackButton';
+import NoteInputSection from '../../components/noteInputSection';
 import ProfileInfo from '../../components/ProfileInfo';
+import ReviewButtonSection from '../../components/reviewButtonSection';
 import WarningBox from '../../components/WarningBox';
 import { AppNavigatorParamList } from '../../navigators/routeNames';
-import { useAppSelector,useAppDispatch } from '../../store/hooks'
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { setAmount } from '../../store/slices/amountSlice';
 import { setNote } from '../../store/slices/noteSlice';
+import { Colors } from '../../theme/colors';
 
 const SendDetails = () => {
-  const { selectedAsset } = useAppSelector(state => state.selectedAsset)
-  const note = useAppSelector(state => state.note.note);
+  const { selectedAsset } = useAppSelector(state => state.selectedAsset);
   const amount = useAppSelector(state => state.amount.amount);
   const dispatch = useAppDispatch();
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
+
   const availableAmount = 0.1288223;
-  const ethPrice = 2047.62; 
+  const ethPrice = 2047.62;
   const enteredAmount = parseFloat(amount);
   const isInsufficient = enteredAmount > availableAmount * ethPrice;
-  const handleReviewPress = () => {
-    navigation.navigate('Review');
-  };
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('beforeRemove', (e) => {
@@ -47,16 +37,10 @@ const SendDetails = () => {
     return unsubscribe;
   }, [navigation]);
 
-return (
-  <View style={styles.wrapper}>
-      <ScrollView
-        contentContainerStyle={styles.container}
-        keyboardShouldPersistTaps="handled"
-      >
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-          <Image source={Images.backScreen} style={styles.backIconSmall} />
-        </TouchableOpacity>
-
+  return (
+    <View style={styles.wrapper}>
+      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+        <HeaderBackButton />
         <View style={styles.headerContent}>
           <ProfileInfo />
           <AmountInputSection
@@ -77,91 +61,34 @@ return (
           />
         )}
 
-        <Text style={styles.noteLabel}>
-          Note to Self <Text style={styles.optionalText}>(Optional)</Text>
-        </Text>
-        <TextInput
-          placeholder="What's it for?"
-          placeholderTextColor="#ADD2FD"
-          style={styles.input}
-          value={note}
-          onChangeText={(val) => dispatch(setNote(val))}
-        />
-
-    {isInsufficient ? (
-      <WarningBox />
-    ) : (
-      <View style={styles.fixedBottom}>
-        <View style={styles.buttonWrapper}>
-          <AppButton
-            label="Review Transfer"
-            onPress={handleReviewPress}
-            disabled={!amount || parseFloat(amount) <= 0}
-          />
-        </View>
-      </View>
-    )}
-    </ScrollView>
-  </View>
-);
-
+        <NoteInputSection />
+        {isInsufficient ? <WarningBox /> : <ReviewButtonSection disabled={!amount || enteredAmount <= 0} />}
+      </ScrollView>
+    </View>
+  );
 };
+
 export default SendDetails;
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#01021D',
+    backgroundColor: Colors.backgroundAlt,
   },
   container: {
     paddingVertical: 12,
-    paddingHorizontal:12,
+    paddingHorizontal: 12,
     paddingBottom: 60,
-  },
-  backBtn: {
-  },
-  backIconSmall: {
-    tintColor:'white',
-    width: 35,
-    height: 35,
   },
   headerContent: {
     alignItems: 'center',
     marginBottom: 44,
-    marginTop:-17,
+    marginTop: -17,
   },
   availableLabel: {
-    color: '#ADD2FD',
-    fontSize: 14,
-    marginBottom: 8,
-    paddingHorizontal: 12,
-  }, 
-  noteLabel: {
-    color: '#FFFFFF',
+    color: Colors.lightblue,
     fontSize: 14,
     marginBottom: 8,
     paddingHorizontal: 12,
   },
-  input: {
-    borderRadius: 10,
-    color: '#FFFFFF',
-  paddingHorizontal: 12,
-    paddingVertical: 10,
-    fontSize: 16,
-    marginBottom: 16,
-  },
-  buttonWrapper: {
-   paddingBottom: 8,
-  },
-  fixedBottom: {
-  position: 'absolute',
-  bottom: -100,
-  left: 0,
-  right: 0,
-  backgroundColor: '#01021D',
-},
-optionalText: {
-  color: '#ADD2FD',
-},
-
 });

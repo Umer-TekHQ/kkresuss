@@ -2,10 +2,10 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
+
 import PopularAssetItem from './PopularAssetItem';
 import { AppNavigatorParamList } from '../navigators/routeNames';
 import { fetchAssetsService } from '../services/assetsService';
-
 import { Colors } from '../theme/colors';
 
 type AllAssetsListProps = {

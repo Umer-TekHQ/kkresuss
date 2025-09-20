@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 
 import { Images } from '../assets';
-
 import { Colors } from '../theme/colors';
 
 const { width: screenWidth } = Dimensions.get('window');

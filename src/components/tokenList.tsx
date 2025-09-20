@@ -1,7 +1,8 @@
 import React from 'react';
 import {Text, StyleSheet } from 'react-native';
+
+import TokenItem from "./tokenItems";
 import { Token } from '../screens/Trade/types';
-import TokenItem from '../components/tokenItems';
 import { Colors } from '../theme/colors';
 
 const TokenList = ({

@@ -1,7 +1,8 @@
 import React from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
-import TransactionListItem from './TransactionListItem';
+
 import AssetDetailHeader from './assetsDetailHeader';
+import TransactionListItem from './TransactionListItem';
 
 const AssetDetailList = ({
   data,

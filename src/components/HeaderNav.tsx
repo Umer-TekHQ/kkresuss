@@ -6,7 +6,6 @@ import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'rea
 import { Images } from '../assets';
 import { AppNavigatorParamList } from '../navigators/routeNames'
 import { useAppSelector } from '../store/hooks';
-
 import { Colors } from '../theme/colors';
 
 type NavigationProp = NativeStackNavigationProp<AppNavigatorParamList>;

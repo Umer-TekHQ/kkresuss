@@ -4,7 +4,6 @@ import { LineChart } from 'react-native-gifted-charts';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import { Images } from '../assets';
- 
 import { Colors } from '../theme/colors';
 
   const MAX_CARD_HEIGHT = hp('44%');  

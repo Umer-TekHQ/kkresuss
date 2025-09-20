@@ -6,7 +6,6 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import { Images } from '../assets/index';
 import { AppNavigatorParamList } from '../navigators/routeNames';
-
 import { Colors } from '../theme/colors';
 
 const { width: screenWidth } = Dimensions.get('window');

@@ -15,7 +15,6 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import SwipeButton from './SwipeButton';
 import { Images } from '../assets';
 import { useAppSelector } from '../store/hooks';
-
 import { Colors } from '../theme/colors';
 
 export interface BottomSheetTradeRef {

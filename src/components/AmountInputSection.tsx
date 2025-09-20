@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
-
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -169,10 +168,10 @@ const styles = StyleSheet.create({
   },
   amountInputBox: {
     width: SCREEN_WIDTH * 0.9,
-    height: 90,
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: 50
+    marginLeft: 50,
+    marginTop: 10
   },
   centerInputContainer: {
     flexDirection: "row",
@@ -183,6 +182,7 @@ const styles = StyleSheet.create({
   currencyLabel: {
     fontWeight: "700",
     includeFontPadding: false,
+    fontSize: 50,
   },
   amountInputField: {
     fontWeight: "700",
@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
   swapIcon: {
     width: 22,
     height: 22,
+    marginRight: 5,
     resizeMode: "contain",
     tintColor: Colors.lightblue,
   },

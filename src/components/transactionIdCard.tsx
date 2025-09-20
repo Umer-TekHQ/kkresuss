@@ -1,7 +1,8 @@
+import Clipboard from '@react-native-clipboard/clipboard';
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from 'react-native-toast-message';
+
 import { Images } from '../assets';
 import { Colors } from '../theme/colors';
 

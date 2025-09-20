@@ -2,10 +2,12 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
+
 import { Images } from '../../assets';
 import BottomSheetProfile from '../../components/BottomSheetProfile';
 import ProfileCard from '../../components/ProfileCards';
 import { AppNavigatorParamList } from '../../navigators/routeNames';
+import { Colors } from '../../theme/colors';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -24,15 +26,10 @@ export default function CardReceiveScreen() {
 
   return (
     <View style={styles.container}>
-    <View style={{ 
-      flexDirection: 'row', 
-      alignItems: 'center', 
-      justifyContent: 'center',
-      paddingVertical: 10
-    }}>
+    <View style={styles.header}>
       <TouchableOpacity 
         onPress={() => navigation.goBack()} 
-        style={{ position: 'absolute', left: 15 }}
+        style={styles.back}
       >
         <Image
           source={Images.backButton}
@@ -47,7 +44,7 @@ export default function CardReceiveScreen() {
         <ProfileCard {...card} />
       </View>
 
-      <View style={[styles.qr, { marginTop: screenHeight * 0.15 }]}>
+      <View style={styles.qr}>
         <Image
           source={Images.qr}
           style={{
@@ -64,14 +61,22 @@ export default function CardReceiveScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#000', paddingTop: 10 },
-  head1: { color: 'white', fontSize: 16, textAlign: 'center'},
+  container: { flex: 1, backgroundColor: Colors.black, paddingTop: 10 },
+  head1: { color: Colors.white, fontSize: 16, textAlign: 'center'},
   backArrow: { 
      width: screenWidth * 0.08,
      height: screenWidth * 0.08 
   },
+  header:{ 
+      flexDirection: 'row', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      paddingVertical: 10
+    },
+  back:{ position: 'absolute', left: 15},
   card: { display: 'flex', alignItems: 'center', marginTop: screenHeight * 0.04  },
-  qr: { alignItems: 'center' },
+  qr: { alignItems: 'center', marginTop: screenHeight * 0.15  },
+
 });
 
 

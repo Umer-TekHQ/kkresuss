@@ -5,7 +5,6 @@ import LinearGradient from 'react-native-linear-gradient'
 
 import { Images } from '../assets'
 import BackgroundStyles from '../styles/Background.styles'
-
 import { Colors } from '../theme/colors';
 
 type Props = {

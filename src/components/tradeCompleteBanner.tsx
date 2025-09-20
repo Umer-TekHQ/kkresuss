@@ -1,11 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Colors } from '../theme/colors';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+
+import { Images } from '../assets';
+import { Colors } from '../theme/colors';
 
 const TradeCompleteBanner = () => (
   <View style={styles.banner}>
-    <Text style={styles.text}>✓ Trade Complete</Text>
+    <Image source={Images.tradeTick} style={styles.tick}/>
+    <Text style={styles.text}> Trade Complete</Text>
   </View>
 );
 
@@ -15,11 +18,13 @@ const styles = StyleSheet.create({
   banner: {
     backgroundColor: Colors.gold,
     paddingVertical: 10,
-    width: wp('96%'),
-    borderBottomRightRadius: 25,
-    borderBottomLeftRadius: 25,
+    width: wp('95%'),
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20,
     alignItems: 'center',
     marginHorizontal: 7,
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
   text: {
     fontWeight: '700',
@@ -27,4 +32,10 @@ const styles = StyleSheet.create({
     color: Colors.background,
     fontFamily: 'Nunito Sans',
   },
+  tick:{
+    width: 20,
+     height: 20,
+     marginRight: 5,
+     tintColor: Colors.black,
+  }
 });

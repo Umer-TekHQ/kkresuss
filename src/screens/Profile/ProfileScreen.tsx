@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -11,7 +10,12 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import { HandlerStateChangeEvent, PanGestureHandler, GestureHandlerRootView, PanGestureHandlerEventPayload } from 'react-native-gesture-handler';
+import {
+  HandlerStateChangeEvent,
+  PanGestureHandler,
+  GestureHandlerRootView,
+  PanGestureHandlerEventPayload,
+} from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedStyle,
   withSpring,
@@ -29,16 +33,12 @@ import { AppNavigatorParamList } from '../../navigators/routeNames';
 import { RootState } from '../../store';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setProfilePicture } from '../../store/slices/userSlice';
-
-
-
+import { Colors } from '../../theme/colors';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
-
 export const ProfileScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
-
   const { username, profilePicture } = useAppSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
@@ -46,11 +46,12 @@ export const ProfileScreen = () => {
   const displayUsername = username ? `${username.toLowerCase()}.kresus` : 'natemorey802.kresus';
 
   const handleChangeProfilePicture = () => {
-    const newPicture = profilePicture === Images.profileIcon ? Images.profileIcon : Images.profileIcon;
+    const newPicture =
+      profilePicture === Images.profileIcon ? Images.profileIcon : Images.profileIcon;
     dispatch(setProfilePicture(newPicture));
   };
 
-    const [wallets, setWallets] = useState<any[]>([]);
+  const [wallets, setWallets] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchWallets = async () => {
@@ -62,6 +63,7 @@ export const ProfileScreen = () => {
         }
 
         const walletResponse = await walletApi.getUserWallets();
+
         const raw = Array.isArray(walletResponse?.WalletsData)
           ? walletResponse.WalletsData
           : Array.isArray(walletResponse)
@@ -71,12 +73,14 @@ export const ProfileScreen = () => {
           : [];
 
         const first = raw[0] || {};
+
         const formatAddress = (addr?: string) => {
           if (!addr || addr.length <= 10) return addr || '';
           return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
         };
 
-        const cards = [] as any[];
+        const cards: any[] = [];
+
         if (first.solana) {
           cards.push({
             icon: Images.solanaLogo,
@@ -86,6 +90,7 @@ export const ProfileScreen = () => {
             background: Images.solanaBg,
           });
         }
+
         if (first.base) {
           cards.push({
             icon: Images.baseCardLogo,
@@ -95,6 +100,7 @@ export const ProfileScreen = () => {
             background: Images.baseBg,
           });
         }
+
         if (first.world) {
           cards.push({
             icon: Images.baseCardLogo,
@@ -112,83 +118,80 @@ export const ProfileScreen = () => {
         Toast.show({ type: 'error', text1: message });
       }
     };
+
     fetchWallets();
   }, []);
 
+  const CardDeck = () => {
+    const topCardIndex = useReanimatedSharedValue(0);
+    const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
 
-const CardDeck = () => {
-  const topCardIndex = useReanimatedSharedValue(0);
-  const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>();
+    const handleSwipe = () => {
+      topCardIndex.value = topCardIndex.value === 0 ? 1 : 0;
+    };
 
-  const handleSwipe = () => {
-    topCardIndex.value = topCardIndex.value === 0 ? 1 : 0;
-  };
+    const handleCardPress = (card: typeof wallets[0]) => {
+      if (card.title.includes('Base')) {
+        navigation.navigate('baseReceiveScreen', { card });
+      } else if (card.title.includes('Solana')) {
+        navigation.navigate('CardReceiveScreen', { card });
+      } else {
+        Toast.show({ type: 'info', text1: 'Screen not available for this wallet' });
+      }
+    };
 
-  const handleCardPress = (card: typeof wallets[0]) => {
-    if (card.title.includes('Base')) {
-      navigation.navigate('baseReceiveScreen', { card });
-    } else if (card.title.includes('Solana')) {
-      navigation.navigate('CardReceiveScreen', { card });
-    } else {
-      Toast.show({ type: 'info', text1: 'Screen not available for this wallet' });
-    }
-  };
+    if (wallets.length === 0) return null;
 
-  if (wallets.length === 0) {
-    return null;
-  }
-
-  if (wallets.length === 1) {
-    return (
-      <View style={{ height: screenHeight * 0.3, justifyContent: 'center', alignItems: 'center' }}>
-        <TouchableOpacity activeOpacity={0.9} onPress={() => handleCardPress(wallets[0])}>
-          <ProfileCard {...wallets[0]} />
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  return (
-    <GestureHandlerRootView>
-      <PanGestureHandler
-        onHandlerStateChange={(event: HandlerStateChangeEvent<PanGestureHandlerEventPayload>) => {
-          const translationY = event.nativeEvent.translationY;
-          if (Math.abs(translationY) > 50) {
-            runOnJS(handleSwipe)();
-          }
-        }}
-      >
+    if (wallets.length === 1) {
+      return (
         <View style={{ height: screenHeight * 0.3, justifyContent: 'center', alignItems: 'center' }}>
-          {[1, 0].map((i) => {
-            const animatedStyle = useAnimatedStyle(() => {
-              const isTop = topCardIndex.value === i;
-              return {
-                position: 'absolute',
-                zIndex: isTop ? 2 : 1,
-                transform: [
-                  { translateY: withSpring(isTop ? 0 : -75) },
-                  { scale: withSpring(isTop ? 0.97 : 0.97) },
-                ],
-                opacity: withSpring(isTop ? 1 : 1),
-              };
-            }, [topCardIndex]);
-
-            return (
-              <Animated.View key={i} style={animatedStyle}>
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  onPress={() => handleCardPress(wallets[i])}
-                >
-                  <ProfileCard {...wallets[i]} />
-                </TouchableOpacity>
-              </Animated.View>
-            );
-          })}
+          <TouchableOpacity activeOpacity={0.9} onPress={() => handleCardPress(wallets[0])}>
+            <ProfileCard {...wallets[0]} />
+          </TouchableOpacity>
         </View>
-      </PanGestureHandler>
-    </GestureHandlerRootView>
-  );
-};
+      );
+    }
+
+    return (
+      <GestureHandlerRootView>
+        <PanGestureHandler
+          onHandlerStateChange={(
+            event: HandlerStateChangeEvent<PanGestureHandlerEventPayload>,
+          ) => {
+            const translationY = event.nativeEvent.translationY;
+            if (Math.abs(translationY) > 50) {
+              runOnJS(handleSwipe)();
+            }
+          }}
+        >
+          <View style={{ height: screenHeight * 0.3, justifyContent: 'center', alignItems: 'center' }}>
+            {[1, 0].map((i) => {
+              const animatedStyle = useAnimatedStyle(() => {
+                const isTop = topCardIndex.value === i;
+                return {
+                  position: 'absolute',
+                  zIndex: isTop ? 2 : 1,
+                  transform: [
+                    { translateY: withSpring(isTop ? 0 : -75) },
+                    { scale: withSpring(0.97) },
+                  ],
+                  opacity: withSpring(1),
+                };
+              }, [topCardIndex]);
+
+              return (
+                <Animated.View key={i} style={animatedStyle}>
+                  <TouchableOpacity activeOpacity={0.9} onPress={() => handleCardPress(wallets[i])}>
+                    <ProfileCard {...wallets[i]} />
+                  </TouchableOpacity>
+                </Animated.View>
+              );
+            })}
+          </View>
+        </PanGestureHandler>
+      </GestureHandlerRootView>
+    );
+  };
 
   const AVATAR_SIZE = screenWidth * 0.19;
   const ICON_SIZE = screenWidth * 0.08;
@@ -197,59 +200,58 @@ const CardDeck = () => {
   const UPGRADE_FONT = screenWidth * 0.037;
   const CARDS_MARGIN_TOP = screenHeight * 0.19;
 
-return (
-  <View style={{ flex: 1, backgroundColor: '#000' }}>
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image
-            source={Images.backButton}
-            style={[
-              styles.icon,
-              {
-                width: ICON_SIZE,
-                height: ICON_SIZE,
-              },
-            ]}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={[styles.editText, { fontSize: USERNAME_FONT }]}>Edit</Text>
-        </TouchableOpacity>
-      </View>
+  return (
+    <View style={{ flex: 1, backgroundColor: '#000' }}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        {/* Header */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Image
+              source={Images.backButton}
+              style={[styles.icon, { width: ICON_SIZE, height: ICON_SIZE }]}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={[styles.editText, { fontSize: USERNAME_FONT }]}>Edit</Text>
+          </TouchableOpacity>
+        </View>
 
-      <View style={styles.profileSection}>
-        <TouchableOpacity onPress={handleChangeProfilePicture}>
-          <Image
-            source={profilePicture || Images.profileIcon}
-            style={[
-              styles.avatar,
-              { width: AVATAR_SIZE, height: AVATAR_SIZE, borderRadius: AVATAR_SIZE / 2 },
-            ]}
-          />
-        </TouchableOpacity>
-        <Text style={[styles.name, { fontSize: NAME_FONT }]}>{displayName}</Text>
-        <Text style={[styles.username, { fontSize: USERNAME_FONT }]}>{displayUsername}</Text>
-        <TouchableOpacity>
-          <Text style={[styles.upgrade, { fontSize: UPGRADE_FONT }]}>Upgrade ID {'>'}</Text>
-        </TouchableOpacity>
-      </View>
+        {/* Profile */}
+        <View style={styles.profileSection}>
+          <TouchableOpacity onPress={handleChangeProfilePicture}>
+            <Image
+              source={profilePicture || Images.profileIcon}
+              style={[
+                styles.avatar,
+                { width: AVATAR_SIZE, height: AVATAR_SIZE, borderRadius: AVATAR_SIZE / 2 },
+              ]}
+            />
+          </TouchableOpacity>
+          <Text style={[styles.name, { fontSize: NAME_FONT }]}>{displayName}</Text>
+          <Text style={[styles.username, { fontSize: USERNAME_FONT }]}>{displayUsername}</Text>
+          <TouchableOpacity>
+            <Text style={[styles.upgrade, { fontSize: UPGRADE_FONT }]}>
+              Upgrade ID {'>'}
+            </Text>
+          </TouchableOpacity>
+        </View>
 
-      <View style={{ marginTop: CARDS_MARGIN_TOP }}>
-        <CardDeck />
-      </View>
-    </ScrollView>
+        {/* Wallet Cards */}
+        <View style={{ marginTop: CARDS_MARGIN_TOP }}>
+          <CardDeck />
+        </View>
+      </ScrollView>
 
-    <BottomSheetProfile navigation={navigation} />
-  </View>
-);
-
+      {/* Bottom Sheet */}
+      <BottomSheetProfile navigation={navigation} />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: Colors.black,
     position: 'relative',
     paddingTop: 20,
   },
@@ -258,10 +260,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 15,
   },
-  icon: {
-  },
+  icon: {},
   editText: {
-    color: '#fff',
+    color: Colors.white,
     marginTop: 5,
   },
   profileSection: {
@@ -269,17 +270,18 @@ const styles = StyleSheet.create({
   },
   avatar: {},
   name: {
-    color: 'white',
+    color: Colors.white,
     marginTop: 12,
   },
   username: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     marginTop: 4,
   },
   upgrade: {
-    color: '#CEB55A',
+    color: Colors.gold,
     marginTop: 4,
   },
 });
 
 export default ProfileScreen;
+
