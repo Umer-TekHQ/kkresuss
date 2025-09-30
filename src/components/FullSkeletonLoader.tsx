@@ -14,14 +14,13 @@ const FullSkeletonLoader = () => {
         speed={2000}
       >
         <View style={styles.fullHeight}>
-          {/* Summary Card */}
           <View style={styles.summaryCard}>
             <View style={styles.cardContainer}>
               <View style={styles.cardLineShort} />
               <View style={styles.cardLineMedium} />
               <View style={styles.rowLine}>
                 <View style={styles.cardLineSmall} />
-                <View style={styles.cardLineXsmall} />
+                <View style={styles.cardLineExtraSmall} />
               </View>
             </View>
 
@@ -33,7 +32,6 @@ const FullSkeletonLoader = () => {
             </View>
           </View>
 
-          {/* Circle Row */}
           <View style={styles.circleRow}>
             {[...Array(4)].map((_, index) => (
               <View key={index} style={styles.circleWrapper}>
@@ -43,21 +41,19 @@ const FullSkeletonLoader = () => {
             ))}
           </View>
 
-          {/* Long Bar */}
           <View style={styles.longBarRow}>
             <View style={styles.longBar} />
             <View style={styles.dot} />
           </View>
 
-          {/* Profile Card */}
           <View style={styles.profileCard}>
             <View style={styles.profileCardHeader}>
               <View style={styles.avatar} />
               <View style={styles.profileCardLines}>
                 <View style={styles.profileLineShort} />
                 <View style={styles.midLine}>
-                  <View style={styles.profileLineXsmall} />
-                  <View style={styles.profileLineXxsmall} />
+                  <View style={styles.profileLineExtraSmall} />
+                  <View style={styles.profileLineExtraSmall1} />
                 </View>
                 <View style={styles.profileLineMedium} />
               </View>
@@ -74,21 +70,19 @@ const FullSkeletonLoader = () => {
             <View style={styles.profileBottom}>
               <View style={styles.dot1} />
               <View style={styles.bottomSmallLine} />
-              <View style={styles.bottomXsmallLine} />
-              <View style={styles.bottomX2smallLine} />
+              <View style={styles.bottomExtraSmallLine} />
+              <View style={styles.bottomExtraSmallLine1} />
               <View style={styles.bottomSmallLine} />
               <View style={styles.dot1} />
             </View>
           </View>
 
-          {/* Footer */}
           <View style={styles.footerRow}>
             <View style={styles.footerCircle} />
             <View style={styles.footerButton} />
             <View style={styles.footerButtonSmall} />
           </View>
 
-          {/* Bottom Card */}
           <View style={styles.bottomCard}>
             <View style={styles.bottomLine} />
             <View style={styles.bottomLine} />
@@ -136,7 +130,7 @@ const styles = StyleSheet.create({
     height: hp('2.5%'),
     borderRadius: 2,
   },
-  cardLineXsmall: {
+  cardLineExtraSmall: {
     width: wp('22%'),
     height: hp('2.5%'),
     marginLeft: wp('1%'),
@@ -234,12 +228,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: hp('1%'),
   },
-  profileLineXsmall: {
+  profileLineExtraSmall: {
     width: wp('15%'),
     height: hp('1.8%'),
     borderRadius: 2,
   },
-  profileLineXxsmall: {
+  profileLineExtraSmall1: {
     width: wp('10%'),
     height: hp('1.8%'),
     borderRadius: 2,
@@ -253,7 +247,7 @@ const styles = StyleSheet.create({
   buttonBackground: {
     padding: wp('4%'),
     borderWidth: 1,
-    borderColor: '#086DE1',
+    borderColor: Colors.back,
     borderRadius: wp('8%'),
     marginLeft: wp('8%'),
   },
@@ -270,7 +264,7 @@ const styles = StyleSheet.create({
   bar: {
     height: hp('0.7%'),
     marginRight: wp('1%'),
-    backgroundColor: '#086DE1',
+    backgroundColor: Colors.back,
     flex: 1,
   },
   profileBottom: {
@@ -283,12 +277,12 @@ const styles = StyleSheet.create({
     width: wp('12%'),
     marginLeft: wp('1%'),
   },
-  bottomXsmallLine: {
+  bottomExtraSmallLine: {
     height: hp('2%'),
     width: wp('15%'),
     marginLeft: wp('1%'),
   },
-  bottomX2smallLine: {
+  bottomExtraSmallLine1: {
     height: hp('2%'),
     width: wp('15%'),
     marginLeft: wp('12%'),

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image,TouchableOpacity } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import { Images } from '../assets';
+import { Colors } from '../theme/colors';
 
 type TopAssetsCardProps = {
   showChange?: boolean;
@@ -71,7 +72,7 @@ const TopAssetsCard = ({ showChange = true ,onAssetPress }:TopAssetsCardProps) =
                   <Text
                     style={[
                       styles.changeText,
-                      { color: item.isPositive ? '#5AD78E' : '#FF5A5F' },
+                      { color: item.isPositive ? Colors.graphGreen : Colors.red },
                     ]}
                   >
                     {item.change}
@@ -98,10 +99,10 @@ export default TopAssetsCard;
 const styles = StyleSheet.create({
   card: {
     width: wp('90%'),
-    backgroundColor: '#080C4C',
+    backgroundColor: Colors.background2,
     borderRadius: 20,
     borderTopWidth: 1,
-    borderColor: '#1E2D56',
+    borderColor: Colors.fieldBackground,
     paddingHorizontal: 14,
     paddingVertical: 10
   },
@@ -121,12 +122,12 @@ const styles = StyleSheet.create({
     width: 100, 
   },
   assetName: {
-    color: '#FFF',
+    color: Colors.white,
     fontSize: 14,
     fontWeight: '600',
   },
   assetSymbol: {
-    color: '#7AB7FD',
+    color: Colors.activeTint,
     fontSize: 12,
     marginTop: 2,
   },
@@ -144,19 +145,19 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   price: {
-    color: '#FFF',
+    color: Colors.white,
     fontSize: 15,
     fontWeight: '600',
     textAlign:'right'
   },
   amount: {
-    color: '#7AB7FD',
+    color: Colors.activeTint,
     fontSize: 13,
     marginBottom: 2,
   },
   divider: {
     height: 1,
-    backgroundColor: '#01032C',
+    backgroundColor: Colors.background,
     marginLeft: 40,
     width: 287,
     marginVertical: 4,

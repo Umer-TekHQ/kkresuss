@@ -149,8 +149,8 @@ const styles = StyleSheet.create({
     marginTop:40,
 },
 identityIcon: {
-  width: 30,
-  height: 30,
+  width: 40,
+  height: 40,
  resizeMode:'cover',
   tintColor: Colors.lightblue,
 },

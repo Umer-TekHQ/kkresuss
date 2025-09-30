@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
+import { Colors } from '../theme/colors';
 const TopAssetsCardSkeleton = () => {
   return (
     <View style={styles.card}>
@@ -33,10 +34,10 @@ export default TopAssetsCardSkeleton;
 const styles = StyleSheet.create({
   card: {
     width: 345,
-    backgroundColor: '#01032C',
+    backgroundColor: Colors.background,
     borderRadius: 20,
     borderTopWidth: 1,
-    borderColor: '#1E2D56',
+    borderColor: Colors.fieldBackground1,
     padding: 16,
   },
   row: {

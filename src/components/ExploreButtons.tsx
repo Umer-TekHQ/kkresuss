@@ -19,7 +19,7 @@ export const ExploreButtons: React.FC<{
   return (
     <View>
       <View style={styles.actionButtonsContainer}>
-        {actions.map((action, index) => {
+        {actions.map((action) => {
           const isActive = action.name === activeSection;
           return (
             <TouchableOpacity

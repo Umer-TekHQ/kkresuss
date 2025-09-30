@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import { useAppDispatch } from "../store/hooks";
 import { setAmount1, setAmount2, toggleUSD } from "../store/slices/tradeSlice";
 

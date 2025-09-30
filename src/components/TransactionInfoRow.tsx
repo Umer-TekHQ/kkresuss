@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Toast from 'react-native-toast-message';
 
 import { Images } from '../assets';
+import { Colors } from '../theme/colors';
 
 
 type Props = {
@@ -40,7 +41,7 @@ const TransactionInfoRow = ({ note }: Props) => {
         >
           <Text style={styles.label}>{item.label}</Text>
           {item.isNote ? (
-            <Text style={[styles.value, styles.noteValue, { color: '#FFF' }]}>
+            <Text style={styles.value}>
               {item.value}
             </Text>
           ) : (
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     paddingVertical: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#10178A',
+    borderBottomColor: Colors.background1,
   },
   lastRow: {
     borderBottomWidth: 0,
@@ -83,13 +84,14 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   label: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 17,
   },
   value: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 17,
     fontWeight: '500',
+    marginTop: 4,
   },
   noteValue: {
     marginTop: 4,
@@ -109,7 +111,7 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
     resizeMode: 'contain',
-    tintColor: '#ADD2FD',
+    tintColor: Colors.lightblue,
     marginLeft: 6,
   },
 });

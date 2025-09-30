@@ -1,16 +1,17 @@
-import React, { useImperativeHandle, useEffect, useState, forwardRef } from 'react';
+import React, { useEffect, forwardRef } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
-  useAnimatedReaction,
   interpolate,
-  runOnJS
 } from 'react-native-reanimated';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import { Colors } from '../theme/colors';
 
 export interface BottomSheetExploreRef {
@@ -24,55 +25,22 @@ const TRANSLATE_Y_CONFIG = {
   max: -hp('100%'),
 };
 
-const BottomSheetExplore = forwardRef<BottomSheetExploreRef>((props, ref) => {
+const BottomSheetExplore = forwardRef<BottomSheetExploreRef>(() => {
   const translateY = useSharedValue(TRANSLATE_Y_CONFIG.initial);
   const context = useSharedValue({ y: 0 });
+
   const initialY = useSharedValue(TRANSLATE_Y_CONFIG.initial);
   const minY = useSharedValue(TRANSLATE_Y_CONFIG.min);
   const maxY = useSharedValue(TRANSLATE_Y_CONFIG.max);
-  const [blockingPointerEvents, setBlockingPointerEvents] = useState(false);
-
-  const openSheet = () => {
-    translateY.value = withSpring(maxY.value, {
-      damping: 15,
-      stiffness: 80,
-      mass: 0.8,
-    });
-    setBlockingPointerEvents(true);
-  };
-  const closeSheet = () => {
-    translateY.value = withSpring(initialY.value, {
-      damping: 15,
-      stiffness: 80,
-      mass: 0.8,
-    });
-    setBlockingPointerEvents(false);
-  };
-  useImperativeHandle(ref, () => ({ openSheet, closeSheet }));
 
   const rHeadingStyle = useAnimatedStyle(() => {
-  const marginTop = interpolate(
-    translateY.value,
-    [minY.value, maxY.value], 
-    [0, 50],                 
-  );
-
-  return {
-    marginTop,
-  };
-});
-
-
-  useAnimatedReaction(
-    () => {
-      const range = maxY.value - minY.value;
-      const progress = Math.max(0, Math.min(1, (translateY.value - minY.value) / range));
-      return progress;
-    },
-    (progress) => {
-      runOnJS(setBlockingPointerEvents)(progress > 0.95);
-    }
-  );
+    const marginTop = interpolate(
+      translateY.value,
+      [minY.value, maxY.value],
+      [0, 50],
+    );
+    return { marginTop };
+  });
 
   const gesture = Gesture.Pan()
     .onStart(() => {
@@ -81,26 +49,28 @@ const BottomSheetExplore = forwardRef<BottomSheetExploreRef>((props, ref) => {
     .onUpdate((event) => {
       translateY.value = Math.max(
         Math.min(event.translationY + context.value.y, minY.value),
-        maxY.value
+        maxY.value,
       );
     })
     .onEnd((event) => {
       const midPoint = (minY.value + maxY.value) / 2;
-      const shouldOpenFully = event.velocityY < -500 ||
+      const shouldOpenFully =
+        event.velocityY < -500 ||
         (event.velocityY > -200 && translateY.value < midPoint);
+
       if (shouldOpenFully) {
         translateY.value = withSpring(maxY.value, {
           damping: 15,
           stiffness: 80,
           mass: 0.8,
-          velocity: event.velocityY
+          velocity: event.velocityY,
         });
       } else {
         translateY.value = withSpring(minY.value, {
           damping: 15,
           stiffness: 80,
           mass: 0.8,
-          velocity: event.velocityY
+          velocity: event.velocityY,
         });
       }
     });
@@ -115,7 +85,9 @@ const BottomSheetExplore = forwardRef<BottomSheetExploreRef>((props, ref) => {
       minY.value = TRANSLATE_Y_CONFIG.min;
       maxY.value = TRANSLATE_Y_CONFIG.max;
     };
+
     const sub = Dimensions.addEventListener('change', handler);
+
     return () => {
       if (sub && typeof sub.remove === 'function') sub.remove();
     };
@@ -125,18 +97,24 @@ const BottomSheetExplore = forwardRef<BottomSheetExploreRef>((props, ref) => {
     <GestureDetector gesture={gesture}>
       <Animated.View style={[styles.container, rStyle]}>
         <View style={styles.lineExplore} />
+
         <Animated.Text style={[styles.headingPro, rHeadingStyle]}>
           Uniswap
         </Animated.Text>
+
         <Text style={styles.topParagraph}>
-          Swap, earn, and build on the leading decentralized crypto trading protocol.
+          Swap, earn, and build on the leading decentralized crypto trading
+          protocol.
         </Text>
+
         <Text style={styles.bottomParagraph}>
-          UniSwap is a decentralized exchange that enables the trading of digital assets. UNI is
-          the cryptocurrency the UniSwap platform uses. Anyone can earn UNI by agreeing to not
-          sell or trade their crypto holdings. The UniSwap platform is governed by UNI holders
-          in proportion to how much UNI they own.
+          UniSwap is a decentralized exchange that enables the trading of
+          digital assets. UNI is the cryptocurrency the UniSwap platform uses.
+          Anyone can earn UNI by agreeing to not sell or trade their crypto
+          holdings. The UniSwap platform is governed by UNI holders in
+          proportion to how much UNI they own.
         </Text>
+
         <View />
       </Animated.View>
     </GestureDetector>
@@ -170,7 +148,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     marginBottom: 12,
     marginLeft: 15,
-    fontFamily: 'PlayfairDisplay-Bold'
+    fontFamily: 'PlayfairDisplay-Bold',
   },
   topParagraph: {
     color: Colors.white,

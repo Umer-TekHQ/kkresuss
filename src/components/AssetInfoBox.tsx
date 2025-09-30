@@ -16,7 +16,7 @@ const AssetInfoBox = ({ logo, name, short, price, availableAmount }: Props) => {
     <View style={styles.ethBox}>
       <View style={styles.ethBoxInner}>
         <Image source={logo} style={styles.ethIcon} />
-        <View style={{ marginLeft: 10 }}>
+        <View style={styles.nameBlock}>
           <Text style={styles.ethSymbol}>{name}</Text>
           <Text style={styles.ethShort}>{short}</Text>
         </View>
@@ -46,6 +46,9 @@ const styles = StyleSheet.create({
   ethBoxInner: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  nameBlock: {
+    marginLeft: 10
   },
   ethIcon: {
     width: 40,

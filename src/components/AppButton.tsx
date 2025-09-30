@@ -4,11 +4,10 @@ import {
   Text,
   StyleSheet,
   Dimensions,
+  DimensionValue
 } from 'react-native'
 
 import { Colors } from '../theme/colors'
-
-import type { DimensionValue } from 'react-native'
 
 const { width: screenWidth } = Dimensions.get('window')
 

@@ -17,7 +17,7 @@ export const ProsSection = ({ onPress }: Props) => (
 );
 
 const styles = StyleSheet.create({
-  container: { flexDirection: 'row', justifyContent: 'space-between' },
+  container: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   text: { color: '#7AB7FD', fontSize: 16, marginTop: 4, marginLeft: 15, marginBottom: 15 },
-  icon: { marginRight: 20, width: 36, height: 36 },
+  icon: { marginRight: 20, width: 40, height: 40 },
 });

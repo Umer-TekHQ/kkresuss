@@ -12,7 +12,7 @@ const TradeFooter = ({ onContinue, isEnabled }: { onContinue: () => void; isEnab
       onPress={onContinue}
       disabled={!isEnabled}
     >
-      <Text style={[styles.continueText, isEnabled && { color: '#01021D' }]}>Continue</Text>
+      <Text style={[styles.continueText, isEnabled && { color: Colors.backgroundAlt }]}>Continue</Text>
     </TouchableOpacity>
   </View>
 );

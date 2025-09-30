@@ -17,7 +17,7 @@ export const CommonHeader: React.FC <{ title?: string }> = ({ title = 'Nate Digg
         <Image source={Images.scanner} style={styles.headerIcon} />
       </TouchableOpacity>
       <TouchableOpacity>
-        <Image source={Images.secure} style={[styles.headerIcon, { marginLeft: 20 }]} />
+        <Image source={Images.secure} style={styles.headerIcon} />
       </TouchableOpacity>
     </View>
   </View>
@@ -58,10 +58,6 @@ const styles = StyleSheet.create({
     width: 38,
     height: 38,
     tintColor: Colors.white,
+    marginLeft: 20 
   },
-  secureIcon:{
-    width: 38,
-    height: 38
-  },
-
   })

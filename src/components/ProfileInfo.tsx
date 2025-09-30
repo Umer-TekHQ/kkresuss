@@ -3,6 +3,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
 import { useAppSelector } from '../store/hooks';
+import { Colors } from '../theme/colors';
 
 const ProfileInfo = () => {
   const { rname, subtext, logo } = useAppSelector(state => state.recipient);
@@ -47,21 +48,21 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 25,
-    backgroundColor: '#10178A',
+    backgroundColor: Colors.background1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   avatarText: {
-    color: '#FFF',
+    color: Colors.white,
     fontWeight: 'bold',
   },
   name: {
-    color: '#FFF',
+    color: Colors.white,
     fontSize: 16,
     marginTop: 8,
   },
   code: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 13,
   },
 });

@@ -27,5 +27,5 @@ const ExploreSections = ({ exploreSections, onSectionLayout, navigation }: Props
 export default ExploreSections;
 
 const styles = StyleSheet.create({
-  spacer:{ height: 300 }
+  spacer:{ height: 200 }
 })

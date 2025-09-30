@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 import { Images } from '../assets';
+import { Colors } from '../theme/colors';
 
 const TransactionList = ({ transactions }: { transactions: any[] }) => {
   const renderItem = ({ item }: { item: any }) => (
@@ -17,7 +18,7 @@ const TransactionList = ({ transactions }: { transactions: any[] }) => {
           source={item.type === 'Sent' ? Images.sent : Images.received}
           style={styles.icon}
         />
-        <View style={{ marginLeft: 10 }}>
+        <View style={styles.titleView}>
           <Text style={styles.name}>{item.title}</Text>
           <Text style={styles.meta}>
             {item.type} · {item.time}
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   title: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 16,
     fontWeight: '600',
     marginBottom: 12,
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 1,
-    backgroundColor: '#222',
+    backgroundColor: Colors.background5,
   },
   leftSection: {
     flexDirection: 'row',
@@ -88,15 +89,15 @@ const styles = StyleSheet.create({
     height: 40,
     resizeMode: 'contain',
     borderRadius: 20,
-    backgroundColor: '#1C1C2E',
+    backgroundColor: Colors.privacy,
   },
   name: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 14,
     fontWeight: '500',
   },
   meta: {
-    color: '#aaa',
+    color: Colors.disabled,
     fontSize: 12,
     marginTop: 2,
   },
@@ -112,11 +113,14 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   sent: {
-    color: '#f44336',
+    color: Colors.redBar,
   },
   received: {
-    color: '#4CAF50',
+    color: Colors.greenBar,
   },
+  titleView:{
+    marginLeft: 10
+  }
 });
 
 

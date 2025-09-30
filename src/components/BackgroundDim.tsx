@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
+import { Colors } from '../theme/colors';
+
 interface BackgroundDimProps {
   isAtMax: Animated.SharedValue<boolean>;
 }
@@ -16,7 +18,7 @@ const BackgroundDim: React.FC<BackgroundDimProps> = ({ isAtMax }) => {
       pointerEvents="none"
       style={[
         StyleSheet.absoluteFillObject,
-        { backgroundColor: 'black' },
+        styles.background,
         dimStyle,
       ]}
     />
@@ -24,3 +26,9 @@ const BackgroundDim: React.FC<BackgroundDimProps> = ({ isAtMax }) => {
 };
 
 export default BackgroundDim;
+
+const styles = StyleSheet.create({
+  background:{
+    backgroundColor: Colors.black
+  }
+})

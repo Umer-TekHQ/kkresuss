@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React, { forwardRef, useImperativeHandle } from 'react';
 import {
-  View,
   Text,
   StyleSheet,
   Dimensions,
@@ -20,6 +19,7 @@ import Animated, {
 
 import { Images } from '../assets';
 import { AppNavigatorParamList } from '../navigators/routeNames'
+import { Colors } from '../theme/colors';
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -125,7 +125,7 @@ const headingStyle = useAnimatedStyle(() => {
    <Animated.View style={styles.headerRow}>
   <Animated.View style={[styles.backBtnContainer, backButtonStyle]}>
     <TouchableOpacity onPress={() => navigation.goBack()}>
-      <Image source={Images.backScreen} style={styles.backIcon} />
+      <Image source={Images.backButton} style={styles.backIcon} />
     </TouchableOpacity>
   </Animated.View>
 
@@ -133,7 +133,6 @@ const headingStyle = useAnimatedStyle(() => {
     Today's Return
   </Animated.Text>
 
-    <View style={{ width: 20 }} />
     </Animated.View>
 
         <Text style={styles.description}>
@@ -153,7 +152,7 @@ const styles = StyleSheet.create({
   container: {
     height: SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
-    backgroundColor: '#01021D',
+    backgroundColor: Colors.backgroundAlt,
     position: 'absolute',
     top: SCREEN_HEIGHT,
     borderRadius: 15,
@@ -162,35 +161,31 @@ const styles = StyleSheet.create({
   line: {
     width: 55,
     height: 4,
-    backgroundColor: '#10132C',
+    backgroundColor: Colors.background,
     alignSelf: 'center',
     marginVertical: 15,
     borderRadius: 2,
   },
   heading: {
-    color: '#ffffff',
+    color: Colors.white,
     fontWeight: '600',
-  // marginVertical: 10,
-   fontSize:30,
-  width: SCREEN_WIDTH * 0.7,
+    fontSize:30,
+    width: SCREEN_WIDTH * 0.7,
+    fontFamily: 'PlayfairDisplay-Bold'
   },
   description: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     marginHorizontal: 20,
     marginTop: 25,
     fontSize: 20,
   },
   backBtnContainer: {
-    // position: 'absolute',
-    // left: 15,
-    // top: 18,
-    // zIndex: 10,
      width: 20,
   },
   backIcon: {
     width: 30,
     height: 30,
-    tintColor: 'white',
+    tintColor: Colors.white,
   },
   headerRow: {
   flexDirection: 'row',

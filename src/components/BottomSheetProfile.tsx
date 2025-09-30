@@ -51,10 +51,8 @@ const BottomSheetProfile = forwardRef<
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  // 👇 only 2 snap points (collapsed & expanded)
   const snapPoints = useMemo(() => [hp("8%"), hp("45%")], []);
 
-  // Imperative methods
   const openSheet = useCallback(() => {
     bottomSheetRef.current?.snapToIndex(1);
   }, []);
@@ -69,22 +67,8 @@ const BottomSheetProfile = forwardRef<
     navigation,
   }));
 
-  // Animation values
   const rotation = useSharedValue(0);
   const sheetPosition = useSharedValue(0);
-
-  const arrowAnimatedStyle = useAnimatedStyle(() => {
-    const rotate = interpolate(
-      sheetPosition.value,
-      [0, 1],
-      [0, 180],
-      Extrapolate.CLAMP
-    );
-    return {
-      transform: [{ rotate: `${rotate}deg` }],
-    };
-  });
-
   const logoAnimatedStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       sheetPosition.value,
@@ -168,30 +152,16 @@ const BottomSheetProfile = forwardRef<
             </Animated.Text>
 
             <View
-              style={{
-                width: 28,
-                height: 25,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+              style={styles.headerSub}
             >
               <Animated.Image
                 source={Images.up}
-                style={[
-                  {
-                    width: 28,
-                    height: 25,
-                    marginTop: 7,
-                    tintColor: "#4898F3",
-                  },
-                  arrowAnimatedStyle,
-                ]}
+                style={styles.imageUp}
               />
             </View>
           </View>
         </TouchableOpacity>
 
-        {/* Expanded content */}
         <View style={styles.expandableContent}>
           <View style={styles.l1}>
             <View style={styles.rowLeft}>
@@ -223,7 +193,7 @@ const BottomSheetProfile = forwardRef<
               closeSheet();
             }}
           >
-            <Text style={{ color: "white" }}>Learn More</Text>
+            <Text style={styles.learnMore}>Learn More</Text>
           </TouchableOpacity>
         </View>
       </BottomSheetView>
@@ -239,9 +209,24 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: hp("1%"),
   },
+  headerSub:{
+    width: 28,
+    height: 25,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   expandableContent: {
     flex: 1,
     paddingBottom: hp("2%"),
+  },
+  learnMore:{
+    color: Colors.white
+  },
+  imageUp:{
+    width: 28,
+    height: 25,
+    marginTop: 7,
+    tintColor: Colors.blue,
   },
   headProfileRow: {
     flexDirection: "row",

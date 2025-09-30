@@ -1,6 +1,5 @@
 import React,{ReactNode} from 'react'
-import { View, Image, DimensionValue} from 'react-native'
-import { StyleProp, ViewStyle ,TouchableOpacity,Text} from 'react-native';
+import { StyleProp, ViewStyle ,TouchableOpacity,Text, View, Image, DimensionValue} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
 
 import { Images } from '../assets'

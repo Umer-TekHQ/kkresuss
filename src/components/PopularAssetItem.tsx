@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
 import { Images } from '../assets';
+import { Colors } from '../theme/colors';
 
 interface PopularAssetItemProps {
   item: {
@@ -27,17 +28,19 @@ const PopularAssetItem = ({ item }: PopularAssetItemProps) => {
     <View style={styles.item}>
       <View style={styles.leftSection}>
         <View style={styles.iconWrapper}>
-        <Image
-          source={item.token_logo ? { uri: item.token_logo } : Images.usd}
-          style={styles.icon}
-        />
+          <Image
+            source={item.token_logo ? { uri: item.token_logo } : Images.usd}
+            style={styles.icon}
+          />
+          <Image source={Images.baseMini} style={styles.networkIcon} />
         </View>
 
-        <View style={{ marginLeft: 10 }}>
+        <View style={styles.nameToken}>
           <Text style={styles.name}>{tokenName}</Text>
           <Text style={styles.meta}>{item.token_symbol}</Text>
         </View>
       </View>
+
       <View style={styles.rightSection}>
         <Text style={styles.amount}>${parseFloat(item.price_usd).toFixed(2)}</Text>
         <View style={styles.profitRow}>
@@ -48,7 +51,7 @@ const PopularAssetItem = ({ item }: PopularAssetItemProps) => {
           <Text
             style={[
               styles.profit,
-              { color: isProfit ? '#30DB5B' : '#FF4D4F' },
+              { color: isProfit ? Colors.transaction : Colors.redBar },
             ]}
           >
             {profit}%
@@ -61,39 +64,49 @@ const PopularAssetItem = ({ item }: PopularAssetItemProps) => {
 
 export default PopularAssetItem;
 
-
 const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 11, 
+    paddingHorizontal: 11,
     paddingVertical: 12,
+  },
+  nameToken:{
+    marginLeft: 10
   },
   leftSection: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-icon: {
-  width: 42,
-  height: 42,
-  borderRadius: 21,
-  resizeMode: 'contain',
-},
-iconWrapper: {
-  width: 42,
-  height: 42,
-  borderRadius: 21,
-  backgroundColor: '#1C1C2E',
-  overflow: 'hidden',
-  alignItems: 'center',
-  justifyContent: 'center',
-},
+  icon: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    resizeMode: 'contain',
+  },
+  iconWrapper: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    backgroundColor: Colors.background5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  networkIcon: {
+    position: 'absolute',
+    bottom: -2,
+    right: -2,
+    width: 12,
+    height: 15,
+    resizeMode: 'contain',
+  },
   name: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 13,
   },
   meta: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 13,
   },
   rightSection: {
@@ -102,13 +115,12 @@ iconWrapper: {
   amount: {
     fontSize: 15,
     fontWeight: '600',
-    color: 'white',
+    color: Colors.white,
   },
   profit: {
     fontSize: 13,
-    color: '#30DB5B',
   },
- profitRow: {
+  profitRow: {
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -118,5 +130,4 @@ iconWrapper: {
     marginRight: 4,
     resizeMode: 'contain',
   },
-
 });

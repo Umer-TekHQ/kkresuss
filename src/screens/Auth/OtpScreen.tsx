@@ -51,10 +51,17 @@ export const OtpScreen = () => {
 
       try {
         await walletApi.createWallet();
-      } catch (e) {}
+      } catch (e) {
+      }
 
       if (acceptTerms) {
         navigation.navigate('OtpSuccess');
+      } else {
+        Toast.show({
+          type: 'info',
+          text1: 'Accept terms and condition',
+          position: 'bottom',
+        });
       }
     } catch (err: any) {
       Toast.show({ type: 'error', text1: err.message || 'Invalid OTP' });
@@ -92,6 +99,8 @@ export const OtpScreen = () => {
           </View>
         </KeyboardAvoidingView>
       </Background>
+      <Toast />
     </View>
   );
 };
+

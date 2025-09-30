@@ -7,7 +7,6 @@ type Props = {
   logo: any
   name: string
   short: string
-  price: number
   amount: number;
   note: string;
 }

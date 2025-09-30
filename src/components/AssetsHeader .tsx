@@ -1,8 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { ImageSourcePropType } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, ImageSourcePropType } from 'react-native';
 
 import { Images } from '../assets';
 import { AppNavigatorParamList } from '../navigators/routeNames'
@@ -14,7 +13,6 @@ interface HeaderProps {
   leftIcon?: ImageSourcePropType;
   onRightPress?: () => void;
   customBackAction?: () => void; 
-  onPressRightIcon?: () => void;
 }
 
 const AssetsHeader: React.FC<HeaderProps> = ({ title, showRightIcons = false, leftIcon, onRightPress, customBackAction }) => {

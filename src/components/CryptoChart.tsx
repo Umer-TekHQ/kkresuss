@@ -52,7 +52,7 @@ const CryptoChart = () => {
 </View>
 
 
-      <View style={{ marginTop: hp('5.5%'), marginBottom: hp('5%'), height: cardHeight * 0.23, width: '100%' }}>
+      <View style={styles.chartContainer}>
               <LineChart
                 data={chartData}
                 width={cardWidth * 1}
@@ -112,6 +112,12 @@ const styles = StyleSheet.create({
   chartContainer: {
     width: '100%',
     paddingVertical: 2,
+  },
+  chartView:{
+    marginTop: hp('5.5%'), 
+    marginBottom: hp('5%'), 
+    height: cardHeight * 0.23, 
+    width: '100%'
   },
   insuredButton: {
     flexDirection: 'row',

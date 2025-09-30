@@ -12,7 +12,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
   FadeIn,
-  FadeOut
+  FadeOut,
 } from "react-native-reanimated";
 
 import { Images } from "../assets";
@@ -24,42 +24,42 @@ type Props = {
   isInsufficient: boolean;
 };
 
-const BASE_FONT_SIZE = 60;
+const BASE_FONT_SIZE = 55;
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
-
 const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
-  const [subAmount, setSubAmount] = useState("0.00");
-  const [isSwapped, setIsSwapped] = useState(false);
+  const [subAmount, setSubAmount] = useState("0.00"); 
+  const [isSwapped, setIsSwapped] = useState(false); 
   const inputRef = useRef<TextInput>(null);
-  const CONVERSION_RATE = 0.00020401;
+  const CONVERSION_RATE = 0.00020401; 
 
   const fontSize = useSharedValue(BASE_FONT_SIZE);
   const inputWidth = useSharedValue(SCREEN_WIDTH * 0.35);
 
+  const inputValue = !isSwapped ? amount : subAmount;
+
   useEffect(() => {
-    const current = !isSwapped ? amount : subAmount;
+    const current = inputValue || "0";
 
     fontSize.value = withTiming(
       current.length > 5 ? BASE_FONT_SIZE - 15 : BASE_FONT_SIZE,
       { duration: 250 }
     );
 
-    const baseWidth = SCREEN_WIDTH * 0.35;
+    const baseWidth = SCREEN_WIDTH * 0.30;
     const growPerDigit = 20;
     const newWidth = Math.min(
       baseWidth + current.length * growPerDigit,
-      SCREEN_WIDTH * 0.75
+      SCREEN_WIDTH * 0.70
     );
 
     inputWidth.value = withTiming(newWidth, { duration: 250 });
-  }, [amount, subAmount, isSwapped]);
+  }, [inputValue, fontSize, inputWidth]);
 
-
-    const inputContainerStyle = useAnimatedStyle(() => ({
-      width: inputWidth.value,
-    }));
+  const inputContainerStyle = useAnimatedStyle(() => ({
+    width: inputWidth.value,
+  }));
 
   const currencyStyle = useAnimatedStyle(() => ({
     fontSize: fontSize.value,
@@ -75,46 +75,41 @@ const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
   return (
     <View style={styles.amountInputWrapper}>
       <View style={styles.amountInputBox}>
-        <Animated.View style={[styles.centerInputContainer, inputContainerStyle]}>
-          <Animated.Text style={[styles.currencyLabel, currencyStyle]}>
-            $
-          </Animated.Text>
+        <Animated.View
+          style={[styles.centerInputContainer, inputContainerStyle]}
+        >
+          {!isSwapped && (
+            <Animated.Text style={[styles.currencyLabel, currencyStyle,inputStyle]}>
+              $
+            </Animated.Text>
+          )}
 
-          <Animated.View style={{ flex: 1 }}>
-          <AnimatedTextInput
-            ref={inputRef}
-            style={[styles.amountInputField, inputStyle]}
-            keyboardType="decimal-pad"
-            value={!isSwapped ? amount : subAmount}
-            onChangeText={(val: string) => {
-              const sanitized = val.replace(/[^0-9.]/g, "");
-              const parts = sanitized.split(".");
-              if (parts.length > 2) return;
+          <Animated.View style={styles.viewAnimated}>
+            <AnimatedTextInput
+              ref={inputRef}
+              style={[styles.amountInputField, inputStyle]}
+              keyboardType="decimal-pad"
+              value={inputValue}
+              onChangeText={(val: string) => {
+                const sanitized = val.replace(/[^0-9.]/g, "");
+                const parts = sanitized.split(".");
+                if (parts.length > 2) return;
 
-              if (!isSwapped) {
-                setAmount(sanitized);
                 const num = parseFloat(sanitized || "0");
-                if (!num || num === 0) {
-                  setSubAmount("0.00");   
-                } else {
-                  setSubAmount((num * CONVERSION_RATE).toFixed(8));
-                }
-              } else {
-                setSubAmount(sanitized);
-                const num = parseFloat(sanitized || "0");
-                if (!num || num === 0) {
-                  setAmount("0.00");   
-                } else {
-                  setAmount((num / CONVERSION_RATE).toFixed(2));
-                }
-              }
-            }}
-            selectionColor={Colors.lightblue}
-            placeholder="0"
-            placeholderTextColor={Colors.disabled}
-            textAlign="left"
-          />
 
+                if (!isSwapped) {
+                  setAmount(sanitized);
+                  setSubAmount(num ? (num * CONVERSION_RATE).toFixed(8) : "0.00");
+                } else {
+                  setSubAmount(sanitized);
+                  setAmount(num ? (num / CONVERSION_RATE).toFixed(2) : "0.00");
+                }
+              }}
+              selectionColor={Colors.lightblue}
+              placeholder="0"
+              placeholderTextColor={Colors.disabled}
+              textAlign="left"
+            />
           </Animated.View>
         </Animated.View>
 
@@ -128,32 +123,31 @@ const AmountInputSection = ({ amount, setAmount, isInsufficient }: Props) => {
 
       <View>
         {!isSwapped ? (
-        <Animated.Text
-          key="subAmount"
-          entering={FadeIn.duration(300)}
-          exiting={FadeOut.duration(200)}
-          style={[
-            styles.subAmount,
-            { color: isInsufficient ? Colors.red : Colors.lightblue },
-          ]}
-        >
-          {subAmount} rETH
-        </Animated.Text>
+          <Animated.Text
+            key="subAmount"
+            entering={FadeIn.duration(300)}
+            exiting={FadeOut.duration(200)}
+            style={[
+              styles.subAmount,
+              { color: isInsufficient ? Colors.red : Colors.lightblue },
+            ]}
+          >
+            {subAmount} rETH
+          </Animated.Text>
         ) : (
-        <Animated.Text
-          key="amount"
-          entering={FadeIn.duration(300)}
-          exiting={FadeOut.duration(200)}
-          style={[
-            styles.subAmount,
-            { color: isInsufficient ? Colors.red : Colors.lightblue },
-          ]}
-        >
-          ${amount || "0"}
-        </Animated.Text>
+          <Animated.Text
+            key="amount"
+            entering={FadeIn.duration(300)}
+            exiting={FadeOut.duration(200)}
+            style={[
+              styles.subAmount,
+              { color: isInsufficient ? Colors.red : Colors.lightblue },
+            ]}
+          >
+            ${amount || "0"}
+          </Animated.Text>
         )}
       </View>
-
     </View>
   );
 };
@@ -162,8 +156,10 @@ export default AmountInputSection;
 
 const styles = StyleSheet.create({
   amountInputWrapper: {
+    flex: 1,
     width: "100%",
     alignItems: "center",
+    justifyContent: 'center',
     marginVertical: 20,
   },
   amountInputBox: {
@@ -171,7 +167,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginLeft: 50,
-    marginTop: 10
+    marginTop: 10,
   },
   centerInputContainer: {
     flexDirection: "row",
@@ -179,10 +175,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
   },
+  viewAnimated:{
+    flex: 1
+  },
   currencyLabel: {
     fontWeight: "700",
     includeFontPadding: false,
-    fontSize: 50,
   },
   amountInputField: {
     fontWeight: "700",
@@ -202,7 +200,7 @@ const styles = StyleSheet.create({
   swapIcon: {
     width: 22,
     height: 22,
-    marginRight: 5,
+    marginRight: 4,
     resizeMode: "contain",
     tintColor: Colors.lightblue,
   },

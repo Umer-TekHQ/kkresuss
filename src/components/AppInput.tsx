@@ -18,12 +18,11 @@ interface AppInputProps {
   placeholder: string
   value: string                          
   onChangeText?: (text: string) => void
-  onClear?: () => void       
   isElevated?: boolean       
   style?: any       
 }
 
-const AppInput = ({ placeholder, value, onChangeText, onClear,isElevated ,style}: AppInputProps) => {
+const AppInput = ({ placeholder, value, onChangeText, isElevated ,style}: AppInputProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputWrapper}>

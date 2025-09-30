@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import React, { useEffect } from 'react';
-import { forwardRef, useImperativeHandle } from 'react';
+import React, { useEffect,forwardRef, useImperativeHandle  } from 'react';
 import {
   View,
   Text,

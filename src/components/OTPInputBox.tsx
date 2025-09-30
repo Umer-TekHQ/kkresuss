@@ -1,3 +1,4 @@
+import { Colors } from '../theme/colors';
 import React, { useRef, useState } from 'react';
 import {
   View,
@@ -82,21 +83,21 @@ const styles = StyleSheet.create({
     width: BOX_SIZE,
     height: BOX_SIZE * 1.4,
     borderWidth: 1,
-    borderColor: '#0734A9',
+    borderColor: Colors.fieldBorder,
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(8, 12, 76, 0.66)',
+    backgroundColor: Colors.backgroundOtpInputBox
   },
   activeBox: {
-    borderColor: '#CEB55A',
+    borderColor: Colors.gold,
     borderWidth: 1.5,
   },
   digit: {
     fontSize: BOX_SIZE * 0.8,
     textAlign: 'center',
     fontWeight: '300',
-    color: '#FFFFFF',
+    color: Colors.white,
   },
   hiddenInput: {
     position: 'absolute',
@@ -105,15 +106,7 @@ const styles = StyleSheet.create({
     width: width * 0.9,
     textAlign: 'center',
     paddingTop: 15,
-   
   },
-  bottomTouchArea: {
-  position: 'absolute',
-  top: BOX_SIZE * 1.4, 
-  height: 40,
-  width: width * 0.9,
-  backgroundColor: 'transparent',
-},
 });
 
 export default OTPInputBox;

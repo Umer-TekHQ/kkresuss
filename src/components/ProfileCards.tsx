@@ -4,6 +4,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Toast from 'react-native-toast-message';
 
 import { Images } from '../assets/index';
+import { Colors } from '../theme/colors';
 
 interface Props {
   icon: any;
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     width: 355,
     borderRadius: 20,
     overflow: 'hidden',
-    backgroundColor: 'black',
+    backgroundColor: Colors.black,
   },
   bgImage: {
     ...StyleSheet.absoluteFillObject,
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   title: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 16,
     marginBottom: 10,
   },
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#724CC4',
+    borderColor: Colors.addressBorder,
     paddingVertical: 10,
     paddingHorizontal: 12,
     borderRadius: 20,
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   address: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 13,
     fontWeight: '700',
   },

@@ -49,7 +49,7 @@ const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList
   const renderItem = ({ item }: { item: Recipient }) => {
   const displayName = item.name || item.code || 'Unknown';
   const displayEmail = item.email || (item.name ? item.code : '') || '';
-  const displayImage = item.logo || (!item.name && !item.email ? Images.sent : null);
+  const displayImage = item.logo || (!item.name && !item.email ? Images.sent : Images.user);
   return (
      <TouchableOpacity
       onPress={() => handlePress(item)}

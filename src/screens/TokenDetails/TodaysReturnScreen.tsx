@@ -19,7 +19,7 @@ import { Colors } from '../../theme/colors'
               <TouchableOpacity onPress={() => navigation.goBack()}>
               <View style={styles.backBorder}>
               <Image
-                source={Images.backArrow}
+                source={Images.backButton}
                 style={styles.cross}
               />
               </View>
@@ -44,12 +44,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 90, 
   },
   cross:{
-    marginLeft: 5,
     marginTop: 10,
-    width: 12,
-    height: 16,
-    fontWeight: '400',
-    tintColor: Colors.white
+    width: 35,
+    height: 45,
+    tintColor: Colors.white,
+    resizeMode: 'contain'
   },
   backBorder:{
     width: 25,

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
 import { Images } from '../assets';
+import { Colors } from '../theme/colors';
 
 const TransactionListItem = ({ item }: { item: any }) => {
   const isPositive = item.amountUSD.trim().startsWith('+');
@@ -13,7 +14,7 @@ const TransactionListItem = ({ item }: { item: any }) => {
         source={item.type === 'Sent' ? Images.sent : Images.received}
         style={styles.icon}
       />
-      <View style={{ marginLeft: 10 }}>
+      <View style={styles.title}>
         <Text style={styles.name}>{item.title}</Text>
         <Text style={styles.meta}>
           {item.type} · {item.time}
@@ -50,15 +51,15 @@ const styles = StyleSheet.create({
     height: 40,
     resizeMode: 'contain',
     borderRadius: 20,
-    backgroundColor: '#1C1C2E',
+    backgroundColor: Colors.privacy,
   },
   name: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 15,
     fontWeight: '500',
   },
   meta: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 13,
     marginTop: 2,
   },
@@ -72,6 +73,9 @@ const styles = StyleSheet.create({
   ethAmount: {
     fontSize: 13,
     marginTop: 2,
-    color: '#ADD2FD'
+    color: Colors.lightblue
   },
+  title:{
+    marginLeft: 10
+  }
 });

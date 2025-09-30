@@ -236,33 +236,12 @@ divider: {
   backgroundColor: Colors.background4,
   marginVertical: 5,
 },
-
-progressBar: {
-  flexDirection: 'row',
-  height: 8,
-  borderRadius: 4,
-  overflow: 'hidden',
-  backgroundColor: Colors.black,
-  marginBottom: 12,
-},
-
-greenBarSkeleton: {
-  backgroundColor: Colors.background4,
-  width: '76%', 
-},
-
-redBarSkeleton: {
-  backgroundColor: Colors.background4,
-  width: '24%', 
-},
-
 chartBottomRow: {
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
   marginBottom: 4,
 },
-
 chartRowItem: {
   flexDirection: 'row',
   alignItems: 'center',
@@ -397,7 +376,7 @@ backButtonReal: {
   left: 0,
 },
 titleReal: {
-  color: 'white',
+  color: Colors.white,
   fontSize: 16,
   fontWeight: '600',
 },
@@ -405,7 +384,7 @@ backIcon: {
   width: 30,
   height: 30,
   resizeMode: 'contain',
-  tintColor:'white'
+  tintColor: Colors.white
 }
 });
 

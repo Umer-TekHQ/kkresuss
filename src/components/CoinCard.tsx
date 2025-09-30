@@ -18,7 +18,7 @@ const CoinCard = ({ name, price, change, logo }: CoinCardProps) => {
       <View>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.price}>{price}</Text>
-        <Text style={[styles.change, { color: `${change}`.includes('-') ? 'red' : 'green' }]}>
+        <Text style={[styles.change, { color: `${change}`.includes('-') ? Colors.redBar : Colors.greenBar }]}>
           {change}
         </Text>
       </View>
@@ -51,5 +51,6 @@ const styles = StyleSheet.create({
   },
   change: {
     fontSize: 12,
+
   },
 });

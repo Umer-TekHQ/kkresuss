@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
 import { Images } from '../assets'; 
+import { Colors } from '../theme/colors';
 
 const truncateText = (text: string, maxLength: number) => {
   if (!text) return '';
@@ -24,20 +25,20 @@ const getStatusLogo = (status: string) => {
 const getTextColor = (status: string, field: string) => {
   switch (status.toLowerCase()) {
     case 'pending':
-      return '#ADD2FD';
+      return Colors.background4;
     case 'received':
-      if (field === 'name') return '#fff';
-      if (field === 'keyword') return '#30DB5B';
-      return '#ADD2FD';
+      if (field === 'name') return Colors.white;
+      if (field === 'keyword') return Colors.transaction;
+      return Colors.lightblue;
     case 'sent':
-      if (field === 'name' || field === 'keyword') return '#fff';
-      return '#ADD2FD';
+      if (field === 'name' || field === 'keyword') return Colors.white;
+      return Colors.lightblue;
     case 'failed':
-      if (field === 'status') return '#FF6961';
-      if (field === 'name') return '#fff';
-      return '#ADD2FD';
+      if (field === 'status') return Colors.red;
+      if (field === 'name') return Colors.white;
+      return Colors.lightblue;
     default:
-      return '#ADD2FD';
+      return Colors.lightblue;
   }
 };
 const TransactionCard = ({ item }: { item: any }) => {
@@ -47,14 +48,14 @@ const TransactionCard = ({ item }: { item: any }) => {
       <Image source={getStatusLogo(item.status)} style={styles.txnLeftImage} />
 
 
-      <View style={{ flex: 1, paddingHorizontal: 10 }}>
+      <View style={styles.titleView}>
         <Text style={[styles.txnTitle, { color: getTextColor(item.status, 'name') }]} numberOfLines={1}>{item.name}</Text>
         <Text style={[styles.txnStatus, { color: getTextColor(item.status, 'status') }]}  numberOfLines={1}>
           {item.status} • {item.time}
         </Text>
       </View>
 
-      <View style={{ alignItems: 'flex-end' }}>
+      <View style={styles.titleSubView}>
         <Text style={[styles.txnTitle, { color: getTextColor(item.status, 'keyword') }]}>{item.keyword}</Text>
         <Text style={[styles.txnSub, { color: getTextColor(item.status, 'nft') }]}>{truncateText(item.nftName, 10)}</Text>
       </View>
@@ -74,6 +75,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
     height: 70,
+  },
+  titleSubView:{
+    alignItems: 'flex-end'
+  },
+  titleView:{
+    flex: 1, 
+    paddingHorizontal: 10
   },
   txnLeftImage: {
     width: 50,

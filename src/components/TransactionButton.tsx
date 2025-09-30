@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, Image,TouchableOpacity, GestureResponderEvent, } from 'react-native'
 
 import {Images} from '../assets';
+import { Colors } from '../theme/colors';
 
 interface Props{
     onPress?:(event: GestureResponderEvent) => void
@@ -26,9 +27,9 @@ export default TransactionButton
 const styles = StyleSheet.create({
 viewAllTxnBtn: {
   height: 50,
-  backgroundColor: '#080C4C',
+  backgroundColor: Colors.kresusBlue,
   borderWidth: 1,
-  borderColor: '#030A74',
+  borderColor: Colors.background4,
   borderRadius: 8,
   paddingHorizontal: 12,
   justifyContent: 'center',
@@ -45,12 +46,12 @@ innerContainer: {
 },
 
 viewAllTxnText: {
-  color: '#7AB7FD',
+  color: Colors.lightblue,
   fontSize: 15,
 },
 
 forwardIcon: {
-  tintColor: '#086DE1',
+  tintColor: Colors.back,
   width: 12,
   height: 12,
   resizeMode:'stretch'

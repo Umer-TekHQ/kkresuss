@@ -6,6 +6,8 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Images } from '../assets';
 import { AppNavigatorParamList } from '../navigators/routeNames';
 
+import { Colors } from '../theme/colors';
+
 function formatNumber(num: any) {
   if (num === undefined || num === null) return '0';
   if (num === Infinity) return '∞';
@@ -79,7 +81,7 @@ const PositionCard = ({ data }: { data: any }) => {
               </Text>
               <Image
                 source={isProfit ? Images.greenArrowUp : Images.redDown}
-                style={{ width: 12, height: 12, marginHorizontal: 4 }}
+                style={styles.percentIcon}
               />
               <Text style={isProfit ? styles.greenText : styles.redText}>
                 {`${Math.abs(percent).toFixed(2)}%`}
@@ -155,12 +157,12 @@ export default PositionCard;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#080C4C',
+    backgroundColor: Colors.kresusBlue,
     marginHorizontal: 8,
     marginBottom: 16,
     padding: 20,
     borderRadius: 18,
-    shadowColor: '#000',
+    shadowColor: Colors.black,
     shadowOpacity: 0.08,
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 2 },
@@ -172,10 +174,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   touchable:{
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   title: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 16,
   },
   tokenImage: {
@@ -185,7 +188,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 1.5,
-    backgroundColor: '#0734A9',
+    backgroundColor: Colors.fieldBorder,
     marginVertical: 14,
   },
   valueRowMain: {
@@ -195,12 +198,12 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   valueLabel: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 16,
     fontWeight: '500',
   },
   valueMain: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 16,
     fontWeight: '700',
   },
@@ -215,46 +218,44 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 12,
   },
-
-  metricBlock13:{
-  },
   metricLabelRow: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   metricLabel: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 14,
     marginRight: 4,
   },
   infoIcon: {
-    width: 18,
-    height: 18,
-    tintColor: '#ADD2FD',
+    width: 32,
+    height: 32,
+    resizeMode: 'contain',
+    tintColor: Colors.lightblue,
   },
   metricValueRow: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   metricValue: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 14,
     marginRight: 6,
   },
   percentIcon: {
-    width: 14,
-    height: 12,
+    width: 12,
+    height: 10,
     marginRight: 2,
     marginLeft: 2,
     resizeMode: 'contain',
   },
   greenText: {
-    color: '#30DB5B',
+    color: Colors.transaction,
     fontSize: 14,
     fontWeight: '600',
   },
   redText: {
-    color: '#FF4D4F',
+    color: Colors.redBar,
     fontSize: 14,
     fontWeight: '600',
   },

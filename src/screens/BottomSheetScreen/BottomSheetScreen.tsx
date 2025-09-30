@@ -1,34 +1,40 @@
-import React from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import React from 'react';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 import { Images } from '../../assets/index';
-import BottomSheetExplore from '../../components/BottomSheetExplore'
+import BottomSheetExplore from '../../components/BottomSheetExplore';
 import { Colors } from '../../theme/colors';
 
 export const BottomSheetScreen = ({ navigation }: any) => {
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
         <Image source={Images.trade1} style={styles.image} />
-        <View style={{zIndex: 9999}}>
-        <TouchableOpacity onPress={() => navigation.goBack()} >
+
+        <View style={{ zIndex: 9999 }}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image source={Images.cancel} style={styles.cross} />
-        </TouchableOpacity>
+          </TouchableOpacity>
         </View>
-        </View>
-      <BottomSheetExplore/>
+      </View>
+
+      <BottomSheetExplore />
+
       <View style={styles.bottomOverlay}>
-        <TouchableOpacity
-          style={styles.bottomButton}
-        >
-          <Text style={styles.bottomButtonText}>Launch </Text>
-          <Image
-            source={Images.launchArrowUp}
-            style={styles.uparrow}
-          />
+        <TouchableOpacity style={styles.bottomButton}>
+          <Text style={styles.bottomButtonText}>Launch</Text>
+          <Image source={Images.launchArrowUp} style={styles.uparrow} />
         </TouchableOpacity>
       </View>
     </GestureHandlerRootView>
@@ -41,17 +47,17 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.black,
   },
   image: {
-    width: "100%",
-    height: hp("45%"),
-    position: "absolute",
+    width: '100%',
+    height: hp('45%'),
+    position: 'absolute',
   },
   cross: {
-    tintColor: "white",
-    width: wp('9'),
+    tintColor: 'white',
+    width: wp('9%'),
     height: hp('5%'),
     marginLeft: 5,
     marginTop: 15,
-    },
+  },
   backBorder: {
     marginLeft: 15,
     marginTop: 20,
@@ -61,10 +67,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30,
-
   },
   bottomOverlay: {
-    position: "absolute",
+    position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
     height: hp('10%'),
@@ -72,7 +77,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     zIndex: 999,
-    backgroundColor: Colors.background
+    backgroundColor: Colors.background,
   },
   bottomButton: {
     borderColor: Colors.downArrow,
@@ -80,14 +85,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 135,
     paddingVertical: 12,
     borderRadius: 30,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   bottomButtonText: {
-    color: "white",
-    fontSize: wp("4%"),
-    fontWeight: '500'
+    color: 'white',
+    fontSize: wp('4%'),
+    fontWeight: '500',
   },
-  uparrow:{
+  uparrow: {
     width: wp('3%'),
     height: hp('1.5%'),
     marginLeft: 8,

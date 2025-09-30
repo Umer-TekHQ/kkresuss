@@ -152,5 +152,7 @@ backButton: require('./images/backButton.png'),
 baseLogo: require('./images/baseLogo.png'),
 tickAuth: require('./images/tickAuth.png'),
 introducingArrow: require('./images/introducingArrow.png'),
-tradeTick: require('./images/tradeTick.png')
+tradeTick: require('./images/tradeTick.png'),
+baseMini: require('./images/baseMini.png'),
+user: require('./images/user.png')
 }

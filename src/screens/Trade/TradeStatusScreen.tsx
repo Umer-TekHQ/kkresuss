@@ -78,8 +78,9 @@ const TradeStatusScreen = ({ navigation }: any) => {
       <Card
         label={
           <>
-            <Text style={{ color: Colors.lightblue, fontSize: 15 }}>Network Fees</Text>
-            <Text style={{ color: Colors.lightblue, fontSize: 15 }}> (Waived)</Text>
+            <Text style={styles.text}>
+              Network Fees{"\n"}(waived)
+            </Text>
           </>
         }
         value={`${displayAmount2} ${displayToken2.abbreviation}`}
@@ -99,4 +100,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background5,
   },
+  text:{
+    color: Colors.lightblue,
+    fontSize: 15
+  }
 });

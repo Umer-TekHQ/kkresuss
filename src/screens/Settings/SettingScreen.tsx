@@ -66,11 +66,6 @@ const styles = StyleSheet.create({
     height: 35,
     zIndex: 10,
   },
-  backImage: {
-    width: 35,
-    height: 35,
-   
-  },
   logo: {
     position: 'absolute',
     top: 78,
@@ -101,11 +96,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 24,
   },
-sheetContainer: {
-  flex: 1,
-  width: '100%',
-  padding: 20,
-},
   subscribeButton:{
     bottom: -150
   }

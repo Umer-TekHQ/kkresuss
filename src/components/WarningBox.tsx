@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 
 import { Images } from '../assets';
+import { Colors } from '../theme/colors';
 
 const WarningBox = () => {
   return (
-    <View style={styles.fixedBottom}>
       <View style={styles.warningBox}>
         <Image source={Images.warning} style={styles.warningIcon} />
         <View style={styles.textContainer}>
@@ -15,7 +15,6 @@ const WarningBox = () => {
           </Text>
         </View>
       </View>
-    </View>
   );
 };
 export default WarningBox;
@@ -26,10 +25,10 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: '#01021D',
+    backgroundColor: Colors.backgroundAlt,
   },
   warningBox: {
-    backgroundColor: '#080C4C',
+    backgroundColor: Colors.background2,
     padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -43,12 +42,12 @@ const styles = StyleSheet.create({
     marginTop:2,
   },
   warningText: {
-    color: '#FFFFFF',
+    color: Colors.white,
     fontWeight: 'bold',
     fontSize: 16,
   },
   warningSubText: {
-    color: '#FFFFFF',
+    color: Colors.white,
     fontSize: 14,
     marginTop: 4,
   },

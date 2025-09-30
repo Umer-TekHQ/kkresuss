@@ -32,7 +32,7 @@ const LabeledPhoneInput = ({
 }: Props) => {
   const [modalVisible, setModalVisible] = useState(false)
   return (
-    <View style={{ marginBottom: 10 }}>
+    <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <View style={styles.inputWrapper}>
         <TouchableOpacity
@@ -95,6 +95,9 @@ const LabeledPhoneInput = ({
 export default LabeledPhoneInput
 
 const styles = StyleSheet.create({
+  container:{
+    marginBottom: 10 
+  },
   label: {
     fontSize: 15,
     color: Colors.lightblue,
@@ -128,9 +131,8 @@ const styles = StyleSheet.create({
   },
   phoneInput: {
     flex: 1,
-    color: 'white',
+    color: Colors.white,
     fontSize: 19,
- 
   },
   warningText: {
     color: Colors.red,

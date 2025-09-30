@@ -9,8 +9,6 @@ interface CardProps {
   value: string | React.ReactNode;
   usd?: string;
   strike?: boolean;
-  isLink?: boolean;
-  linkLabel?: string;
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -74,11 +72,5 @@ const styles = StyleSheet.create({
   strike: {
     textDecorationLine: 'line-through',
     color: Colors.lightblue,
-  },
-  link: {
-    color: Colors.link,
-    marginTop: 10,
-    fontSize: 14,
-    fontWeight: '500',
   },
 });

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 import { Images } from '../assets'
+import { Colors } from '../theme/colors'
 
 const MySecurityScore = ({ score }: { score: number }) => {
   return (
@@ -23,7 +24,7 @@ const MySecurityScore = ({ score }: { score: number }) => {
               val <= score ? (
                 <LinearGradient
                   key={val}
-                  colors={['#2B36E4', '#CEB55B']} 
+                  colors={[Colors.fieldBorder, Colors.gold]} 
                    start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 0 }}
                   style={styles.progressFilled}
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start', 
     paddingVertical: 25,      
     paddingHorizontal: 15,
-    backgroundColor: '#030A74',
+    backgroundColor: Colors.background4,
     borderRadius: 14,
     marginHorizontal: 16, 
     marginBottom: 10,
@@ -70,12 +71,12 @@ const styles = StyleSheet.create({
      
   },
   title: {
-    color: 'white',
+    color: Colors.white,
     fontWeight: '600',
     fontSize: 15,
   },
   scoreText: {
-    color: '#CEB55A',
+    color: Colors.gold,
     fontSize: 15,
     display: 'flex',
     justifyContent: 'flex-end',
@@ -97,19 +98,14 @@ const styles = StyleSheet.create({
   progressEmpty: {
     flex: 1,
     height: 4,
-    backgroundColor: '#01032C',
+    backgroundColor: Colors.background,
     borderRadius: 2,
-   
   },
-leftSection: {
-  alignItems: 'center',
-},
-titleRow: {
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  flex: 1,
-  alignItems: 'flex-start', 
-  marginTop: -8, 
-},
-
+  titleRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flex: 1,
+    alignItems: 'flex-start', 
+    marginTop: -8, 
+  },
 })

@@ -119,5 +119,4 @@ const styles = StyleSheet.create({
   receiveText: { color: Colors.white, },
 });
 
-// });
 

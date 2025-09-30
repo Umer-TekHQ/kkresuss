@@ -7,13 +7,9 @@ import { Colors } from '../theme/colors';
 const CoinbaseCard = () => {
   return (
     <View style={styles.container}>
-      
-     
       <View style={styles.leftBox}>
         <Image source={Images.coinBase} style={styles.coinImage} />
       </View>
-
-     
       <View style={styles.rightBox}>
         <View style={styles.textContainer}>
           <Text style={styles.title}>Connect Coinbase</Text>
@@ -23,7 +19,6 @@ const CoinbaseCard = () => {
         </View>
         <Image source={Images.forward} style={styles.forwardIcon} />
       </View>
-
     </View>
   );
 };
@@ -36,7 +31,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     borderColor: Colors.fieldBorder,
-    backgroundColor: 'transparent',
+    backgroundColor: Colors.transparent,
     flexDirection: 'row',
     alignItems: 'center',
     width: '90%',

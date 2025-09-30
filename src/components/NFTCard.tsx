@@ -1,9 +1,9 @@
+import { Colors } from '../theme/colors';
 import React from 'react';
-import { View, Image, StyleSheet ,ViewStyle} from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 
 interface NFTCardProps {
   image: any;
-  style?: ViewStyle;
 }
 const NFTCard = ({ image }: NFTCardProps) => {
   return (
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     flex: 1,         
     aspectRatio: 1,     
     margin: 4,            
-    backgroundColor: '#111',
+    backgroundColor: Colors.black,
     borderRadius: 10,
     overflow: 'hidden',
   },

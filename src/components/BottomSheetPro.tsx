@@ -20,6 +20,7 @@ import Animated, {
 
 import { Images } from '../assets';
 import { AppNavigatorParamList } from '../navigators/routeNames'
+import { Colors } from '../theme/colors';
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -125,7 +126,7 @@ const headingStyle = useAnimatedStyle(() => {
    <Animated.View style={styles.headerRow}>
   <Animated.View style={[styles.backBtnContainer, backButtonStyle]}>
     <TouchableOpacity onPress={() => navigation.goBack()}>
-      <Image source={Images.backScreen} style={styles.backIcon} />
+      <Image source={Images.backButton} style={styles.backIcon} />
     </TouchableOpacity>
   </Animated.View>
 
@@ -133,7 +134,7 @@ const headingStyle = useAnimatedStyle(() => {
     See What the Pros are Buying
   </Animated.Text>
 
-    <View style={{ width: 20 }} />
+    <View style={styles.separator} />
     </Animated.View>
 
         <Text style={styles.description}>
@@ -152,8 +153,8 @@ const styles = StyleSheet.create({
   container: {
     height: SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
-    backgroundColor: '#01032C',
-    borderColor: '#10178A',
+    backgroundColor: Colors.background,
+    borderColor: Colors.background1,
     borderTopWidth: 1.5,
     borderLeftWidth:0.5,
     borderRightWidth:0.5,
@@ -164,19 +165,22 @@ const styles = StyleSheet.create({
   line: {
     width: 55,
     height: 4,
-    backgroundColor: '#030A74',
+    backgroundColor: Colors.background4,
     alignSelf: 'center',
     marginVertical: 10,
     borderRadius: 2,
   },
+  separator:{
+     width: 20, 
+  },
   heading: {
-    color: '#ffffff',
+    color: Colors.white,
     fontFamily: 'PlayfairDisplay-Bold',
     fontSize:30,
     marginTop: 20,
   },
   description: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     marginHorizontal: 20,
     marginTop: 25,
     fontSize: 20,
@@ -187,7 +191,7 @@ const styles = StyleSheet.create({
   backIcon: {
     width: 30,
     height: 30,
-    tintColor: 'white',
+    tintColor: Colors.white,
     marginTop: 22,
   },
   headerRow: {

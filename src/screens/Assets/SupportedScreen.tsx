@@ -22,13 +22,14 @@ const SupportedScreen = () => {
       <AssetsHeader title="Supported" showRightIcons={true} 
         onRightPress={() => setShowSheet(true)}
       />
-
+        <View style={styles.searchList}>
         <View style={{marginTop:5, marginHorizontal: 6}}>
          <SearchBox value={searchText} onChangeText={setSearchText} placeholder="Search"  onClear={() => setSearchText('')}  />
       </View>
 
       <View style={styles.assetsList}>
         <AllAssetsList showAll searchText={searchText} />
+      </View>
       </View>
       
     </ScrollView>
@@ -43,7 +44,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#01021D',
-    paddingHorizontal:16,
+  },
+  searchList:{
+    paddingHorizontal: 16
   },
   assetsList: {
     marginTop: 8,

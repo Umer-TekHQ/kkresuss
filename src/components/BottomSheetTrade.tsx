@@ -132,32 +132,28 @@ const closeSheet = () => {
       <Animated.View
         style={[
           StyleSheet.absoluteFill,
-          { backgroundColor: 'rgba(0,0,0,0.6)' },
+          styles.container,
           overlayStyle,
         ]}
       />
 
       <GestureDetector gesture={gesture}>
-        <Animated.View style={[styles.tradeBottomSheet, rStyle, { paddingTop: hp('1%') }]}>
-          <View style={[styles.lineTB, { width: wp('15%'), height: hp('0.5%'), marginTop: hp('1%') }]} />
-          <View style={[styles.head, { marginBottom: hp('1.5%') }]}>
+        <Animated.View style={[styles.tradeBottomSheet, rStyle]}>
+          <View style={styles.lineTB} />
+          <View style={styles.head}>
             <Image
               source={Images.tradeBottom}
-              style={[
-                styles.headImg,
-                { width: wp('4%'), height: hp('2.5%'), marginLeft: wp('5%'), marginTop: hp('1%') },
-              ]}
+              style={
+                styles.headImg}
             />
-            <Text style={[styles.headingTB, { fontSize: wp('4.5%'), marginLeft: wp('4%') }]}>
+            <Text style={styles.headingTB}>
               Transaction Ready
             </Text>
             <TouchableOpacity style={styles.closeButton} onPress={closeSheet}>
               <Image
                 source={Images.pros}
-                style={[
-                  styles.closeIcon,
-                  { width: wp('6%'), height: hp('5%'), marginRight: wp('3%') },
-                ]}
+                style={
+                  styles.closeIcon}
               />
             </TouchableOpacity>
           </View>
@@ -166,41 +162,33 @@ const closeSheet = () => {
             <>
               <View style={styles.inputFields}>
                 <View
-                  style={[
-                    styles.tokenInputContainer,
-                    { width: wp('90%'), height: hp('8%'), marginVertical: hp('1%') },
-                  ]}
+                  style={
+                    styles.tokenInputContainer}
                 >
                   <Text
-                    style={[
-                      styles.labelText,
-                      { fontSize: wp('3.5%'), color: '#ADD2FD', marginBottom: hp('0.5%') },
-                    ]}
+                    style={
+                      styles.labelText}
                   >
                     TRADING
                   </Text>
                   <View style={styles.tokenDisplay}>
-                    <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
+                    <View style={styles.amountSymbolView}>
                       <Text
-                        style={[
-                          styles.tradeAmount,
-                          { fontSize: wp('5%'), textAlign: 'right' },
-                        ]}
+                        style={
+                          styles.tradeAmount}
                       >
                         {amount1}
                       </Text>
                       <Text
-                        style={[
-                          styles.tokenSymbol,
-                          { fontSize: wp('4%') },
-                        ]}
+                        style={
+                          styles.tokenSymbol}
                       >
                         {token1.abbreviation}
                       </Text>
                     </View>
                     <Image
                       source={token1.logo}
-                      style={[styles.tokenLogo, { width: wp('10%'), height: wp('10%') }]}
+                      style={styles.tokenLogo}
                     />
                   </View>
                 </View>
@@ -208,71 +196,57 @@ const closeSheet = () => {
                 <View style={styles.arrowContainer}>
                   <Image
                     source={Images.downArroww}
-                    style={[styles.downArrow, { width: wp('4%'), height: hp('3%') }]}
+                    style={styles.downArrow}
                   />
                 </View>
 
                 <View
-                  style={[
-                    styles.tokenInputContainer,
-                    { width: wp('90%'), height: hp('8%'), marginVertical: hp('1%') },
-                  ]}
+                  style={
+                    styles.tokenInputContainer}
                 >
                   <Text
-                    style={[
-                      styles.labelText,
-                      { fontSize: wp('3.5%'), color: '#ADD2FD', marginBottom: hp('0.5%') },
-                    ]}
+                    style={
+                      styles.labelText}
                   >
                     FOR
                   </Text>
                   <View style={styles.tokenDisplay}>
-                    <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
+                    <View style={styles.amountSymbolView}>
                       <Text
-                        style={[
-                          styles.tradeAmount,
-                          { fontSize: wp('5%'), textAlign: 'right' },
-                        ]}
+                        style={
+                          styles.tradeAmount}
                       >
                         {amount2}
                       </Text>
                       <Text
-                        style={[
-                          styles.tokenSymbol,
-                          { fontSize: wp('4%'), marginTop: hp('0.2%'), marginRight: wp('2.5%') },
-                        ]}
+                        style={
+                          styles.tokenSymbol}
                       >
                         {token2.abbreviation}
                       </Text>
                     </View>
                     <Image
                       source={token2.logo}
-                      style={[styles.tokenLogo, { width: wp('10%'), height: wp('10%') }]}
+                      style={styles.tokenLogo}
                     />
                   </View>
                 </View>
               </View>
 
               <View
-                style={[
-                  styles.feesContainer,
-                  { marginHorizontal: wp('5%'), paddingVertical: hp('1%') },
-                ]}
+                style={
+                  styles.feesContainer}
               >
-                <Text style={[styles.fees, { fontSize: wp('3.5') }]}>Fees</Text>
-                <Text style={[styles.fees, { fontSize: wp('3.5%') }]}>1.73144653 SNORT</Text>
+                <Text style={styles.fees}>Fees</Text>
+                <Text style={styles.fees}>1.73144653 SNORT</Text>
               </View>
 
               <Text
-                style={[
-                  styles.bottomText1,
-                  { fontSize: wp('3.5%'), marginTop: hp('3%'), marginBottom: hp('4.5%') },
-                ]}
-              >
+                style={styles.bottomText1}>
                 Kresus covers your network fee
               </Text>
 
-              <View style={{ marginTop: hp('2.5%') }}>
+              <View style={styles.swipeButtonView}>
                 <SwipeButton
                   placeholder="Swipe to Trade"
                   onNavigate={() => {
@@ -289,6 +263,9 @@ const closeSheet = () => {
 });
 
 const styles = StyleSheet.create({
+  container:{
+    backgroundColor: Colors.backgroundNetwork,
+  },
   tradeBottomSheet: {
     borderRadius: 35,
     borderTopWidth: 1,
@@ -300,33 +277,44 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
     position: 'absolute',
     top: hp('100%'),
+    paddingTop: hp('1%') 
+  },
+  swipeButtonView:{
+    marginTop: hp('2.5%')
+  },
+  amountSymbolView:{
+    flexDirection: 'column', 
+    alignItems: 'flex-end'
   },
   lineTB: {
-    width: 55,
-    height: 4,
     marginLeft: 4,
     backgroundColor: Colors.background4,
     alignSelf: 'center',
-    marginTop: 15,
     marginHorizontal: 8,
     borderRadius: 2,
+    width: wp('15%'), 
+    height: hp('0.5%'), 
+    marginTop: hp('1%')
   },
   head: {
     flexDirection: 'row',
     marginTop: 5,
-    marginBottom: 7,
     textAlign: 'center',
     alignItems: 'center',
+    marginBottom: hp('1.5%')
   },
   headImg: {
     padding: 12,
-    marginLeft: 15,
+    width: wp('3.5%'), 
+    height: hp('2%'), 
+    marginLeft: wp('5%'), 
+    marginTop: hp('1%')
   },
   headingTB: {
     color: Colors.transaction,
-    fontSize: 15,
     marginTop: 6,
-    marginLeft: 20,
+    fontSize: wp('4.5%'), 
+    marginLeft: wp('4%')
   },
   closeButton: {
     position: 'absolute',
@@ -336,6 +324,9 @@ const styles = StyleSheet.create({
   },
   closeIcon: {
     tintColor: Colors.lightblue,
+    width: wp('6%'), 
+    height: hp('5%'), 
+    marginRight: wp('3%')
   },
   inputFields: {
     alignItems: 'center',
@@ -348,10 +339,15 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: Colors.blue,
     paddingHorizontal: 10,
-    marginVertical: 10,
+    width: wp('90%'), 
+    height: hp('8%'), 
+    marginVertical: hp('1%')
   },
   labelText: {
     letterSpacing: 0.5,
+    fontSize: wp('3.5%'), 
+    color: Colors.lightblue, 
+    marginBottom: hp('0.5%'),
   },
   tokenDisplay: {
     flexDirection: 'row',
@@ -359,45 +355,51 @@ const styles = StyleSheet.create({
   },
   tradeAmount: {
     color: Colors.white,
-    fontSize: 24,
     marginRight: 10,
+    fontSize: wp('5%'), 
+    textAlign: 'right'
   },
   tokenLogo: {
-    width: 40,
-    height: 40,
+    width: wp('10%'), 
+    height: wp('10%'),
     borderRadius: 15,
     marginRight: 8,
   },
   tokenSymbol: {
     color: Colors.white,
-    fontSize: 12,
-    marginRight: 9,
     letterSpacing: 0.5,
+    fontSize: wp('4%'), 
+    marginTop: hp('0.2%'), 
+    marginRight: wp('2.5%')
   },
   arrowContainer: {
     alignItems: 'center',
     marginVertical: 10,
   },
   downArrow: {
-    marginLeft: 15,
+     marginLeft: 15,
+     width: wp('4%'), 
+     height: hp('3%') 
   },
   feesContainer: {
     flexDirection: 'row',
     marginTop: 20,
-    marginHorizontal: 22,
     borderTopWidth: 0.5,
     borderBottomWidth: 0.5,
     borderColor: Colors.back,
-    paddingVertical: 20,
     justifyContent: 'space-between',
+    marginHorizontal: wp('5%'), paddingVertical: hp('1%')
   },
   fees: {
     color: Colors.lightblue,
+    fontSize: wp('3.5%')
   },
   bottomText1: {
     color: Colors.lightblue,
-    marginTop: 15,
     textAlign: 'center',
+    fontSize: wp('3.5%'), 
+    marginTop: hp('3%'), 
+    marginBottom: hp('4.5%')
   },
 });
 

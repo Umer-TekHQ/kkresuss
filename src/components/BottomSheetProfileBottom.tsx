@@ -91,19 +91,24 @@ const headingStyle = useAnimatedStyle(() => {
   );
 
   const backBtnWidth = 30; 
-  const textWidth = 160; 
-  const startX = -15;
-  const endX = (SCREEN_WIDTH / 2) - (textWidth / 1.5) - backBtnWidth / 2;
+  const textWidth = SCREEN_WIDTH * 0.45; 
+  const startX = SCREEN_WIDTH * 0.09;   
+  const endX =
+    (SCREEN_WIDTH / 2) - textWidth / 1.8 - backBtnWidth / 2; 
 
   return {
-    fontSize: interpolate(progress, [0, 1], [30, 18]),
     transform: [
       {
         translateX: interpolate(progress, [0, 1], [startX, endX]),
       },
+      {
+        scale: interpolate(progress, [0, 1], [1.6, 1]), 
+      },
     ],
   };
-});  
+});
+
+
   const backButtonStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       translateY.value,
@@ -134,7 +139,7 @@ const headingStyle = useAnimatedStyle(() => {
     Supported Networks
   </Animated.Text>
 
-    <View style={{ width: 20 }} />
+    <View style={styles.separator} />
     </Animated.View>
 
         <Text style={styles.description}>
@@ -168,6 +173,9 @@ const styles = StyleSheet.create({
     borderLeftWidth: 0.5,
     borderRightWidth: 0.5,
   },
+  separator:{
+    width: 20
+  },
   line: {
     width: 55,
     height: 4,
@@ -176,13 +184,14 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 2,
   },
-  heading: {
-    color: Colors.white,
-    fontWeight: '600',
-    fontSize:30,
-    fontFamily: 'PlayfairDisplay-Bold',
-    marginTop: 20,
-  },
+heading: {
+  color: Colors.white,
+  fontWeight: '600',
+  fontSize: 18, // ✅ keep smaller base size
+  fontFamily: 'PlayfairDisplay-Bold',
+  marginTop: 20,
+},
+
   description: {
     color: Colors.lightblue,
     marginHorizontal: 20,

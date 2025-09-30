@@ -67,7 +67,7 @@ const SecurityOptionItem = ({
   return (
     <View>
       <TouchableOpacity style={styles.optionRow} onPress={handleRowPress}>
-        <Pressable style={styles.leftCheck} onPress={onToggleTick}>
+        <Pressable style={styles.leftCheck}>
           <CheckCircle isActive={isActive} />
         </Pressable>
 

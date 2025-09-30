@@ -23,7 +23,7 @@ const CheckboxRow = ({ isChecked,onToggle,hasLink, prefixText = '',
           <Text style={styles.label}>{prefixText}</Text>
         ) 
       : (
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+        <View style={styles.checkBox}>
           <Text style={styles.label}>{prefixText} </Text>
           <TouchableOpacity >
             <Text style={styles.link}>{linkText}</Text>
@@ -41,6 +41,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 8,
+  },
+  checkBox:{
+    flexDirection: 'row', 
+    flexWrap: 'wrap' 
   },
   box: {
     width: 20,

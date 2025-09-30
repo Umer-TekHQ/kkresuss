@@ -1,5 +1,7 @@
 import React from "react";
-import TokenField from "../components/tokenField";
+
+import TokenField from "./tokenField";
+
 import type { Token } from "../screens/Trade/types";
 
 interface Props {

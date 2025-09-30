@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 0.5,
-    borderColor: '#1b57cf',
+    borderColor: Colors.fieldBorder,
     paddingBottom: 15,
     paddingRight: 15,
     marginVertical: 8,
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    color: '#fff',
+    color: Colors.white,
     flexWrap: 'wrap',
     height: 40,
     width: '83%',
@@ -82,10 +82,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
-    backgroundColor: '#0734A9',
+    backgroundColor: Colors.fieldBorder,
     display: 'flex',
     flexWrap: 'wrap',
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     paddingHorizontal: 5,
     paddingVertical: 1,
     borderRadius: 4,
@@ -93,11 +93,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   name: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 13,
   },
   button: {
-    backgroundColor: '#0a0a23',
+    backgroundColor: Colors.background,
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 20,
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
   },
   buttonText: {
-    color: '#fff',
+    color: Colors.white,
     fontWeight: '600',
     fontSize: 13,
   },

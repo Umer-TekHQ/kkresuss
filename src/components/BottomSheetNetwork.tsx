@@ -53,36 +53,46 @@ const BottomSheetNetwork = ({ visible, onClose }: Props) => {
 
   if (!visible) return null; 
 
-  return (
-    <GestureHandlerRootView style={StyleSheet.absoluteFill}>
-     
-      <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={onClose} />
-      <GestureDetector gesture={panGesture}>
-        <Animated.View style={[styles.bottomSheet, animatedStyle]}>
-          <View style={styles.handle} />
-          <Text style={styles.sheetTitle}>Select Network(s)</Text>
-          <View style={styles.divider} />
+return (
+  <GestureHandlerRootView style={StyleSheet.absoluteFill}>
+    <TouchableOpacity
+      style={styles.overlay}
+      activeOpacity={1}
+      onPress={onClose}
+      pointerEvents="auto"   
+    />
 
-          <View style={styles.optionBox}>
-            <View style={styles.optionRow}>
-              <Text style={styles.option}>Both Networks</Text>
-              <Image source={Images.profileHeadLogo} style={styles.optionIcon1} />
-            </View>
+    <GestureDetector gesture={panGesture}>
+      <Animated.View
+        style={[styles.bottomSheet, animatedStyle]}
+        pointerEvents="auto"   
+      >
+        <View style={styles.handle} />
+        <Text style={styles.sheetTitle}>Select Network(s)</Text>
+        <View style={styles.divider} />
 
-            <View style={styles.optionRow}>
-              <Text style={styles.option}>Solana</Text>
-              <Image source={Images.solanaLogo} style={styles.optionIcon} />
-            </View>
+        <View style={styles.optionBox}>
+          <TouchableOpacity style={styles.optionRow} activeOpacity={0.7}>
+            <Text style={styles.option}>Both Networks</Text>
+            <Image source={Images.profileHeadLogo} style={styles.optionIcon1} />
+          </TouchableOpacity>
 
-            <View style={styles.optionRow}>
-              <Text style={styles.option}>Base</Text>
-              <Image source={Images.base} style={styles.optionIcon} />
-            </View>
-          </View>
-        </Animated.View>
-      </GestureDetector>
-    </GestureHandlerRootView>
-  );
+          <TouchableOpacity style={styles.optionRow} activeOpacity={0.7}>
+            <Text style={styles.option}>Solana</Text>
+            <Image source={Images.solanaLogo} style={styles.optionIcon} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.optionRow} activeOpacity={0.7}>
+            <Text style={styles.option}>Base</Text>
+            <Image source={Images.base} style={styles.optionIcon} />
+          </TouchableOpacity>
+        </View>
+      </Animated.View>
+    </GestureDetector>
+  </GestureHandlerRootView>
+);
+
+
 };
 
 export default BottomSheetNetwork;
@@ -90,7 +100,7 @@ export default BottomSheetNetwork;
 const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.4)',
+    backgroundColor: Colors.backgroundNetwork,
   },
   bottomSheet: {
     position: 'absolute',

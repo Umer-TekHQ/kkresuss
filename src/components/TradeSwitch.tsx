@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
 
+import { Colors } from '../theme/colors';
+
 interface CustomSwitchProps {
   value: boolean;
   onValueChange: (val: boolean) => void;
@@ -22,7 +24,7 @@ const TradeSwitch = ({ value, onValueChange }: CustomSwitchProps) => {
 
   return (
     <TouchableOpacity onPress={() => onValueChange(!value)} activeOpacity={0.8}>
-      <View style={[styles.track, { backgroundColor: value ? '#3D6AFF' : '#030A74' }]}>
+      <View style={[styles.track, { backgroundColor: value ? Colors.back : Colors.background4}]}>
         <Animated.View style={[styles.thumb, { transform: [{ translateX }] }]} />
       </View>
     </TouchableOpacity>
@@ -42,6 +44,6 @@ const styles = StyleSheet.create({
     width: 24, 
     height: 24,
     borderRadius: 12,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
   },
 });

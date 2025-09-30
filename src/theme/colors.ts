@@ -13,6 +13,7 @@ export const Colors = {
   background3: '#0E1799',
   background4: "#030A74",
   background5: "#10121D",
+  background6: "#010D2A",
   fieldBackground: '#0B1170',
   fieldBackground1: '#080C51',
   fieldBorder: '#0734A9',
@@ -35,5 +36,9 @@ export const Colors = {
   downArrow: '#4898F3',
   linear1: '#0D1586',  
   linear2: '#0E1699',
-  otpBg: '#ADD2FD33'
+  otpBg: '#ADD2FD33',
+  backgroundNetwork: 'rgba(0,0,0,0.4)',
+  backgroundOtpInputBox: 'rgba(8, 12, 76, 0.66)',
+  transparent: 'transparent',
+  addressBorder: '#724CC4'
 };

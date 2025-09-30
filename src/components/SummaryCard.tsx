@@ -66,7 +66,7 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
         <Text style={styles.currencyHead}>{currency}</Text>
         <Text style={styles.cryptoTotalValue}>{totalValue}</Text>
         <View style={styles.cryptoChangeRow}>
-          <Image source={Images.greenArrowUp} style={styles.greenarrow}/>
+          <Image source={Images.greenArrowUp} style={styles.greenArrow}/>
           <Text
             style={[
               styles.cryptoChangeText,
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     borderColor: '#23298A',
     padding: hp('1%'),
   },
-  greenarrow:{
+  greenArrow:{
     width: 8,
     height: 8,
     marginRight: 5,

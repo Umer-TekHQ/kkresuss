@@ -6,7 +6,7 @@ export const allAssets = [
   { title: 'Aave', amountUSD: '$87.30', amountETH: 'AAVE', logo: Images.token2,profit: '13.18%' },
   { title: 'Theat Token', amountUSD: '$0.23', amountETH: 'THETA', logo: Images.token3 ,profit: '13.18%'},
   { title: 'Lido', amountUSD: '$2.23', amountETH: 'LDO', logo: Images.lido },
-  { title: 'Bitcoin', amountUSD: '$67,000', amountETH: 'BTC', logo: Images.bitcoin },
+  { title: 'Bitcoin', amountUSD: '$67,000', amountETH: 'BTC', logo: Images.bitCoin },
   { title: 'Ethereum', amountUSD: '$3,500', amountETH: 'ETH', logo: Images.ethereum },
   { title: 'Solana', amountUSD: '$147.50', amountETH: 'SOL', logo: Images.sol },
   { title: 'Chainlink', amountUSD: '$17.80', amountETH: 'LINK', logo: Images.chainLink },

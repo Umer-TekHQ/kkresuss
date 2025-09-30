@@ -10,7 +10,6 @@ export const handleBiometricAuth = async (): Promise<boolean> => {
 
     return result.success
   } catch {
-    // Intentionally swallow the error and return false for non-blocking UX
     return false
   }
 }

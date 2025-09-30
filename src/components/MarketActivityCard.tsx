@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Image, Dimensions, StyleSheet } from 'rea
 
 import { Images } from '../assets/index';
 import { Colors } from '../theme/colors';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -14,8 +15,6 @@ type MarketActivityCardProps = {
   isPositive?: boolean;
   buyersPercentage?: number;
   sellersPercentage?: number;
-  coinLogoPath?: any; 
-  tradeIconPath?: any;
 };
 
 export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
@@ -27,7 +26,7 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
   buyersPercentage = 40,
   sellersPercentage = 60,
 }) => {
-  const cardWidth = screenWidth * 0.89;
+  const cardWidth = wp('88%')
   const gap = cardWidth * 0.13;
 
   return (
@@ -38,14 +37,14 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
               style={styles.coinLogo}
               resizeMode="contain"
             />
-          <View style={{ flexDirection: 'row', gap: gap }}>
+          <View style={[{ flexDirection: 'row', gap: gap }]}>
             <View>
               <View>
                 <Text style={styles.coinName}>{coinName}</Text>
               </View>
               <View style={styles.priceRow}>
                 <Text style={styles.coinPrice}>{coinPrice}</Text>
-                <Text style={styles.priceChangeText}> <Image source={Images.greenArrowUp} style={styles.greenarrow} />  {priceChange}</Text>
+                <Text style={styles.priceChangeText}> <Image source={Images.greenArrowUp} style={styles.greenArrow} />  {priceChange}</Text>
               </View>
               <View style={styles.marketCapital}>
                 <Text style={styles.marketCapLabel}>Mkt Cap</Text>
@@ -72,11 +71,11 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
         <View style={[styles.sellersBar, { width: `${sellersPercentage}%` }]} />
       </View>
       <View style={styles.BsPercent}>
-        <View style={{ flexDirection: 'row', gap: 5 }}>
+        <View style={styles.buyersSellers}>
           <Image source={Images.buyerLogo} resizeMode="contain" style={styles.bsLogo} />
           <Text style={styles.buyersText}>{buyersPercentage}% Buyers</Text>
         </View>
-        <View style={{ flexDirection: 'row', gap: 5 }}>
+        <View style={styles.buyersSellers}>
           <Text style={styles.sellersText}>Sellers {sellersPercentage}%</Text>
           <Image source={Images.sellerLogo} resizeMode="contain" style={styles.bsLogo2} />
         </View>
@@ -87,10 +86,14 @@ export const MarketActivityCard: React.FC<MarketActivityCardProps> = ({
 const styles = StyleSheet.create({
     marketActivityCard: {
     width: "100%",
-    marginRight: 13,
+    marginRight: wp('3.5%'),
     backgroundColor: Colors.background3, 
     borderRadius: 15,
     padding: 10,
+  },
+  buyersSellers:{
+    flexDirection: 'row', 
+    gap: 5 
   },
     coinName: {
     color: Colors.white,
@@ -107,7 +110,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     borderRadius: 12
   },
-  greenarrow:{
+  greenArrow:{
     width: 10,
     height: 10
   },

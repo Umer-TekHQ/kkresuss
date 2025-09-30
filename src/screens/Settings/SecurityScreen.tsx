@@ -1,19 +1,20 @@
-import { useNavigation } from '@react-navigation/native'
-import React, { useState ,useEffect} from 'react'
-import { View, FlatList, StyleSheet, Text, TouchableOpacity,Image } from 'react-native'
-import { useSelector,useDispatch  } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Images } from '../../assets'
-import AppHeader from '../../components/AppHeader'
-import MySecurityScore from '../../components/MySecurityStore'
-import SecurityOptionItem from '../../components/SecurityOptionItem'
-import { securityOptions } from '../../mock/securityOptions'
-import { AppNavigatorParamList } from '../../navigators/routeNames'
+import { Images } from '../../assets';
+import AppHeader from '../../components/AppHeader';
+import MySecurityScore from '../../components/MySecurityStore';
+import SecurityOptionItem from '../../components/SecurityOptionItem';
+import { securityOptions } from '../../mock/securityOptions';
+import { AppNavigatorParamList } from '../../navigators/routeNames';
 import { RootState } from '../../store';
 import { setTicks, toggleTick } from '../../store/slices/securitySlice';
+import { Colors } from '../../theme/colors';
 
-import type { SecurityOption } from '../../mock/securityOptions'
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { SecurityOption } from '../../mock/securityOptions';
 
 
 const SecurityScreen = () => {
@@ -59,8 +60,8 @@ const SecurityScreen = () => {
 )}
 
         keyExtractor={(item) => item.title}
-        contentContainerStyle={{ paddingHorizontal: 20 }}
-        ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
+        contentContainerStyle={styles.contentContainer}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
       <View style={styles.seedPhrase}>
         <TouchableOpacity style={styles.whyText}>
@@ -76,7 +77,7 @@ export default SecurityScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#010D2A',
+    backgroundColor: Colors.background6,
   },
   component: {
     paddingBottom: 20,
@@ -87,8 +88,14 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     flexDirection: 'row', 
   },
+  separator:{
+    height: 20 
+  },
+  contentContainer:{
+    paddingHorizontal: 20
+  },
   whyQuestion: {
-    color: '#FFFFFF',
+    color: Colors.white,
     fontSize: 14,
     marginLeft: 10,
   },

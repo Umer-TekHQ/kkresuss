@@ -4,6 +4,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import { Images } from '../assets';
 import { useAppSelector } from '../store/hooks';
+import { Colors } from '../theme/colors';
 
 
 type Props = {
@@ -67,12 +68,12 @@ export default TransactionCompleteCard;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#080C4C',
+    backgroundColor: Colors.kresusBlue,
     borderRadius: 20,
     borderTopWidth: 2,
     borderRightWidth: 0.5,
     borderLeftWidth: 0.5,
-    borderColor: '#030A74',
+    borderColor: Colors.background4,
 
     paddingTop: 20,
     alignItems: 'center',
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
       height: 100,
       borderRadius: 55,
       borderWidth: 5,
-      borderColor: '#030A74',
+      borderColor: Colors.background4,
       marginBottom: 8,
       paddingVertical: 20,
       resizeMode: 'contain'
@@ -98,17 +99,17 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 50,
     resizeMode: 'contain',
-    backgroundColor: '#000',
+    backgroundColor: Colors.black,
   },
   initialsCircle: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: '#292A6E',
+    backgroundColor: Colors.background1,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#292A6E',
+    borderColor: Colors.background1,
   },
   initials: {
     color: 'white',
@@ -130,24 +131,24 @@ const styles = StyleSheet.create({
   },
   arrow: {
     fontSize: 24,
-    color: '#CEB55A',
+    color: Colors.gold,
     marginHorizontal: 8,
   },
   divider: {
     height: 1,
-    backgroundColor: '#10178A',
+    backgroundColor: Colors.background1,
     flex: 1,
     marginHorizontal: 8,
   },
   tokenSection: {
-      backgroundColor: '#030A74',
+      backgroundColor: Colors.background4,
       padding: 16,
       width: wp('96%'),
       marginTop: 20,
       justifyContent: 'space-between',
   },
   tokenLabel: {
-    color: '#CEB55A',
+    color: Colors.gold,
     fontSize: 15,
     marginBottom: 4,
   },
@@ -157,25 +158,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tokenName: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 19,
   
   },
   tokenValue: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 19,
   
   },
   tokenDate: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 15,
   },
   tokenUsd: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 15,
   },
   statusBar: {
-    backgroundColor: '#CEB55A',
+    backgroundColor: Colors.gold,
     paddingVertical: 10,
     width: wp('96%'),
     borderBottomRightRadius: 25,
@@ -186,7 +187,7 @@ const styles = StyleSheet.create({
   statusText: {
     fontSize:15,
     textAlign: 'center',
-    color: '#01032C',
+    color: Colors.background,
     fontWeight: '800',
     letterSpacing: 0.5,
   },
@@ -194,6 +195,6 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     resizeMode: 'contain',
-    tintColor: '#CEB55A', 
+    tintColor: Colors.gold, 
   },
 });

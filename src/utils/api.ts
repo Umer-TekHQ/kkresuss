@@ -1,8 +1,3 @@
-/* eslint-disable sonarjs/no-commented-code */
-// Historical implementation kept for reference was removed to satisfy ESLint.
-/* eslint-enable sonarjs/no-commented-code */
-
-
 import axios from 'axios';
 
 const BASE_URL = 'https://608438b724bb.ngrok-free.app';

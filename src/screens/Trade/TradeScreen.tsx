@@ -9,12 +9,12 @@ import BottomSheetTrade, { BottomSheetTradeRef } from "../../components/BottomSh
 import { HeaderNav } from "../../components/HeaderNav";
 import TradeFooter from "../../components/tradeFooter";
 import TradeHeaderRow from "../../components/tradeHeaderRow";
+import TradeTokenInput from "../../components/tradeTokenInput";
+import { useTradeLogic } from "../../components/useTradeLogic";
 import { AppNavigatorParamList } from "../../navigators/routeNames";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { setToken2 } from "../../store/slices/tradeSlice";
 import { Colors } from "../../theme/colors";
-import TradeTokenInput from "../../components/tradeTokenInput";
-import { useTradeLogic } from "../../components/useTradeLogic";
 
 export const TradeScreen = () => {
   const dispatch = useAppDispatch();

@@ -28,7 +28,7 @@ export const cryptoData = [
     subPrice: 'Price: $591.16',
     change: '2.03%',
     changeValue: '$11.44 (1.94%)',
-    icon: Images.usdc,
+    icon: Images.token4,
     isNegative: true,
   },
   {

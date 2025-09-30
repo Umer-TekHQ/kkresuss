@@ -51,7 +51,7 @@ const ChartSection = () => {
         adjustToWidth
       />
 
-      <View style={{marginHorizontal:16}}>
+      <View style={styles.parentView}>
       <View style={styles.timeFilterContainer}>
         {['1D', '1W', '1M', '1Y', 'ALL'].map((filter) => (
           <TouchableOpacity
@@ -110,7 +110,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 8,
-   
+  },
+  parentView:{
+    marginHorizontal: 16
   },
   timeFilterButton: {
     paddingHorizontal: 8,

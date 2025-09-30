@@ -1,7 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+} from 'react-native';
 
 import AmountInputSection from '../../components/AmountInputSection';
 import AssetInfoBox from '../../components/AssetInfoBox';
@@ -38,33 +46,52 @@ const SendDetails = () => {
   }, [navigation]);
 
   return (
-    <View style={styles.wrapper}>
-      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-        <HeaderBackButton />
-        <View style={styles.headerContent}>
-          <ProfileInfo />
-          <AmountInputSection
-            amount={amount}
-            setAmount={(val) => dispatch(setAmount(val))}
-            isInsufficient={isInsufficient}
-          />
-        </View>
+    <SafeAreaView style={styles.wrapper}>
+      <KeyboardAvoidingView
+        style={styles.flex}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={0}
+      >
+        <ScrollView
+          contentContainerStyle={styles.container}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
+          <HeaderBackButton />
+          <View style={styles.headerContent}>
+            <ProfileInfo />
+            <AmountInputSection
+              amount={amount}
+              setAmount={(val) => dispatch(setAmount(val))}
+              isInsufficient={isInsufficient}
+            />
+          </View>
 
-        <Text style={styles.availableLabel}>Available Balance:</Text>
-        {selectedAsset && (
-          <AssetInfoBox
-            logo={selectedAsset.logo}
-            name={selectedAsset.name}
-            short={selectedAsset.short}
-            price={parseFloat(selectedAsset.price.replace('$', '').replace(',', ''))}
-            availableAmount={parseFloat(selectedAsset.amount)}
-          />
+          <Text style={styles.availableLabel}>Available Balance:</Text>
+          {selectedAsset && (
+            <AssetInfoBox
+              logo={selectedAsset.logo}
+              name={selectedAsset.name}
+              short={selectedAsset.short}
+              price={parseFloat(
+                selectedAsset.price.replace('$', '').replace(',', '')
+              )}
+              availableAmount={parseFloat(selectedAsset.amount)}
+            />
+          )}
+
+          <NoteInputSection />
+        </ScrollView>
+      </KeyboardAvoidingView>
+
+      <View style={styles.fixedBottom}>
+        {isInsufficient ? (
+          <WarningBox />
+        ) : (
+          <ReviewButtonSection disabled={!amount || enteredAmount <= 0} />
         )}
-
-        <NoteInputSection />
-        {isInsufficient ? <WarningBox /> : <ReviewButtonSection disabled={!amount || enteredAmount <= 0} />}
-      </ScrollView>
-    </View>
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -75,10 +102,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.backgroundAlt,
   },
+  flex: {
+    flex: 1,
+  },
   container: {
     paddingVertical: 12,
     paddingHorizontal: 12,
-    paddingBottom: 60,
+    paddingBottom: 80,
   },
   headerContent: {
     alignItems: 'center',
@@ -90,5 +120,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 8,
     paddingHorizontal: 12,
+  },
+  fixedBottom: {
+    backgroundColor: Colors.backgroundAlt,
+    paddingHorizontal: 12,
+    paddingBottom: Platform.OS === 'ios' ? 20 : 10,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
 });

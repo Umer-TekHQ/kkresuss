@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 import { Images } from '../assets';
 import SecondaryButtonWithIcon from './SecondaryButtonWithIcon';
+import { Colors } from '../theme/colors';
 
 const PriceHeader = ({ data, onBack }: { data: any; onBack?: () => void }) => {
   const currentTime = moment().format('hh:mm A'); 
@@ -58,7 +59,7 @@ const PriceHeader = ({ data, onBack }: { data: any; onBack?: () => void }) => {
             <Text
               style={[
                 styles.sub,
-                { color: isProfit ? '#30DB5B' : '#FF4D4F' },
+                { color: isProfit ? Colors.transaction : Colors.redBar },
               ]}
             >
               ${formattedChange} ({formattedPercentChange}%)
@@ -103,13 +104,13 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   title: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 16,
     fontWeight: '600',
   },
   priceBox: { alignItems: 'center' },
   price: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 50,
     fontWeight: 'bold',
     marginTop: 4,
@@ -122,10 +123,10 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     resizeMode: 'contain',
-    tintColor: 'white',
+    tintColor: Colors.white,
   },
   sub2: {
-    color: '#7AB7FD',
+    color: Colors.lightblue,
   },
   subContainer: {
     flexDirection: 'row',

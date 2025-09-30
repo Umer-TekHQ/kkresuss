@@ -6,7 +6,7 @@ export const recipients = [
     name: 'Alice Johnson',
     email: '',
     code: '0xa6…C4b2',
-    logo:Images.bitcoin
+    logo:Images.bitCoin
   },
   {
     id: '2',

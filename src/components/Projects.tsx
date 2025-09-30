@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions} from 'react-native';
 
 import { Images } from '../assets/index'; 
+import { Colors } from '../theme/colors';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -19,7 +20,7 @@ export const Projects = () => {
       <View style={styles.bottomSection}>
         <View style={styles.logoAndText}>
           <Image source={Images.projectLogo} style={styles.logo} />
-          <View style={{ marginLeft: 10 }}>
+          <View style={styles.text}>
             <Text style={styles.title}>Farm the highest yields</Text>
             <Text style={styles.subtitle}>Extra Fi</Text>
           </View>
@@ -37,10 +38,10 @@ const styles = StyleSheet.create({
 
   cardContainer: {
     borderWidth: 1,
-    borderColor: '#080C4C',
+    borderColor: Colors.background2,
     width: '92%',
     height: screenHeight * 0.42, 
-    backgroundColor: '#0D1A47',
+    backgroundColor: Colors.fieldBackground1,
     borderRadius: 16,
     overflow: 'hidden',
     marginBottom: screenHeight * 0.015,
@@ -48,18 +49,21 @@ const styles = StyleSheet.create({
     marginTop: screenHeight * 0.013,
     marginLeft: 15,
   },
+  text:{
+    marginLeft: 10
+  },
     earnBadge: {
     position: 'absolute',
     top: 10,
     left: 8,
     zIndex: 1,
-    backgroundColor: '#0e4cc7ff',
+    backgroundColor: Colors.fieldBorder,
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 8,
   },
   earnBadgeText: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 12,
     fontWeight: 'bold',
   },
@@ -88,24 +92,24 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   title: {
-    color: 'white',
+    color: Colors.white,
     fontSize: 14,
     width: screenWidth * 0.35,
   },
   subtitle: {
-    color: '#ADD2FD',
+    color: Colors.lightblue,
     fontSize: 11,
     marginTop: 2,
   },
   launchButton: {
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
     paddingHorizontal: 14,
     paddingVertical: 10,
     borderRadius: 20,
     marginBottom: 22,
   },
   launchButtonText: {
-    color: '#0D1A47',
+    color: Colors.fieldBackground1,
     fontWeight: '600',
     fontSize: 13,
   },

@@ -84,7 +84,7 @@ export default function IntroducingCards() {
             key={i}
             style={[
               styles.dot,
-              { backgroundColor: i === currentIndex ? '#7AB7FD' : '#1B45B0' },
+              { backgroundColor: i === currentIndex ? Colors.activeTint : Colors.background1 },
             ]}
           />
         ))}
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     color: Colors.lightblue,
-    fontSize: 14,
+    fontSize: 13,
     flex: 1,
   },
   dotsContainer: {

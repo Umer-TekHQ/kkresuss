@@ -34,9 +34,7 @@ const AllAssetsList: React.FC<AllAssetsListProps> = ({ showAll = false, searchTe
 
   if (loading) {
     return (
-      <View style={{ paddingVertical: 20 }}>
-        <ActivityIndicator size="small" color="#4898F3" />
-      </View>
+        <ActivityIndicator  style={styles.indicator} size="small" />
     );
   }
 
@@ -93,4 +91,8 @@ const styles = StyleSheet.create({
     color: Colors.lightblue,
     fontSize: 14,
   },
+  indicator:{
+    paddingVertical: 20,
+    color: Colors.link
+  }
 });

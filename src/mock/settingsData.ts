@@ -47,26 +47,4 @@ export const settingsData:SettingItem[] = [
     subtitle: 'Contact, legal, app info',
     icon: Images.questionMark,
   },
-   {
-    title: 'Privacy ',
-    subtitle: 'Contact, legal, app info',
-    icon: Images.questionMark,
-    route:"Privacy"
-  },
-     {
-    title: 'Contact',
-    subtitle: 'Manage and sync device contacts',
-    icon: Images.contacts,
-  },
-  {
-    title: 'Help  Support',
-    subtitle: 'Contact, legal, app info',
-    icon: Images.questionMark,
-  },
-   {
-    title: ' Policy',
-    subtitle: 'Contact, legal, app info',
-    icon: Images.questionMark,
-    route:"Privacy"
-  },
 ]

@@ -2447,6 +2447,11 @@
   dependencies:
     tslib "2.8.1"
 
+"@shopify/restyle@^2.4.5":
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/@shopify/restyle/-/restyle-2.4.5.tgz#c010b686218109f5cf699688d5722859db19264e"
+  integrity sha512-xV970ytoX0oLac9+fMOMxcXcV9nv5BtwdNk50ZoyhqSLyiGamLJMpL/lMZIQHsmfDT8sksbUx94zQnZBztMgww==
+
 "@sideway/address@^4.1.5":
   version "4.1.5"
   resolved "https://registry.npmjs.org/@sideway/address/-/address-4.1.5.tgz"

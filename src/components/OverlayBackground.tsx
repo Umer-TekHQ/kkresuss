@@ -3,6 +3,7 @@ import { View, Image, StyleSheet, ViewStyle, StyleProp } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import { Images } from '../assets';
+import { Colors } from '../theme/colors';
 
 interface Props {
   children?: ReactNode;
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
     left: 0,
     height: 155,
     width: 180,
-    tintColor: '#161f6fff',
+    tintColor: Colors.fieldBackground1,
   },
   land2: {
     position: 'absolute',
