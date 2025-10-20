@@ -11,7 +11,7 @@ import { useAppDispatch } from '../../store/hooks'
 import { setSelectedAsset } from '../../store/slices/selectedAssetSlice'
 import { useSharedValue } from 'react-native-reanimated';
 import { BottomSheetUnified } from '../../components/BottomSheet';
-
+import { usePostHog } from 'posthog-react-native'; 
 
 
 
@@ -19,11 +19,18 @@ const SelectCurrency = () => {
   const [loading, setLoading] = useState(true);
  const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
  const dispatch = useAppDispatch()
+ const posthog = usePostHog(); 
 
   const translateY = useSharedValue(0);
 
   const handleAssetPress = (asset: any) => {
   dispatch(setSelectedAsset(asset))
+     posthog.capture('currency_selected', {
+      name: asset?.name,
+      symbol: asset?.symbol,
+      id: asset?.id,
+      timestamp: new Date().toISOString(),
+    });
   navigation.navigate('Recepient')
 }
 

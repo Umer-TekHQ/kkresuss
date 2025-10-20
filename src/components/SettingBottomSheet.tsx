@@ -12,7 +12,7 @@ import { settingsData } from '../mock/settingsData'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { AppNavigatorParamList } from '../navigators/routeNames'
-
+import { posthog } from '../utils/posthogClient'  
 
 const SettingBottomSheet = ({ onClose }: { onClose: () => void, }) => {
 
@@ -24,6 +24,20 @@ const handleItemPress = (route?: keyof AppNavigatorParamList) => {
     navigation.navigate(route as any )
   }
 }
+
+  const handleLogout = () => {
+    // 1. Reset PostHog session
+    posthog.reset()
+
+    // 2. App ka apna logout logic (agar redux/zustand waghera use karte ho to wahan bhi clear karna hoga)
+    // store.dispatch(logout())   <-- optional, tumhari app ka auth state reset karne ke liye
+
+    // 3. Navigate to Welcome screen
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Welcome' }],
+    })
+  }
 
 
   const renderItem = ({ item,index }: any) =>{
@@ -86,8 +100,8 @@ const handleItemPress = (route?: keyof AppNavigatorParamList) => {
         showsVerticalScrollIndicator={false}
       />
 
-      <TouchableOpacity onPress={()=> navigation.navigate('Welcome')} >
-          <Text style={styles.delete}>Delete Account</Text>
+      <TouchableOpacity onPress={handleLogout} >
+          <Text style={styles.delete}>Logout</Text>
       </TouchableOpacity>
 
     </View>

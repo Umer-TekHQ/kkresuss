@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { View, Text, Animated, Keyboard, Image, TouchableOpacity, Platform, } from 'react-native'
+import { View, Text, Animated, Keyboard, Image, TouchableOpacity, Platform, ToastAndroid} from 'react-native'
 import Background from '../../components/Background'
 import AppInput from '../../components/AppInput'
 import WelcomeStyles from '../../styles/WelcomeScreen.styles'
@@ -11,7 +11,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { setEmail } from '../../store/slices/userSlice'
-
+import { userVerify } from '../../utils/api'
+import { useTranslation } from 'react-i18next';
+import { posthog } from '../../utils/posthogClient';
 
 const { height } = Dimensions.get('window')
 
@@ -28,6 +30,7 @@ const WelcomeScreen = () => {
   const [keyboardVisible, setKeyboardVisible] = useState(false)
 const [isEmailValid, setIsEmailValid] = useState(false)
 
+const { t ,i18n} = useTranslation();
   
   const dispatch = useAppDispatch()
   const userEmail = useAppSelector(state => state.user.email)
@@ -91,25 +94,33 @@ const [isEmailValid, setIsEmailValid] = useState(false)
 
   }
 
-  const handleContinue = () => {
-    dispatch(setEmail(emailText))
-    navigation.navigate('Otp')
-  }
+  // const handleContinue = () => {
+  //   dispatch(setEmail(emailText))
+  //   navigation.navigate('Otp')
+  // }
 
 //server off rightnow
 
-// const handleContinue = async () => { 
-//   try {
-//     const result = await userVerify(emailText)
-//     console.log('Verification success:', result)
-//     dispatch(setEmail(emailText))
-//     navigation.navigate('Otp', { token: result.token })
-//   } 
-//   catch (error: any) {
-//   const msg = error?.response?.data?.message || 'User not found';
-//   ToastAndroid.show(msg, ToastAndroid.SHORT);
-// }
-//}
+const handleContinue = async () => { 
+  try {
+    const result = await userVerify(emailText)
+    console.log('Verification success:', result)
+    dispatch(setEmail(emailText))
+      posthog.identify(emailText, {
+      email: emailText,
+    });
+
+    // ✅ optional: login capture event
+    posthog.capture('User Login Started', {
+      email: emailText,
+    });
+    navigation.navigate('Otp', { token: result.token })
+  } 
+  catch (error: any) {
+  const msg = error?.response?.data?.message || 'User not found';
+  ToastAndroid.show(msg, ToastAndroid.SHORT);
+}
+}
 
   return (
     <View style={{ flex: 1 }}>
@@ -138,8 +149,8 @@ const [isEmailValid, setIsEmailValid] = useState(false)
         >
           {!keyboardVisible && (
             <>
-              <Text style={WelcomeStyles.heading}>Your Base</Text>
-              <Text style={WelcomeStyles.heading}>Control Center.</Text>
+              <Text style={WelcomeStyles.heading}>{t('welcome.heading1')}</Text>
+              <Text style={WelcomeStyles.heading}>{t('welcome.heading2')}</Text>
               <Text style={WelcomeStyles.subheading}>
                 Earn and Explore with heightened security.
               </Text>
@@ -153,12 +164,30 @@ const [isEmailValid, setIsEmailValid] = useState(false)
             value={emailText}
             onChangeText={handleEmailChange}
             onClear={() => setEmailText('')}
-              isElevated={keyboardVisible}
+            isElevated={keyboardVisible}
           />
         </View>
-        </Animated.View>
 
-       
+ {!keyboardVisible && (
+  <View style={{ marginTop: 20 }}>
+    <TouchableOpacity
+      style={{
+        backgroundColor: '#007bff',
+        padding: 10,
+        borderRadius: 8,
+        alignItems: 'center',
+      }}
+      onPress={() =>
+        i18n.changeLanguage(i18n.language === 'en' ? 'ur' : 'en')
+      }
+    >
+      <Text style={{ color: '#fff', fontSize: 16 }}>
+        {i18n.language === 'en' ? 'Switch to Urdu' : 'Switch to English'}
+      </Text>
+    </TouchableOpacity>
+  </View>
+)}
+        </Animated.View>   
         {keyboardVisible && (
           <TouchableOpacity
             onPress={Keyboard.dismiss}
@@ -185,6 +214,9 @@ const [isEmailValid, setIsEmailValid] = useState(false)
             disabled={!isEmailValid} 
           />
         )}
+
+
+
       </Background>
     </View>
   )

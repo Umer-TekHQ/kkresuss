@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = 'https://608438b724bb.ngrok-free.app'
+const BASE_URL = 'http://13.213.72.15:5000'
 
 export const userVerify = async (email: string) => {
   try {

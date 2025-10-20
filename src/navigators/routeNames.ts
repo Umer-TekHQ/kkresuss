@@ -40,7 +40,7 @@ export type AppNavigatorParamList = {
   Splash: undefined
   Welcome: undefined
   Home: undefined
-  Otp: undefined
+  Otp: { token: string } //undeifned was optional
   OtpSuccess: undefined
   BottomNavigator: {
     screen?: string;

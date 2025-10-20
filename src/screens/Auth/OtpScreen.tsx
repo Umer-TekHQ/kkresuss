@@ -9,13 +9,14 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { AppNavigatorParamList } from '../../navigators/routeNames'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useAppSelector } from '../../store/hooks'
-
+import { userCodeVerify } from '../../utils/api'
+import { OtpInput } from 'react-native-otp-entry';
 const { width, height } = Dimensions.get('window')
 
 export const OtpScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppNavigatorParamList>>()
- //const route = useRoute<RouteProp<AppNavigatorParamList, 'Otp'>>()
- //const token = route?.params?.token
+ const route = useRoute<RouteProp<AppNavigatorParamList, 'Otp'>>()
+ const token = route?.params?.token
 
 
  //for keuyboard open useefeect and this us state used
@@ -75,26 +76,93 @@ const [keyboardHeight, setKeyboardHeight] = useState(0);
 
             {otpStarted && <Text style={styles.subHeading}>and spam too</Text>}
 
-          
-            <OTPInputBox onStartTyping={() => setOtpStarted(true)} 
-               onComplete={() => navigation.navigate('OtpSuccess')}
-                //               onComplete={async (code: string) => {
-                //   try {
-                //     const result = await userCodeVerify(code, token);
+             <OtpInput
+              numberOfDigits={6}
+              onTextChange={() => setOtpStarted(true)}
+              hideStick={true}
+              //   onFilled={(code) => {
+              //   console.log("Entered OTP:", code);
+              //   navigation.navigate('OtpSuccess'); 
+              // }}
+                onFilled={async (code) => {
+                  try {
+                    const result = await userCodeVerify(code, token);
+                    console.log("Raw verify result:", JSON.stringify(result));
 
-                //     // ✅ Check API response
-                //     if (!result?.success) {
-                //       ToastAndroid.show(result?.message || 'Wrong OTP', ToastAndroid.SHORT);
-                //       return;
-                //     }
-                //     console.log('OTP verified:', result);
-                //     navigation.navigate('OtpSuccess');
-                //   } catch (error: any) {
-                //     const msg = typeof error === 'string' ? error : 'Something went wrong';
-                //     ToastAndroid.show(msg, ToastAndroid.SHORT);
-                //   }
-                // }}
-              />
+                    const msg = result?.message || result?.data?.message || "";
+
+                    if (msg.toLowerCase() !== "code verified successfully") {
+                      console.log("Verification failed");
+                      ToastAndroid.show(msg || "Wrong OTP", ToastAndroid.SHORT);
+                      return;
+                    }
+
+                    console.log("Verification success, navigating now...");
+                    ToastAndroid.show("OTP verified", ToastAndroid.SHORT);
+
+                    setTimeout(() => {
+                      navigation.navigate("OtpSuccess");
+                    }, 500);
+                  } catch (error: any) {
+                    console.log("Error during verification:", error);
+                    const msg = typeof error === "string" ? error : "Something went wrong";
+                    ToastAndroid.show(msg, ToastAndroid.SHORT);
+                  }
+                }}
+              // theme={{
+              //   containerStyle: { marginTop: height * 0.03, alignItems: 'center' },
+              //   pinCodeContainerStyle: styles.box,
+              //    pinCodeTextStyle: styles.digit,
+              //   focusedPinCodeContainerStyle: styles.activeBox,
+              // }}
+          theme={{
+            //container margin set krna abhi 
+                  pinCodeContainerStyle: styles.box,
+                  focusedPinCodeContainerStyle: styles.activeBox,
+                  pinCodeTextStyle: {
+                    ...styles.digit,
+                    color: 'white',
+                  },
+                  placeholderTextStyle: {
+                    ...styles.digit,
+                    color: '#FFFFFF55', 
+                  },
+                  filledPinCodeContainerStyle: {
+                    borderColor: '#CEB55A', 
+                  },
+                 
+                }}
+
+            />
+
+          
+            {/* <OTPInputBox onStartTyping={() => setOtpStarted(true)} 
+                      
+            onComplete={async (code: string) => {
+            try {
+              const result = await userCodeVerify(code, token);
+              console.log("Raw verify result:", JSON.stringify(result));
+              const msg = result?.message || result?.data?.message || "";
+
+              if (msg.trim().toLowerCase() !== "code verified successfully") {
+                ToastAndroid.show(msg || "Wrong OTP", ToastAndroid.SHORT);
+                return;
+              }
+
+              ToastAndroid.show("OTP verified", ToastAndroid.SHORT);
+              console.log("OTP verified:", result);
+
+              setTimeout(() => {
+                navigation.navigate("OtpSuccess");
+              }, 500);
+
+            } catch (error: any) {
+              console.log(" Verify error:", error);
+              const msg = typeof error === "string" ? error : "Something went wrong";
+              ToastAndroid.show(msg, ToastAndroid.SHORT);
+            }
+          }}
+          /> */}
 
            <View style={{ marginBottom: keyboardHeight ? keyboardHeight + 80 : 0 }}>
         
@@ -139,7 +207,7 @@ const [keyboardHeight, setKeyboardHeight] = useState(0);
     </View>
   )
 }
-
+const BOX_SIZE = width / 8;
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
@@ -231,10 +299,25 @@ backIcon: {
   width: 35,
   height: 35,
 },
-
-
-
+  box: {
+    width: BOX_SIZE,
+    height: BOX_SIZE * 1.4,
+    borderWidth: 1,
+    borderColor: '#0734A9',
+    borderRadius: 12,
+    backgroundColor: 'rgba(8, 12, 76, 0.66)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  activeBox: {
+    borderColor: '#CEB55A',
+    borderWidth: 1.5,
+  },
+  digit: {
+    fontSize: BOX_SIZE * 0.8,
+    textAlign: 'center',
+    fontWeight: '300',
+    color: '#FFFFFF',
+  },
 })
-
-
 
